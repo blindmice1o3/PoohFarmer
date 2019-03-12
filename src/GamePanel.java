@@ -13,6 +13,8 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.YELLOW);
+        g.fillRect(30, 30, getWidth()-60, getHeight()-60);
     }
 
 } // **** end GamePanel class ****
