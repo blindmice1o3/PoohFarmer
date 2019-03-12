@@ -1,3 +1,7 @@
+package edu.pooh.main;
+
+import edu.pooh.main.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +11,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Game game) {
         this.game = game;
-    } // **** end GamePanel() constructor ****
+    } // **** end edu.pooh.main.GamePanel() constructor ****
 
     @Override
     public void paintComponent(Graphics g) {
@@ -17,4 +21,4 @@ public class GamePanel extends JPanel {
         g.fillRect(30, 30, getWidth()-60, getHeight()-60);
     }
 
-} // **** end GamePanel class ****
+} // **** end edu.pooh.main.GamePanel class ****

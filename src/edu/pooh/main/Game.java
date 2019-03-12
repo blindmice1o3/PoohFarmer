@@ -1,3 +1,5 @@
+package edu.pooh.main;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +10,7 @@ public class Game {
 
     public Game() {
         init();
-    } // **** end Game() constructor
+    } // **** end edu.pooh.main.Game() constructor
 
     public void init() {
         frame = new JFrame("Pooh Farmer");
@@ -27,4 +29,4 @@ public class Game {
         new Game();
     }
 
-} // **** end Game class ****
+} // **** end edu.pooh.main.Game class ****
