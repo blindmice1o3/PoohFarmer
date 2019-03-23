@@ -7,29 +7,37 @@ import java.awt.*;
 
 public class Game {
 
+    // CONSTANTS
+    public static final int WIDTH_OF_FRAME = 800;
+    public static final int HEIGHT_OF_FRAME = 600;
+
+    // DISPLAY
     private JFrame frame;
     private JPanel panel;
+
+    // GAME LOOP'S conditional statement (while loop)
     private volatile boolean running = false;
 
+    // panel's GRAPHICS CONTEXT
     private Graphics g;
 
     public Game() {
-        guiInit();
+        createFrame();
+
+        panel = new GamePanel(this);
+        frame.setContentPane(panel);
 
         Assets.init();
 
         g = panel.getGraphics();
     } // **** end edu.pooh.main.Game() constructor
 
-    public void guiInit() {
+    private void createFrame() {
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(800, 600));
+        frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-
-        panel = new GamePanel(this);
-        frame.setContentPane(panel);
 
         frame.setVisible(true);
     }
@@ -141,7 +149,7 @@ public class Game {
         SwingUtilities.invokeLater(new Runnable() {
                                        @Override
                                        public void run() {
-                                           game.guiInit();
+                                           game.createFrame();
                                        }
                                    });
         */
