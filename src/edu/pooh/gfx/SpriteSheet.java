@@ -7,11 +7,12 @@ public class SpriteSheet {
     private BufferedImage image;
 
     public SpriteSheet(String path) {
-        loadImage(path);
+        image = loadImage(path);
     }
 
-    private void loadImage(String path) {
-
+    private BufferedImage loadImage(String path) {
+        //////////////////////////////////////////////////////////////
+        return null;
     }
 
 } // **** end SpriteSheet class ****

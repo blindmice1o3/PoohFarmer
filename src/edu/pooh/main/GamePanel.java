@@ -1,7 +1,5 @@
 package edu.pooh.main;
 
-import edu.pooh.main.Game;
-
 import javax.swing.*;
 import java.awt.*;
 
