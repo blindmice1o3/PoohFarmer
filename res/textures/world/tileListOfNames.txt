@@ -1,0 +1,82 @@
+0 - dirtNormal
+1 - dirtHoe
+2 - dirtSeed
+3 - plantSproutling
+4 - plantJuvenille
+5 - plantAdult
+6 - dirtWalkway
+7 - plantAdultFlowering1
+8 - plantAdultFlowering2
+9 - rock
+10 - wood
+11 - sign
+12 - fence
+13 - boulder2x2
+14 - treeStump2x2
+15 - poolWater2x2
+16 - stable2x3
+17 - poolWater3x3
+18 - building2x3
+19 - home5x4
+20 - cowBarn5x5
+21 - silos5x6
+22 - chickenCoop4x5
+23 - toolShed5x5
+
+
+24 tiles down - wood (border) (including)
+05 tiles down - walkway (dirt)
+17 tiles down - wood (border) (including)
+03 tiles down - walkway (dirt)
+
+**** 49 x 46 tiles ****
+
+
+32 tiles right - INNER PERIMETER wood (fence) (including)
+
+
+16 * 1 = 16
+16 * 2 = 32
+16 * 3 = 48
+16 * 4 = 64
+16 * 5 = 80
+16 * 6 = 96
+16 * 7 = 112
+16 * 8 = 128
+16 * 9 = 144
+
+
+harvest moon tile sprite sheet.png 
+(112x400 pixels)
+[16x16 pixels per tile]
+(7x25 tiles)
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 8 8 8 8 8
+1 1 8 8 8 8 8
+1 - 8 8 8 8 8
+- - 8 8 8 8 8
+2 2 8 8 8 8 8
+2 2 7 7 7 7 7
+3 3 7 7 7 7 7
+3 3 7 7 7 7 7
+4 4 7 7 7 7 7
+4 4 7 7 7 7 7
+5 5 7 7 7 7 7
+5 5 - 6 6 6 6
+5 5 - 6 6 6 6
+4 4 4 6 6 6 6
+4 4 4 6 6 6 6
+4 4 4 6 6 6 6
+5 5 8 8 8 8 8 
+5 5 8 8 8 8 8
+5 5 8 8 8 8 8
+- - 8 8 8 8 8
+- - 8 8 8 8 8
+
+
+
+
+

@@ -11,8 +11,13 @@ public class SpriteSheet {
     }
 
     private BufferedImage loadImage(String path) {
+
         //////////////////////////////////////////////////////////////
         return null;
+    }
+
+    public BufferedImage cropSpriteSheet(int x, int y, int width, int height) {
+        return image.getSubimage(x, y, width, height);
     }
 
 } // **** end SpriteSheet class ****

@@ -9,19 +9,15 @@ public class Game {
     private JPanel panel;
     private volatile boolean running = false;
 
+    private Graphics g;
+
     public Game() {
-        init();
+        guiInit();
+
+        g = panel.getGraphics();
     } // **** end edu.pooh.main.Game() constructor
 
-    public void tick() {
-
-    }
-
-    public void render() {
-
-    }
-
-    public void init() {
+    public void guiInit() {
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(800, 600));
@@ -32,6 +28,10 @@ public class Game {
         frame.setContentPane(panel);
 
         frame.setVisible(true);
+    }
+
+    public void gameInit() {
+
     }
 
     public void gameStart() {
@@ -45,7 +45,9 @@ public class Game {
         gameThread.start();
     }
 
-    public void gameLoop() {
+
+    int renderCounter = 0;
+    private void gameLoop() {
         /*
             initializing bunch of variables to achieve CONSISTENT fps,
             no matter if running game on fast/slow computer
@@ -63,7 +65,6 @@ public class Game {
         // We need a visual fps counter to show to the console screen.
         long tickTimer = 0;
         int tickCounter = 0;
-        int renderCounter = 0;
 
         /*
            **** start of GAME-LOOP ****
@@ -88,8 +89,9 @@ public class Game {
 
                 delta--;
             }
+
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            render();
+            render(g);
             renderCounter++;
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -107,9 +109,38 @@ public class Game {
         } // *** end of GAME-LOOP ***
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.gameStart();
+    private void tick() {
+
     }
 
+    private void render(Graphics g) {
+        panel.repaint();
+        g.drawString("renderCounter: " + renderCounter, 50, 100);
+    }
+
+    // GETTERS & SETTERS
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+
+        /*
+        // Use the event dispatch thread to build the UI for thread-safety.
+        SwingUtilities.invokeLater(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           game.guiInit();
+                                       }
+                                   });
+        */
+
+        game.gameStart();
+    }
 } // **** end edu.pooh.main.Game class ****
