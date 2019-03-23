@@ -1,5 +1,7 @@
 package edu.pooh.main;
 
+import edu.pooh.gfx.Assets;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,6 +15,8 @@ public class Game {
 
     public Game() {
         guiInit();
+
+        Assets.init();
 
         g = panel.getGraphics();
     } // **** end edu.pooh.main.Game() constructor
@@ -116,6 +120,7 @@ public class Game {
     private void render(Graphics g) {
         panel.repaint();
         g.drawString("renderCounter: " + renderCounter, 50, 100);
+        g.drawImage(Assets.plantFlowering2, 400, 400, null);
     }
 
     // GETTERS & SETTERS

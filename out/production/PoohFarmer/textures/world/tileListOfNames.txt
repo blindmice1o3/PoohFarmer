@@ -5,8 +5,8 @@
 4 - plantJuvenille
 5 - plantAdult
 6 - dirtWalkway
-7 - plantAdultFlowering1
-8 - plantAdultFlowering2
+7 - plantFlowering1
+8 - plantFlowering2
 9 - rock
 10 - wood
 11 - sign
