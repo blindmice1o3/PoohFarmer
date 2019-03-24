@@ -55,7 +55,6 @@ public class Game {
         frame.addKeyListener(keyManager);
 
         panel = new GamePanel(this);
-        //panel.setDoubleBuffered(true);  // @@@@@
         frame.setContentPane(panel);
 
         frame.setVisible(true);

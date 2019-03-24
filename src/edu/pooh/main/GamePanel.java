@@ -10,6 +10,7 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         this.game = game;
 
+        setDoubleBuffered(true);
         setFocusable(false);
     } // **** end edu.pooh.main.GamePanel() constructor ****
 
