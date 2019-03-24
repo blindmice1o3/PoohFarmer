@@ -1,6 +1,11 @@
 package edu.pooh.main;
 
 import edu.pooh.gfx.Assets;
+import edu.pooh.input.KeyManager;
+import edu.pooh.states.GameState;
+import edu.pooh.states.MenuState;
+import edu.pooh.states.State;
+import edu.pooh.states.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,50 +20,87 @@ public class Game {
     private JFrame frame;
     private JPanel panel;
 
+    // THREAD
+    Thread gameThread;
     // GAME LOOP'S conditional statement (while loop)
     private volatile boolean running = false;
 
     // panel's GRAPHICS CONTEXT
     private Graphics g;
+    private Graphics2D g2d;
+
+    // STATES
+    private State gameState;
+    private State menuState;
+
+    // INPUT
+    private KeyManager keyManager;
 
     public Game() {
-        createFrame();
-
-        panel = new GamePanel(this);
-        frame.setContentPane(panel);
-
         Assets.init();
 
-        g = panel.getGraphics();
+        keyManager = new KeyManager();
+
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
+        StateManager.setCurrentState(gameState);
     } // **** end edu.pooh.main.Game() constructor
 
-    private void createFrame() {
+    public void gameInit() {
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+        frame.addKeyListener(keyManager);
+
+        panel = new GamePanel(this);
+        //panel.setDoubleBuffered(true);  // @@@@@
+        frame.setContentPane(panel);
 
         frame.setVisible(true);
+
+        g = panel.getGraphics();
+        g2d = (Graphics2D)g;
+        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
     }
 
-    public void gameInit() {
+    public synchronized void gameStart() {
+        if (running) {
+            return;
+        }
 
-    }
+        running = true;
 
-    public void gameStart() {
-        Thread gameThread = new Thread() {
+        gameThread = new Thread() {
             @Override
             public void run() {
-                gameLoop();
+                gameInit(); // Is just called once.
+
+                gameLoop(); // @@@@ GAME LOOP @@@@
+
+                gameStop();
             }
         };
-        running = true;
+
         gameThread.start();
     }
 
+    public synchronized void gameStop() {
+        if (!running) {
+            return;
+        }
 
-    int renderCounter = 0;
+        running = false;
+
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    int renderCounter = 0; // @@@@
     private void gameLoop() {
         /*
             initializing bunch of variables to achieve CONSISTENT fps,
@@ -102,10 +144,8 @@ public class Game {
                 delta--;
             }
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            render(g);
+            render();
             renderCounter++;
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
@@ -121,14 +161,24 @@ public class Game {
         } // *** end of GAME-LOOP ***
     }
 
-    private void tick() {
-
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 
-    private void render(Graphics g) {
+    private void tick() {
+        keyManager.tick();
+
+        if (StateManager.getCurrentState() != null) {
+            StateManager.getCurrentState().tick();
+        }
+    }
+
+    private void render() {
         panel.repaint();
-        g.drawString("renderCounter: " + renderCounter, 50, 100);
-        g.drawImage(Assets.plantFlowering2, 400, 400, null);
+
+        if(StateManager.getCurrentState() != null) {
+            StateManager.getCurrentState().render(g);
+        }
     }
 
     // GETTERS & SETTERS
