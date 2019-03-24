@@ -25,10 +25,6 @@ public class Game {
     // GAME LOOP'S conditional statement (while loop)
     private volatile boolean running = false;
 
-    // panel's GRAPHICS CONTEXT
-    private Graphics g;
-    private Graphics2D g2d;
-
     // STATES
     private State gameState;
     private State menuState;
@@ -54,13 +50,10 @@ public class Game {
         frame.setLocationRelativeTo(null);
         frame.addKeyListener(keyManager);
 
-        panel = new GamePanel(this);
+        panel = new GameState(this);
         frame.setContentPane(panel);
 
         frame.setVisible(true);
-
-        g = panel.getGraphics();
-        g2d = (Graphics2D)g;
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
     }
 
@@ -173,10 +166,8 @@ public class Game {
     }
 
     private void render() {
-        panel.repaint();
-
         if(StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().render(g);
+            StateManager.getCurrentState().render();
         }
     }
 

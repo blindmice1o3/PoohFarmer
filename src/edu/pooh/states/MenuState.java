@@ -4,10 +4,10 @@ import edu.pooh.main.Game;
 
 import java.awt.*;
 
-public class MenuState extends State {
+public class MenuState implements State {
 
     public MenuState(Game game) {
-        super(game);
+
     } // **** end MenuState(Game) constructor ****
 
     @Override
@@ -16,7 +16,7 @@ public class MenuState extends State {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render() {
 
     }
 

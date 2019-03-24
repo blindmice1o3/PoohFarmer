@@ -33,7 +33,7 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.sign, (int)x, (int)y, width, height, null);
+        g.drawImage(Assets.signPost, (int)x, (int)y, width, height, null);
     }
 
 } // **** end Player class ****

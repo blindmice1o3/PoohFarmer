@@ -11,7 +11,7 @@ public class Assets {
     // TEXTURES
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
-    public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, sign, fence, dirtWalkway;
+    public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
 
     public static void init() {
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/world/harvest moon tile sprite sheet.png"));
@@ -38,7 +38,7 @@ public class Assets {
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         wood = sheet.crop(1 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        sign = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
+        signPost = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         fence = sheet.crop(1 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
