@@ -36,8 +36,6 @@ public class Game {
     private KeyManager keyManager;
 
     public Game() {
-        Assets.init();
-
         keyManager = new KeyManager();
 
         gameState = new GameState(this);
@@ -46,18 +44,17 @@ public class Game {
     } // **** end edu.pooh.main.Game() constructor
 
     public void gameInit() {
+        Assets.init();
+
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.addKeyListener(keyManager); // @@@@
+        frame.addKeyListener(keyManager);
 
         panel = new GameState(this);
-        //panel.addKeyListener(keyManager); // @@@@
         frame.setContentPane(panel);
-
-        g = panel.getGraphics();
 
         frame.setVisible(true);
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
@@ -90,10 +87,6 @@ public class Game {
         }
 
         running = false;
-
-        ////////////
-        g.dispose();
-        ////////////
 
         try {
             gameThread.join();
@@ -146,10 +139,12 @@ public class Game {
                 delta--;
             }
 
+            g = panel.getGraphics();
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             render(g);
             renderCounter++;
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            g.dispose();
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.

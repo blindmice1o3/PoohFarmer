@@ -34,8 +34,6 @@ public class GameState extends JPanel
     @Override
     public void paintComponent(Graphics g) {
         //super.paintComponent(g);
-        //g.drawRect(0, 0, getWidth(), getHeight());
-        //g.clearRect(0, 0, getWidth(), getHeight());
 
         Tile.tiles[0].render(g, 0, 0);
         //player.render(g);
