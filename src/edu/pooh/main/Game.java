@@ -20,6 +20,9 @@ public class Game {
     private JFrame frame;
     private JPanel panel;
 
+    // GRAPHICS CONTEXT
+    Graphics g;
+
     // THREAD
     Thread gameThread;
     // GAME LOOP'S conditional statement (while loop)
@@ -54,6 +57,8 @@ public class Game {
         //panel.addKeyListener(keyManager); // @@@@
         frame.setContentPane(panel);
 
+        g = panel.getGraphics();
+
         frame.setVisible(true);
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
     }
@@ -86,6 +91,10 @@ public class Game {
 
         running = false;
 
+        ////////////
+        g.dispose();
+        ////////////
+
         try {
             gameThread.join();
         } catch (InterruptedException e) {
@@ -93,7 +102,6 @@ public class Game {
         }
     }
 
-    int renderCounter = 0; // @@@@
     private void gameLoop() {
         /*
             initializing bunch of variables to achieve CONSISTENT fps,
@@ -112,6 +120,7 @@ public class Game {
         // We need a visual fps counter to show to the console screen.
         long tickTimer = 0;
         int tickCounter = 0;
+        int renderCounter = 0;
 
         /*
            **** start of GAME-LOOP ****
@@ -132,14 +141,15 @@ public class Game {
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 tick();
                 tickCounter++;
-
-                render();
-                renderCounter++;
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
                 delta--;
             }
 
+            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            render(g);
+            renderCounter++;
+            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
@@ -167,9 +177,12 @@ public class Game {
         }
     }
 
-    private void render() {
+    private void render(Graphics g) {
         if(StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().render(panel.getGraphics());
+            ///////////////////////////////////////
+            StateManager.getCurrentState().render(g);
+            panel.repaint(); //@@@@@@
+            ///////////////////////////////////////
         }
     }
 
