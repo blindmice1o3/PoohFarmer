@@ -15,7 +15,7 @@ public class GameState extends JPanel
 
     public GameState(Game game) {
         this.game = game;
-        player = new Player(game,10, 10);
+        player = new Player(game,64, 0);
 
         setDoubleBuffered(true);
         setFocusable(false);
@@ -24,21 +24,21 @@ public class GameState extends JPanel
     @Override
     public void tick() {
         player.tick();
-        repaint();
     }
 
     @Override
-    public void render() {
-        repaint();  // @@@@
+    public void render(Graphics g) {
+        player.render(g);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
+        super.paintComponent(g);
+        g.drawRect(0, 0, getWidth(), getHeight());
         //g.clearRect(0, 0, getWidth(), getHeight());
 
         Tile.tiles[0].render(g, 0, 0);
-        player.render(g);
+        render(g);
     }
 
 } // **** end GameState class ****

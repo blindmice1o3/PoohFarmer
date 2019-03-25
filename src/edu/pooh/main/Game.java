@@ -135,8 +135,6 @@ public class Game {
 
                 render();
                 renderCounter++;
-
-                panel.repaint();
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
                 delta--;
@@ -171,7 +169,7 @@ public class Game {
 
     private void render() {
         if(StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().render();
+            StateManager.getCurrentState().render(panel.getGraphics());
         }
     }
 

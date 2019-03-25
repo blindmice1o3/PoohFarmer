@@ -16,7 +16,7 @@ public class MenuState implements State {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics g) {
 
     }
 

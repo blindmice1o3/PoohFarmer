@@ -16,8 +16,8 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
-        x++;//@@@@
-        y++;//@@@@
+        //x++;//@@@@
+        //y++;//@@@@
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
     }
@@ -31,6 +31,8 @@ public class Player extends Creature {
         if (game.getKeyManager().down) { yMove = speed; }
         if (game.getKeyManager().left) { xMove = -speed; }
         if (game.getKeyManager().right) { xMove = speed; }
+
+        System.out.println("player's x,y: " + x + ", " + y);
     }
 
     @Override
