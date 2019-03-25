@@ -48,9 +48,10 @@ public class Game {
         frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.addKeyListener(keyManager);
+        frame.addKeyListener(keyManager); // @@@@
 
         panel = new GameState(this);
+        //panel.addKeyListener(keyManager); // @@@@
         frame.setContentPane(panel);
 
         frame.setVisible(true);
@@ -131,13 +132,16 @@ public class Game {
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 tick();
                 tickCounter++;
+
+                render();
+                renderCounter++;
+
+                panel.repaint();
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
                 delta--;
             }
 
-            render();
-            renderCounter++;
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.

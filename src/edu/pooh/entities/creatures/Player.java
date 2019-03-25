@@ -16,6 +16,8 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
+        x++;//@@@@
+        y++;//@@@@
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
     }
