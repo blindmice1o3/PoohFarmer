@@ -12,7 +12,9 @@ public class Assets {
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
     public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
-    public static BufferedImage home5x4;
+    public static BufferedImage home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5;
+    public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
+
 
     // GAME OBJECT
     public static BufferedImage playerDefault;
@@ -49,8 +51,29 @@ public class Assets {
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
 
-        home5x4 =  sheet.crop(2 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
-                        5 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL);
+        home5x4 = sheet.crop(2 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
+                5 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL);
+        cowBarn5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
+                5 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
+        silos5x6 = sheet.crop(2 * WIDTH_IN_PIXEL, 9 * HEIGHT_IN_PIXEL,
+                5 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL);
+        chickenCoop4x5 = sheet.crop(3 * WIDTH_IN_PIXEL, 15 * HEIGHT_IN_PIXEL,
+                4 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
+        toolShed5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 20 * HEIGHT_IN_PIXEL,
+                5 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
+
+        boulder2x2 = sheet.crop(0, 8 * HEIGHT_IN_PIXEL,
+                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
+        treeStump2x2 = sheet.crop(0, 10 * HEIGHT_IN_PIXEL,
+                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
+        poolWater2x2 = sheet.crop(0, 12 * HEIGHT_IN_PIXEL,
+                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
+        stable2x3 = sheet.crop(0, 14 * HEIGHT_IN_PIXEL,
+                2 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
+        poolWater3x3 = sheet.crop(0, 17 * HEIGHT_IN_PIXEL,
+                3 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
+        building2x3 = sheet.crop(0, 20 * HEIGHT_IN_PIXEL,
+                2 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
 
         // ******************************************
 
