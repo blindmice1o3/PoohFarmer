@@ -1,20 +1,24 @@
 package edu.pooh.entities;
 
+import edu.pooh.main.Game;
+
 import java.awt.*;
 
 public abstract class Entity {
 
+    protected Game game;
     protected float x;
     protected float y;
     protected int width;
     protected int height;
 
-    public Entity(float x, float y, int width, int height) {
+    public Entity(Game game, float x, float y, int width, int height) {
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-    } // **** end Entity(float, float, int, int) constructor ****
+    } // **** end Entity(Game, float, float, int, int) constructor ****
 
     public abstract void tick();
 

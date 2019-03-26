@@ -1,5 +1,6 @@
 package edu.pooh.worlds;
 
+import edu.pooh.main.Game;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
@@ -7,6 +8,7 @@ import java.awt.*;
 
 public class World {
 
+    private Game game;
     private int widthInTiles;   // Width of world, in terms of how many tiles across.
     private int heightInTiles;  // Height of world, in terms of how many tiles down.
     private int spawnX;
@@ -14,9 +16,10 @@ public class World {
 
     private int[][] tiles;      // Multidimensional array of int storing <Tile id>.
 
-    public World(String path) {
+    public World(Game game, String path) {
+        this.game = game;
         loadWorld(path);
-    } // **** end World(String) constructor ****
+    } // **** end World(Game, String) constructor ****
 
     public void tick() {
 
@@ -25,7 +28,8 @@ public class World {
     public void render(Graphics g) {
         for (int y = 0; y < heightInTiles; y++) {
             for (int x = 0; x < widthInTiles; x++) {
-                getTile(x, y).render(g, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT); // Multiple to convert from
+                getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - game.getGameCamera().getxOffset()),
+                        (int)(y * Tile.TILE_HEIGHT - game.getGameCamera().getyOffset())); // Multiple to convert from
                                                                                           // x,y indexes to tile-size.
             }
         }

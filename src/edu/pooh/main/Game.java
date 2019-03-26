@@ -1,6 +1,7 @@
 package edu.pooh.main;
 
 import edu.pooh.gfx.Assets;
+import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.states.GameState;
 import edu.pooh.states.MenuState;
@@ -38,8 +39,12 @@ public class Game {
     // INPUT
     private KeyManager keyManager;
 
+    // CAMERA
+    private GameCamera gameCamera;
+
     public Game() {
         keyManager = new KeyManager();
+        gameCamera = new GameCamera(this, 0, 0);
 
         gameState = new GameState(this);
         menuState = new MenuState(this);
@@ -173,6 +178,8 @@ public class Game {
     public KeyManager getKeyManager() {
         return keyManager;
     }
+
+    public GameCamera getGameCamera() { return gameCamera; }
 
     private void tick() {
         keyManager.tick();

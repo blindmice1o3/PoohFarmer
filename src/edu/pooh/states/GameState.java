@@ -17,7 +17,7 @@ public class GameState implements State {
     public GameState(Game game) {
         this.game = game;
         player = new Player(game,64, 0);
-        world = new World("res/worlds/chapter1.txt");
+        world = new World(game, "res/worlds/chapter1.txt");
         //setDoubleBuffered(true);      // JPanel
         //setFocusable(false);          // JPanel
     } // **** end GameState(Game) constructor ****
