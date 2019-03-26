@@ -2,6 +2,8 @@ package edu.pooh.tiles;
 
 import edu.pooh.gfx.Assets;
 
+import java.awt.*;
+
 public class Home5x4Tile extends Tile {
 
     public Home5x4Tile(int id) {
@@ -11,6 +13,11 @@ public class Home5x4Tile extends Tile {
     @Override
     public boolean isSolid() {
         return true;
+    }
+
+    @Override
+    public void render(Graphics g, int x, int y) {
+        g.drawImage(texture, x, y, 5 * Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT, null);
     }
 
 } // **** end Home5x4Tile class ****
