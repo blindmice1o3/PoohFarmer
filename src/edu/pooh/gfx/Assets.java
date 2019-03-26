@@ -12,6 +12,7 @@ public class Assets {
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
     public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
+    public static BufferedImage home5x4;
 
     // GAME OBJECT
     public static BufferedImage playerDefault;
@@ -47,6 +48,9 @@ public class Assets {
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+
+        home5x4 =  sheet.crop(2 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
+                        5 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL);
 
         // ******************************************
 

@@ -159,7 +159,7 @@ public class Game {
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
             if (tickTimer >= 1000000000) {
-                System.out.println("Tick calls: " + tickCounter + ".  |  Render calls: " + renderCounter + ".");
+                System.out.println("Tick: " + tickCounter + ". | Render: " + renderCounter + ".");
                 tickCounter = 0;  // Reset tickCounter back to 0.
                 renderCounter = 0;
                 tickTimer = 0;  // Reset tickTimer back to 0.
