@@ -9,6 +9,7 @@ import edu.pooh.states.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Game {
 
@@ -18,13 +19,15 @@ public class Game {
 
     // DISPLAY
     private JFrame frame;
-    private JPanel panel;
+    //private JPanel panel;                                 // JPanel
+    private Canvas canvas;
 
     // GRAPHICS CONTEXT
-    Graphics g;
+    private BufferStrategy bs;
+    private Graphics g;
 
     // THREAD
-    Thread gameThread;
+    private Thread gameThread;
     // GAME LOOP'S conditional statement (while loop)
     private volatile boolean running = false;
 
@@ -53,8 +56,15 @@ public class Game {
         frame.setLocationRelativeTo(null);
         frame.addKeyListener(keyManager);
 
-        panel = new GameState(this);
-        frame.setContentPane(panel);
+        //panel = new GameState(this);                              // JPanel
+        //frame.setContentPane(panel);                              // JPanel
+        canvas = new Canvas();
+        canvas.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+        canvas.setMaximumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+        canvas.setMinimumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+
+        frame.add(canvas);
+        frame.pack();
 
         frame.setVisible(true);
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
@@ -139,12 +149,12 @@ public class Game {
                 delta--;
             }
 
-            g = panel.getGraphics();
+            //g = panel.getGraphics();                          // JPanel
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            render(g);
+            render();
             renderCounter++;
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            g.dispose();
+            //g.dispose();                                      // JPanel
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
@@ -172,13 +182,35 @@ public class Game {
         }
     }
 
-    private void render(Graphics g) {
+    private void render() {
+        bs = canvas.getBufferStrategy();
+        if (bs == null) {
+            canvas.createBufferStrategy(3);
+            return;
+        }
+
+        g = bs.getDrawGraphics();
+        ////////////////////////////////    //Clear Screen
+        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        ////////////////////////////////    //Draw here!
+
+        if (StateManager.getCurrentState() != null) {
+            StateManager.getCurrentState().render(g);
+        }
+
+        ////////////////////////////////    //End drawing!
+        bs.show();
+        g.dispose();
+
+
+        /*  // JPanel
         if(StateManager.getCurrentState() != null) {
             ///////////////////////////////////////
             StateManager.getCurrentState().render(g);
             panel.repaint(); //@@@@@@
             ///////////////////////////////////////
         }
+        */
     }
 
     // GETTERS & SETTERS
