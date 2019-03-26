@@ -13,8 +13,11 @@ public class Assets {
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
     public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
 
+    // GAME OBJECT
+    public static BufferedImage playerDefault;
+
     public static void init() {
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/world/harvest moon tile sprite sheet.png"));
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
 
         dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
@@ -44,6 +47,11 @@ public class Assets {
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+
+        // ******************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png"));
+        playerDefault = sheet.crop(178, 1061, 20, 38);
     }
 
 } // **** end Assets class ****
