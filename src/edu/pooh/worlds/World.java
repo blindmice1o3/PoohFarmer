@@ -50,6 +50,11 @@ public class World {
     }
 
     public Tile getTile(int x, int y) {
+        // This checks if the player is going outside the map's bound, returns a DirtWalkwayTile object as default.
+        if (x < 0 || y < 0 || x >= widthInTiles || y >= heightInTiles) {
+            return Tile.dirtWalkway;
+        }
+
         Tile t = Tile.tiles[ tiles[x][y] ]; // The inner tiles[][] is World class's that stores int Tile id.
 
         if (t == null) {

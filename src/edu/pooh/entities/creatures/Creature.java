@@ -2,6 +2,7 @@ package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 
 public abstract class Creature extends Entity {
 
@@ -26,8 +27,52 @@ public abstract class Creature extends Entity {
     } // **** end Creature(Handler, float, float, int, int) constructor ****
 
     public void move() {
-        x += xMove;
-        y += yMove;
+        moveX();
+        moveY();
+    }
+
+    public void moveX() {
+        if (xMove > 0) {                                                                    //Moving right.
+            int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
+
+            //upper-right corner && lower-right corner
+            if (!collisionWithTile(tx, (int)(y + bounds.y) / Tile.TILE_HEIGHT) &&
+                    !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+                x += xMove;
+            }
+        } else if (xMove < 0) {                                                             //Moving left.
+            int tx = (int) (x + xMove + bounds.x) / Tile.TILE_WIDTH;
+
+            //upper-left corner && lower-left corner
+            if (!collisionWithTile(tx, (int)(y + bounds.y) / Tile.TILE_HEIGHT) &&
+                    !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+                x += xMove;
+            }
+        }
+    }
+
+    public void moveY() {
+        if (yMove < 0) {                                                                    //Moving up.
+            int ty = (int) (y + yMove + bounds.y) / Tile.TILE_HEIGHT;
+
+            //upper-left corner && upper-right corner
+            if (!collisionWithTile((int)(x + bounds.x) / Tile.TILE_WIDTH, ty) &&
+                    !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
+                y += yMove;
+            }
+        } else if (yMove > 0) {                                                             //Moving down.
+            int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
+
+            //upper-left corner && upper-right corner
+            if (!collisionWithTile((int)(x + bounds.x) / Tile.TILE_WIDTH, ty) &&
+                    !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
+                y += yMove;
+            }
+        }
+    }
+
+    protected boolean collisionWithTile(int x, int y) {
+        return handler.getWorld().getTile(x, y).isSolid();
     }
 
     // GETTERS & SETTERS
