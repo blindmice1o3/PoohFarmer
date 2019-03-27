@@ -1,14 +1,17 @@
 package edu.pooh.states;
 
 import edu.pooh.main.Game;
+import edu.pooh.main.Handler;
 
 import java.awt.*;
 
 public class MenuState implements State {
 
-    public MenuState(Game game) {
+    private Handler handler;
 
-    } // **** end MenuState(Game) constructor ****
+    public MenuState(Handler handler) {
+        this.handler = handler;
+    } // **** end MenuState(Handler) constructor ****
 
     @Override
     public void tick() {

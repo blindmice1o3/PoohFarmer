@@ -1,6 +1,7 @@
 package edu.pooh.worlds;
 
 import edu.pooh.main.Game;
+import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
@@ -8,7 +9,7 @@ import java.awt.*;
 
 public class World {
 
-    private Game game;
+    private Handler handler;
     private int widthInTiles;   // Width of world, in terms of how many tiles across.
     private int heightInTiles;  // Height of world, in terms of how many tiles down.
     private int spawnX;
@@ -16,10 +17,10 @@ public class World {
 
     private int[][] tiles;      // Multidimensional array of int storing <Tile id>.
 
-    public World(Game game, String path) {
-        this.game = game;
+    public World(Handler handler, String path) {
+        this.handler = handler;
         loadWorld(path);
-    } // **** end World(Game, String) constructor ****
+    } // **** end World(Handler, String) constructor ****
 
     public void tick() {
 
@@ -29,20 +30,20 @@ public class World {
         ////////////////////////////////////////////////////////////////////////////////////////////
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
         ////////////////////////////////////////////////////////////////////////////////////////////
-        int xStart = (int)Math.max(0, game.getGameCamera().getxOffset() / Tile.TILE_WIDTH);
+        int xStart = (int)Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILE_WIDTH);
         int xEnd = (int)Math.min(widthInTiles,
-                (game.getGameCamera().getxOffset() + Game.WIDTH_OF_FRAME) / Tile.TILE_WIDTH + 1);
-        int yStart = (int)Math.max(0, game.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);
+                (handler.getGameCamera().getxOffset() + Game.WIDTH_OF_FRAME) / Tile.TILE_WIDTH + 1);
+        int yStart = (int)Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);
         int yEnd = (int)Math.min(widthInTiles,
-                (game.getGameCamera().getyOffset() + Game.HEIGHT_OF_FRAME) / Tile.TILE_HEIGHT + 1);
+                (handler.getGameCamera().getyOffset() + Game.HEIGHT_OF_FRAME) / Tile.TILE_HEIGHT + 1);
         ////////////////////////////////////////////////////////////////////////////////////////////
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         for (int y = yStart; y < yEnd; y++) {
             for (int x = xStart; x < xEnd; x++) {
-                getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - game.getGameCamera().getxOffset()),
-                        (int)(y * Tile.TILE_HEIGHT - game.getGameCamera().getyOffset())); // Multiple to convert from
+                getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
+                        (int)(y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset())); // Multiple to convert from
                                                                                           // x,y indexes to tile-size.
             }
         }

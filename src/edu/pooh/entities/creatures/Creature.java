@@ -1,7 +1,7 @@
 package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.main.Game;
+import edu.pooh.main.Handler;
 
 public abstract class Creature extends Entity {
 
@@ -17,13 +17,13 @@ public abstract class Creature extends Entity {
     protected float xMove;
     protected float yMove;
 
-    public Creature(Game game, float x, float y, int width, int height) {
-        super(game, x, y, width, height);
+    public Creature(Handler handler, float x, float y, int width, int height) {
+        super(handler, x, y, width, height);
         health = DEFAULT_HEALTH;
         speed = DEFAULT_SPEED;
         xMove = 0;
         yMove = 0;
-    } // **** end Creature(Game, float, float, int, int) constructor ****
+    } // **** end Creature(Handler, float, float, int, int) constructor ****
 
     public void move() {
         x += xMove;

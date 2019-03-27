@@ -42,14 +42,18 @@ public class Game {
     // CAMERA
     private GameCamera gameCamera;
 
+    // HANDLER
+    private Handler handler;
+
     public Game() {
         keyManager = new KeyManager();
         gameCamera = new GameCamera(this, 0, 0);
+        handler = new Handler(this);
 
-        gameState = new GameState(this);
-        menuState = new MenuState(this);
+        gameState = new GameState(handler);
+        menuState = new MenuState(handler);
         StateManager.setCurrentState(gameState);
-    } // **** end edu.pooh.main.Game() constructor
+    } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
         Assets.init();
