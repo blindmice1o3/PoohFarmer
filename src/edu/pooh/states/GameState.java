@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class GameState implements State {
         this.handler = handler;
         world = new World(handler, "res/worlds/chapter1.txt");
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
-        player = new Player(handler,64, 0);
+        player = new Player(handler, world.getSpawnX() * Tile.TILE_WIDTH, world.getSpawnY() * Tile.TILE_HEIGHT);
         //setDoubleBuffered(true);      // JPanel
         //setFocusable(false);          // JPanel
     } // **** end GameState(Handler) constructor ****

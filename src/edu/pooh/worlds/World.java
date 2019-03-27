@@ -91,4 +91,8 @@ public class World {
         return heightInTiles;
     }
 
+    public int getSpawnX() { return spawnX; }
+
+    public int getSpawnY() { return spawnY; }
+
 } // **** end World class ****
