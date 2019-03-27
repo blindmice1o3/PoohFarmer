@@ -50,14 +50,14 @@ public class Game {
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
 
+        Assets.init();
+
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         StateManager.setCurrentState(gameState);
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
-        Assets.init();
-
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));

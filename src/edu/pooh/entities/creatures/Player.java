@@ -1,11 +1,19 @@
 package edu.pooh.entities.creatures;
 
+import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
+
+    // ANIMATIONS
+    private Animation animDown;
+    private Animation animUp;
+    private Animation animLeft;
+    private Animation animRight;
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -14,10 +22,23 @@ public class Player extends Creature {
         bounds.y = 32;
         bounds.width = 32;
         bounds.height = 32;
+
+        // ANIMATIONS
+        animDown = new Animation(500, Assets.playerDown);
+        animUp = new Animation(500, Assets.playerUp);
+        animLeft = new Animation(500, Assets.playerLeft);
+        animRight = new Animation(500, Assets.playerRight);
     } // **** end Player(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
+        // ANIMATIONS
+        animDown.tick();
+        animUp.tick();
+        animLeft.tick();
+        animRight.tick();
+
+        // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
@@ -38,12 +59,27 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.playerDefault, (int)(x - handler.getGameCamera().getxOffset()),
+        g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
-        g.setColor(Color.RED);
-        g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-                bounds.width, bounds.height);
+        //g.setColor(Color.RED);
+        //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+        //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+        //        bounds.width, bounds.height);
+    }
+
+    private BufferedImage getCurrentAnimationFrame() {
+        // Horizontal (x axis) over vertical (y axis).
+        if (xMove < 0) {                                // Moving left.
+            return animLeft.getCurrentFrame();
+        } else if (xMove > 0) {                         // Moving right.
+            return animRight.getCurrentFrame();
+        } else if (yMove < 0) {                         // Moving up.
+            return animUp.getCurrentFrame();
+        } else if (yMove > 0) {                         // Moving down.
+            return animDown.getCurrentFrame();
+        } else {                                        // else/default: Standing still.
+            return Assets.playerDefault;
+        }
     }
 
 } // **** end Player class ****
