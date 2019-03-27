@@ -83,4 +83,12 @@ public class World {
         }
     }
 
+    public int getWidth() {
+        return widthInTiles;
+    }
+
+    public int getHeight() {
+        return heightInTiles;
+    }
+
 } // **** end World class ****
