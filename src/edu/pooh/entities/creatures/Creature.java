@@ -39,6 +39,8 @@ public abstract class Creature extends Entity {
             if (!collisionWithTile(tx, (int)(y + bounds.y) / Tile.TILE_HEIGHT) &&
                     !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
                 x += xMove;
+            } else {    //there was collision with a tile while moving right (we are inside a tile).
+                x = (tx * Tile.TILE_WIDTH) - bounds.x - bounds.width - 1; //the -1 is to enable up/down movement.
             }
         } else if (xMove < 0) {                                                             //Moving left.
             int tx = (int) (x + xMove + bounds.x) / Tile.TILE_WIDTH;
@@ -47,6 +49,8 @@ public abstract class Creature extends Entity {
             if (!collisionWithTile(tx, (int)(y + bounds.y) / Tile.TILE_HEIGHT) &&
                     !collisionWithTile(tx, (int)(y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
                 x += xMove;
+            } else {    //there was collision with a tile while moving left (we are inside a tile).
+                x = (tx * Tile.TILE_WIDTH) + Tile.TILE_WIDTH - bounds.x;
             }
         }
     }
@@ -59,6 +63,8 @@ public abstract class Creature extends Entity {
             if (!collisionWithTile((int)(x + bounds.x) / Tile.TILE_WIDTH, ty) &&
                     !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
                 y += yMove;
+            } else { //there was collision with a tile while moving up (we are inside a tile).
+                y = (ty * Tile.TILE_HEIGHT) + Tile.TILE_HEIGHT - bounds.y;
             }
         } else if (yMove > 0) {                                                             //Moving down.
             int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
@@ -67,6 +73,8 @@ public abstract class Creature extends Entity {
             if (!collisionWithTile((int)(x + bounds.x) / Tile.TILE_WIDTH, ty) &&
                     !collisionWithTile((int)(x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)) {
                 y += yMove;
+            } else { //there was collision with a tile while moving down (we are inside a tile).
+                y = (ty * Tile.TILE_HEIGHT) - bounds.y - bounds.height - 1;
             }
         }
     }
