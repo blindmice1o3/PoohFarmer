@@ -26,8 +26,21 @@ public class World {
     }
 
     public void render(Graphics g) {
-        for (int y = 0; y < heightInTiles; y++) {
-            for (int x = 0; x < widthInTiles; x++) {
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        int xStart = (int)Math.max(0, game.getGameCamera().getxOffset() / Tile.TILE_WIDTH);
+        int xEnd = (int)Math.min(widthInTiles,
+                (game.getGameCamera().getxOffset() + Game.WIDTH_OF_FRAME) / Tile.TILE_WIDTH + 1);
+        int yStart = (int)Math.max(0, game.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);
+        int yEnd = (int)Math.min(widthInTiles,
+                (game.getGameCamera().getyOffset() + Game.HEIGHT_OF_FRAME) / Tile.TILE_HEIGHT + 1);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        for (int y = yStart; y < yEnd; y++) {
+            for (int x = xStart; x < xEnd; x++) {
                 getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - game.getGameCamera().getxOffset()),
                         (int)(y * Tile.TILE_HEIGHT - game.getGameCamera().getyOffset())); // Multiple to convert from
                                                                                           // x,y indexes to tile-size.
