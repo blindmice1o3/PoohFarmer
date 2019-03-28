@@ -1,5 +1,8 @@
 package edu.pooh.worlds;
 
+import edu.pooh.entities.EntityManager;
+import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.statics.Bush;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -10,23 +13,38 @@ import java.awt.*;
 public class World {
 
     private Handler handler;
-    private int widthInTiles;   // Width of world, in terms of how many tiles across.
-    private int heightInTiles;  // Height of world, in terms of how many tiles down.
-    private int spawnX;
-    private int spawnY;
+
+    private int widthInTiles;   // Width of world, in terms of number of tiles across.
+    private int heightInTiles;  // Height of world, in terms of number of tiles down.
+    private int spawnX; //NEED map to load before can be used.
+    private int spawnY; //NEED map to load before can be used.
 
     private int[][] tiles;      // Multidimensional array of int storing <Tile id>.
 
+    // ENTITIES
+    private EntityManager entityManager;
+
     public World(Handler handler, String path) {
         this.handler = handler;
+        //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
+        // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
+        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+        entityManager.addEntity(new Bush(handler, 320, 1150));
+        entityManager.addEntity(new Bush(handler, 320, 1250));
+        entityManager.addEntity(new Bush(handler, 320, 1350));
+
         loadWorld(path);
+
+        entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
+        entityManager.getPlayer().setY(spawnY * Tile.TILE_HEIGHT);  //convert number of tiles to pixels.
     } // **** end World(Handler, String) constructor ****
 
     public void tick() {
-
+        entityManager.tick();
     }
 
     public void render(Graphics g) {
+        // RENDER TILES
         ////////////////////////////////////////////////////////////////////////////////////////////
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +65,9 @@ public class World {
                                                                                           // x,y indexes to tile-size.
             }
         }
+
+        // RENDER ENTITIES
+        entityManager.render(g);
     }
 
     public Tile getTile(int x, int y) {

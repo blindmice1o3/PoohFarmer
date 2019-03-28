@@ -8,7 +8,7 @@ public class Assets {
     private static final int WIDTH_IN_PIXEL = 16;
     private static final int HEIGHT_IN_PIXEL = 16;
 
-    // TEXTURES
+    // TEXTURES (/TILES)
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
     public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
@@ -16,7 +16,7 @@ public class Assets {
     public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
 
 
-    // GAME OBJECT
+    // GAME OBJECT (/ENTITIES)
     public static BufferedImage playerDefault;
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft;
 

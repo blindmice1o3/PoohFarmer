@@ -8,13 +8,16 @@ public class Tile {
     // STATIC STUFF HERE
 
     public static Tile[] tiles = new Tile[256];
+        // isSolid()
     public static Tile dirtNormalTile = new DirtNormalTile(0);
     public static Tile fenceTile = new FenceTile(1);
     public static Tile dirtWalkway = new DirtWalkwayTile(2);
-    public static Tile home5x4 = new Home5x4Tile(8);
-    public static Tile nullTile = new NullTile(9);
-
+        //not really a Tile? more of a StaticEntity?
     public static Tile signPostTile = new SignPostTile(3);
+        // Multiple-spanning-Tile top-left corner Tiles. Soon to be changed to individual tiles.
+    public static Tile home5x4 = new Home5x4Tile(8);
+        // Null Tile with overridden render(Graphics, int, int) method.
+    public static Tile nullTile = new NullTile(9);
 
     // CLASS
 
