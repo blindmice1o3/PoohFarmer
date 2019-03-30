@@ -18,11 +18,13 @@ public class GameCamera {
     } // **** end GameCamera(Handler, float, float) constructor ****
 
     public void checkBlankSpace() {
+
         if (xOffset < 0) {
             xOffset = 0;
         } else if (xOffset > (handler.getWorld().getWidth() * Tile.TILE_WIDTH) - handler.getWidth()) {
             xOffset = (handler.getWorld().getWidth() * Tile.TILE_WIDTH) - handler.getWidth();
         }
+
         if (yOffset < 0) {
             yOffset = 0;
         } else if (yOffset > (handler.getWorld().getHeight() * Tile.TILE_HEIGHT) - handler.getHeight()) {

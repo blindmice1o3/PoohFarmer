@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 
-    // STATIC STUFF HERE
+    public static final int TILE_WIDTH = 64;
+    public static final int TILE_HEIGHT = 64;
+
+    // STATIC INSTANCES HERE
 
     public static Tile[] tiles = new Tile[256];
         // isSolid()
@@ -20,9 +23,6 @@ public class Tile {
     public static Tile nullTile = new NullTile(9);
 
     // CLASS
-
-    public static final int TILE_WIDTH = 64;
-    public static final int TILE_HEIGHT = 64;
 
     protected BufferedImage texture;
     protected final int id;
