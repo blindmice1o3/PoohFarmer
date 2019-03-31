@@ -2,6 +2,7 @@ package edu.pooh.main;
 
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
+import edu.pooh.input.MouseManager;
 import edu.pooh.worlds.World;
 
 public class Handler {
@@ -20,6 +21,8 @@ public class Handler {
     public KeyManager getKeyManager() {
         return game.getKeyManager();
     }
+
+    public MouseManager getMouseManager() { return game.getMouseManager(); }
 
     public int getWidth() {
         return Game.WIDTH_OF_FRAME;

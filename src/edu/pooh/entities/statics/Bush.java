@@ -27,10 +27,10 @@ public class Bush extends StaticEntity {
         g.drawImage(Assets.plantFlowering1, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 
-        g.setColor(Color.RED);
-        g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-                bounds.width, bounds.height);
+        //g.setColor(Color.RED);
+        //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+        //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+        //        bounds.width, bounds.height);
     }
 
 } // **** end Bush class ****

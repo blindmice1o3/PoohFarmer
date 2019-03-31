@@ -15,12 +15,15 @@ public class MenuState implements State {
 
     @Override
     public void tick() {
-
+        if (handler.getMouseManager().isLeftPressed() && handler.getMouseManager().isRightPressed()) {
+            StateManager.setCurrentState(handler.getGame().gameState);
+        }
     }
 
     @Override
     public void render(Graphics g) {
-
+        g.setColor(Color.RED);
+        g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 8, 8);
     }
 
 } // **** end MenuState class ****

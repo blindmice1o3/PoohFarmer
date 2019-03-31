@@ -3,6 +3,7 @@ package edu.pooh.main;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
+import edu.pooh.input.MouseManager;
 import edu.pooh.states.GameState;
 import edu.pooh.states.MenuState;
 import edu.pooh.states.State;
@@ -33,11 +34,12 @@ public class Game {
     private volatile boolean running = false;
 
     // STATES
-    private State gameState;
-    private State menuState;
+    public State gameState;
+    public State menuState;
 
     // INPUT
     private KeyManager keyManager;
+    private MouseManager mouseManager;
 
     // CAMERA
     private GameCamera gameCamera;
@@ -47,6 +49,8 @@ public class Game {
 
     public Game() {
         keyManager = new KeyManager();
+        mouseManager = new MouseManager();
+
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
 
@@ -54,7 +58,7 @@ public class Game {
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        StateManager.setCurrentState(gameState);
+        StateManager.setCurrentState(menuState);
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
@@ -63,14 +67,18 @@ public class Game {
         frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.addKeyListener(keyManager);
 
-        //panel = new GameState(this);                              // JPanel
-        //frame.setContentPane(panel);                              // JPanel
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         canvas.setMaximumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         canvas.setMinimumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+
+        frame.addKeyListener(keyManager);
+        frame.addMouseListener(mouseManager);
+        frame.addMouseMotionListener(mouseManager);
+        canvas.addKeyListener(keyManager);
+        canvas.addMouseListener(mouseManager);
+        canvas.addMouseMotionListener(mouseManager);
 
         frame.add(canvas);
         frame.pack();
@@ -182,6 +190,8 @@ public class Game {
     public KeyManager getKeyManager() {
         return keyManager;
     }
+
+    public MouseManager getMouseManager() { return mouseManager; }
 
     public GameCamera getGameCamera() { return gameCamera; }
 
