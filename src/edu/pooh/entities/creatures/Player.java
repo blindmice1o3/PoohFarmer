@@ -3,6 +3,7 @@ package edu.pooh.entities.creatures;
 import edu.pooh.entities.Entity;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
+import edu.pooh.inventory.Inventory;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -20,6 +21,9 @@ public class Player extends Creature {
     private long attackCooldown = 800;  // 800 milliseconds
     private long attackTimer = attackCooldown;
 
+    // INVENTORY
+    private Inventory inventory;
+
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
@@ -33,6 +37,9 @@ public class Player extends Creature {
         animUp = new Animation(60, Assets.playerUp);
         animLeft = new Animation(60, Assets.playerLeft);
         animRight = new Animation(60, Assets.playerRight);
+
+        // INVENTORY
+        inventory = new Inventory(handler);
     } // **** end Player(Handler, float, float) constructor ****
 
     @Override
@@ -48,6 +55,8 @@ public class Player extends Creature {
         handler.getGameCamera().centerOnEntity(this);
         // ATTACK
         checkAttacks();
+        // INVENTORY
+        inventory.tick();
     }
 
     private void checkAttacks() {
@@ -115,6 +124,7 @@ public class Player extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+        inventory.render(g);
         //g.setColor(Color.RED);
         //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
         //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
