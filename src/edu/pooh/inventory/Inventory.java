@@ -27,7 +27,10 @@ public class Inventory {
             return;
         }
 
-        System.out.println("INVENTORY WORKING");
+        System.out.println("INVENTORY:");
+        for (Item i : inventoryItems) {
+            System.out.println(i.getName() + "   " + i.getCount());
+        }
     }
 
     public void render(Graphics g) {
