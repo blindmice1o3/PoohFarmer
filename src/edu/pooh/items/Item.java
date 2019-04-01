@@ -19,7 +19,6 @@ public class Item {
 
     public static final int ITEM_WIDTH = 32;
     public static final int ITEM_HEIGHT = 32;
-    public static final int PICKED_UP = -1;
 
     protected Handler handler;
     protected BufferedImage texture;
@@ -29,6 +28,7 @@ public class Item {
     protected Rectangle bounds;
 
     protected int x, y, count;
+    protected boolean pickedUp = false;
 
     public Item(BufferedImage texture, String name, int id) {
         this.texture = texture;
@@ -43,7 +43,8 @@ public class Item {
 
     public void tick() {
         if (handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
-            count = PICKED_UP;
+            pickedUp = true;
+            handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
         }
     }
 
@@ -73,6 +74,10 @@ public class Item {
     }
 
     // GETTERS & SETTERS
+
+    public boolean isPickedUp() {
+        return pickedUp;
+    }
 
     public Handler getHandler() {
         return handler;

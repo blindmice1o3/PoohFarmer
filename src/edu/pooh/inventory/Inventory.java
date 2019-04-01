@@ -1,17 +1,21 @@
 package edu.pooh.inventory;
 
+import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Inventory {
 
     private Handler handler;
     private boolean active = false;
+    private ArrayList<Item> inventoryItems;
 
     public Inventory(Handler handler) {
         this.handler = handler;
+        inventoryItems = new ArrayList<Item>();
     } // **** end Inventory(Handler) constructor ****
 
     public void tick() {
@@ -30,6 +34,19 @@ public class Inventory {
         if (!active) {
             return;
         }
+    }
+
+    // INVENTORY METHODS
+
+    public void addItem(Item item) {
+        // If we already have it in the inventory, just increase the count variable.
+        for (Item i : inventoryItems) {
+            if (i.getId() == item.getId()) {
+                i.setCount(i.getCount() + item.getCount());
+                return;
+            }
+        }
+        inventoryItems.add(item);
     }
 
     // GETTERS & SETTERS

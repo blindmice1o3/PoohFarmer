@@ -151,4 +151,14 @@ public class Player extends Creature {
         System.out.println("You lose");
     }
 
+    // GETTERS & SETTERS
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
 } // **** end Player class ****

@@ -21,7 +21,7 @@ public class ItemManager {
         while (iterator.hasNext()) {
             Item i = iterator.next();
             i.tick();
-            if (i.getCount() == Item.PICKED_UP) {
+            if (i.isPickedUp()) {
                 iterator.remove();
             }
         }
