@@ -15,14 +15,25 @@ public class Assets {
     public static BufferedImage home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5;
     public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
 
-
     // GAME OBJECT (/ENTITIES)
     public static BufferedImage playerDefault;
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft;
 
-    public static void init() {
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
+    // INVENTORY
+    public static BufferedImage inventoryScreen;
 
+    // START BUTTONS
+    public static BufferedImage[] startButtons;
+
+    public static void init() {
+        inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
+
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/StartButtons(96x64).png"));
+        startButtons = new BufferedImage[2];
+        startButtons[0] = sheet.crop(0, 0, 96, 31);
+        startButtons[1] = sheet.crop(0, 32, 96, 31);
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
         dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtHoe = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
@@ -132,8 +143,6 @@ public class Assets {
         playerLeft[8] = sheet.crop(354, 1264, 19, 38);
         playerLeft[9] = sheet.crop(395, 1265, 21, 37);
         playerLeft[10] = sheet.crop(433, 1267, 24, 35);
-
-
     }
 
 } // **** end Assets class ****

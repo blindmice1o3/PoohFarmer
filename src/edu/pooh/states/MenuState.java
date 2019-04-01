@@ -19,7 +19,7 @@ public class MenuState implements State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
 
-        uiManager.addObject(new UIImageButton(200, 200, 128, 64, Assets.playerDown,
+        uiManager.addObject(new UIImageButton(200, 200, 96, 31, Assets.startButtons,
                 new ClickListener() {
             @Override
             public void onClick() {
