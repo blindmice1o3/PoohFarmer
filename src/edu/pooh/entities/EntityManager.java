@@ -6,6 +6,7 @@ import edu.pooh.main.Handler;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class EntityManager {
 
@@ -31,9 +32,14 @@ public class EntityManager {
     } // **** end EntityManager(Handler, Player) constructor ****
 
     public void tick() {
-        for (int i = 0; i < entities.size(); i++) {
-            Entity e = entities.get(i);
+        Iterator<Entity> iterator = entities.iterator();
+
+        while (iterator.hasNext()) {
+            Entity e = iterator.next();
             e.tick();
+            if (!e.isActive()) {
+                iterator.remove();
+            }
         }
         entities.sort(renderSorter);    // Sort the collection of Entity objects based on y-coordinate values.
     }

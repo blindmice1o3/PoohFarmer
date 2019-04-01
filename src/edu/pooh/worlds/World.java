@@ -3,6 +3,8 @@ package edu.pooh.worlds;
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
+import edu.pooh.entities.statics.Rock;
+import edu.pooh.items.ItemManager;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -24,14 +26,22 @@ public class World {
     // ENTITIES
     private EntityManager entityManager;
 
+    // ITEMS
+    private ItemManager itemManager;
+
     public World(Handler handler, String path) {
         this.handler = handler;
         //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
         // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+        itemManager = new ItemManager(handler);
         entityManager.addEntity(new Bush(handler, 320, 1150));
         entityManager.addEntity(new Bush(handler, 320, 1250));
         entityManager.addEntity(new Bush(handler, 320, 1350));
+        entityManager.addEntity(new Rock(handler, 192, 1150));
+        entityManager.addEntity(new Rock(handler, 192, 1250));
+        entityManager.addEntity(new Rock(handler, 192, 1350));
+
 
         loadWorld(path);
 
@@ -40,6 +50,7 @@ public class World {
     } // **** end World(Handler, String) constructor ****
 
     public void tick() {
+        itemManager.tick();
         entityManager.tick();
     }
 
@@ -65,6 +76,9 @@ public class World {
                                                                                           // x,y indexes to tile-size.
             }
         }
+
+        // RENDER ITEMS
+        itemManager.render(g);
 
         // RENDER ENTITIES
         entityManager.render(g);
@@ -120,4 +134,19 @@ public class World {
 
     public int getSpawnY() { return spawnY; }
 
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public void setItemManager(ItemManager itemManager) {
+        this.itemManager = itemManager;
+    }
 } // **** end World class ****

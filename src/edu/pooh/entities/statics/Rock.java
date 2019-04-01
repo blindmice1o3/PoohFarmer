@@ -7,16 +7,16 @@ import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 
-public class Bush extends StaticEntity {
+public class Rock extends StaticEntity {
 
-    public Bush(Handler handler, float x, float y) {
+    public Rock(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
         bounds.x = 5;
-        bounds.y = 5;
+        bounds.y = 10;
         bounds.width = width - 10;
-        bounds.height = height - 10;
-    } // **** end Bush(Handler, float, float) constructor ****
+        bounds.height = height - 20;
+    } // **** end Rock(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
@@ -25,7 +25,7 @@ public class Bush extends StaticEntity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.plantFlowering1, (int)(x - handler.getGameCamera().getxOffset()),
+        g.drawImage(Assets.rock, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 
         //g.setColor(Color.RED);
@@ -36,7 +36,7 @@ public class Bush extends StaticEntity {
 
     @Override
     public void die() {
-        handler.getWorld().getItemManager().addItem(Item.plantSproutlingItem.createNew((int)x, (int)y));
+        handler.getWorld().getItemManager().addItem(Item.plantJuvenilleItem.createNew((int)x, (int)y));
     }
 
-} // **** end Bush class ****
+} // **** end Rock class ****
