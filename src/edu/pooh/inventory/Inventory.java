@@ -1,5 +1,6 @@
 package edu.pooh.inventory;
 
+import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 
@@ -12,6 +13,11 @@ public class Inventory {
     private Handler handler;
     private boolean active = false;
     private ArrayList<Item> inventoryItems;
+
+    private int invX = 64, invY = 48,
+            invWidth = 668, invHeight = 500,
+            invListCenterX = invX + 171,
+            invListCenterY = invY + invHeight / 2 + 5;
 
     public Inventory(Handler handler) {
         this.handler = handler;
@@ -27,10 +33,12 @@ public class Inventory {
             return;
         }
 
+        /*
         System.out.println("INVENTORY:");
         for (Item i : inventoryItems) {
             System.out.println(i.getName() + "   " + i.getCount());
         }
+        */
     }
 
     public void render(Graphics g) {
@@ -38,7 +46,7 @@ public class Inventory {
             return;
         }
 
-
+        g.drawImage(Assets.inventoryScreen, invX, invY, invWidth, invHeight, null);
     }
 
     // INVENTORY METHODS
