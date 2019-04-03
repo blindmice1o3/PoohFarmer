@@ -1,6 +1,7 @@
 package edu.pooh.inventory;
 
 import edu.pooh.gfx.Assets;
+import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 
@@ -16,29 +17,47 @@ public class Inventory {
 
     private int invX = 64, invY = 48,
             invWidth = 668, invHeight = 500,
-            invListCenterX = invX + 171,
-            invListCenterY = invY + invHeight / 2 + 5;
+            invListCenterX = invX + 200,
+            invListCenterY = invY + invHeight / 2,
+            invListSpacing = 100;
+
+    private int invImageX = 575, invImageY = 90,
+                invImageWidth = 64, invImageHeight = 64;
+
+    private int invCountX = 607, invCountY = 180;
+
+    private int selectedItem = 0;
 
     public Inventory(Handler handler) {
         this.handler = handler;
         inventoryItems = new ArrayList<Item>();
+
+        addItem(Item.plantAdultItem.createNew(5));
+        addItem(Item.plantJuvenilleItem.createNew(3));
+        addItem(Item.plantSproutlingItem.createNew(2));
     } // **** end Inventory(Handler) constructor ****
 
     public void tick() {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
             active = !active;
         }
-
         if (!active) {
             return;
         }
 
-        /*
-        System.out.println("INVENTORY:");
-        for (Item i : inventoryItems) {
-            System.out.println(i.getName() + "   " + i.getCount());
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
+            selectedItem--;
         }
-        */
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
+            selectedItem++;
+        }
+
+        if (selectedItem < 0) {
+            selectedItem = inventoryItems.size() - 1;
+        }
+        else if (selectedItem >= inventoryItems.size()) {
+            selectedItem = 0;
+        }
     }
 
     public void render(Graphics g) {
@@ -47,6 +66,29 @@ public class Inventory {
         }
 
         g.drawImage(Assets.inventoryScreen, invX, invY, invWidth, invHeight, null);
+
+        int len = inventoryItems.size();
+        if (len == 0) {
+            return;
+        }
+
+        for (int i = -2; i < 3; i++) {
+            if (selectedItem + i < 0 || selectedItem + i >= len) {
+                continue;
+            }
+
+            if (i == 0) {
+                Text.drawString(g, "> " + inventoryItems.get(selectedItem + i).getName() + " <", invListCenterX,
+                        invListCenterY + i * invListSpacing, true, Color.YELLOW, Assets.font28);
+            } else {
+                Text.drawString(g, inventoryItems.get(selectedItem + i).getName(), invListCenterX,
+                        invListCenterY + i * invListSpacing, true, Color.RED, Assets.font28);
+            }
+        }
+
+        Item item = inventoryItems.get(selectedItem);
+        g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
+        Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.YELLOW, Assets.font28);
     }
 
     // INVENTORY METHODS
@@ -63,6 +105,10 @@ public class Inventory {
     }
 
     // GETTERS & SETTERS
+
+    public boolean isActive() {
+        return active;
+    }
 
     public Handler getHandler() {
         return handler;

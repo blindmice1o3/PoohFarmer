@@ -67,6 +67,10 @@ public class Player extends Creature {
             return;
         }
 
+        if (inventory.isActive()) {
+            return;
+        }
+
         Rectangle cb = getCollisionBounds(0, 0);    // player's collision box (center square)
         Rectangle ar = new Rectangle();     // attack-rectangle
         int arSize = 20;                    // 20 pixels
@@ -111,6 +115,10 @@ public class Player extends Creature {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
         yMove = 0;
+
+        if (inventory.isActive()) {
+            return;
+        }
 
         if (handler.getKeyManager().up) { yMove = -speed; }
         if (handler.getKeyManager().down) { yMove = speed; }

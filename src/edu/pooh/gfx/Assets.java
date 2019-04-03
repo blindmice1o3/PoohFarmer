@@ -1,5 +1,6 @@
 package edu.pooh.gfx;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -7,6 +8,9 @@ public class Assets {
     // CONSTANTS
     private static final int WIDTH_IN_PIXEL = 16;
     private static final int HEIGHT_IN_PIXEL = 16;
+
+    // FONT
+    public static Font font28;
 
     // TEXTURES (/TILES)
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
@@ -26,6 +30,8 @@ public class Assets {
     public static BufferedImage[] startButtons;
 
     public static void init() {
+        font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
+
         inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/StartButtons(96x64).png"));

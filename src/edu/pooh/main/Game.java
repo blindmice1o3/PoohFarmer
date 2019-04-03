@@ -21,7 +21,6 @@ public class Game {
 
     // DISPLAY
     private JFrame frame;
-    //private JPanel panel;                                 // JPanel
     private Canvas canvas;
 
     // GRAPHICS CONTEXT
@@ -30,8 +29,7 @@ public class Game {
 
     // THREAD
     private Thread gameThread;
-    // GAME LOOP'S conditional statement (while loop)
-    private volatile boolean running = false;
+    private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     // STATES
     public State gameState;
@@ -84,7 +82,6 @@ public class Game {
         frame.pack();
 
         frame.setVisible(true);
-        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // @@@@@
     }
 
     public synchronized void gameStart() {
@@ -166,12 +163,10 @@ public class Game {
                 delta--;
             }
 
-            //g = panel.getGraphics();                          // JPanel
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             render();
             renderCounter++;
             // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            //g.dispose();                                      // JPanel
 
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
@@ -186,14 +181,6 @@ public class Game {
 
         } // *** end of GAME-LOOP ***
     }
-
-    public KeyManager getKeyManager() {
-        return keyManager;
-    }
-
-    public MouseManager getMouseManager() { return mouseManager; }
-
-    public GameCamera getGameCamera() { return gameCamera; }
 
     private void tick() {
         keyManager.tick();
@@ -222,19 +209,17 @@ public class Game {
         ////////////////////////////////    //End drawing!
         bs.show();
         g.dispose();
-
-
-        /*  // JPanel
-        if(StateManager.getCurrentState() != null) {
-            ///////////////////////////////////////
-            StateManager.getCurrentState().render(g);
-            panel.repaint(); //@@@@@@
-            ///////////////////////////////////////
-        }
-        */
     }
 
     // GETTERS & SETTERS
+
+    public KeyManager getKeyManager() {
+        return keyManager;
+    }
+
+    public MouseManager getMouseManager() { return mouseManager; }
+
+    public GameCamera getGameCamera() { return gameCamera; }
 
     public boolean isRunning() {
         return running;
