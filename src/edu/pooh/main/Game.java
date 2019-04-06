@@ -70,6 +70,7 @@ public class Game {
         canvas.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         canvas.setMaximumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         canvas.setMinimumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+        canvas.setFocusable(false);
 
         frame.addKeyListener(keyManager);
         frame.addMouseListener(mouseManager);
@@ -244,4 +245,5 @@ public class Game {
 
         game.gameStart();
     }
+
 } // **** end edu.pooh.main.Game class ****

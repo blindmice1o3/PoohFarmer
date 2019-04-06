@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/FontLoader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/Text.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/states/GeneralStoreState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java" afterPath="$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/Item.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/Item.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" afterPath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java" afterPath="$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,51 +20,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Assets.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
+      <file leaf-file-name="Creature.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Creature.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="561">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntityManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FontLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/FontLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="246" column="43" lean-forward="true" selection-start-line="246" selection-start-column="43" selection-end-line="246" selection-end-column="43" />
+            <state relative-caret-position="17">
+              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2537#2762#0" expanded="true" />
-                <element signature="e#2761#2762#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameCamera.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/GameCamera.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GeneralStoreState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GeneralStoreState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="12" column="61" lean-forward="false" selection-start-line="12" selection-start-column="61" selection-end-line="12" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,60 +67,10 @@
       <file leaf-file-name="Inventory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+            <state relative-caret-position="1445">
+              <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3315#3316#0" expanded="true" />
-                <element signature="e#3344#3345#0" expanded="true" />
-                <element signature="e#3379#3380#0" expanded="true" />
-                <element signature="e#3409#3410#0" expanded="true" />
-                <element signature="e#3456#3457#0" expanded="true" />
-                <element signature="e#3494#3495#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/Item.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="65" column="16" lean-forward="false" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1807#1808#0" expanded="true" />
-                <element signature="e#1880#1881#0" expanded="true" />
-                <element signature="e#2478#2479#0" expanded="true" />
-                <element signature="e#2518#2519#0" expanded="true" />
-                <element signature="e#2553#2554#0" expanded="true" />
-                <element signature="e#2584#2585#0" expanded="true" />
-                <element signature="e#2619#2620#0" expanded="true" />
-                <element signature="e#2649#2650#0" expanded="true" />
-                <element signature="e#2696#2697#0" expanded="true" />
-                <element signature="e#2734#2735#0" expanded="true" />
-                <element signature="e#2775#2776#0" expanded="true" />
-                <element signature="e#2805#2806#0" expanded="true" />
-                <element signature="e#2858#2859#0" expanded="true" />
-                <element signature="e#2896#2897#0" expanded="true" />
-                <element signature="e#2927#2928#0" expanded="true" />
-                <element signature="e#2954#2955#0" expanded="true" />
-                <element signature="e#2994#2995#0" expanded="true" />
-                <element signature="e#3026#3027#0" expanded="true" />
-                <element signature="e#3052#3053#0" expanded="true" />
-                <element signature="e#3077#3078#0" expanded="true" />
-                <element signature="e#3102#3103#0" expanded="true" />
-                <element signature="e#3126#3127#0" expanded="true" />
-                <element signature="e#3157#3158#0" expanded="true" />
-                <element signature="e#3183#3184#0" expanded="true" />
-                <element signature="e#3208#3209#0" expanded="true" />
-                <element signature="e#3232#3233#0" expanded="true" />
-                <element signature="e#3263#3264#0" expanded="true" />
-                <element signature="e#3289#3290#0" expanded="true" />
-                <element signature="e#3318#3319#0" expanded="true" />
-                <element signature="e#3346#3347#0" expanded="true" />
-                <element signature="e#3385#3386#0" expanded="true" />
-                <element signature="e#3419#3420#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,35 +79,18 @@
       <file leaf-file-name="MenuState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/MenuState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="21" column="62" lean-forward="false" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+            <state relative-caret-position="340">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="119" column="19" lean-forward="false" selection-start-line="119" selection-start-column="19" selection-end-line="119" selection-end-column="19" />
-              <folding>
-                <element signature="e#5211#5212#0" expanded="true" />
-                <element signature="e#5246#5247#0" expanded="true" />
-                <element signature="e#6127#6128#0" expanded="true" />
-                <element signature="e#6159#6160#0" expanded="true" />
-                <element signature="e#6212#6213#0" expanded="true" />
-                <element signature="e#6254#6255#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Text.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Text.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="61" lean-forward="false" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+            <state relative-caret-position="306">
+              <caret line="149" column="34" lean-forward="false" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -173,12 +99,29 @@
       <file leaf-file-name="UIImageButton.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIImageButton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="391">
               <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#tick#0;class#UIImageButton#0" expanded="false" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UIManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UIObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -236,12 +179,10 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/GameCamera.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/main/Handler.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/ui/ClickListener.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/input/MouseManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/ui/UIManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Creature.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/Entity.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/Bush.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/Rock.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/input/KeyManager.java" />
@@ -253,9 +194,12 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/FontLoader.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Text.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/states/GeneralStoreState.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
       </list>
     </option>
   </component>
@@ -289,23 +233,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
               <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
@@ -417,7 +351,6 @@
       </pane>
       <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -576,7 +509,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
@@ -584,11 +516,11 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5060514" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.49346405" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5294118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5294118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5735294" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17397882" sideWeight="0.49140048" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18078668" sideWeight="0.49140048" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14901665" sideWeight="0.50653595" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -636,16 +568,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/SpriteSheet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -665,13 +587,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/textures/world/harvest moon tile sprite sheet.png" />
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/SignPostTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="35" lean-forward="true" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/src.zip!/javax/imageio/ImageIO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -700,20 +615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Home5x4Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="19" column="84" lean-forward="false" selection-start-line="19" selection-start-column="84" selection-end-line="19" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -738,22 +643,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/utils/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -776,56 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/GameCamera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="36" column="18" lean-forward="false" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="76" lean-forward="false" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
-          <folding>
-            <element signature="e#376#377#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1001#1002#0" expanded="false" />
-            <element signature="e#1025#1026#0" expanded="false" />
-            <element signature="e#1058#1059#0" expanded="false" />
-            <element signature="e#1084#1085#0" expanded="false" />
-            <element signature="e#1111#1112#0" expanded="false" />
-            <element signature="e#1135#1136#0" expanded="false" />
-            <element signature="e#1168#1169#0" expanded="false" />
-            <element signature="e#1194#1195#0" expanded="false" />
-            <element signature="e#1223#1224#0" expanded="false" />
-            <element signature="e#1251#1252#0" expanded="false" />
-            <element signature="e#1290#1291#0" expanded="false" />
-            <element signature="e#1324#1325#0" expanded="false" />
-            <element signature="e#1354#1355#0" expanded="false" />
-            <element signature="e#1383#1384#0" expanded="false" />
-            <element signature="e#1424#1425#0" expanded="false" />
-            <element signature="e#1460#1461#0" expanded="false" />
-            <element signature="e#1495#1496#0" expanded="false" />
-            <element signature="e#1526#1527#0" expanded="false" />
-            <element signature="e#1575#1576#0" expanded="false" />
-            <element signature="e#1615#1616#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -833,17 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -851,7 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,9 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="72" column="37" lean-forward="true" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -870,30 +694,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#5430#5431#0" expanded="true" />
-            <element signature="e#5460#5461#0" expanded="true" />
-            <element signature="e#5507#5508#0" expanded="true" />
-            <element signature="e#5545#5546#0" expanded="true" />
-            <element signature="e#5588#5589#0" expanded="true" />
-            <element signature="e#5622#5623#0" expanded="true" />
-            <element signature="e#5681#5682#0" expanded="true" />
-            <element signature="e#5727#5728#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/Bush.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="38" column="104" lean-forward="false" selection-start-line="38" selection-start-column="104" selection-end-line="38" selection-end-column="104" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,28 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="38" column="75" lean-forward="false" selection-start-line="38" selection-start-column="75" selection-end-line="38" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="71" column="28" lean-forward="false" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
-          <folding>
-            <element signature="e#1801#1802#0" expanded="true" />
-            <element signature="e#1830#1831#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Creature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -930,19 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/ItemManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="24" column="34" lean-forward="false" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#930#931#0" expanded="true" />
-            <element signature="e#960#961#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -950,81 +719,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIImageButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#tick#0;class#UIImageButton#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/MenuState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="21" column="62" lean-forward="false" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/FontLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Text.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="61" lean-forward="false" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="65" column="16" lean-forward="false" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1807#1808#0" expanded="true" />
@@ -1063,46 +764,189 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/ItemManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="119" column="19" lean-forward="false" selection-start-line="119" selection-start-column="19" selection-end-line="119" selection-end-column="19" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="32" column="65" lean-forward="false" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
           <folding>
-            <element signature="e#5211#5212#0" expanded="true" />
-            <element signature="e#5246#5247#0" expanded="true" />
-            <element signature="e#6127#6128#0" expanded="true" />
-            <element signature="e#6159#6160#0" expanded="true" />
-            <element signature="e#6212#6213#0" expanded="true" />
-            <element signature="e#6254#6255#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/FontLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Text.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="61" lean-forward="false" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/SignPostTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="62" lean-forward="false" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Creature.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/GameCamera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/MenuState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/ui/UIImageButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GeneralStoreState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="61" lean-forward="false" selection-start-line="12" selection-start-column="61" selection-end-line="12" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+        <state relative-caret-position="1445">
+          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3315#3316#0" expanded="true" />
-            <element signature="e#3344#3345#0" expanded="true" />
-            <element signature="e#3379#3380#0" expanded="true" />
-            <element signature="e#3409#3410#0" expanded="true" />
-            <element signature="e#3456#3457#0" expanded="true" />
-            <element signature="e#3494#3495#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="246" column="43" lean-forward="true" selection-start-line="246" selection-start-column="43" selection-end-line="246" selection-end-column="43" />
+        <state relative-caret-position="17">
+          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2537#2762#0" expanded="true" />
-            <element signature="e#2761#2762#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="149" column="34" lean-forward="false" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

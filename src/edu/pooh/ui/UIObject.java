@@ -79,4 +79,5 @@ public abstract class UIObject {
     public void setHovering(boolean hovering) {
         this.hovering = hovering;
     }
+
 } // **** end UIObject class ****

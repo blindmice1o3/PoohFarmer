@@ -1,0 +1,31 @@
+Here is how I implemented attack animation:
+
+first you need the Rectangle ar = new Rectangle(); to be outside the attack method, so just initialize it in the beggining of the PLayer class.
+
+Then make a new animation with the Assets and Animation classes(you should know how to do this)
+
+initialize your animation in the player constructor and add the animAttack.tick() to the player tick(along with the movement ones)
+
+have your attack button flag a boolean to true and to false on release (I used "attacking" as boolean)
+
+on the player render() method, add 
+
+if (attacking) {
+  g.drawImage(animFire.getCurrentFrame(), (int) (ar.x - handler.getGameCamera().getxOffset()),
+  (int) (ar.y - handler.getGameCamera().getyOffset()), null);
+  }
+
+this will draw your animation in the coordinates of your attack rectangle. You can play around with the numbers if necessary.
+peace \o?
+
+
+
+
+
+
+
+This worked for me but remember you have to set variables in the Creature class equal to the variables ar.x and ar.y in the checkAttacks() method or else the player render() won't be able to use them.?
+
+
+
+

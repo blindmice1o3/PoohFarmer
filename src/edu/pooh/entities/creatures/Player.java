@@ -24,6 +24,12 @@ public class Player extends Creature {
     // INVENTORY
     private Inventory inventory;
 
+    // MELEE ATTACK
+    private Rectangle cb;
+    private Rectangle ar; // attack-rectangle
+    private int arSize = 20;
+    private boolean attacking = false;
+
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
@@ -40,6 +46,11 @@ public class Player extends Creature {
 
         // INVENTORY
         inventory = new Inventory(handler);
+
+        // MELEE ATTACK
+        ar = new Rectangle();
+        ar.width = arSize;
+        ar.height = arSize;
     } // **** end Player(Handler, float, float) constructor ****
 
     @Override
@@ -67,30 +78,33 @@ public class Player extends Creature {
             return;
         }
 
+        attacking = false;
+
         if (inventory.isActive()) {
             return;
         }
 
-        Rectangle cb = getCollisionBounds(0, 0);    // player's collision box (center square)
-        Rectangle ar = new Rectangle();     // attack-rectangle
-        int arSize = 20;                    // 20 pixels
-        ar.width = arSize;
-        ar.height = arSize;
+        cb = getCollisionBounds(0, 0);    // player's collision box (center square)
+
 
         // Setting the coordinate of the attack rectangle
         // (attacking in one direction at a time [a bunch of if-else statements])
         if (handler.getKeyManager().aUp) {
             ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
             ar.y = cb.y - arSize;
+            attacking = true;
         } else if (handler.getKeyManager().aDown) {
             ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
             ar.y = cb.y + cb.height;
+            attacking = true;
         } else if (handler.getKeyManager().aLeft) {
             ar.x = cb.x - arSize;
             ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
+            attacking = true;
         } else if (handler.getKeyManager().aRight) {
             ar.x = cb.x + cb.width;
             ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
+            attacking = true;
         } else {
             return; // if none of the attack keys are being called, don't continue on with the rest of this method.
         }
@@ -132,6 +146,11 @@ public class Player extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+        if (attacking) {
+            g.setColor(Color.RED);
+            g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
+                    (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
+        }
         //g.setColor(Color.RED);
         //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
         //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
