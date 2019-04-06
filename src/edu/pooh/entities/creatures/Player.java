@@ -171,8 +171,25 @@ public class Player extends Creature {
             return animUp.getCurrentFrame();
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
-        } else {                                        // else/default: Standing still.
+        }
+
+        /*
+        else {                                        // else/default: Standing still.
             return Assets.playerDefault;
+        }
+        */
+
+        switch (currentDirection) {
+            case LEFT:
+                return Assets.playerLeftDefault;
+            case RIGHT:
+                return Assets.playerRightDefault;
+            case UP:
+                return Assets.playerUpDefault;
+            case DOWN:
+                return Assets.playerDownDefault;
+            default:
+                return Assets.playerDownDefault;
         }
     }
 

@@ -12,18 +12,31 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_WIDTH = 64;
     public static final int DEFAULT_CREATURE_HEIGHT = 64;
 
+    public enum DirectionFacing {
+        LEFT, RIGHT, UP, DOWN;
+    }
+
+    protected DirectionFacing currentDirection;
     protected float speed;
     protected float xMove;
     protected float yMove;
 
     public Creature(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, width, height);
+        currentDirection = DirectionFacing.DOWN;
         speed = DEFAULT_SPEED;
         xMove = 0;
         yMove = 0;
     } // **** end Creature(Handler, float, float, int, int) constructor ****
 
     public void move() {
+        // Set currentDirection relative to most recent input (xMove and yMove being positive or negative or 0).
+        if (xMove > 0) { currentDirection = DirectionFacing.RIGHT; }
+        else if (xMove < 0) { currentDirection = DirectionFacing.LEFT; }
+        else if (yMove > 0) { currentDirection = DirectionFacing.DOWN; }
+        else if (yMove < 0) { currentDirection = DirectionFacing.UP;}
+        //else { currentDirection = DirectionFacing.DOWN; }
+
         if (!checkEntityCollision(xMove, 0f)) {
             moveX();
         }

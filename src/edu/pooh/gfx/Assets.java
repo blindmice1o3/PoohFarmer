@@ -20,7 +20,7 @@ public class Assets {
     public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
 
     // GAME OBJECT (/ENTITIES)
-    public static BufferedImage playerDefault;
+    public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault;
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft;
 
     // INVENTORY
@@ -96,7 +96,10 @@ public class Assets {
         // ******************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png"));
-        playerDefault = sheet.crop(178, 1061, 20, 38);
+        playerDownDefault = sheet.crop(178, 1061, 20, 38);
+        playerUpDefault = sheet.crop(314, 1063, 20, 36);
+        playerRightDefault = sheet.crop(247, 1062, 17, 37);
+        playerLeftDefault = sheet.crop(111, 1062, 17, 37);
 
         playerDown = new BufferedImage[11];
         playerDown[0] = sheet.crop(17, 1114, 26, 36);
