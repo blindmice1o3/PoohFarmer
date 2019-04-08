@@ -203,6 +203,14 @@ public class Player extends Creature {
 
         // NON-ANIMATION for NO-INPUT DIRECTIONS
         switch (currentDirection) {
+            case UPRIGHT:
+                return Assets.playerUpRightDefault;
+            case UPLEFT:
+                return Assets.playerUpLeftDefault;
+            case DOWNRIGHT:
+                return Assets.playerDownRightDefault;
+            case DOWNLEFT:
+                return Assets.playerDownLeftDefault;
             case LEFT:
                 return Assets.playerLeftDefault;
             case RIGHT:

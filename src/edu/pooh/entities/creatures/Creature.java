@@ -13,7 +13,7 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_HEIGHT = 64;
 
     public enum DirectionFacing {
-        LEFT, RIGHT, UP, DOWN;
+        LEFT, RIGHT, UP, DOWN, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT;
     }
 
     protected DirectionFacing currentDirection;
@@ -31,7 +31,11 @@ public abstract class Creature extends Entity {
 
     public void move() {
         // Set currentDirection relative to most recent input (xMove and yMove being positive or negative or 0).
-        if (xMove > 0) { currentDirection = DirectionFacing.RIGHT; }
+        if (yMove < 0 && xMove > 0) { currentDirection = DirectionFacing.UPRIGHT; }
+        else if (yMove < 0 && xMove < 0) { currentDirection = DirectionFacing.UPLEFT; }
+        else if (yMove > 0 && xMove > 0) { currentDirection = DirectionFacing.DOWNRIGHT; }
+        else if (yMove > 0 && xMove < 0) { currentDirection = DirectionFacing.DOWNLEFT; }
+        else if (xMove > 0) { currentDirection = DirectionFacing.RIGHT; }
         else if (xMove < 0) { currentDirection = DirectionFacing.LEFT; }
         else if (yMove > 0) { currentDirection = DirectionFacing.DOWN; }
         else if (yMove < 0) { currentDirection = DirectionFacing.UP;}
