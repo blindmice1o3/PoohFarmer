@@ -35,7 +35,6 @@ public abstract class Creature extends Entity {
         else if (xMove < 0) { currentDirection = DirectionFacing.LEFT; }
         else if (yMove > 0) { currentDirection = DirectionFacing.DOWN; }
         else if (yMove < 0) { currentDirection = DirectionFacing.UP;}
-        //else { currentDirection = DirectionFacing.DOWN; }
 
         if (!checkEntityCollision(xMove, 0f)) {
             moveX();

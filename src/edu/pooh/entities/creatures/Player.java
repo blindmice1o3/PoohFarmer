@@ -130,27 +130,32 @@ public class Player extends Creature {
         xMove = 0;
         yMove = 0;
 
+        // INVENTORY CHECK
         if (inventory.isActive()) {
             return;
         }
 
+        // KEY INPUT to SET MOVEMENT
         if (handler.getKeyManager().up) { yMove = -speed; }
         if (handler.getKeyManager().down) { yMove = speed; }
         if (handler.getKeyManager().left) { xMove = -speed; }
         if (handler.getKeyManager().right) { xMove = speed; }
-
-        //System.out.println("player's x,y: " + x + ", " + y);
     }
 
     @Override
     public void render(Graphics g) {
+        // MOVEMENT
         g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+
+        // MELEE ATTACK
         if (attacking) {
             g.setColor(Color.RED);
             g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
                     (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
         }
+
+        // COLLISION BOX
         //g.setColor(Color.RED);
         //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
         //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
@@ -163,6 +168,8 @@ public class Player extends Creature {
 
     private BufferedImage getCurrentAnimationFrame() {
         // Horizontal (x axis) over vertical (y axis).
+
+        // ANIMATION MOVEMENTS
         if (xMove < 0) {                                // Moving left.
             return animLeft.getCurrentFrame();
         } else if (xMove > 0) {                         // Moving right.
@@ -173,12 +180,7 @@ public class Player extends Creature {
             return animDown.getCurrentFrame();
         }
 
-        /*
-        else {                                        // else/default: Standing still.
-            return Assets.playerDefault;
-        }
-        */
-
+        // NON-ANIMATION for NO-INPUT DIRECTIONS
         switch (currentDirection) {
             case LEFT:
                 return Assets.playerLeftDefault;
@@ -191,6 +193,7 @@ public class Player extends Creature {
             default:
                 return Assets.playerDownDefault;
         }
+
     }
 
     @Override

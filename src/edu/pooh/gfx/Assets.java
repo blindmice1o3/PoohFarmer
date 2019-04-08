@@ -20,8 +20,10 @@ public class Assets {
     public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
 
     // GAME OBJECT (/ENTITIES)
-    public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault;
-    public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft;
+    public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault,
+            playerDownRightDefault, playerDownLeftDefault, playerUpRightDefault, playerUpLeftDefault;
+    public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft,
+                                playerDownRight, playerDownLeft, playerUpRight, playerUpLeft;
 
     // INVENTORY
     public static BufferedImage inventoryScreen;
@@ -100,6 +102,10 @@ public class Assets {
         playerUpDefault = sheet.crop(314, 1063, 20, 36);
         playerRightDefault = sheet.crop(247, 1062, 17, 37);
         playerLeftDefault = sheet.crop(111, 1062, 17, 37);
+        playerDownRightDefault = sheet.crop(213, 1060, 17, 39);
+        playerDownLeftDefault = sheet.crop(145, 1060, 17, 39);
+        playerUpRightDefault = sheet.crop(281, 1064, 17, 35);
+        playerUpLeftDefault = sheet.crop(349, 1064, 17, 35);
 
         playerDown = new BufferedImage[11];
         playerDown[0] = sheet.crop(17, 1114, 26, 36);
@@ -152,6 +158,23 @@ public class Assets {
         playerLeft[8] = sheet.crop(354, 1264, 19, 38);
         playerLeft[9] = sheet.crop(395, 1265, 21, 37);
         playerLeft[10] = sheet.crop(433, 1267, 24, 35);
+
+        playerDownRight = new BufferedImage[11];
+        playerDownRight[0] = sheet.crop(15, 1325, 24, 33);
+        playerDownRight[1] = sheet.crop(60, 1323, 23, 35);
+        playerDownRight[2] = sheet.crop(103, 1322, 21, 36);
+        playerDownRight[3] = sheet.crop(148, 1321, 20, 37);
+        playerDownRight[4] = sheet.crop(190, 1322, 19, 36);
+        playerDownRight[5] = sheet.crop(232, 1324, 18, 34);
+        playerDownRight[6] = sheet.crop(274, 1326, 19, 32);
+        playerDownRight[7] = sheet.crop(308, 1324, 23, 34);
+        playerDownRight[8] = sheet.crop(355, 1323, 26, 35);
+        playerDownRight[9] = sheet.crop(397, 1323, 27, 35);
+        playerDownRight[10] = sheet.crop(437, 1325, 25, 33);
+
+        playerDownLeft = new BufferedImage[11];
+        playerDownLeft[0] = sheet.crop(20, 1375, 24, 33);
+        playerDownLeft[1] = sheet.crop(65, 1373, 23, 35);
     }
 
 } // **** end Assets class ****
