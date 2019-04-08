@@ -16,6 +16,11 @@ public class Player extends Creature {
     private Animation animUp;
     private Animation animLeft;
     private Animation animRight;
+    private Animation animUpRight;
+    private Animation animUpLeft;
+    private Animation animDownRight;
+    private Animation animDownLeft;
+
     // ATTACK TIMER
     private long lastAttackTimer;
     private long attackCooldown = 800;  // 800 milliseconds
@@ -43,6 +48,10 @@ public class Player extends Creature {
         animUp = new Animation(60, Assets.playerUp);
         animLeft = new Animation(60, Assets.playerLeft);
         animRight = new Animation(60, Assets.playerRight);
+        animUpRight = new Animation(60, Assets.playerUpRight);
+        animUpLeft = new Animation(60, Assets.playerUpLeft);
+        animDownRight = new Animation(60, Assets.playerDownRight);
+        animDownLeft = new Animation(60, Assets.playerDownLeft);
 
         // INVENTORY
         inventory = new Inventory(handler);
@@ -60,6 +69,10 @@ public class Player extends Creature {
         animUp.tick();
         animLeft.tick();
         animRight.tick();
+        animUpRight.tick();
+        animUpLeft.tick();
+        animDownRight.tick();
+        animDownLeft.tick();
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
@@ -170,7 +183,15 @@ public class Player extends Creature {
         // Horizontal (x axis) over vertical (y axis).
 
         // ANIMATION MOVEMENTS
-        if (xMove < 0) {                                // Moving left.
+        if (yMove < 0 && xMove > 0) {                   // Moving up-right.
+            return animUpRight.getCurrentFrame();
+        } else if (yMove < 0 && xMove < 0) {            // Moving up-left.
+            return animUpLeft.getCurrentFrame();
+        } else if (yMove > 0 && xMove > 0) {            // Moving down-right.
+            return animDownRight.getCurrentFrame();
+        } else if (yMove > 0 && xMove < 0) {            // Moving down-left.
+            return animDownLeft.getCurrentFrame();
+        } else if (xMove < 0) {                         // Moving left.
             return animLeft.getCurrentFrame();
         } else if (xMove > 0) {                         // Moving right.
             return animRight.getCurrentFrame();

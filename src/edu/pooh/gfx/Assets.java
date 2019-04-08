@@ -175,6 +175,41 @@ public class Assets {
         playerDownLeft = new BufferedImage[11];
         playerDownLeft[0] = sheet.crop(20, 1375, 24, 33);
         playerDownLeft[1] = sheet.crop(65, 1373, 23, 35);
+        playerDownLeft[2] = sheet.crop(108, 1372, 21, 36);
+        playerDownLeft[3] = sheet.crop(147, 1373, 20, 37);
+        playerDownLeft[4] = sheet.crop(185, 1372, 19, 36);
+        playerDownLeft[5] = sheet.crop(228, 1374, 18, 34);
+        playerDownLeft[6] = sheet.crop(269, 1376, 19, 32);
+        playerDownLeft[7] = sheet.crop(303, 1374, 23, 34);
+        playerDownLeft[8] = sheet.crop(349, 1373, 26, 35);
+        playerDownLeft[9] = sheet.crop(391, 1373, 27, 35);
+        playerDownLeft[10] = sheet.crop(431, 1375, 25, 33);
+
+        playerUpRight = new BufferedImage[11];
+        playerUpRight[0] = sheet.crop(20, 1428, 22, 36);
+        playerUpRight[1] = sheet.crop(66, 1427, 20, 37);
+        playerUpRight[2] = sheet.crop(108, 1426, 20, 38);
+        playerUpRight[3] = sheet.crop(148, 1427, 19, 37);
+        playerUpRight[4] = sheet.crop(185, 1426, 18, 38);
+        playerUpRight[5] = sheet.crop(226, 1426, 20, 38);
+        playerUpRight[6] = sheet.crop(265, 1425, 24, 39);
+        playerUpRight[7] = sheet.crop(300, 1426, 26, 38);
+        playerUpRight[8] = sheet.crop(347, 1426, 25, 38);
+        playerUpRight[9] = sheet.crop(393, 1427, 24, 37);
+        playerUpRight[10] = sheet.crop(430, 1429, 26, 35);
+
+        playerUpLeft = new BufferedImage[11];
+        playerUpLeft[0] = sheet.crop(20, 1493, 22, 36);
+        playerUpLeft[1] = sheet.crop(66, 1492, 20, 37);
+        playerUpLeft[2] = sheet.crop(108, 1491, 20, 38);
+        playerUpLeft[3] = sheet.crop(148, 1492, 19, 37);
+        playerUpLeft[4] = sheet.crop(185, 1491, 18, 38);
+        playerUpLeft[5] = sheet.crop(226, 1491, 20, 38);
+        playerUpLeft[6] = sheet.crop(265, 1490, 24, 39);
+        playerUpLeft[7] = sheet.crop(300, 1491, 26, 38);
+        playerUpLeft[8] = sheet.crop(347, 1491, 25, 38);
+        playerUpLeft[9] = sheet.crop(393, 1492, 24, 37);
+        playerUpLeft[10] = sheet.crop(430, 1494, 26, 35);
     }
 
 } // **** end Assets class ****
