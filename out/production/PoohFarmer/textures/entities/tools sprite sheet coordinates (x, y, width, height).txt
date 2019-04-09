@@ -1,0 +1,29 @@
+watercan
+6, 10, 16, 12
+
+scythe
+22, 8, 16, 14
+
+shovel
+38, 6, 14, 16
+
+hammer
+54, 8, 15, 14
+
+axe
+71, 7, 13, 15
+
+goldsprinkler
+7, 26, 15, 12
+
+goldscythe
+22, 24, 16, 14
+
+goldshovel
+39, 22, 13, 16
+
+goldaxe
+54, 22, 15, 16
+
+goldhammer
+70, 23, 16, 15
