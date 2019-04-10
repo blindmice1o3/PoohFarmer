@@ -12,14 +12,34 @@ public class Tile {
     public static Tile[] tiles = new Tile[256];
         // isSolid()
     public static Tile dirtNormalTile = new Tile(Assets.dirtNormal, 0);
-    public static Tile fenceTile = new Tile(Assets.fence, 1);
+    public static Tile fenceTile = new Tile(Assets.fence, 1) {
+        @Override
+        public boolean isSolid() {
+            return true;
+        }
+    };
     public static Tile dirtWalkway = new Tile(Assets.dirtWalkway, 2);
         //not really a Tile? more of a StaticEntity?
-    public static Tile signPostTile = new Tile(Assets.signPost, 3);
+    public static Tile signPostTile = new Tile(Assets.signPost, 3) {
+        @Override
+        public boolean isSolid() {
+            return true;
+        }
+    };
         // Multiple-spanning-Tile top-left corner Tiles. Soon to be changed to individual tiles.
-    public static Tile home5x4 = new Tile(Assets.home5x4[0][0], 8);
+    public static Tile home5x4 = new Tile(Assets.home5x4[0][0], 8) {
+        @Override
+        public boolean isSolid() {
+            return true;
+        }
+    };
         // Null Tile with overridden render(Graphics, int, int) method.
-    public static Tile nullTile = new NullTile(9);
+    public static Tile nullTile = new Tile(null,9) {
+        @Override
+        public boolean isSolid() {
+            return true;
+        }
+    };
 
     // CLASS
 
