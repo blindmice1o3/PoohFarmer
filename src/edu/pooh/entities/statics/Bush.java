@@ -36,7 +36,7 @@ public class Bush extends StaticEntity {
 
     @Override
     public void die() {
-        handler.getWorld().getItemManager().addItem(Item.plantSproutlingItem.createNew((int)x, (int)y));
+        //handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
     }
 
 } // **** end Bush class ****

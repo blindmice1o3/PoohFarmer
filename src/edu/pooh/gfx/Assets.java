@@ -12,6 +12,8 @@ public class Assets {
     // FONT
     public static Font font28;
 
+
+
     // SINGLE (/TILES)
     public static BufferedImage dirtNormal, fence, dirtWalkway, signPost;
     // SINGLE (-CURRENTLY UNUSED).
@@ -23,10 +25,16 @@ public class Assets {
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
-            stable2x3, building2x3;
+            stable2x3, building2x3, chest2x2, poolWater2x2, poolWater3x3;
 
     // SPANNING MULTIPLE-TILE (/ENTITIES)
-    public static BufferedImage[][] chest2x2, boulder2x2, treeStump2x2, poolWater2x2, poolWater3x3;
+    public static BufferedImage[][] boulder2x2, treeStump2x2;
+
+
+    // ITEMS (/TOOLS)
+    public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
+            goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
+
 
     // SINGLE (/ENTITIES/CREATURES/PLAYER)
     public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault,
@@ -34,8 +42,12 @@ public class Assets {
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft,
                                 playerDownRight, playerDownLeft, playerUpRight, playerUpLeft;
 
+
+
     // INVENTORY
     public static BufferedImage inventoryScreen;
+
+
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
@@ -175,6 +187,20 @@ public class Assets {
                         (15 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
             }
         }
+
+        // ******************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Tools.png"));
+        wateringCan = sheet.crop(6, 10, 16, 12);
+        scythe = sheet.crop(22, 8, 16, 14);
+        shovel = sheet.crop(38, 6, 14, 16);
+        hammer = sheet.crop(54, 8, 15, 14);
+        axe = sheet.crop(71, 7, 13, 15);
+        goldSprinkler = sheet.crop(7, 26, 15, 12);
+        goldScythe = sheet.crop(22, 24, 16, 14);
+        goldShovel = sheet.crop(39, 22, 13, 16);
+        goldAxe = sheet.crop(54, 22, 15, 16);
+        goldHammer = sheet.crop(70, 23, 16, 15);
 
         // ******************************************
 

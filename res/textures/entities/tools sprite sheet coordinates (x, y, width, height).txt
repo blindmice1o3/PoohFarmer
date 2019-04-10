@@ -1,4 +1,4 @@
-watercan
+wateringCan
 6, 10, 16, 12
 
 scythe
@@ -13,18 +13,18 @@ hammer
 axe
 71, 7, 13, 15
 
-goldsprinkler
+goldSprinkler
 7, 26, 15, 12
 
-goldscythe
+goldScythe
 22, 24, 16, 14
 
-goldshovel
+goldShovel
 39, 22, 13, 16
 
-goldaxe
+goldAxe
 54, 22, 15, 16
 
-goldhammer
+goldHammer
 70, 23, 16, 15
 

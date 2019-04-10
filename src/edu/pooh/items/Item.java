@@ -11,10 +11,17 @@ public class Item {
     // HANDLER (like the Tile[] array from the Tile class).
 
     public static Item[] items = new Item[256];
-    public static Item plantSproutlingItem = new Item(Assets.plantSproutling, "plantSproutling", 0);
-    public static Item plantJuvenilleItem = new Item(Assets.plantJuvenille, "plantJuvenille", 1);
-    public static Item plantAdultItem = new Item(Assets.plantAdult, "plantAdult", 2);
-
+    public static Item wateringCanItem = new Item(Assets.wateringCan, "wateringCan", 0);
+    public static Item scytheItem = new Item(Assets.scythe, "scythe", 1);
+    public static Item shovelItem = new Item(Assets.shovel, "shovel", 2);
+    public static Item hammerItem = new Item(Assets.hammer, "hammer", 3);
+    public static Item axeItem = new Item(Assets.axe, "axe", 4);
+    public static Item goldSprinklerItem = new Item(Assets.goldSprinkler, "goldSprinkler", 5);
+    public static Item goldScytheItem = new Item(Assets.goldScythe, "goldScythe", 6);
+    public static Item goldShovelItem = new Item(Assets.goldShovel, "goldShovel", 7);
+    public static Item goldAxeItem = new Item(Assets.goldAxe, "goldAxe", 8);
+    public static Item goldHammerItem = new Item(Assets.goldHammer, "goldHammer", 9);
+    
     // CLASS
 
     public static final int ITEM_WIDTH = 32;

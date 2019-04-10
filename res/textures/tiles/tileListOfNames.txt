@@ -5,9 +5,9 @@
 
  - dirtHoe
  - dirtSeed
-Item.plantSproutlingItem - plantSproutling
-Item.plantJuvenilleItem - plantJuvenille
-Item.plantAdultItem - plantAdult
+ - plantSproutling
+ - plantJuvenille
+ - plantAdult
 StaticEntity.Bush - plantFlowering1
  - plantFlowering2
 StaticEntity.Rock - rock

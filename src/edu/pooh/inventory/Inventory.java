@@ -32,9 +32,7 @@ public class Inventory {
         this.handler = handler;
         inventoryItems = new ArrayList<Item>();
 
-        addItem(Item.plantAdultItem.createNew(5));
-        addItem(Item.plantJuvenilleItem.createNew(3));
-        addItem(Item.plantSproutlingItem.createNew(2));
+        addItem(Item.scytheItem.createNew(1));
     } // **** end Inventory(Handler) constructor ****
 
     public void tick() {

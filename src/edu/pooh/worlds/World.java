@@ -4,6 +4,7 @@ import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
 import edu.pooh.entities.statics.Rock;
+import edu.pooh.items.Item;
 import edu.pooh.items.ItemManager;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
@@ -37,9 +38,19 @@ public class World {
         itemManager = new ItemManager(handler);
         entityManager.addEntity(new Bush(handler, 320, 1150));
         entityManager.addEntity(new Bush(handler, 320, 1250));
-        entityManager.addEntity(new Bush(handler, 320, 1350));
+        entityManager.addEntity(new Bush(handler, 320, 1350) {
+            @Override
+            public void die() {
+                handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
+            }
+        });
         entityManager.addEntity(new Rock(handler, 192, 1150));
-        entityManager.addEntity(new Rock(handler, 192, 1250));
+        entityManager.addEntity(new Rock(handler, 192, 1250) {
+            @Override
+            public void die() {
+                handler.getWorld().getItemManager().addItem(Item.wateringCanItem.createNew((int)x, (int)y));
+            }
+        });
         entityManager.addEntity(new Rock(handler, 192, 1350));
 
 
