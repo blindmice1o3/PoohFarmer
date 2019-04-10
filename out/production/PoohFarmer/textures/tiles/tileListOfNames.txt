@@ -17,11 +17,11 @@
 16 - stable2x3
 17 - poolWater3x3
 18 - building2x3
-19 - home5x4
-20 - cowBarn5x5
-21 - silos5x6
-22 - chickenCoop4x5
-23 - toolShed5x5
+19 - home5x4		20
+20 - cowBarn5x5		25
+21 - silos5x6		30
+22 - chickenCoop4x5	20
+23 - toolShed5x5		25
 
 
 24 tiles down - wood (border) (including)
