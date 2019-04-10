@@ -1,27 +1,54 @@
 0 - dirtNormal
-1 - dirtHoe
-2 - dirtSeed
-3 - plantSproutling
-4 - plantJuvenille
-5 - plantAdult
-6 - dirtWalkway
-7 - plantFlowering1
-8 - plantFlowering2
-9 - rock
-10 - wood
-11 - sign
-12 - fence
-13 - boulder2x2
-14 - treeStump2x2
-15 - poolWater2x2
-16 - stable2x3
-17 - poolWater3x3
-18 - building2x3
-19 - home5x4		20
-20 - cowBarn5x5		25
-21 - silos5x6		30
-22 - chickenCoop4x5	20
-23 - toolShed5x5		25
+1 - fence
+2 - dirtWalkway
+3 - signPost
+
+ - dirtHoe
+ - dirtSeed
+Item.plantSproutlingItem - plantSproutling
+Item.plantJuvenilleItem - plantJuvenille
+Item.plantAdultItem - plantAdult
+StaticEntity.Bush - plantFlowering1
+ - plantFlowering2
+StaticEntity.Rock - rock
+ - wood
+
+
+ - boulder2x2		 4
+ - treeStump2x2		 4
+
+
+100-119 - home5x4		20
+120-144 - cowBarn5x5	25
+145-174 - silos5x6		30
+175-194 - chickenCoop4x5	20
+195-219 - toolShed5x5	25
+220-225 - stable2x3		 6
+226-231 - building2x3	 6
+232-235 - chest2x2		 4
+236-239 - poolWater2x2	 4
+240-248 - poolWater3x3	 9
+
+idMultiTiles BEFORE home5x4: 100
+idMultiTiles AFTER home5x4: 120
+idMultiTiles BEFORE cowBarn5x5: 120
+idMultiTiles AFTER cowBarn5x5: 145
+idMultiTiles BEFORE silos5x6: 145
+idMultiTiles AFTER silos5x6: 175
+idMultiTiles BEFORE chickenCoop4x5: 175
+idMultiTiles AFTER chickenCoop4x5: 195
+idMultiTiles BEFORE toolShed5x5: 195
+idMultiTiles AFTER toolShed5x5: 220
+idMultiTiles BEFORE stable2x3: 220
+idMultiTiles AFTER stable2x3: 226
+idMultiTiles BEFORE building2x3: 226
+idMultiTiles AFTER building2x3: 232
+idMultiTiles BEFORE chest2x2: 232
+idMultiTiles AFTER chest2x2: 236
+idMultiTiles BEFORE poolWater2x2: 236
+idMultiTiles AFTER poolWater2x2: 240
+idMultiTiles BEFORE poolWater3x3: 240
+idMultiTiles AFTER poolWater3x3: 249
 
 
 24 tiles down - wood (border) (including)

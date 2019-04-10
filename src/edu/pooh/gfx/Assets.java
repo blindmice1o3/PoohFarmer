@@ -12,14 +12,23 @@ public class Assets {
     // FONT
     public static Font font28;
 
-    // TEXTURES (/TILES)
-    public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
+    // SINGLE (/TILES)
+    public static BufferedImage dirtNormal, fence, dirtWalkway, signPost;
+    // SINGLE (-CURRENTLY UNUSED).
+    public static BufferedImage dirtHoe, dirtSeed, plantFlowering2, wood;
+    // SINGLE (/ITEMS)
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
-    public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
-    public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5;
-    public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
+    // SINGLE (/ENTITIES)
+    public static BufferedImage plantFlowering1, rock;
 
-    // GAME OBJECT (/ENTITIES)
+    // SPANNING MULTIPLE-TILE (/TILES)
+    public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
+            stable2x3, building2x3;
+
+    // SPANNING MULTIPLE-TILE (/ENTITIES)
+    public static BufferedImage[][] chest2x2, boulder2x2, treeStump2x2, poolWater2x2, poolWater3x3;
+
+    // SINGLE (/ENTITIES/CREATURES/PLAYER)
     public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault,
             playerDownRightDefault, playerDownLeftDefault, playerUpRightDefault, playerUpLeftDefault;
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft,
@@ -74,35 +83,98 @@ public class Assets {
         home5x4 = new BufferedImage[4][5];
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 5; x++) {
-                home5x4[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL, y * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL,1 * HEIGHT_IN_PIXEL);
+                home5x4[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL,
+                        (0 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL,1 * HEIGHT_IN_PIXEL);
             }
         }
 
-        /*
-        home5x4 = sheet.crop(2 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
-                5 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL);
-        cowBarn5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
-                5 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
-        silos5x6 = sheet.crop(2 * WIDTH_IN_PIXEL, 9 * HEIGHT_IN_PIXEL,
-                5 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL);
-        chickenCoop4x5 = sheet.crop(3 * WIDTH_IN_PIXEL, 15 * HEIGHT_IN_PIXEL,
-                4 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
-        toolShed5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 20 * HEIGHT_IN_PIXEL,
-                5 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
-        */
+        cowBarn5x5 = new BufferedImage[5][5];
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                cowBarn5x5[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL,
+                        (4 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
 
-        boulder2x2 = sheet.crop(0, 8 * HEIGHT_IN_PIXEL,
-                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
-        treeStump2x2 = sheet.crop(0, 10 * HEIGHT_IN_PIXEL,
-                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
-        poolWater2x2 = sheet.crop(0, 12 * HEIGHT_IN_PIXEL,
-                2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);
-        stable2x3 = sheet.crop(0, 14 * HEIGHT_IN_PIXEL,
-                2 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
-        poolWater3x3 = sheet.crop(0, 17 * HEIGHT_IN_PIXEL,
-                3 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
-        building2x3 = sheet.crop(0, 20 * HEIGHT_IN_PIXEL,
-                2 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL);
+        silos5x6 = new BufferedImage[6][5];
+        for (int y = 0; y < 6; y++) {
+            for (int x = 0; x < 5; x++) {
+                silos5x6[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL,
+                        (9 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        chickenCoop4x5 = new BufferedImage[5][4];
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 4; x++) {
+                chickenCoop4x5[y][x] = sheet.crop((3 + x) * WIDTH_IN_PIXEL,
+                        (15 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        toolShed5x5 = new BufferedImage[5][5];
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                toolShed5x5[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL,
+                        (20 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        stable2x3 = new BufferedImage[3][2];
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 2; x++) {
+                stable2x3[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (19 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        building2x3 = new BufferedImage[3][2];
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 2; x++) {
+                building2x3[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (22 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        chest2x2 = new BufferedImage[2][2];
+        for (int y = 0; y < 2; y++) {
+            for (int x = 0; x < 2; x++) {
+                chest2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (7 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        boulder2x2 = new BufferedImage[2][2];
+        for (int y = 0; y < 2; y++) {
+            for (int x = 0; x < 2; x++) {
+                boulder2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (9 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        treeStump2x2 = new BufferedImage[2][2];
+        for (int y = 0; y < 2; y++) {
+            for (int x = 0; x < 2; x++) {
+                treeStump2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (11 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        poolWater2x2 = new BufferedImage[2][2];
+        for (int y = 0; y < 2; y++) {
+            for (int x = 0; x < 2; x++) {
+                poolWater2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (13 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        poolWater3x3 = new BufferedImage[3][3];
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                poolWater3x3[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                        (15 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
+            }
+        }
 
         // ******************************************
 
