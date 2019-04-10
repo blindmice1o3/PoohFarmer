@@ -73,10 +73,16 @@ public class Player extends Creature {
         animUpLeft.tick();
         animDownRight.tick();
         animDownLeft.tick();
+
+
+
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
+
+
+
         // ATTACK
         checkAttacks();
         // INVENTORY

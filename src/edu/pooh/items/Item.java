@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Item {
 
-    // HANDLER (like the Tile[] array from the Tile class.
+    // HANDLER (like the Tile[] array from the Tile class).
 
     public static Item[] items = new Item[256];
     public static Item plantSproutlingItem = new Item(Assets.plantSproutling, "plantSproutling", 0);

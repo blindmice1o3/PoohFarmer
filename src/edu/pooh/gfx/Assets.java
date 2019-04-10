@@ -16,7 +16,7 @@ public class Assets {
     public static BufferedImage dirtNormal, dirtHoe, dirtSeed;
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
     public static BufferedImage plantFlowering1, plantFlowering2, rock, wood, signPost, fence, dirtWalkway;
-    public static BufferedImage home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5;
+    public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5;
     public static BufferedImage boulder2x2, treeStump2x2, poolWater2x2, stable2x3, poolWater3x3, building2x3;
 
     // GAME OBJECT (/ENTITIES)
@@ -71,6 +71,14 @@ public class Assets {
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
 
+        home5x4 = new BufferedImage[4][5];
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 5; x++) {
+                home5x4[y][x] = sheet.crop((2 + x) * WIDTH_IN_PIXEL, y * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL,1 * HEIGHT_IN_PIXEL);
+            }
+        }
+
+        /*
         home5x4 = sheet.crop(2 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
                 5 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL);
         cowBarn5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
@@ -81,6 +89,7 @@ public class Assets {
                 4 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
         toolShed5x5 = sheet.crop(2 * WIDTH_IN_PIXEL, 20 * HEIGHT_IN_PIXEL,
                 5 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL);
+        */
 
         boulder2x2 = sheet.crop(0, 8 * HEIGHT_IN_PIXEL,
                 2 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL);

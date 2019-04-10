@@ -43,7 +43,7 @@ public class World {
         entityManager.addEntity(new Rock(handler, 192, 1350));
 
 
-        loadWorld(path);
+        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
 
         entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
         entityManager.getPlayer().setY(spawnY * Tile.TILE_HEIGHT);  //convert number of tiles to pixels.
