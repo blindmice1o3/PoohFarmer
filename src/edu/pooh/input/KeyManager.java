@@ -6,8 +6,12 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 
     private boolean[] keys, justPressed, cantPress;
+    // MOVEMENT
     public boolean up, down, left, right;
+    // ATTACK
     public boolean aUp, aDown, aLeft, aRight;
+    // TOOL (INVOKABLE) (A/B BUTTONS)
+    public boolean aButton, bButton;
 
     public KeyManager() {
         keys = new boolean[256];
@@ -41,6 +45,9 @@ public class KeyManager implements KeyListener {
         aDown = keys[KeyEvent.VK_DOWN];
         aLeft = keys[KeyEvent.VK_LEFT];
         aRight = keys[KeyEvent.VK_RIGHT];
+
+        aButton = keys[KeyEvent.VK_PERIOD];
+        bButton = keys[KeyEvent.VK_COMMA];
     }
 
     public boolean keyJustPressed(int keyCode) {

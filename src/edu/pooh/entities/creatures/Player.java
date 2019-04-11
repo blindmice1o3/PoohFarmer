@@ -4,6 +4,8 @@ import edu.pooh.entities.Entity;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
+import edu.pooh.items.Item;
+import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -28,6 +30,8 @@ public class Player extends Creature {
 
     // INVENTORY
     private Inventory inventory;
+
+    //
 
     // MELEE ATTACK
     private Rectangle cb;
@@ -159,6 +163,10 @@ public class Player extends Creature {
         if (handler.getKeyManager().down) { yMove = speed; }
         if (handler.getKeyManager().left) { xMove = -speed; }
         if (handler.getKeyManager().right) { xMove = speed; }
+
+        // TOOL (A/B BUTTONS)
+        if (handler.getKeyManager().aButton) { inventory.incrementSelectedItem(); }
+        if (handler.getKeyManager().bButton) { inventory.getItem(inventory.getSelectedItem()).execute(); }
     }
 
     @Override
@@ -173,6 +181,13 @@ public class Player extends Creature {
             g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
                     (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
         }
+
+        // HUD (Head-Up-Display)
+        g.setColor(Color.BLUE);
+        g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
+                (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
+        g.drawImage( inventory.getItem(inventory.getSelectedItem()).getTexture(),
+                (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25, Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
 
         // COLLISION BOX
         //g.setColor(Color.RED);

@@ -1,17 +1,18 @@
 package edu.pooh.items;
 
+import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Item {
+public class Item implements Invokable {
 
     // HANDLER (like the Tile[] array from the Tile class).
 
     public static Item[] items = new Item[256];
-    public static Item wateringCanItem = new Item(Assets.wateringCan, "wateringCan", 0);
     public static Item scytheItem = new Item(Assets.scythe, "scythe", 1);
     public static Item shovelItem = new Item(Assets.shovel, "shovel", 2);
     public static Item hammerItem = new Item(Assets.hammer, "hammer", 3);
@@ -47,6 +48,10 @@ public class Item {
 
         items[id] = this;
     } // **** end Item(BufferedImage, String, int) constructor ****
+
+    public void execute() {
+
+    }
 
     public void tick() {
         if (handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {

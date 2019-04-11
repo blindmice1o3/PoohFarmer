@@ -102,6 +102,14 @@ public abstract class Creature extends Entity {
 
     // GETTERS & SETTERS
 
+    public DirectionFacing getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(DirectionFacing currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
     public int getHealth() {
         return health;
     }

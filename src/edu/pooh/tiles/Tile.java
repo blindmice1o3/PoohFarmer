@@ -168,8 +168,6 @@ public class Tile {
 
     } // @@@@ end static initialization block @@@@
 
-    public static Tile nullTile = new Tile(null,9);
-
     // CLASS
 
     public static final int TILE_WIDTH = 64;
@@ -200,6 +198,10 @@ public class Tile {
 
     public int getId() {
         return id;
+    }
+
+    public void setTexture(BufferedImage texture) {
+        this.texture = texture;
     }
 
 } // **** end Tile class ****

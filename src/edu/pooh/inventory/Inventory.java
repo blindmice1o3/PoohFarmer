@@ -35,6 +35,16 @@ public class Inventory {
         addItem(Item.scytheItem.createNew(1));
     } // **** end Inventory(Handler) constructor ****
 
+    public void incrementSelectedItem() {
+        selectedItem++;
+
+        if (selectedItem >= inventoryItems.size()) {
+            selectedItem = 0;
+        }
+
+        System.out.println("selectedItem incremented.");
+    }
+
     public void tick() {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
             active = !active;
@@ -103,6 +113,14 @@ public class Inventory {
     }
 
     // GETTERS & SETTERS
+
+    public Item getItem(int index) {
+        return inventoryItems.get(index);
+    }
+
+    public int getSelectedItem() {
+        return selectedItem;
+    }
 
     public boolean isActive() {
         return active;
