@@ -3,6 +3,7 @@ package edu.pooh.inventory;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -32,7 +33,8 @@ public class Inventory {
         this.handler = handler;
         inventoryItems = new ArrayList<Item>();
 
-        addItem(Item.scytheItem.createNew(1));
+        addItem(WateringCan.getUniqueInstance(handler));
+        inventoryItems.get(0).setPickedUp(true);
     } // **** end Inventory(Handler) constructor ****
 
     public void incrementSelectedItem() {

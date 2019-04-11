@@ -200,6 +200,10 @@ public class Tile {
         return id;
     }
 
+    public BufferedImage getTexture() {
+        return texture;
+    }
+
     public void setTexture(BufferedImage texture) {
         this.texture = texture;
     }

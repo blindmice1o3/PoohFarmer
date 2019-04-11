@@ -1,44 +1,41 @@
 package edu.pooh.items;
 
-import edu.pooh.entities.creatures.Creature;
-import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Item implements Invokable {
-
-    // HANDLER (like the Tile[] array from the Tile class).
-
-    public static Item[] items = new Item[256];
-    public static Item scytheItem = new Item(Assets.scythe, "scythe", 1);
-    public static Item shovelItem = new Item(Assets.shovel, "shovel", 2);
-    public static Item hammerItem = new Item(Assets.hammer, "hammer", 3);
-    public static Item axeItem = new Item(Assets.axe, "axe", 4);
-    public static Item goldSprinklerItem = new Item(Assets.goldSprinkler, "goldSprinkler", 5);
-    public static Item goldScytheItem = new Item(Assets.goldScythe, "goldScythe", 6);
-    public static Item goldShovelItem = new Item(Assets.goldShovel, "goldShovel", 7);
-    public static Item goldAxeItem = new Item(Assets.goldAxe, "goldAxe", 8);
-    public static Item goldHammerItem = new Item(Assets.goldHammer, "goldHammer", 9);
-    
-    // CLASS
+public abstract class Item implements Invokable {
 
     public static final int ITEM_WIDTH = 32;
     public static final int ITEM_HEIGHT = 32;
 
+    public enum ID {
+        WATERING_CAN,
+        SHOVEL,
+        SCYTHE,
+        HAMMER,
+        AXE,
+        GOLD_SPRINKLER,
+        GOLD_SHOVEL,
+        GOLD_SCYTHE,
+        GOLD_HAMMER,
+        GOLD_AXE;
+    }
+
+    // CLASS
+
     protected Handler handler;
     protected BufferedImage texture;
     protected String name;
-    protected final int id;
+    protected final ID id;
 
     protected Rectangle bounds;
 
     protected int x, y, count;
     protected boolean pickedUp = false;
 
-    public Item(BufferedImage texture, String name, int id) {
+    public Item(BufferedImage texture, String name, ID id) {
         this.texture = texture;
         this.name = name;
         this.id = id;
@@ -46,16 +43,13 @@ public class Item implements Invokable {
 
         bounds = new Rectangle(x, y, ITEM_WIDTH, ITEM_HEIGHT);
 
-        items[id] = this;
     } // **** end Item(BufferedImage, String, int) constructor ****
 
-    public void execute() {
-
-    }
+    public abstract void execute();
 
     public void tick() {
         if (handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
-            pickedUp = true;
+            pickedUp = true;    // ItemManager uses this boolean flag to remove it from the World.
             handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
         }
     }
@@ -70,22 +64,6 @@ public class Item implements Invokable {
 
     public void render(Graphics g, int x, int y) {
         g.drawImage(texture, x, y, ITEM_WIDTH, ITEM_HEIGHT, null);
-    }
-
-    /**
-     * only for testing purposes, will not be used in the game.
-     */
-    public Item createNew(int count) {
-        Item i = new Item(texture, name, id);
-        i.setPickedUp(true);
-        i.setCount(count);
-        return i;
-    }
-
-    public Item createNew(int x, int y) {
-        Item i = new Item(texture, name, id);
-        i.setPosition(x, y);
-        return i;
     }
 
     public void setPosition(int x, int y) {
@@ -129,7 +107,7 @@ public class Item implements Invokable {
         this.name = name;
     }
 
-    public int getId() {
+    public ID getId() {
         return id;
     }
 

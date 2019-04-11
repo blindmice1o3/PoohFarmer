@@ -165,8 +165,8 @@ public class Player extends Creature {
         if (handler.getKeyManager().right) { xMove = speed; }
 
         // TOOL (A/B BUTTONS)
-        if (handler.getKeyManager().aButton) { inventory.incrementSelectedItem(); }
-        if (handler.getKeyManager().bButton) { inventory.getItem(inventory.getSelectedItem()).execute(); }
+        if (handler.getKeyManager().aButton) { inventory.incrementSelectedItem(); } //iterate.
+        if (handler.getKeyManager().bButton) { inventory.getItem(inventory.getSelectedItem()).execute(); } //invoke.
     }
 
     @Override

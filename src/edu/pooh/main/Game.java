@@ -56,7 +56,7 @@ public class Game {
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        StateManager.setCurrentState(menuState);
+        StateManager.setCurrentState(gameState);
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
