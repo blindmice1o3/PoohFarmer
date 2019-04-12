@@ -45,7 +45,9 @@ public abstract class Entity {
 
     public boolean checkEntityCollision(float xOffset, float yOffset) {
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            if (e.equals(this)) { continue; }
+            if (e.equals(this) || e.equals(handler.getWorld().getEntityManager().getPlayer().getHoldableObject())) {
+                continue;
+            }
 
             if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
                 return true;

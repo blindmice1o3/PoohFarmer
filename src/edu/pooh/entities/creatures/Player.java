@@ -9,6 +9,9 @@ import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
+import edu.pooh.main.Holdable;
+import edu.pooh.tiles.DirtNormalTile;
+import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -34,10 +37,14 @@ public class Player extends Creature {
     // INVENTORY
     private Inventory inventory;
 
-    //
+    // HOLDING (composed with Holdable type)
+    private Holdable holdableObject;
+    private Rectangle hr; // holding-rectangle
+    private int hrSize = 30;
+    private boolean holding = false;
 
     // MELEE ATTACK
-    private Rectangle cb;
+    private Rectangle cb; // player's collision/bounding box
     private Rectangle ar; // attack-rectangle
     private int arSize = 20;
     private boolean attacking = false;
@@ -62,6 +69,12 @@ public class Player extends Creature {
 
         // INVENTORY
         inventory = new Inventory(handler);
+
+        // HOLDING
+        holdableObject = null;
+        hr = new Rectangle();
+        hr.width = hrSize;
+        hr.height = hrSize;
 
         // MELEE ATTACK
         ar = new Rectangle();
@@ -91,7 +104,12 @@ public class Player extends Creature {
 
 
         // ATTACK
-        checkAttacks();
+        if (!holding) {
+            checkAttacks();
+        } else if (holdableObject != null) {                // HOLDING
+            holdableObject.setPosition(x + 5, y + 15);
+        }
+
         // INVENTORY
         inventory.tick();
     }
@@ -167,13 +185,114 @@ public class Player extends Creature {
         if (handler.getKeyManager().left) { xMove = -speed; }
         if (handler.getKeyManager().right) { xMove = speed; }
 
-        // A/B BUTTONS
+
+
+        // B BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
             inventory.incrementSelectedItem();
         }
+
+        // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
-            inventory.getItem(inventory.getSelectedItem()).execute();
+            // HOLDING CHECK
+            if (holding) {      // Already holding, can only drop the holdableObject.
+                if (checkDropableTile()) {
+                    holdableObject.dropped(getTileCurrentlyFacing());
+                    setHoldableObject(null);
+                    holding = false;
+                }
+                return;
+            } else {            // Not holding Holdable.
+                if (checkForHoldable()) {       // Check if Holdable in front, pick up if true.
+
+                    setHoldableObject( pickUpHoldable() );
+                    holdableObject.pickedUp();
+                    holding = true;
+                } else {                        // Not holding Holdable, no Holdable in front, use selected item.
+
+                    /////////////////////////////////////////////////////////
+                    inventory.getItem(inventory.getSelectedItem()).execute();
+                    /////////////////////////////////////////////////////////
+                }
+            }
         }
+    }
+
+    private boolean checkDropableTile() {
+        // If DirtNormalTile or chest.
+        if ((getTileCurrentlyFacing() instanceof DirtNormalTile) ||
+                (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void setHRPosition() {
+        cb = getCollisionBounds(0, 0);    // player's collision box (center square)
+
+        // Setting the coordinate of the holding rectangle
+        switch (currentDirection) {
+            case UP:
+                hr.x = cb.x + (cb.width / 2) - (hrSize / 2);   // center x coordinate of our player's collision box
+                hr.y = cb.y - hrSize;
+                break;
+            case DOWN:
+                hr.x = cb.x + (cb.width / 2) - (hrSize / 2);   // center x coordinate of our player's collision box
+                hr.y = cb.y + cb.height;
+                break;
+            case LEFT:
+                hr.x = cb.x - hrSize;
+                hr.y = cb.y + (cb.height / 2) - (hrSize / 2);  // center y coordinate of collision box
+                break;
+            case RIGHT:
+                hr.x = cb.x + cb.width;
+                hr.y = cb.y + (cb.height / 2) - (hrSize / 2);  // center y coordinate of collision box
+                break;
+            default: // if not facing UDLR-directions, give bottom-left tile of the world map.
+                hr.x = 0;
+                hr.y = handler.getWorld().getHeight() - Tile.TILE_HEIGHT;
+                break;
+        }
+    }
+
+    private Holdable pickUpHoldable() {
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+            // If the player, skip the rest of the code, move on to the next Entity in the entities ArrayList.
+            if (e.equals(this)) { continue; }
+
+            // We have an Entity object that isn't the player, check if it intersects with the holding rectangle.
+            if (e.getCollisionBounds(0, 0).intersects(hr)) {
+                if (e instanceof Holdable) {
+                    //////
+                    return (Holdable)e;
+                }
+            }
+        }
+        return null;
+    }
+
+    private boolean checkForHoldable() {
+        setHRPosition();
+
+        // The above holding rectangle coordinates were set to some UDLR-directional values
+        if (hr.y != (handler.getWorld().getHeight() - Tile.TILE_HEIGHT)) {
+
+            for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+                // If the player, skip the rest of the code, move on to the next Entity in the entities ArrayList.
+                if (e.equals(this)) { continue; }
+
+                // We have an Entity object that isn't the player, check if it intersects with the holding rectangle.
+                if (e.getCollisionBounds(0, 0).intersects(hr)) {
+                    if (e instanceof Holdable) {
+                        System.out.print("Holdable object in front of player.");
+                        return true;
+                    }
+                }
+            }
+
+        }
+
+        return false;
     }
 
     @Override
@@ -270,6 +389,22 @@ public class Player extends Creature {
     }
 
     // GETTERS & SETTERS
+
+    public Holdable getHoldableObject() {
+        return holdableObject;
+    }
+
+    public void setHoldableObject(Holdable holdableObject) {
+        this.holdableObject = holdableObject;
+    }
+
+    public boolean getHolding() {
+        return holding;
+    }
+
+    public void setHolding(boolean holding) {
+        this.holding = holding;
+    }
 
     public Inventory getInventory() {
         return inventory;

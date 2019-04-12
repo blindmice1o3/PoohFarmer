@@ -138,6 +138,10 @@ public class World {
         }
     }
 
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
     public int getWidth() {
         return widthInTiles;
     }

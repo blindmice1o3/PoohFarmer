@@ -1,4 +1,4 @@
-package edu.pooh.items;
+package edu.pooh.main;
 
 
 public interface Invokable {
