@@ -13,6 +13,8 @@ public class EntityManager {
     private Handler handler;
     private Player player;
     private ArrayList<Entity> entities;
+    private boolean toBeAdded;
+    private ArrayList<Entity> entitiesToBeAdded;
     private Comparator<Entity> renderSorter = new Comparator<Entity>(){     // Comparator to pass into ArrayList's
         @Override                                                           // sort(Comparator) method.
         public int compare(Entity a, Entity b) {
@@ -29,6 +31,10 @@ public class EntityManager {
         this.player = player;
         entities = new ArrayList<Entity>();
         addEntity(player);
+
+
+        toBeAdded = false;
+        entitiesToBeAdded = new ArrayList<Entity>();
     } // **** end EntityManager(Handler, Player) constructor ****
 
     public void tick() {
@@ -41,6 +47,12 @@ public class EntityManager {
                 iterator.remove();
             }
         }
+        if (toBeAdded) {
+            entities.addAll(entitiesToBeAdded);
+            toBeAdded = false;
+            entitiesToBeAdded.clear();
+        }
+
         entities.sort(renderSorter);    // Sort the collection of Entity objects based on y-coordinate values.
     }
 
@@ -59,6 +71,18 @@ public class EntityManager {
     }
 
     // GETTERS & SETTERS
+
+    public ArrayList<Entity> getEntitiesToBeAdded() { return entitiesToBeAdded; }
+
+    public void setEntitiesToBeAdded(ArrayList<Entity> entitiesToBeAdded) { this.entitiesToBeAdded = entitiesToBeAdded; }
+
+    public boolean getToBeAdded() {
+        return toBeAdded;
+    }
+
+    public void setToBeAdded(boolean toBeAdded) {
+        this.toBeAdded = toBeAdded;
+    }
 
     public Handler getHandler() {
         return handler;

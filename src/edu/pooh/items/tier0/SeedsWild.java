@@ -1,11 +1,14 @@
 package edu.pooh.items.tier0;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.CannabisWild;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
+
+import java.util.Iterator;
 
 public class SeedsWild extends Item {
 
@@ -29,7 +32,13 @@ public class SeedsWild extends Item {
                 if (temp.getSeedable()) {
                     temp.setSeedable(false);
                     temp.setTexture(Assets.dirtSeed);
+
+
                     temp.setStaticEntity( new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT) );
+
+
+                    handler.getWorld().getEntityManager().getEntitiesToBeAdded().add( temp.getStaticEntity() );
+                    handler.getWorld().getEntityManager().setToBeAdded(true);
                     //handler.getWorld().getEntityManager().addEntity( temp.getStaticEntity() );
 
                     count--;
