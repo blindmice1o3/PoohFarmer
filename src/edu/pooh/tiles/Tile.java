@@ -11,12 +11,15 @@ public class Tile {
 
     public static Tile[] tiles = new Tile[256];
 
+    /*
     public static Tile dirtNormalTile = new Tile(Assets.dirtNormal, 0) {
         @Override
         public boolean isSolid() {
             return false;
         }
     };
+    */
+
     public static Tile fenceTile = new Tile(Assets.fence, 1);
     public static Tile dirtWalkway = new Tile(Assets.dirtWalkway, 2) {
         @Override

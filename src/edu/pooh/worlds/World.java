@@ -9,6 +9,7 @@ import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
@@ -23,7 +24,7 @@ public class World {
     private int spawnX; //NEED map to load before can be used.
     private int spawnY; //NEED map to load before can be used.
 
-    private int[][] tiles;      // Multidimensional array of int storing <Tile id>.
+    private Tile[][] tiles;      // Multidimensional array of Tile objects.
 
     // ENTITIES
     private EntityManager entityManager;
@@ -111,13 +112,7 @@ public class World {
             return Tile.dirtWalkway;
         }
 
-        Tile t = Tile.tiles[ tiles[x][y] ]; // The inner tiles[][] is World class's that stores int Tile id.
-
-        if (t == null) {
-            return Tile.dirtNormalTile;
-        }
-
-        return t;
+        return tiles[x][y];
     }
 
     public void loadWorld(String path) {
@@ -129,12 +124,16 @@ public class World {
         spawnX = Utils.parseInt(tokens[2]);
         spawnY = Utils.parseInt(tokens[3]);
 
-        tiles = new int[widthInTiles][heightInTiles];
+        tiles = new Tile[widthInTiles][heightInTiles];
 
         for (int y = 0; y < heightInTiles; y++) {
             for (int x = 0; x < widthInTiles; x++) {
-                // Converting from 1-D array to 2-D array means we need to convert the positioning inside tokens array.
-                tiles[x][y] = Utils.parseInt( tokens[(x + (y * widthInTiles)) + 4] );
+                // If it's suppose to be a dirtNormalTile... instantiate new non-static Tile object.
+                if (Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) == 0) {
+                    tiles[x][y] = new DirtNormalTile();
+                } else {    // use Tile class's static Tile[] array's static Tile object.
+                    tiles[x][y] = Tile.tiles[ Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) ];
+                }
             }
         }
     }
