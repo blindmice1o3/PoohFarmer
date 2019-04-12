@@ -1,6 +1,7 @@
 package edu.pooh.items;
 
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +13,7 @@ public abstract class Item implements Invokable {
 
     public enum ID {
         WATERING_CAN,
+        SEEDSWILD,
         SHOVEL,
         SCYTHE,
         HAMMER,
@@ -59,7 +61,8 @@ public abstract class Item implements Invokable {
             return;
         }
 
-        render(g, (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()));    // x and y that the Item is currently storing
+        render( g, (int)(x - handler.getGameCamera().getxOffset() + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2)),
+                (int)(y - handler.getGameCamera().getyOffset() + (Tile.TILE_HEIGHT / 2) - (ITEM_HEIGHT / 2)) );    // x and y that the Item is currently storing
     }
 
     public void render(Graphics g, int x, int y) {

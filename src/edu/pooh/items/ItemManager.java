@@ -34,7 +34,6 @@ public class ItemManager {
     }
 
     public void addItem(Item i) {
-        i.setHandler(handler);
         items.add(i);
     }
 

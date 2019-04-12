@@ -3,6 +3,7 @@ package edu.pooh.items.tier0;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 
 public class Shovel extends Item {
 
@@ -19,7 +20,18 @@ public class Shovel extends Item {
 
     @Override
     public void execute() {
+        Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
+        if (t != null) {
+            System.out.print("targeted-tile's id: " + t.getId());
+
+            // If tile is dirtNormalTile...
+            if (t.getId() == 0) {
+                // TODO: set tile's boolean flag (seedable) to true.
+            }
+        }
+
+        System.out.println("Executed Shovel.");
     }
 
 } // **** end Shovel class ****

@@ -9,6 +9,7 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
@@ -142,7 +143,7 @@ public class Player extends Creature {
 
             // We have an Entity object that isn't the player, check if it intersects with the attack rectangle.
             if (e.getCollisionBounds(0, 0).intersects(ar)) {
-                e.hurt(1);      // Successful attack collision, invoke hurt() method.
+                e.hurt(2);      // Successful attack collision, invoke hurt() method.
                 return;
             }
         }
@@ -164,9 +165,13 @@ public class Player extends Creature {
         if (handler.getKeyManager().left) { xMove = -speed; }
         if (handler.getKeyManager().right) { xMove = speed; }
 
-        // TOOL (A/B BUTTONS)
-        if (handler.getKeyManager().aButton) { inventory.incrementSelectedItem(); } //iterate.
-        if (handler.getKeyManager().bButton) { inventory.getItem(inventory.getSelectedItem()).execute(); } //invoke.
+        // A/B BUTTONS
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
+            inventory.incrementSelectedItem();
+        }
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+            inventory.getItem(inventory.getSelectedItem()).execute();
+        }
     }
 
     @Override

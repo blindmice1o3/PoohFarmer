@@ -29,6 +29,28 @@ public abstract class Creature extends Entity {
         yMove = 0;
     } // **** end Creature(Handler, float, float, int, int) constructor ****
 
+    public Tile getTileCurrentlyFacing() {
+        int playerCenterX = (int)(x + (width / 2));
+        int playerCenterY = (int)(y + (height / 2));
+
+        switch (currentDirection) {
+            case DOWN:
+                return handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
+                        ((playerCenterY + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
+            case UP:
+                return handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
+                        ((playerCenterY - Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
+            case LEFT:
+                return handler.getWorld().getTile( ((playerCenterX - Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
+                        (playerCenterY / Tile.TILE_HEIGHT) );
+            case RIGHT:
+                return handler.getWorld().getTile( ((playerCenterX + Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
+                        (playerCenterY / Tile.TILE_HEIGHT) );
+            default:
+                return null;
+        }
+    }
+
     public void move() {
         // Set currentDirection relative to most recent input (xMove and yMove being positive or negative or 0).
         if (yMove < 0 && xMove > 0) { currentDirection = DirectionFacing.UPRIGHT; }

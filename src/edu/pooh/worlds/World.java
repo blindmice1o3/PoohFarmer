@@ -5,6 +5,8 @@ import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
 import edu.pooh.entities.statics.Rock;
 import edu.pooh.items.ItemManager;
+import edu.pooh.items.tier0.SeedsWild;
+import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -40,6 +42,9 @@ public class World {
         entityManager.addEntity(new Bush(handler, 320, 1350) {
             @Override
             public void die() {
+                SeedsWild temp = new SeedsWild(handler);
+                temp.setPosition((int)x, (int)y);
+                handler.getWorld().getItemManager().addItem( temp );
                 //handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
             }
         });
@@ -47,6 +52,8 @@ public class World {
         entityManager.addEntity(new Rock(handler, 192, 1250) {
             @Override
             public void die() {
+                Shovel.getUniqueInstance(handler).setPosition((int)x, (int)y);
+                handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
                 //handler.getWorld().getItemManager().addItem(Item.axeItem.createNew((int)x, (int)y));
             }
         });

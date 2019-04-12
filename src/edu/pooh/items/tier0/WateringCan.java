@@ -24,58 +24,28 @@ public class WateringCan extends Item {
     public int getCountWater() {
         return countWater;
     }
-    public void setCountWater(int count) {
-        countWater = count;
-    }
+
     public void increaseCountWater(int count) {
         countWater += count;
     }
 
     @Override
     public void execute() {
-        int playerCenterX = (int)(handler.getWorld().getEntityManager().getPlayer().getX()
-                + (handler.getWorld().getEntityManager().getPlayer().getWidth() / 2));
-        int playerCenterY = (int)(handler.getWorld().getEntityManager().getPlayer().getY()
-                + (handler.getWorld().getEntityManager().getPlayer().getHeight() / 2));
-        Creature.DirectionFacing playerCurrentDirection =
-                handler.getWorld().getEntityManager().getPlayer().getCurrentDirection();
-
-        Tile t = null;
-        switch (playerCurrentDirection) {
-            case DOWN:
-                t = handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
-                        ((playerCenterY + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
-                break;
-            case UP:
-                t = handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
-                        ((playerCenterY - Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
-                break;
-            case LEFT:
-                t = handler.getWorld().getTile( ((playerCenterX - Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
-                        (playerCenterY / Tile.TILE_HEIGHT) );
-                break;
-            case RIGHT:
-                t = handler.getWorld().getTile( ((playerCenterX + Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
-                        (playerCenterY / Tile.TILE_HEIGHT) );
-                break;
-            default:
-                break;
-        }
+        Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
         if (t != null) {
             System.out.print("targeted-tile's id: " + t.getId());
-        }
 
-        if (t != null) {
+            // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
-                this.increaseCountWater(25);
-            } else if (this.getCountWater() > 0) {
+                increaseCountWater(18);
+            } else if (countWater > 0) {    // If there's water left in the WateringCan.
                 t.setTexture(Assets.dirtSeed);
-                this.setCountWater( (this.getCountWater() - 1) );
+                countWater--;
             }
         }
 
-        System.out.println("Executed wateringCan.");
+        System.out.println("Executed WateringCan.");
     }
 
 } // **** end WateringCan class ****
