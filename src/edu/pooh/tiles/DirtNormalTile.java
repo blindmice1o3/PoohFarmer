@@ -8,7 +8,7 @@ public class DirtNormalTile extends Tile {
 
     public DirtNormalTile() {
         super(Assets.dirtNormal, 0);
-        seedable = true;
+        seedable = false;
     } // **** end DirtNormalTile() constructor ****
 
     @Override

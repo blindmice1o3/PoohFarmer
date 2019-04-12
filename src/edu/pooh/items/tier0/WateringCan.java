@@ -39,8 +39,8 @@ public class WateringCan extends Item {
             // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
                 increaseCountWater(18);
-            } else if (countWater > 0) {    // If there's water left in the WateringCan.
-                t.setTexture(Assets.dirtSeed);
+            } else if (t.getId() == 0 && (t.getTexture() == Assets.dirtSeed) && countWater > 0) {
+                t.setTexture(Assets.waterFX);
                 countWater--;
             }
         }

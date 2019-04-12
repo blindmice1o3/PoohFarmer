@@ -3,8 +3,10 @@ package edu.pooh.entities.creatures;
 import edu.pooh.entities.Entity;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
+import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 
@@ -192,7 +194,18 @@ public class Player extends Creature {
         g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
                 (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         g.drawImage( inventory.getItem(inventory.getSelectedItem()).getTexture(),
-                (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25, Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
+                (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
+                Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
+        if (inventory.getItem(inventory.getSelectedItem()).getId() == Item.ID.WATERING_CAN) {
+            WateringCan temp = (WateringCan)inventory.getItem(inventory.getSelectedItem());
+            Text.drawString(g, Integer.toString(temp.getCountWater()),
+                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
+                    25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
+        } else {
+            Text.drawString(g, Integer.toString(inventory.getItem(inventory.getSelectedItem()).getCount()),
+                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
+                    25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
+        }
 
         // COLLISION BOX
         //g.setColor(Color.RED);

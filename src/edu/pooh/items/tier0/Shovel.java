@@ -3,6 +3,7 @@ package edu.pooh.items.tier0;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 public class Shovel extends Item {
@@ -25,9 +26,11 @@ public class Shovel extends Item {
         if (t != null) {
             System.out.print("targeted-tile's id: " + t.getId());
 
-            // If tile is dirtNormalTile...
-            if (t.getId() == 0) {
-                // TODO: set tile's boolean flag (seedable) to true.
+            // If tile is dirtNormalTile AND texture is dirtNormal...
+            if (t.getId() == 0 && (t.getTexture() == Assets.dirtNormal)) {
+                DirtNormalTile temp = (DirtNormalTile)t;
+                temp.setSeedable(true);
+                temp.setTexture(Assets.dirtTilled);
             }
         }
 

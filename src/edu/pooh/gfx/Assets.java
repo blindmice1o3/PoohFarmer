@@ -15,21 +15,18 @@ public class Assets {
 
 
     // SINGLE (/TILES)
-    public static BufferedImage dirtNormal, fence, dirtWalkway, signPost;
+    public static BufferedImage waterFX;
+    public static BufferedImage dirtNormal, fence, dirtWalkway, signPost, dirtTilled, dirtSeed;
     // SINGLE (-CURRENTLY UNUSED).
-    public static BufferedImage dirtHoe, dirtSeed, plantFlowering2, wood;
-    // SINGLE (/ITEMS)
-    public static BufferedImage plantSproutling, plantJuvenille, plantAdult;
+    public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, wood;
     // SINGLE (/ENTITIES)
     public static BufferedImage plantFlowering1, rock;
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
             stable2x3, building2x3, chest2x2, poolWater2x2, poolWater3x3;
-
     // SPANNING MULTIPLE-TILE (/ENTITIES)
     public static BufferedImage[][] boulder2x2, treeStump2x2;
-
 
     // ITEMS (/TOOLS)
     public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
@@ -43,10 +40,8 @@ public class Assets {
                                 playerDownRight, playerDownLeft, playerUpRight, playerUpLeft;
 
 
-
     // INVENTORY
     public static BufferedImage inventoryScreen;
-
 
 
     // START BUTTONS
@@ -57,6 +52,8 @@ public class Assets {
 
         inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
 
+        waterFX = ImageLoader.loadImage("/textures/entities/waterItem.png");
+
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/StartButtons(96x64).png"));
         startButtons = new BufferedImage[2];
         startButtons[0] = sheet.crop(0, 0, 96, 31);
@@ -65,7 +62,7 @@ public class Assets {
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
         dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        dirtHoe = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
+        dirtTilled = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtSeed = sheet.crop(0 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);

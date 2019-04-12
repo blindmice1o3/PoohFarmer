@@ -3,6 +3,7 @@ package edu.pooh.items.tier0;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 public class SeedsWild extends Item {
@@ -22,8 +23,13 @@ public class SeedsWild extends Item {
 
             // If there's a seed left and the tile is a dirtNormal.
             if (count > 0 && (t.getId() == 0)) {
-                // TODO: set tile's boolean flag (seedable) to false,
-                // create a new Entity with a dirtSeed texture.
+                DirtNormalTile temp = (DirtNormalTile)t;
+
+                if (temp.getSeedable()) {
+                    temp.setSeedable(false);
+                    temp.setTexture(Assets.dirtSeed);
+                }
+                // TODO: create a new Entity with a dirtSeed texture.
 
                 count--;
             }
