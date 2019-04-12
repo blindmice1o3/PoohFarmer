@@ -1,5 +1,6 @@
 package edu.pooh.items.tier0;
 
+import edu.pooh.entities.statics.CannabisWild;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
@@ -22,16 +23,17 @@ public class SeedsWild extends Item {
             System.out.print("targeted-tile's id: " + t.getId());
 
             // If there's a seed left and the tile is a dirtNormal.
-            if (count > 0 && (t.getId() == 0)) {
+            if ((count > 0) && (t.getId() == 0) && (t.getTexture() == Assets.dirtTilled)) {
                 DirtNormalTile temp = (DirtNormalTile)t;
 
                 if (temp.getSeedable()) {
                     temp.setSeedable(false);
                     temp.setTexture(Assets.dirtSeed);
-                }
-                // TODO: create a new Entity with a dirtSeed texture.
+                    temp.setStaticEntity( new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT) );
+                    //handler.getWorld().getEntityManager().addEntity( temp.getStaticEntity() );
 
-                count--;
+                    count--;
+                }
             }
         }
 

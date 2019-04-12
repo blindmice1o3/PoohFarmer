@@ -1,9 +1,11 @@
 package edu.pooh.items.tier0;
 
 import edu.pooh.entities.creatures.Creature;
+import edu.pooh.entities.statics.CannabisWild;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 public class WateringCan extends Item {
@@ -39,9 +41,18 @@ public class WateringCan extends Item {
             // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
                 increaseCountWater(18);
-            } else if (t.getId() == 0 && (t.getTexture() == Assets.dirtSeed) && countWater > 0) {
-                t.setTexture(Assets.waterFX);
+            } else if (countWater > 0) {
                 countWater--;
+
+                if ((t.getId() == 0) && (t.getTexture() == Assets.dirtSeed)) {
+                    DirtNormalTile tempTile = (DirtNormalTile)t;
+                    CannabisWild tempStaticEntity = (CannabisWild)tempTile.getStaticEntity();
+
+                    tempStaticEntity.increaseDaysWatered();
+                    tempStaticEntity.setWaterable(false);
+                    tempStaticEntity.setCurrentImage(Assets.waterFX);
+                    System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
+                }
             }
         }
 

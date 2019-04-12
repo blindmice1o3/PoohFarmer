@@ -130,7 +130,7 @@ public class World {
             for (int x = 0; x < widthInTiles; x++) {
                 // If it's suppose to be a dirtNormalTile... instantiate new non-static Tile object.
                 if (Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) == 0) {
-                    tiles[x][y] = new DirtNormalTile();
+                    tiles[x][y] = new DirtNormalTile(x, y);
                 } else {    // use Tile class's static Tile[] array's static Tile object.
                     tiles[x][y] = Tile.tiles[ Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) ];
                 }
