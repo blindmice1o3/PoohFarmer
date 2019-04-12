@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/tier0/SeedsWild.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/tier0/SeedsWild.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -73,10 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntityManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EntityManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="191">
               <caret line="52" column="38" lean-forward="false" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
               <folding>
                 <element signature="e#2557#2558#0" expanded="true" />
@@ -111,8 +110,8 @@
       <file leaf-file-name="SeedsWild.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="40" column="77" lean-forward="true" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
+            <state relative-caret-position="292">
+              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,11 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WateringCan.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WateringCan.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="476">
+              <caret line="56" column="21" lean-forward="false" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -218,9 +217,9 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/CannabisWild.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java" />
       </list>
     </option>
   </component>
@@ -571,7 +570,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5060514" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.49346405" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5294118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5294118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5735294" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -820,6 +819,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="105" column="16" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -827,6 +827,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="206" column="46" lean-forward="false" selection-start-line="206" selection-start-column="46" selection-end-line="206" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -918,14 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
@@ -966,19 +959,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="40" column="77" lean-forward="true" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="191">
           <caret line="52" column="38" lean-forward="false" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
           <folding>
             <element signature="e#2557#2558#0" expanded="true" />
@@ -986,6 +969,24 @@
             <element signature="e#2640#2641#0" expanded="true" />
             <element signature="e#2682#2683#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="56" column="21" lean-forward="false" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

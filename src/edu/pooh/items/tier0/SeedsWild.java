@@ -39,7 +39,6 @@ public class SeedsWild extends Item {
 
                     handler.getWorld().getEntityManager().getEntitiesToBeAdded().add( temp.getStaticEntity() );
                     handler.getWorld().getEntityManager().setToBeAdded(true);
-                    //handler.getWorld().getEntityManager().addEntity( temp.getStaticEntity() );
 
                     count--;
                 }

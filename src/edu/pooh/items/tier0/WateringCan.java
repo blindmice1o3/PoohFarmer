@@ -47,11 +47,14 @@ public class WateringCan extends Item {
                 if ((t.getId() == 0) && (t.getTexture() == Assets.dirtSeed)) {
                     DirtNormalTile tempTile = (DirtNormalTile)t;
                     CannabisWild tempStaticEntity = (CannabisWild)tempTile.getStaticEntity();
+                    System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
 
-                    tempStaticEntity.increaseDaysWatered();
-                    tempStaticEntity.setWaterable(false);
-                    tempStaticEntity.setCurrentImage(Assets.waterFX);
-                    System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
+                    if (tempStaticEntity.getWaterable()) {
+                        tempStaticEntity.increaseDaysWatered();
+                        tempStaticEntity.setWaterable(false);
+                        tempStaticEntity.setCurrentImage(Assets.waterFX);
+                        System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
+                    }
                 }
             }
         }
