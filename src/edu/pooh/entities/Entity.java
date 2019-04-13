@@ -38,7 +38,7 @@ public abstract class Entity {
         health -= amt;
 
         if (health <= 0) {
-            active = false;
+            setActive(false);
             die();
         }
     }

@@ -48,20 +48,28 @@ public class CannabisWild extends StaticEntity {
 
             setHarvestable(true);
         }
+
+        if (harvestable) {
+            die();
+        }
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(currentImage, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
-        Text.drawString(g, "dayWatered: " + daysWatered, (int)x, (int)y, false, Color.YELLOW, Assets.font28);
-        //g.drawImage(Assets.plantFlowering2, (int)(x - handler.getGameCamera().getxOffset()),
-        //        (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+        Text.drawString(g, "dayWatered: " + daysWatered, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), false, Color.YELLOW, Assets.font28);
     }
 
     @Override
     public void die() {
+        handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(
+                new NuggetWild(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f))
+        );
+        handler.getWorld().getEntityManager().setToBeAdded(true);
 
+        setActive(false);
     }
 
     @Override

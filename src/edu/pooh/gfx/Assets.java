@@ -20,7 +20,7 @@ public class Assets {
     // SINGLE (-CURRENTLY UNUSED).
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, wood;
     // SINGLE (/ENTITIES)
-    public static BufferedImage plantFlowering1, rock;
+    public static BufferedImage honeyPot, plantFlowering1, rock;
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
@@ -202,6 +202,7 @@ public class Assets {
         // ******************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png"));
+        honeyPot = sheet.crop(318, 1556, 38, 37);
         playerDownDefault = sheet.crop(178, 1061, 20, 38);
         playerUpDefault = sheet.crop(314, 1063, 20, 36);
         playerRightDefault = sheet.crop(247, 1062, 17, 37);
