@@ -8,6 +8,8 @@ import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
+import java.awt.*;
+
 public class WateringCan extends Item {
 
     private static WateringCan uniqueInstance = new WateringCan();
@@ -36,26 +38,47 @@ public class WateringCan extends Item {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
         if (t != null) {
-            System.out.print("targeted-tile's id: " + t.getId());
+            System.out.println("targeted-tile's id: " + t.getId());
 
             // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
                 increaseCountWater(18);
             } else if (countWater > 0) {
+
                 countWater--;
 
-                if ((t.getId() == 0) && (t.getTexture() == Assets.dirtSeed)) {
+                if (t instanceof DirtNormalTile) {
                     DirtNormalTile tempTile = (DirtNormalTile)t;
-                    CannabisWild tempStaticEntity = (CannabisWild)tempTile.getStaticEntity();
-                    System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
 
-                    if (tempStaticEntity.getWaterable()) {
-                        tempStaticEntity.increaseDaysWatered();
-                        tempStaticEntity.setWaterable(false);
-                        tempStaticEntity.setCurrentImage(Assets.waterFX);
-                        System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
+                    if ((tempTile.getStaticEntity() != null) && (tempTile.getStaticEntity() instanceof CannabisWild)) {
+                        CannabisWild tempStaticEntity = (CannabisWild) tempTile.getStaticEntity();
+                        System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
+
+                        if (tempStaticEntity.getWaterable()) {
+
+                            if (tempStaticEntity.getDaysWatered() == 2) {
+                                Rectangle tempCannabisWildRect = new Rectangle(
+                                        (int) tempStaticEntity.getX() * Tile.TILE_WIDTH,
+                                        (int) tempStaticEntity.getY() * Tile.TILE_HEIGHT,
+                                        tempStaticEntity.getWidth(), tempStaticEntity.getHeight());
+
+                                if (handler.getWorld().getEntityManager().getPlayer().
+                                        getCollisionBounds(0, 0).
+                                        intersects(tempCannabisWildRect)) {
+                                    return;
+                                }
+                            }
+
+                            ////////////////////////////////////////////////////////////////////
+                            tempStaticEntity.increaseDaysWatered();
+                            ////////////////////////////////////////////////////////////////////
+                            //debugging    tempStaticEntity.setWaterable(false);
+                            //debugging    tempStaticEntity.setCurrentImage(Assets.waterFX);
+                            System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
+                        }
                     }
                 }
+
             }
         }
 

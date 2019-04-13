@@ -61,6 +61,14 @@ public abstract class Entity {
                 (int)(y + bounds.y + yOffset), bounds.width, bounds.height);
     }
 
+    public void setBoundsWidth(int width) {
+        bounds.width = width;
+    }
+
+    public void setBoundsHeight(int height) {
+        bounds.height = height;
+    }
+
     // GETTERS & SETTERS
 
     public int getHealth() {

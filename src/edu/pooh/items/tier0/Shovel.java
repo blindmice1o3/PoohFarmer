@@ -27,7 +27,7 @@ public class Shovel extends Item {
             System.out.print("targeted-tile's id: " + t.getId());
 
             // If tile is dirtNormalTile AND texture is dirtNormal...
-            if ((t.getId() == 0) && (t.getTexture() == Assets.dirtNormal)) {
+            if ((t instanceof DirtNormalTile) && (t.getTexture() == Assets.dirtNormal)) {
                 DirtNormalTile temp = (DirtNormalTile)t;
                 temp.setSeedable(true);
                 temp.setTexture(Assets.dirtTilled);

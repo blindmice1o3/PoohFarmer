@@ -8,6 +8,7 @@ import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
+import java.awt.*;
 import java.util.Iterator;
 
 public class SeedsWild extends Item {
@@ -26,17 +27,16 @@ public class SeedsWild extends Item {
             System.out.print("targeted-tile's id: " + t.getId());
 
             // If there's a seed left and the tile is a dirtNormal.
-            if ((count > 0) && (t.getId() == 0) && (t.getTexture() == Assets.dirtTilled)) {
+            if ((count > 0) && (t instanceof DirtNormalTile) && (t.getTexture() == Assets.dirtTilled)) {
                 DirtNormalTile temp = (DirtNormalTile)t;
 
                 if (temp.getSeedable()) {
                     temp.setSeedable(false);
-                    temp.setTexture(Assets.dirtSeed);
-
+                   ///////////////////////////////////////////////////////////////////////////////////////////
 
                     temp.setStaticEntity( new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT) );
 
-
+                    ///////////////////////////////////////////////////////////////////////////////////////////
                     handler.getWorld().getEntityManager().getEntitiesToBeAdded().add( temp.getStaticEntity() );
                     handler.getWorld().getEntityManager().setToBeAdded(true);
 
