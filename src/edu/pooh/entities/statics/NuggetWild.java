@@ -3,6 +3,7 @@ package edu.pooh.entities.statics;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.Holdable;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class NuggetWild extends StaticEntity
 
     @Override
     public void die() {
-
+        setActive(false);
     }
 
     @Override
@@ -48,7 +49,29 @@ public class NuggetWild extends StaticEntity
 
     @Override
     public void dropped(Tile t) {
+        if (t instanceof DirtNormalTile) {
+            DirtNormalTile tempTile = (DirtNormalTile) t;
+            x = tempTile.getX() * Tile.TILE_WIDTH;
+            y = tempTile.getY() * Tile.TILE_HEIGHT;
+            System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+        } else {
+            Tile[][] tempTiles = handler.getWorld().getTiles();
 
+            for (int y = 0; y < handler.getWorld().getHeight(); y++) {
+                for (int x = 0; x < handler.getWorld().getWidth(); x++) {
+                    if (tempTiles[x][y].getId() == t.getId()) {
+                        this.x = x * Tile.TILE_WIDTH;
+                        this.y = y * Tile.TILE_HEIGHT;
+                        System.out.println("dropped Chest's (x, y): (" + this.x + ", " + this.y + ")");
+
+                        die();
+                        /////////////////////////////////////////////////////////////////////////////
+                        handler.getWorld().getEntityManager().getPlayer().increaseCannabisCollected();
+                        /////////////////////////////////////////////////////////////////////////////
+                    }
+                }
+            }
+        }
     }
 
 } // **** end NuggetWild class ****

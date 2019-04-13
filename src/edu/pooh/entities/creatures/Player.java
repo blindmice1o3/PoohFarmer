@@ -10,14 +10,20 @@ import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.Holdable;
+import edu.pooh.states.MenuState;
+import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
+import edu.pooh.ui.UIManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
+
+    // CANNABIS COUNTER
+    private int cannabisCollected;
 
     // ANIMATIONS
     private Animation animDown;
@@ -57,6 +63,9 @@ public class Player extends Creature {
         bounds.width = 34;
         bounds.height = 44;
 
+        // CANNABIS COUNTER
+        cannabisCollected = 0;
+
         // ANIMATIONS
         animDown = new Animation(60, Assets.playerDown);
         animUp = new Animation(60, Assets.playerUp);
@@ -84,6 +93,11 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
+        // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
+        if (cannabisCollected == 3) {
+            StateManager.setCurrentState( new MenuState(handler) );
+        }
+
         // ANIMATIONS
         animDown.tick();
         animUp.tick();
@@ -323,8 +337,12 @@ public class Player extends Creature {
         } else {
             Text.drawString(g, Integer.toString(inventory.getItem(inventory.getSelectedItem()).getCount()),
                     (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
-                    25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
+                    25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
         }
+        g.setColor(Color.BLUE);
+        g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
+        Text.drawString(g, Integer.toString(getCannabisCollected()),
+                (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
         // COLLISION BOX
         //g.setColor(Color.RED);
@@ -388,7 +406,15 @@ public class Player extends Creature {
         System.out.println("You lose");
     }
 
+    public void increaseCannabisCollected() {
+        cannabisCollected++;
+    }
+
     // GETTERS & SETTERS
+
+    public int getCannabisCollected() {
+        return cannabisCollected;
+    }
 
     public Holdable getHoldableObject() {
         return holdableObject;

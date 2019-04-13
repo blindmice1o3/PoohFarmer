@@ -24,7 +24,7 @@ public class MenuState implements State {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUIManager(null);
-                StateManager.setCurrentState(handler.getGame().gameState);
+                StateManager.setCurrentState( new GameState(handler) );
             }
         }));
     } // **** end MenuState(Handler) constructor ****
@@ -36,6 +36,7 @@ public class MenuState implements State {
 
     @Override
     public void render(Graphics g) {
+        g.drawString("Congratuations! Play again?", 175, 175);
         uiManager.render(g);
     }
 

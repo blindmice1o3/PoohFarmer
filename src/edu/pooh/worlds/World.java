@@ -39,14 +39,20 @@ public class World {
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
         entityManager.addEntity(new Bush(handler, 320, 1150));
-        entityManager.addEntity(new Bush(handler, 320, 1250));
+        entityManager.addEntity(new Bush(handler, 320, 1250){
+            @Override
+            public void die() {
+                SeedsWild temp = new SeedsWild(handler);
+                temp.setPosition((int)x, (int)y);
+                handler.getWorld().getItemManager().addItem( temp );
+            }
+        });
         entityManager.addEntity(new Bush(handler, 320, 1350) {
             @Override
             public void die() {
                 SeedsWild temp = new SeedsWild(handler);
                 temp.setPosition((int)x, (int)y);
                 handler.getWorld().getItemManager().addItem( temp );
-                //handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
             }
         });
         entityManager.addEntity(new Rock(handler, 192, 1150));
@@ -55,7 +61,6 @@ public class World {
             public void die() {
                 Shovel.getUniqueInstance(handler).setPosition((int)x, (int)y);
                 handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
-                //handler.getWorld().getItemManager().addItem(Item.axeItem.createNew((int)x, (int)y));
             }
         });
         entityManager.addEntity(new Rock(handler, 192, 1350));
