@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/textures/entities/pooh sprite sheet coordinates (x, y, width, height).txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/textures/entities/tools sprite sheet coordinates (x, y, width, height).txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/NuggetWild.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/NuggetWild.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Crops.png" afterPath="$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Crops.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,61 +17,24 @@
       <file leaf-file-name="Assets.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="251" column="52" lean-forward="false" selection-start-line="251" selection-start-column="52" selection-end-line="251" selection-end-column="52" />
+            <state relative-caret-position="442">
+              <caret line="391" column="0" lean-forward="true" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NuggetWild.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/NuggetWild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="69" column="101" lean-forward="false" selection-start-line="69" selection-start-column="101" selection-end-line="69" selection-end-column="101" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="98" column="14" lean-forward="false" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SeedsWild.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="39" column="67" lean-forward="false" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SNES - Harvest Moon - Crops.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Crops.png">
+      <file leaf-file-name="SNES - Harvest Moon - Chicken.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Chicken.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WateringCan.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/WateringCan.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="87" column="36" lean-forward="true" selection-start-line="87" selection-start-column="36" selection-end-line="87" selection-end-column="36" />
-              <folding />
-            </state>
+      <file leaf-file-name="SNES - Harvest Moon - Hawker and Peddler.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Hawker and Peddler.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -518,7 +474,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5735294" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16717096" sideWeight="0.48243558" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27760968" sideWeight="0.48243558" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16187595" sideWeight="0.5175644" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -602,16 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Small Animals.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Jack.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -674,6 +620,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="900" column="0" lean-forward="false" selection-start-line="900" selection-start-column="0" selection-end-line="900" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -756,8 +703,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2640#2641#0" expanded="true" />
-            <element signature="e#2682#2683#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="false" />
+            <element signature="e#2682#2683#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -814,37 +761,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Cow.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Chicken.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="39" column="67" lean-forward="false" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Horse.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Hawker and Peddler.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Kero Dog.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -917,10 +834,50 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/items/tier0/SeedsWild.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="39" column="67" lean-forward="false" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Jack.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Small Animals.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Kero Dog.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Cow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Chicken.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Hawker and Peddler.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="251" column="52" lean-forward="false" selection-start-line="251" selection-start-column="52" selection-end-line="251" selection-end-column="52" />
+        <state relative-caret-position="442">
+          <caret line="391" column="0" lean-forward="true" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -42,10 +42,13 @@ public class Assets {
             corn3Dry, corn3Watered, corn4Dry, corn4Watered;
 
     // ENTITIES (/PLAYER)
-    public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault,
-            playerDownRightDefault, playerDownLeftDefault, playerUpRightDefault, playerUpLeftDefault;
-    public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft,
-                                playerDownRight, playerDownLeft, playerUpRight, playerUpLeft;
+    public static BufferedImage playerUpDefault, playerDownDefault, playerLeftDefault, playerRightDefault,
+            playerUpLeftDefault, playerUpRightDefault, playerDownLeftDefault, playerDownRightDefault;
+    public static BufferedImage[] playerUp, playerDown, playerLeft, playerRight,
+            playerUpLeft, playerUpRight, playerDownLeft, playerDownRight;
+
+    // ENTITIES (/HAWKER)
+    public static BufferedImage[] hawkerUp, hawkerDown, hawkerLeft, hawkerRight;
 
     // INVENTORY
     public static BufferedImage inventoryScreen;
@@ -255,27 +258,15 @@ public class Assets {
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png"));
         honeyPot = sheet.crop(318, 1556, 38, 37);
-        playerDownDefault = sheet.crop(178, 1061, 20, 38);
         playerUpDefault = sheet.crop(314, 1063, 20, 36);
-        playerRightDefault = sheet.crop(247, 1062, 17, 37);
+        playerDownDefault = sheet.crop(178, 1061, 20, 38);
         playerLeftDefault = sheet.crop(111, 1062, 17, 37);
-        playerDownRightDefault = sheet.crop(213, 1060, 17, 39);
-        playerDownLeftDefault = sheet.crop(145, 1060, 17, 39);
-        playerUpRightDefault = sheet.crop(281, 1064, 17, 35);
-        playerUpLeftDefault = sheet.crop(349, 1064, 17, 35);
+        playerRightDefault = sheet.crop(247, 1062, 17, 37);
 
-        playerDown = new BufferedImage[11];
-        playerDown[0] = sheet.crop(17, 1114, 26, 36);
-        playerDown[1] = sheet.crop(58, 1113, 26, 37);
-        playerDown[2] = sheet.crop(99, 1112, 26, 38);
-        playerDown[3] = sheet.crop(140, 1114, 26, 36);
-        playerDown[4] = sheet.crop(181, 1115, 26, 35);
-        playerDown[5] = sheet.crop(224, 1115, 24, 35);
-        playerDown[6] = sheet.crop(264, 1113, 26, 37);
-        playerDown[7] = sheet.crop(305, 1112, 26, 38);
-        playerDown[8] = sheet.crop(350, 1113, 26, 37);
-        playerDown[9] = sheet.crop(393, 1115, 26, 35);
-        playerDown[10] = sheet.crop(434, 1116, 26, 34);
+        playerUpLeftDefault = sheet.crop(349, 1064, 17, 35);
+        playerUpRightDefault = sheet.crop(281, 1064, 17, 35);
+        playerDownLeftDefault = sheet.crop(145, 1060, 17, 39);
+        playerDownRightDefault = sheet.crop(213, 1060, 17, 39);
 
         playerUp = new BufferedImage[11];
         playerUp[0] = sheet.crop(21, 1163, 27, 39);
@@ -290,18 +281,18 @@ public class Assets {
         playerUp[9] = sheet.crop(392, 1163, 27, 39);
         playerUp[10] = sheet.crop(430, 1162, 26, 40);
 
-        playerRight = new BufferedImage[11];
-        playerRight[0] = sheet.crop(20, 1217, 24, 34);
-        playerRight[1] = sheet.crop(64, 1217, 19, 34);
-        playerRight[2] = sheet.crop(107, 1215, 19, 36);
-        playerRight[3] = sheet.crop(146, 1214, 22, 37);
-        playerRight[4] = sheet.crop(184, 1215, 23, 36);
-        playerRight[5] = sheet.crop(227, 1218, 25, 33);
-        playerRight[6] = sheet.crop(269, 1215, 19, 36);
-        playerRight[7] = sheet.crop(309, 1214, 19, 37);
-        playerRight[8] = sheet.crop(354, 1213, 19, 38);
-        playerRight[9] = sheet.crop(395, 1214, 21, 37);
-        playerRight[10] = sheet.crop(433, 1216, 24, 35);
+        playerDown = new BufferedImage[11];
+        playerDown[0] = sheet.crop(17, 1114, 26, 36);
+        playerDown[1] = sheet.crop(58, 1113, 26, 37);
+        playerDown[2] = sheet.crop(99, 1112, 26, 38);
+        playerDown[3] = sheet.crop(140, 1114, 26, 36);
+        playerDown[4] = sheet.crop(181, 1115, 26, 35);
+        playerDown[5] = sheet.crop(224, 1115, 24, 35);
+        playerDown[6] = sheet.crop(264, 1113, 26, 37);
+        playerDown[7] = sheet.crop(305, 1112, 26, 38);
+        playerDown[8] = sheet.crop(350, 1113, 26, 37);
+        playerDown[9] = sheet.crop(393, 1115, 26, 35);
+        playerDown[10] = sheet.crop(434, 1116, 26, 34);
 
         playerLeft = new BufferedImage[11];
         playerLeft[0] = sheet.crop(20, 1268, 24, 34);
@@ -316,31 +307,31 @@ public class Assets {
         playerLeft[9] = sheet.crop(395, 1265, 21, 37);
         playerLeft[10] = sheet.crop(433, 1267, 24, 35);
 
-        playerDownRight = new BufferedImage[11];
-        playerDownRight[0] = sheet.crop(15, 1325, 24, 33);
-        playerDownRight[1] = sheet.crop(60, 1323, 23, 35);
-        playerDownRight[2] = sheet.crop(103, 1322, 21, 36);
-        playerDownRight[3] = sheet.crop(148, 1321, 20, 37);
-        playerDownRight[4] = sheet.crop(190, 1322, 19, 36);
-        playerDownRight[5] = sheet.crop(232, 1324, 18, 34);
-        playerDownRight[6] = sheet.crop(274, 1326, 19, 32);
-        playerDownRight[7] = sheet.crop(308, 1324, 23, 34);
-        playerDownRight[8] = sheet.crop(355, 1323, 26, 35);
-        playerDownRight[9] = sheet.crop(397, 1323, 27, 35);
-        playerDownRight[10] = sheet.crop(437, 1325, 25, 33);
+        playerRight = new BufferedImage[11];
+        playerRight[0] = sheet.crop(20, 1217, 24, 34);
+        playerRight[1] = sheet.crop(64, 1217, 19, 34);
+        playerRight[2] = sheet.crop(107, 1215, 19, 36);
+        playerRight[3] = sheet.crop(146, 1214, 22, 37);
+        playerRight[4] = sheet.crop(184, 1215, 23, 36);
+        playerRight[5] = sheet.crop(227, 1218, 25, 33);
+        playerRight[6] = sheet.crop(269, 1215, 19, 36);
+        playerRight[7] = sheet.crop(309, 1214, 19, 37);
+        playerRight[8] = sheet.crop(354, 1213, 19, 38);
+        playerRight[9] = sheet.crop(395, 1214, 21, 37);
+        playerRight[10] = sheet.crop(433, 1216, 24, 35);
 
-        playerDownLeft = new BufferedImage[11];
-        playerDownLeft[0] = sheet.crop(20, 1375, 24, 33);
-        playerDownLeft[1] = sheet.crop(65, 1373, 23, 35);
-        playerDownLeft[2] = sheet.crop(108, 1372, 21, 36);
-        playerDownLeft[3] = sheet.crop(147, 1373, 20, 37);
-        playerDownLeft[4] = sheet.crop(185, 1372, 19, 36);
-        playerDownLeft[5] = sheet.crop(228, 1374, 18, 34);
-        playerDownLeft[6] = sheet.crop(269, 1376, 19, 32);
-        playerDownLeft[7] = sheet.crop(303, 1374, 23, 34);
-        playerDownLeft[8] = sheet.crop(349, 1373, 26, 35);
-        playerDownLeft[9] = sheet.crop(391, 1373, 27, 35);
-        playerDownLeft[10] = sheet.crop(431, 1375, 25, 33);
+        playerUpLeft = new BufferedImage[11];
+        playerUpLeft[0] = sheet.crop(20, 1493, 22, 36);
+        playerUpLeft[1] = sheet.crop(66, 1492, 20, 37);
+        playerUpLeft[2] = sheet.crop(108, 1491, 20, 38);
+        playerUpLeft[3] = sheet.crop(148, 1492, 19, 37);
+        playerUpLeft[4] = sheet.crop(185, 1491, 18, 38);
+        playerUpLeft[5] = sheet.crop(226, 1491, 20, 38);
+        playerUpLeft[6] = sheet.crop(265, 1490, 24, 39);
+        playerUpLeft[7] = sheet.crop(300, 1491, 26, 38);
+        playerUpLeft[8] = sheet.crop(347, 1491, 25, 38);
+        playerUpLeft[9] = sheet.crop(393, 1492, 24, 37);
+        playerUpLeft[10] = sheet.crop(430, 1494, 26, 35);
 
         playerUpRight = new BufferedImage[11];
         playerUpRight[0] = sheet.crop(20, 1428, 22, 36);
@@ -355,18 +346,55 @@ public class Assets {
         playerUpRight[9] = sheet.crop(393, 1427, 24, 37);
         playerUpRight[10] = sheet.crop(430, 1429, 26, 35);
 
-        playerUpLeft = new BufferedImage[11];
-        playerUpLeft[0] = sheet.crop(20, 1493, 22, 36);
-        playerUpLeft[1] = sheet.crop(66, 1492, 20, 37);
-        playerUpLeft[2] = sheet.crop(108, 1491, 20, 38);
-        playerUpLeft[3] = sheet.crop(148, 1492, 19, 37);
-        playerUpLeft[4] = sheet.crop(185, 1491, 18, 38);
-        playerUpLeft[5] = sheet.crop(226, 1491, 20, 38);
-        playerUpLeft[6] = sheet.crop(265, 1490, 24, 39);
-        playerUpLeft[7] = sheet.crop(300, 1491, 26, 38);
-        playerUpLeft[8] = sheet.crop(347, 1491, 25, 38);
-        playerUpLeft[9] = sheet.crop(393, 1492, 24, 37);
-        playerUpLeft[10] = sheet.crop(430, 1494, 26, 35);
+        playerDownLeft = new BufferedImage[11];
+        playerDownLeft[0] = sheet.crop(20, 1375, 24, 33);
+        playerDownLeft[1] = sheet.crop(65, 1373, 23, 35);
+        playerDownLeft[2] = sheet.crop(108, 1372, 21, 36);
+        playerDownLeft[3] = sheet.crop(147, 1373, 20, 37);
+        playerDownLeft[4] = sheet.crop(185, 1372, 19, 36);
+        playerDownLeft[5] = sheet.crop(228, 1374, 18, 34);
+        playerDownLeft[6] = sheet.crop(269, 1376, 19, 32);
+        playerDownLeft[7] = sheet.crop(303, 1374, 23, 34);
+        playerDownLeft[8] = sheet.crop(349, 1373, 26, 35);
+        playerDownLeft[9] = sheet.crop(391, 1373, 27, 35);
+        playerDownLeft[10] = sheet.crop(431, 1375, 25, 33);
+
+        playerDownRight = new BufferedImage[11];
+        playerDownRight[0] = sheet.crop(15, 1325, 24, 33);
+        playerDownRight[1] = sheet.crop(60, 1323, 23, 35);
+        playerDownRight[2] = sheet.crop(103, 1322, 21, 36);
+        playerDownRight[3] = sheet.crop(148, 1321, 20, 37);
+        playerDownRight[4] = sheet.crop(190, 1322, 19, 36);
+        playerDownRight[5] = sheet.crop(232, 1324, 18, 34);
+        playerDownRight[6] = sheet.crop(274, 1326, 19, 32);
+        playerDownRight[7] = sheet.crop(308, 1324, 23, 34);
+        playerDownRight[8] = sheet.crop(355, 1323, 26, 35);
+        playerDownRight[9] = sheet.crop(397, 1323, 27, 35);
+        playerDownRight[10] = sheet.crop(437, 1325, 25, 33);
+
+        // ******************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Hawker and Peddler.png"));
+        hawkerUp = new BufferedImage[3];
+        hawkerUp[0] = sheet.crop(12, 39, 19, 25);
+        hawkerUp[1] = sheet.crop(44, 39, 19, 24);
+        hawkerUp[2] = sheet.crop(76, 39, 19, 25);
+
+        hawkerDown = new BufferedImage[3];
+        hawkerDown[0] = sheet.crop(12, 6, 19, 26);
+        hawkerDown[1] = sheet.crop(44, 6, 19, 25);
+        hawkerDown[2] = sheet.crop(75, 6, 19, 26);
+
+        hawkerLeft = new BufferedImage[3];
+        hawkerLeft[0] = sheet.crop(8, 70, 28, 26);
+        hawkerLeft[1] = sheet.crop(40, 70, 27, 25);
+        hawkerLeft[2] = sheet.crop(72, 70, 28, 26);
+
+        hawkerRight = new BufferedImage[3];
+        hawkerRight[0] = sheet.crop(6, 102, 28, 26);
+        hawkerRight[1] = sheet.crop(39, 102, 27, 25);
+        hawkerRight[2] = sheet.crop(70, 102, 28, 26);
+
     }
 
 } // **** end Assets class ****
