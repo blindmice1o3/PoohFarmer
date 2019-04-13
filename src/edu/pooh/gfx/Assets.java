@@ -12,8 +12,6 @@ public class Assets {
     // FONT
     public static Font font28;
 
-
-
     // SINGLE (/TILES)
     public static BufferedImage waterFX;
     public static BufferedImage dirtNormal, fence, dirtWalkway, signPost, dirtTilled, dirtSeed;
@@ -32,20 +30,32 @@ public class Assets {
     public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
             goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
 
+    // ENTITIES (/CROPS)
+    public static BufferedImage dirtEmptyDry, dirtEmptyWatered,
+            dirtSeedsDry, dirtSeedsWatered,
+            secretGarden0Empty, secretGarden1Flower,
+            turnip0Whole, turnip0Fragmented, turnip1Dry, turnip1Watered, turnip2Dry, turnip2Watered,
+            potato0Whole, potato0Fragmented, potato1Dry, potato1Watered, potato2Dry, potato2Watered,
+            tomato0Whole, tomato0Fragmented, tomato1Dry, tomato1Watered, tomato2Dry, tomato2Watered,
+            tomato3Dry, tomato3Watered, tomato4Dry, tomato4Watered,
+            corn0Whole, corn0Fragmented, corn1Dry, corn1Watered, corn2Dry, corn2Watered,
+            corn3Dry, corn3Watered, corn4Dry, corn4Watered;
 
-    // SINGLE (/ENTITIES/CREATURES/PLAYER)
+    // ENTITIES (/PLAYER)
     public static BufferedImage playerDownDefault, playerUpDefault, playerRightDefault, playerLeftDefault,
             playerDownRightDefault, playerDownLeftDefault, playerUpRightDefault, playerUpLeftDefault;
     public static BufferedImage[] playerDown, playerUp, playerRight, playerLeft,
                                 playerDownRight, playerDownLeft, playerUpRight, playerUpLeft;
 
-
     // INVENTORY
     public static BufferedImage inventoryScreen;
 
-
     // START BUTTONS
     public static BufferedImage[] startButtons;
+
+/* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
+/* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
+/* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
 
     public static void init() {
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -198,6 +208,48 @@ public class Assets {
         goldShovel = sheet.crop(39, 22, 13, 16);
         goldAxe = sheet.crop(54, 22, 15, 16);
         goldHammer = sheet.crop(70, 23, 16, 15);
+
+        // ******************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Crops.png"));
+        dirtEmptyDry = sheet.crop(32, 41, 16, 16);
+        dirtEmptyWatered = sheet.crop(50, 41, 16, 16);
+        dirtSeedsDry = sheet.crop(99, 41, 16, 16);
+        dirtSeedsWatered = sheet.crop(117, 41, 16, 16);
+        secretGarden0Empty = sheet.crop(171, 41, 16, 16);
+        secretGarden1Flower = sheet.crop(189, 41, 16, 16);
+        turnip0Whole = sheet.crop(13, 171, 16, 16);
+        turnip0Fragmented = sheet.crop(31, 171, 16, 16);
+        turnip1Dry = sheet.crop(13, 135, 16, 16);
+        turnip1Watered = sheet.crop(31, 135, 16, 16);
+        turnip2Dry = sheet.crop(13, 153, 16, 16);
+        turnip2Watered = sheet.crop(31, 153, 16, 16);
+        potato0Whole = sheet.crop(75, 171, 16, 16);
+        potato0Fragmented = sheet.crop(93, 171, 16, 16);
+        potato1Dry = sheet.crop(75, 135, 16, 16);
+        potato1Watered = sheet.crop(93, 135, 16, 16);
+        potato2Dry = sheet.crop(75, 153, 16, 16);
+        potato2Watered = sheet.crop(93, 153, 16, 16);
+        tomato0Whole = sheet.crop(139, 207, 16, 16);
+        tomato0Fragmented = sheet.crop(157, 207, 16, 16);
+        tomato1Dry = sheet.crop(139, 135, 16, 16);
+        tomato1Watered = sheet.crop(157, 135, 16, 16);
+        tomato2Dry = sheet.crop(139, 153, 16, 16);
+        tomato2Watered = sheet.crop(157, 153, 16, 16);
+        tomato3Dry = sheet.crop(139, 171, 16, 16);
+        tomato3Watered = sheet.crop(157, 171, 16, 16);
+        tomato4Dry = sheet.crop(139, 189, 16, 16);
+        tomato4Watered = sheet.crop(157, 189, 16, 16);
+        corn0Whole = sheet.crop(202, 207, 16, 16);
+        corn0Fragmented = sheet.crop(220, 207, 16, 16);
+        corn1Dry = sheet.crop(202, 135, 16, 16);
+        corn1Watered = sheet.crop(220, 135, 16, 16);
+        corn2Dry = sheet.crop(202, 153, 16, 16);
+        corn2Watered = sheet.crop(220, 153, 16, 16);
+        corn3Dry = sheet.crop(202, 171, 16, 16);
+        corn3Watered = sheet.crop(220, 171, 16, 16);
+        corn4Dry = sheet.crop(202, 189, 16, 16);
+        corn4Watered = sheet.crop(220, 189, 16, 16);
 
         // ******************************************
 

@@ -1,0 +1,149 @@
+dirtEmptyDry
+32, 41, 16, 16
+
+dirtEmptyWatered
+50, 41, 16, 16
+
+
+
+dirtSeedsDry
+99, 41, 16, 16
+
+dirtSeedsWatered
+117, 41, 16, 16
+
+
+
+secretGarden0Empty
+171, 41, 16, 16
+
+secretGarden1Flower
+189, 41, 16, 16
+
+
+
+turnip0Whole
+13, 171, 16, 16
+
+turnip0Fragmented
+31, 171, 16, 16
+
+turnip1Dry
+13, 135, 16, 16
+
+turnip1Watered
+31, 135, 16, 16
+
+turnip2Dry
+13, 153, 16, 16
+
+turnip2Watered
+31, 153, 16, 16
+
+
+
+potato0Whole
+75, 171, 16, 16
+
+potato0Fragmented
+93, 171, 16, 16
+
+potato1Dry
+75, 135, 16, 16
+
+potato1Watered
+93, 135, 16, 16
+
+potato2Dry
+75, 153, 16, 16
+
+potato2Watered
+93, 153, 16, 16
+
+
+
+tomato0Whole
+139, 207, 16, 16
+
+tomato0Fragmented
+157, 207, 16, 16
+
+tomato1Dry
+139, 135, 16, 16
+
+tomato1Watered
+157, 135, 16, 16
+
+tomato2Dry
+139, 153, 16, 16
+
+tomato2Watered
+157, 153, 16, 16
+
+tomato3Dry
+139, 171, 16, 16
+
+tomato3Watered
+157, 171, 16, 16
+
+tomato4Dry
+139, 189, 16, 16
+
+tomato4Watered
+157, 189, 16, 16
+
+
+
+corn0Whole
+202, 207, 16, 16
+
+corn0Fragmented
+220, 207, 16, 16
+
+corn1Dry
+202, 135, 16, 16
+
+corn1Watered
+220, 135, 16, 16
+
+corn2Dry
+202, 153, 16, 16
+
+corn2Watered
+220, 153, 16, 16
+
+corn3Dry
+202, 171, 16, 16
+
+corn3Watered
+220, 171, 16, 16
+
+corn4Dry
+202, 189, 16, 16
+
+corn4Watered
+220, 189, 16, 16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

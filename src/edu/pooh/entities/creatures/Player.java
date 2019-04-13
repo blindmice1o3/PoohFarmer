@@ -96,6 +96,7 @@ public class Player extends Creature {
         // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
         if (cannabisCollected == 3) {
             StateManager.setCurrentState( new MenuState(handler) );
+            //handler.getGame().gameStop();
         }
 
         // ANIMATIONS
