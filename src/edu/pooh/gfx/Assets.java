@@ -56,9 +56,16 @@ public class Assets {
     // START BUTTONS
     public static BufferedImage[] startButtons;
 
+    // LOADING MAP BY RGB VALUES
+    public static BufferedImage mapViaRGB;
+
+
+
 /* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
 /* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
 /* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
+
+
 
     public static void init() {
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -394,6 +401,10 @@ public class Assets {
         hawkerRight[0] = sheet.crop(6, 102, 28, 26);
         hawkerRight[1] = sheet.crop(39, 102, 27, 25);
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
+
+        // ******************************************
+
+        mapViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
 
     }
 

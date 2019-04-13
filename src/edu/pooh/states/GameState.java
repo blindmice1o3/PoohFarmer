@@ -17,7 +17,7 @@ public class GameState implements State {
 
     public GameState(Handler handler) {
         this.handler = handler;
-        world = new World(handler, "res/worlds/chapter1.txt");
+        world = new World(handler, "res/worlds/chapter1 - tiles (int).txt");
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
         //player = new Player(handler, world.getSpawnX() * Tile.TILE_WIDTH, world.getSpawnY() * Tile.TILE_HEIGHT);
         //bush = new Bush(handler, 100, 200);

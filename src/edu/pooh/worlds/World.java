@@ -4,6 +4,7 @@ import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
 import edu.pooh.entities.statics.Rock;
+import edu.pooh.gfx.Assets;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
@@ -14,6 +15,7 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class World {
 
@@ -24,7 +26,8 @@ public class World {
     private int spawnX; //NEED map to load before can be used.
     private int spawnY; //NEED map to load before can be used.
 
-    private Tile[][] tiles;      // Multidimensional array of Tile objects.
+    private Tile[][] tiles;         // Multi-dimensional array of Tile objects loaded via int values.
+    private Tile[][] tilesViaRGB;   // Multi-dimensional array of Tile objects loaded via RGB values.
 
     // ENTITIES
     private EntityManager entityManager;
@@ -66,7 +69,11 @@ public class World {
         entityManager.addEntity(new Rock(handler, 192, 1350));
 
 
-        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
+
+//        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
+        loadWorldViaRGB(Assets.mapViaRGB);
+
+
 
         entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
         entityManager.getPlayer().setY(spawnY * Tile.TILE_HEIGHT);  //convert number of tiles to pixels.
@@ -117,7 +124,12 @@ public class World {
             return Tile.dirtWalkway;
         }
 
-        return tiles[x][y];
+
+
+//        return tiles[x][y];
+        return tilesViaRGB[x][y];
+
+
     }
 
     public void loadWorld(String path) {
@@ -138,6 +150,75 @@ public class World {
                     tiles[x][y] = new DirtNormalTile(x, y);
                 } else {    // use Tile class's static Tile[] array's static Tile object.
                     tiles[x][y] = Tile.tiles[ Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) ];
+                }
+            }
+        }
+    }
+
+    public void loadWorldViaRGB(BufferedImage mapAsImage) {
+        int[][][] mapViaRGB = Utils.loadMapByRGB(mapAsImage);
+        widthInTiles = mapViaRGB.length;
+        heightInTiles = mapViaRGB[0].length;
+        spawnX = 7;
+        spawnY = 18;
+
+        tilesViaRGB = new Tile[widthInTiles][heightInTiles];
+
+        for (int xx = 0; xx < widthInTiles; xx++) {
+            for (int yy = 0; yy < heightInTiles; yy++) {
+
+                int[] rgb = mapViaRGB[xx][yy];
+                int red = 0;
+                int green = 0;
+                int blue = 0;
+
+                for (int i = 0; i < 3; i++) {
+                    switch (i) {
+                        case 0:
+                            red = rgb[i];
+                            break;
+                        case 1:
+                            green = rgb[i];
+                            break;
+                        case 2:
+                            blue = rgb[i];
+                            break;
+                        default:
+                            red = 0;
+                            green = 0;
+                            blue = 0;
+                            break;
+                    }
+                }
+
+                if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
+                    tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);
+                } else if (red == 0 && green == 0 && blue == 0) {       //fence
+                    tilesViaRGB[xx][yy] = Tile.tiles[1];
+                } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
+                    tilesViaRGB[xx][yy] = Tile.tiles[2];
+                } else if (red == 0 && green == 162 && blue == 232) {   //signPost
+                    tilesViaRGB[xx][yy] = Tile.tiles[3];
+                } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
+                    tilesViaRGB[xx][yy] = Tile.tiles[100];
+                } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
+                    tilesViaRGB[xx][yy] = Tile.tiles[120];
+                } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
+                    tilesViaRGB[xx][yy] = Tile.tiles[145];
+                } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
+                    tilesViaRGB[xx][yy] = Tile.tiles[175];
+                } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
+                    tilesViaRGB[xx][yy] = Tile.tiles[195];
+                } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
+                    tilesViaRGB[xx][yy] = Tile.tiles[220];
+                } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
+                    tilesViaRGB[xx][yy] = Tile.tiles[226];
+                } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
+                    tilesViaRGB[xx][yy] = Tile.tiles[232];
+                } else if (red == 0 && green == 0 && blue == 255) {     //poolWater
+                    tilesViaRGB[xx][yy] = Tile.tiles[236];
+                } else {
+                    tilesViaRGB[xx][yy] = Tile.tiles[2];
                 }
             }
         }

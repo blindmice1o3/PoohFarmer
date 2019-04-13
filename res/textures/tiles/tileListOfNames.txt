@@ -1,33 +1,34 @@
-0 - dirtNormal
-1 - fence
-2 - dirtWalkway
-3 - signPost
+0 - dirtNormal (rgb: 255, 255, 255)
+1 - fence (rgb: 0, 0, 0)
+2 - dirtWalkway (rgb: 136, 0, 21)
+3 - signPost (rgb: 0, 162, 232)
 
- - dirtHoe
- - dirtSeed
- - plantSproutling
- - plantJuvenille
- - plantAdult
+Tile.DirtNormalTile (or Item.Shovel) - dirtTilled
+StaticEntity.CannabisWild - dirtSeed
+StaticEntity.CannabisWild - plantSproutling
+StaticEntity.CannabisWild - plantJuvenille
+StaticEntity.CannabisWild - plantAdult
 StaticEntity.Bush - plantFlowering1
- - plantFlowering2
+StaticEntity.CannabisWild - plantFlowering2
 StaticEntity.Rock - rock
  - wood
 
 
- - boulder2x2		 4
- - treeStump2x2		 4
+ - boulder2x2		 		  4
+ - treeStump2x2		 		  4
 
+MULTIPLE-TILE-BUILDINGS (rgb: 163, 7#, 164)
 
-100-119 - home5x4		20
-120-144 - cowBarn5x5	25
-145-174 - silos5x6		30
-175-194 - chickenCoop4x5	20
-195-219 - toolShed5x5	25
-220-225 - stable2x3		 6
-226-231 - building2x3	 6
-232-235 - chest2x2		 4
-236-239 - poolWater2x2	 4
-240-248 - poolWater3x3	 9
+100-119 - home5x4 (rgb: 163, 73, 164)		20
+120-144 - cowBarn5x5 (rgb: 163, 76, 164)	25
+145-174 - silos5x6 (rgb: 163, 77, 164) 		30
+175-194 - chickenCoop4x5 (rgb: 163, 78, 164)	20
+195-219 - toolShed5x5 (rgb: 163, 79, 164)	25
+220-225 - stable2x3	(rgb: 163, 75, 164)	  	  6
+226-231 - building2x3 (rgb: 163, 74, 164)	  	  6
+232-235 - chest2x2	(rgb: 255, 242, 0)	  	  4
+236-239 - poolWater2x2 (rgb: 0, 0, 255)	  	  4
+240-248 - poolWater3x3 (rgb: 0, 0, 255) 	  	  9
 
 idMultiTiles BEFORE home5x4: 100
 idMultiTiles AFTER home5x4: 120
@@ -56,7 +57,7 @@ idMultiTiles AFTER poolWater3x3: 249
 17 tiles down - wood (border) (including)
 03 tiles down - walkway (dirt)
 
-**** 49 x 46 tiles ****
+**** 49 x 48 tiles ****
 
 
 32 tiles right - INNER PERIMETER wood (fence) (including)
