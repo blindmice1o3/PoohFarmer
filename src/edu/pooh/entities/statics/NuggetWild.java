@@ -55,7 +55,8 @@ public class NuggetWild extends StaticEntity
             y = tempTile.getY() * Tile.TILE_HEIGHT;
             System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
         } else {
-            Tile[][] tempTiles = handler.getWorld().getTiles();
+            Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
+//            Tile[][] tempTiles = handler.getWorld().getTiles();
 
             for (int y = 0; y < handler.getWorld().getHeight(); y++) {
                 for (int x = 0; x < handler.getWorld().getWidth(); x++) {

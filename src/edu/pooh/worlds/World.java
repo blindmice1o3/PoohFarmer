@@ -164,65 +164,124 @@ public class World {
 
         tilesViaRGB = new Tile[widthInTiles][heightInTiles];
 
+        int[] rgb;
+        int red;
+        int green;
+        int blue;
         for (int xx = 0; xx < widthInTiles; xx++) {
             for (int yy = 0; yy < heightInTiles; yy++) {
+                if (tilesViaRGB[xx][yy] == null) {
+                    rgb = mapViaRGB[xx][yy];
+                    red = 0;
+                    green = 0;
+                    blue = 0;
 
-                int[] rgb = mapViaRGB[xx][yy];
-                int red = 0;
-                int green = 0;
-                int blue = 0;
-
-                for (int i = 0; i < 3; i++) {
-                    switch (i) {
-                        case 0:
-                            red = rgb[i];
-                            break;
-                        case 1:
-                            green = rgb[i];
-                            break;
-                        case 2:
-                            blue = rgb[i];
-                            break;
-                        default:
-                            red = 0;
-                            green = 0;
-                            blue = 0;
-                            break;
+                    for (int i = 0; i < 3; i++) {
+                        switch (i) {
+                            case 0:
+                                red = rgb[i];
+                                break;
+                            case 1:
+                                green = rgb[i];
+                                break;
+                            case 2:
+                                blue = rgb[i];
+                                break;
+                            default:
+                                red = 0;
+                                green = 0;
+                                blue = 0;
+                                break;
+                        }
                     }
-                }
 
-                if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
-                    tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);
-                } else if (red == 0 && green == 0 && blue == 0) {       //fence
-                    tilesViaRGB[xx][yy] = Tile.tiles[1];
-                } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
-                    tilesViaRGB[xx][yy] = Tile.tiles[2];
-                } else if (red == 0 && green == 162 && blue == 232) {   //signPost
-                    tilesViaRGB[xx][yy] = Tile.tiles[3];
-                } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
-                    tilesViaRGB[xx][yy] = Tile.tiles[100];
-                } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
-                    tilesViaRGB[xx][yy] = Tile.tiles[120];
-                } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
-                    tilesViaRGB[xx][yy] = Tile.tiles[145];
-                } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
-                    tilesViaRGB[xx][yy] = Tile.tiles[175];
-                } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
-                    tilesViaRGB[xx][yy] = Tile.tiles[195];
-                } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
-                    tilesViaRGB[xx][yy] = Tile.tiles[220];
-                } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
-                    tilesViaRGB[xx][yy] = Tile.tiles[226];
-                } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
-                    tilesViaRGB[xx][yy] = Tile.tiles[232];
-                } else if (red == 0 && green == 0 && blue == 255) {     //poolWater
-                    tilesViaRGB[xx][yy] = Tile.tiles[236];
-                } else {
-                    tilesViaRGB[xx][yy] = Tile.tiles[2];
+                    if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
+                        tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);
+                    } else if (red == 0 && green == 0 && blue == 0) {       //fence
+                        tilesViaRGB[xx][yy] = Tile.tiles[1];
+                    } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
+                        tilesViaRGB[xx][yy] = Tile.tiles[2];
+                    } else if (red == 0 && green == 162 && blue == 232) {   //signPost
+                        tilesViaRGB[xx][yy] = Tile.tiles[3];
+                    } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
+                        for (int y = 0; y < 4; y++) {
+                            for (int x = 0; x < 5; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[100 + (y * 5) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[100];
+                    } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
+                        for (int y = 0; y < 5; y++) {
+                            for (int x = 0; x < 5; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[120 + (y * 5) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[120];
+                    } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
+                        for (int y = 0; y < 6; y++) {
+                            for (int x = 0; x < 5; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[145 + (y * 5) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[145];
+                    } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
+                        for (int y = 0; y < 5; y++) {
+                            for (int x = 0; x < 4; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[175 + (y * 4) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[175];
+                    } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
+                        for (int y = 0; y < 5; y++) {
+                            for (int x = 0; x < 5; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[195 + (y * 5) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[195];
+                    } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
+                        for (int y = 0; y < 3; y++) {
+                            for (int x = 0; x < 2; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[220 + (y * 2) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[220];
+                    } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
+                        for (int y = 0; y < 3; y++) {
+                            for (int x = 0; x < 2; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[226];
+                    } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
+                        for (int y = 0; y < 2; y++) {
+                            for (int x = 0; x < 2; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[232];
+                    } else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
+                        for (int y = 0; y < 2; y++) {
+                            for (int x = 0; x < 2; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[236 + (y * 2) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[236];
+                    } else if (red == 0 && green == 0 && blue == 254) {     //poolWater3x3
+                        for (int y = 0; y < 3; y++) {
+                            for (int x = 0; x < 3; x++) {
+                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[240 + (y * 3) + x];
+                            }
+                        }
+                        //tilesViaRGB[xx][yy] = Tile.tiles[240];
+                    } else {
+                        tilesViaRGB[xx][yy] = Tile.tiles[2];
+                    }
                 }
             }
         }
     }
+
+    public Tile[][] getTilesViaRGB() { return tilesViaRGB; }
 
     public Tile[][] getTiles() {
         return tiles;

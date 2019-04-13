@@ -28,7 +28,7 @@ MULTIPLE-TILE-BUILDINGS (rgb: 163, 7#, 164)
 226-231 - building2x3 (rgb: 163, 74, 164)	  	  6
 232-235 - chest2x2	(rgb: 255, 242, 0)	  	  4
 236-239 - poolWater2x2 (rgb: 0, 0, 255)	  	  4
-240-248 - poolWater3x3 (rgb: 0, 0, 255) 	  	  9
+240-248 - poolWater3x3 (rgb: 0, 0, 254) 	  	  9
 
 idMultiTiles BEFORE home5x4: 100
 idMultiTiles AFTER home5x4: 120
