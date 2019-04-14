@@ -27,21 +27,22 @@ public class SeedsWild extends Item {
             System.out.print("targeted-tile's id: " + t.getId());
 
             // If there's a seed left and the tile is a dirtNormal.
-            if ((count > 0) && (t instanceof DirtNormalTile) && (t.getTexture() == Assets.dirtTilled)) {
-                DirtNormalTile temp = (DirtNormalTile)t;
+            if ((count > 0) && (t instanceof DirtNormalTile) &&
+                    (((DirtNormalTile) t).getDirtState() == DirtNormalTile.DirtState.TILLED &&
+                    ((DirtNormalTile) t).getStaticEntity() == null)) {
+                DirtNormalTile temp = (DirtNormalTile) t;
+                temp.setTexture(Assets.dirtNormal);
+                temp.setDirtState(DirtNormalTile.DirtState.NORMAL);
 
-                if (temp.getSeedable()) {
-                    temp.setSeedable(false);
-                   ///////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////
 
-                    temp.setStaticEntity( new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT) );
+                temp.setStaticEntity(new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
 
-                    ///////////////////////////////////////////////////////////////////////////////////////////
-                    handler.getWorld().getEntityManager().getEntitiesToBeAdded().add( temp.getStaticEntity() );
-                    handler.getWorld().getEntityManager().setToBeAdded(true);
+                ///////////////////////////////////////////////////////////////////////////////////////////
+                handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
+                handler.getWorld().getEntityManager().setToBeAdded(true);
 
-                    count--;
-                }
+                count--;
             }
         }
 

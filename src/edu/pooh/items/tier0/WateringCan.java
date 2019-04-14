@@ -47,10 +47,10 @@ public class WateringCan extends Item {
 
                 countWater--;
 
-                if (t instanceof DirtNormalTile) {
+                if (t instanceof DirtNormalTile && ((DirtNormalTile) t).getStaticEntity() != null) {
                     DirtNormalTile tempTile = (DirtNormalTile)t;
 
-                    if ((tempTile.getStaticEntity() != null) && (tempTile.getStaticEntity() instanceof CannabisWild)) {
+                    if (tempTile.getStaticEntity() instanceof CannabisWild) {
                         CannabisWild tempStaticEntity = (CannabisWild) tempTile.getStaticEntity();
                         System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
 
@@ -62,6 +62,7 @@ public class WateringCan extends Item {
                                         (int) tempStaticEntity.getY() * Tile.TILE_HEIGHT,
                                         tempStaticEntity.getWidth(), tempStaticEntity.getHeight());
 
+                                // PREVENT BUG OF player-stuck-due-to-entity-collision.
                                 if (handler.getWorld().getEntityManager().getPlayer().
                                         getCollisionBounds(0, 0).
                                         intersects(tempCannabisWildRect)) {

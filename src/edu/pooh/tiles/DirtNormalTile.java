@@ -7,15 +7,21 @@ import java.awt.*;
 
 public class DirtNormalTile extends Tile {
 
+    public enum DirtState {
+        NORMAL, TILLED;
+    }
+
     private int x, y;
-    private boolean seedable;
+    private DirtState dirtState;
+    //private boolean seedable;
     private StaticEntity staticEntity;
 
     public DirtNormalTile(int x, int y) {
         super(Assets.dirtNormal, 0);
         this.x = x;
         this.y = y;
-        seedable = false;
+        dirtState = DirtState.NORMAL;
+        //seedable = false;
         staticEntity = null;
     } // **** end DirtNormalTile(int, int) constructor ****
 
@@ -33,6 +39,16 @@ public class DirtNormalTile extends Tile {
         }
     }
 
+    // GETTERS & SETTERS
+
+    public DirtState getDirtState() {
+        return dirtState;
+    }
+
+    public void setDirtState(DirtState dirtState) {
+        this.dirtState = dirtState;
+    }
+
     public int getX() {
         return x;
     }
@@ -41,13 +57,13 @@ public class DirtNormalTile extends Tile {
         return y;
     }
 
-    public boolean getSeedable() {
-        return seedable;
-    }
+    //public boolean getSeedable() {
+    //    return seedable;
+    //}
 
-    public void setSeedable(boolean seedable) {
-        this.seedable = seedable;
-    }
+    //public void setSeedable(boolean seedable) {
+    //    this.seedable = seedable;
+    //}
 
     public StaticEntity getStaticEntity() {
         return staticEntity;

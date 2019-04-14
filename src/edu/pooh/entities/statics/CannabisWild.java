@@ -1,8 +1,10 @@
 package edu.pooh.entities.statics;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -45,7 +47,7 @@ public class CannabisWild extends StaticEntity {
             setCurrentImage(Assets.plantAdult);
         } else if (daysWatered == 6) {
             setCurrentImage(Assets.plantFlowering2);
-
+        } else {
             setHarvestable(true);
         }
 
@@ -64,12 +66,29 @@ public class CannabisWild extends StaticEntity {
 
     @Override
     public void die() {
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(
                 new NuggetWild(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f))
         );
         handler.getWorld().getEntityManager().setToBeAdded(true);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        setActive(false);
+        Tile[][] tilesViaRGB = handler.getWorld().getTilesViaRGB();
+        for (int y = 0; y < handler.getWorld().getHeight(); y++) {
+            for (int x = 0; x < handler.getWorld().getWidth(); x++) {
+
+                if ( tilesViaRGB[x][y] instanceof DirtNormalTile) {
+                    DirtNormalTile tempDirtNormalTile = (DirtNormalTile) tilesViaRGB[x][y];
+
+                    if (tempDirtNormalTile.getStaticEntity() == this) {
+                        setActive(false);
+                        tempDirtNormalTile.setStaticEntity(null);
+                    }
+
+                }
+
+            }
+        }
     }
 
     @Override

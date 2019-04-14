@@ -26,11 +26,14 @@ public class Shovel extends Item {
         if (t != null) {
             System.out.print("targeted-tile's id: " + t.getId());
 
-            // If tile is dirtNormalTile AND texture is dirtNormal...
-            if ((t instanceof DirtNormalTile) && (t.getTexture() == Assets.dirtNormal)) {
+            // If tile is dirtNormalTile AND dirtState is DirtState.NORMAL...
+            if ((t instanceof DirtNormalTile) &&
+                    (((DirtNormalTile) t).getDirtState() == DirtNormalTile.DirtState.NORMAL)) {
                 DirtNormalTile temp = (DirtNormalTile)t;
-                temp.setSeedable(true);
+
+                //temp.setSeedable(true);
                 temp.setTexture(Assets.dirtTilled);
+                temp.setDirtState(DirtNormalTile.DirtState.TILLED);
             }
         }
 
