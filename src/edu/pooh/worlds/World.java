@@ -155,10 +155,10 @@ public class World {
         }
     }
 
-    public void loadWorldViaRGB(BufferedImage mapAsImage) {
-        int[][][] mapViaRGB = Utils.loadMapByRGB(mapAsImage);
-        widthInTiles = mapViaRGB.length;
-        heightInTiles = mapViaRGB[0].length;
+    public void loadWorldViaRGB(BufferedImage mapFromImage) {
+        int[][][] rgbArrayRelativeToMap = Utils.translateImageToRGB(mapFromImage);
+        widthInTiles = rgbArrayRelativeToMap.length;
+        heightInTiles = rgbArrayRelativeToMap[0].length;
         spawnX = 7;
         spawnY = 18;
 
@@ -171,7 +171,7 @@ public class World {
         for (int xx = 0; xx < widthInTiles; xx++) {
             for (int yy = 0; yy < heightInTiles; yy++) {
                 if (tilesViaRGB[xx][yy] == null) {
-                    rgb = mapViaRGB[xx][yy];
+                    rgb = rgbArrayRelativeToMap[xx][yy];
                     red = 0;
                     green = 0;
                     blue = 0;
@@ -194,6 +194,10 @@ public class World {
                                 break;
                         }
                     }
+
+                    //////////////////////////////////////////////////////////////////////////
+                    //            Tile type determination based on rgb values               //
+                    //////////////////////////////////////////////////////////////////////////
 
                     if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
                         tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);

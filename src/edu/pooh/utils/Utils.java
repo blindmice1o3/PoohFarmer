@@ -35,16 +35,16 @@ public class Utils {
     }
 
     // Load map by reading RGB values and writing to int[][][].
-    public static int[][][] loadMapByRGB(BufferedImage mapAsImage) {
-        int width = mapAsImage.getWidth();
-        int height = mapAsImage.getHeight();
+    public static int[][][] translateImageToRGB(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
 
-        int[][][] tempArray = new int[width][height][3];
+        int[][][] rgbArray = new int[width][height][3];
 
         for (int xx = 0; xx < width; xx++) {
             for (int yy = 0; yy < height; yy++) {
 
-                int pixel = mapAsImage.getRGB(xx, yy);
+                int pixel = image.getRGB(xx, yy);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
@@ -52,16 +52,16 @@ public class Utils {
                 for (int rgb = 0; rgb < 3; rgb++) {
                     switch (rgb) {
                         case 0:
-                            tempArray[xx][yy][rgb] = red;
+                            rgbArray[xx][yy][rgb] = red;
                             break;
                         case 1:
-                            tempArray[xx][yy][rgb] = green;
+                            rgbArray[xx][yy][rgb] = green;
                             break;
                         case 2:
-                            tempArray[xx][yy][rgb] = blue;
+                            rgbArray[xx][yy][rgb] = blue;
                             break;
                         default:
-                            tempArray[xx][yy][rgb] = 0;
+                            rgbArray[xx][yy][rgb] = 0;
                             break;
                     }
                 }
@@ -82,7 +82,7 @@ public class Utils {
             }
         }
 
-        return tempArray;
+        return rgbArray;
     }
 
 } // **** end Utils class ****
