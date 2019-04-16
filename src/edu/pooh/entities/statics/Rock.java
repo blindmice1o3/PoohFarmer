@@ -17,8 +17,8 @@ public class Rock extends StaticEntity
 
         bounds.x = 5;
         bounds.y = 10;
-        bounds.width = width - 10;
-        bounds.height = height - 20;
+        setBoundsWidth(width - 10);
+        setBoundsHeight(height - 20);
     } // **** end Rock(Handler, float, float) constructor ****
 
     @Override
@@ -39,6 +39,7 @@ public class Rock extends StaticEntity
 
     @Override
     public void die() {
+        setActive(false);
         //handler.getWorld().getItemManager().addItem(Item.wateringCanItem.createNew((int)x, (int)y));
     }
 

@@ -122,7 +122,7 @@ public class Player extends Creature {
         if (!holding) {
             checkAttacks();
         } else if (holdableObject != null) {                // HOLDING
-            holdableObject.setPosition(x + 5, y + 15);
+            holdableObject.setPosition(x + 5, y + 15);  // Moves image of holdableObject w/ player's.
         }
 
         // INVENTORY
@@ -210,24 +210,31 @@ public class Player extends Creature {
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
             // HOLDING CHECK
-            if (holding) {      // Already holding, can only drop the holdableObject.
+            if (holding) {  // Already holding, can only drop the holdableObject.
                 if (checkDropableTile()) {
+
+                    /////////////////////////////////////////////////
                     holdableObject.dropped(getTileCurrentlyFacing());
                     setHoldableObject(null);
                     holding = false;
-                }
-                return;
-            } else {            // Not holding Holdable.
-                if (checkForHoldable()) {       // Check if Holdable in front, pick up if true.
+                    /////////////////////////////////////////////////
 
+                }
+            } else {        // Not holding Holdable.
+                if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
+
+                    //////////////////////////////////////
                     setHoldableObject( pickUpHoldable() );
                     holdableObject.pickedUp();
                     holding = true;
-                } else {                        // Not holding Holdable, no Holdable in front, use selected item.
+                    //////////////////////////////////////
 
-                    /////////////////////////////////////////////////////////
+                } else {                    // Not holding Holdable, no Holdable in front, use selected item.
+
+                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                     inventory.getItem(inventory.getSelectedItem()).execute();
-                    /////////////////////////////////////////////////////////
+                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
+
                 }
             }
         }

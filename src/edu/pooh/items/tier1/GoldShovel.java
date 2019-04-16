@@ -12,7 +12,7 @@ public class GoldShovel extends Item {
         super(Assets.goldShovel, "Gold Shovel", ID.GOLD_SHOVEL);
     } // **** end GoldShovel() singleton-pattern constructor ****
 
-    public static GoldShovel getUniqueInstance(Handler handler) {
+    public static synchronized GoldShovel getUniqueInstance(Handler handler) {
         uniqueInstance.setHandler(handler);
         return uniqueInstance;
     }

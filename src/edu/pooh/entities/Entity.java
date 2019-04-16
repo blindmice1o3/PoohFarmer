@@ -61,6 +61,11 @@ public abstract class Entity {
                 (int)(y + bounds.y + yOffset), bounds.width, bounds.height);
     }
 
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void setBoundsWidth(int width) {
         bounds.width = width;
     }

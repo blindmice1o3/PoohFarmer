@@ -14,8 +14,8 @@ public class Bush extends StaticEntity {
 
         bounds.x = 5;
         bounds.y = 5;
-        bounds.width = width - 10;
-        bounds.height = height - 10;
+        setBoundsWidth(width - 10);
+        setBoundsHeight(height - 10);
     } // **** end Bush(Handler, float, float) constructor ****
 
     @Override
@@ -36,6 +36,7 @@ public class Bush extends StaticEntity {
 
     @Override
     public void die() {
+        setActive(false);
         //handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
     }
 

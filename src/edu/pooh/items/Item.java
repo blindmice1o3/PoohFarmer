@@ -62,7 +62,7 @@ public abstract class Item implements Invokable {
             return;
         }
 
-        render( g, (int)(x - handler.getGameCamera().getxOffset() + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2)),
+        render(g, (int)(x - handler.getGameCamera().getxOffset() + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2)),
                 (int)(y - handler.getGameCamera().getyOffset() + (Tile.TILE_HEIGHT / 2) - (ITEM_HEIGHT / 2)) );    // x and y that the Item is currently storing
     }
 

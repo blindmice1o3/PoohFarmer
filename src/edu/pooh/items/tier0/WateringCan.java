@@ -1,6 +1,5 @@
 package edu.pooh.items.tier0;
 
-import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.statics.CannabisWild;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
@@ -20,7 +19,7 @@ public class WateringCan extends Item {
         super(Assets.wateringCan, "Watering Can", ID.WATERING_CAN);
     } // **** end WateringCan() singleton-pattern constructor ****
 
-    public static WateringCan getUniqueInstance(Handler handler) {
+    public static synchronized WateringCan getUniqueInstance(Handler handler) {
         uniqueInstance.setHandler(handler);
         return uniqueInstance;
     }

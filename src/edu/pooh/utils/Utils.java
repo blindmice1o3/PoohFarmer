@@ -1,5 +1,7 @@
 package edu.pooh.utils;
 
+import edu.pooh.tiles.Tile;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -34,12 +36,25 @@ public class Utils {
         }
     }
 
-    // Load map by reading RGB values and writing to int[][][].
-    public static int[][][] translateImageToRGB(BufferedImage image) {
+    /**
+     *  Load world by reading RGB values from BufferedImage object and writing to int[][][].
+     *
+     * @param image the BufferedImage object from which the game world's (map/level) layout of tiles
+     *              is modeled. Since the actual RGB values (e.g. red == 255, green == 0, and blue == 0)
+     *              is largely arbitrary, it can be used as meta-data.
+     * @return a multiple-dimensional array of int which represent the game's world (map/level) as
+     *          if it was a two-dimensional array of int (i.e. int[widthInTiles][heightInTiles]),
+     *          where each element of the two-dimensional array holds a reference to
+     *          an array of int (i.e. int[3] - which represent the RGB values, respectively, of the
+     *          individual pixel). The values inside the array of int[] representing RGB will be
+     *          parsed and translated to their corresponding Tile type using World class's
+     *          translateTileFromRGB(int[][][] rgbArrayRelativeToMap) method.
+     */
+    public static int[][][] transcribeRGBFromImage(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        int[][][] rgbArray = new int[width][height][3];
+        int[][][] rgbArrayRelativeToMap = new int[width][height][3];
 
         for (int xx = 0; xx < width; xx++) {
             for (int yy = 0; yy < height; yy++) {
@@ -49,40 +64,13 @@ public class Utils {
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
 
-                for (int rgb = 0; rgb < 3; rgb++) {
-                    switch (rgb) {
-                        case 0:
-                            rgbArray[xx][yy][rgb] = red;
-                            break;
-                        case 1:
-                            rgbArray[xx][yy][rgb] = green;
-                            break;
-                        case 2:
-                            rgbArray[xx][yy][rgb] = blue;
-                            break;
-                        default:
-                            rgbArray[xx][yy][rgb] = 0;
-                            break;
-                    }
-                }
-
-                if (red == 255) {
-
-                }
-                if (green == 255) {
-
-                }
-                if (blue == 255) {
-
-                }
-                if (red == 255 && blue == 255) {
-
-                }
-
+                rgbArrayRelativeToMap[xx][yy][0] = red;
+                rgbArrayRelativeToMap[xx][yy][1] = green;
+                rgbArrayRelativeToMap[xx][yy][2] = blue;
             }
         }
 
-        return rgbArray;
+        return rgbArrayRelativeToMap;
     }
 
 } // **** end Utils class ****

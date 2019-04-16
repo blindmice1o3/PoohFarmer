@@ -12,7 +12,7 @@ public class GoldSprinkler extends Item {
         super(Assets.goldSprinkler, "Gold Sprinkler", ID.GOLD_SPRINKLER);
     } // **** end GoldSprinkler() singleton-pattern constructor ****
 
-    public static GoldSprinkler getUniqueInstance(Handler handler) {
+    public static synchronized GoldSprinkler getUniqueInstance(Handler handler) {
         uniqueInstance.setHandler(handler);
         return uniqueInstance;
     }

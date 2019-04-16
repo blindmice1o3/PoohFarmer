@@ -4,6 +4,7 @@ import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
 import edu.pooh.entities.statics.Rock;
+import edu.pooh.entities.statics.Wood;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
@@ -67,12 +68,16 @@ public class World {
             }
         });
         entityManager.addEntity(new Rock(handler, 192, 1350));
+        entityManager.addEntity(new Wood(handler, 64, 1150));
+        entityManager.addEntity(new Wood(handler, 64, 1250));
+        entityManager.addEntity(new Wood(handler, 64, 1350));
 
 
 
 //        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
-        loadWorldViaRGB(Assets.mapViaRGB);
-
+        loadWorldViaRGB(Assets.tilesViaRGB);
+        loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
+        loadEntitiesPlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
 
 
         entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
@@ -114,10 +119,6 @@ public class World {
         entityManager.render(g);
     }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
     public Tile getTile(int x, int y) {
         // This checks if the player is going outside the map's bound, returns a DirtWalkwayTile object as default.
         if (x < 0 || y < 0 || x >= widthInTiles || y >= heightInTiles) {
@@ -132,7 +133,7 @@ public class World {
 
     }
 
-    public void loadWorld(String path) {
+    private void loadWorld(String path) {
         String file = Utils.loadFileAsString(path);
         String[] tokens = file.split("\\s+");   // Any amount of white space is a separator.
 
@@ -155,14 +156,19 @@ public class World {
         }
     }
 
-    public void loadWorldViaRGB(BufferedImage mapFromImage) {
-        int[][][] rgbArrayRelativeToMap = Utils.translateImageToRGB(mapFromImage);
-        widthInTiles = rgbArrayRelativeToMap.length;
-        heightInTiles = rgbArrayRelativeToMap[0].length;
+    private void loadWorldViaRGB(BufferedImage tilesViaRGB) {
+        int[][][] rgbArrayRelativeToMap = Utils.transcribeRGBFromImage(tilesViaRGB);
+        this.tilesViaRGB = translateTileFromRGB(rgbArrayRelativeToMap);
+
         spawnX = 7;
         spawnY = 18;
+    }
 
-        tilesViaRGB = new Tile[widthInTiles][heightInTiles];
+    private Tile[][] translateTileFromRGB(int[][][] rgbArrayRelativeToMap) {
+        widthInTiles = rgbArrayRelativeToMap.length;
+        heightInTiles = rgbArrayRelativeToMap[0].length;
+
+        Tile[][] tilesViaRGB = new Tile[widthInTiles][heightInTiles];
 
         int[] rgb;
         int red;
@@ -172,28 +178,10 @@ public class World {
             for (int yy = 0; yy < heightInTiles; yy++) {
                 if (tilesViaRGB[xx][yy] == null) {
                     rgb = rgbArrayRelativeToMap[xx][yy];
-                    red = 0;
-                    green = 0;
-                    blue = 0;
 
-                    for (int i = 0; i < 3; i++) {
-                        switch (i) {
-                            case 0:
-                                red = rgb[i];
-                                break;
-                            case 1:
-                                green = rgb[i];
-                                break;
-                            case 2:
-                                blue = rgb[i];
-                                break;
-                            default:
-                                red = 0;
-                                green = 0;
-                                blue = 0;
-                                break;
-                        }
-                    }
+                    red = rgb[0];
+                    green = rgb[1];
+                    blue = rgb[2];
 
                     //////////////////////////////////////////////////////////////////////////
                     //            Tile type determination based on rgb values               //
@@ -283,12 +271,48 @@ public class World {
                 }
             }
         }
+
+        return tilesViaRGB;
+    }
+
+    public void loadEntitiesPlacedNonRandomlyViaRGB(BufferedImage entitiesViaRGB) {
+        // TODO:
+    }
+
+    public void loadEntitiesPlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
+        // TODO:
+    }
+
+    // GETTERS & SETTERS
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public int getSpawnX() { return spawnX; }
+
+    public int getSpawnY() { return spawnY; }
+
+    public Tile[][] getTiles() {
+        return tiles;
     }
 
     public Tile[][] getTilesViaRGB() { return tilesViaRGB; }
 
-    public Tile[][] getTiles() {
-        return tiles;
+    public EntityManager getEntityManager() { return entityManager; }
+
+    public void setEntityManager(EntityManager entityManager) { this.entityManager = entityManager; }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public void setItemManager(ItemManager itemManager) {
+        this.itemManager = itemManager;
     }
 
     public int getWidth() {
@@ -299,23 +323,4 @@ public class World {
         return heightInTiles;
     }
 
-    public int getSpawnX() { return spawnX; }
-
-    public int getSpawnY() { return spawnY; }
-
-    public Handler getHandler() {
-        return handler;
-    }
-
-    public void setHandler(Handler handler) {
-        this.handler = handler;
-    }
-
-    public ItemManager getItemManager() {
-        return itemManager;
-    }
-
-    public void setItemManager(ItemManager itemManager) {
-        this.itemManager = itemManager;
-    }
 } // **** end World class ****

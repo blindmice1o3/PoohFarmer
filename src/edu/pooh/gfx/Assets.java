@@ -57,7 +57,8 @@ public class Assets {
     public static BufferedImage[] startButtons;
 
     // LOADING MAP BY RGB VALUES
-    public static BufferedImage mapViaRGB;
+    public static BufferedImage tilesViaRGB;
+    public static BufferedImage entitiesViaRGB;
 
 
 
@@ -404,7 +405,7 @@ public class Assets {
 
         // ******************************************
 
-        mapViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
+        tilesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
 
     }
 
