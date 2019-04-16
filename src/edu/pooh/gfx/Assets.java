@@ -407,6 +407,8 @@ public class Assets {
 
         tilesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
 
+        entitiesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - entities (rgb).png");
+
     }
 
 } // **** end Assets class ****

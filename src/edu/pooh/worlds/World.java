@@ -1,5 +1,6 @@
 package edu.pooh.worlds;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.Bush;
@@ -17,6 +18,7 @@ import edu.pooh.utils.Utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class World {
 
@@ -68,16 +70,14 @@ public class World {
             }
         });
         entityManager.addEntity(new Rock(handler, 192, 1350));
-        entityManager.addEntity(new Wood(handler, 64, 1150));
-        entityManager.addEntity(new Wood(handler, 64, 1250));
-        entityManager.addEntity(new Wood(handler, 64, 1350));
 
 
 
 //        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
-        loadWorldViaRGB(Assets.tilesViaRGB);
+        loadTilesViaRGB(Assets.tilesViaRGB);
         loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
         loadEntitiesPlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+
 
 
         entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
@@ -156,24 +156,25 @@ public class World {
         }
     }
 
-    private void loadWorldViaRGB(BufferedImage tilesViaRGB) {
+    private void loadTilesViaRGB(BufferedImage tilesViaRGB) {
         int[][][] rgbArrayRelativeToMap = Utils.transcribeRGBFromImage(tilesViaRGB);
-        this.tilesViaRGB = translateTileFromRGB(rgbArrayRelativeToMap);
 
-        spawnX = 7;
-        spawnY = 18;
-    }
-
-    private Tile[][] translateTileFromRGB(int[][][] rgbArrayRelativeToMap) {
         widthInTiles = rgbArrayRelativeToMap.length;
         heightInTiles = rgbArrayRelativeToMap[0].length;
+        spawnX = 7;
+        spawnY = 18;
 
-        Tile[][] tilesViaRGB = new Tile[widthInTiles][heightInTiles];
+        this.tilesViaRGB = new Tile[widthInTiles][heightInTiles];
 
+        translateTileFromRGB(rgbArrayRelativeToMap);
+    }
+
+    private void translateTileFromRGB(int[][][] rgbArrayRelativeToMap) {
         int[] rgb;
         int red;
         int green;
         int blue;
+
         for (int xx = 0; xx < widthInTiles; xx++) {
             for (int yy = 0; yy < heightInTiles; yy++) {
                 if (tilesViaRGB[xx][yy] == null) {
@@ -271,12 +272,37 @@ public class World {
                 }
             }
         }
-
-        return tilesViaRGB;
     }
 
-    public void loadEntitiesPlacedNonRandomlyViaRGB(BufferedImage entitiesViaRGB) {
-        // TODO:
+    private void loadEntitiesPlacedNonRandomlyViaRGB(BufferedImage entitiesViaRGB) {
+        int[][][] rgbArrayRelativeToMap = Utils.transcribeRGBFromImage(entitiesViaRGB);
+
+        translateEntitiesFromRGB(rgbArrayRelativeToMap);
+    }
+
+    private void translateEntitiesFromRGB(int[][][] rgbArrayRelativeToMap) {
+        int[] rgb;
+        int red;
+        int green;
+        int blue;
+
+        for (int xx = 0; xx < widthInTiles; xx++) {
+            for (int yy = 0; yy < heightInTiles; yy++) {
+                rgb = rgbArrayRelativeToMap[xx][yy];
+
+                red = rgb[0];
+                green = rgb[1];
+                blue = rgb[2];
+
+                //////////////////////////////////////////////////////////////////////////
+                //       Entity type/position determination based on rgb values         //
+                //////////////////////////////////////////////////////////////////////////
+
+                if (red == 0 && green == 0 && blue == 0) {        //Wood
+                     entityManager.addEntity( new Wood(handler, (float)xx * Tile.TILE_WIDTH, (float)yy * Tile.TILE_HEIGHT) );
+                }
+            }
+        }
     }
 
     public void loadEntitiesPlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {

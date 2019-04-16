@@ -56,13 +56,17 @@ public class Utils {
 
         int[][][] rgbArrayRelativeToMap = new int[width][height][3];
 
+        int pixel;
+        int red;
+        int green;
+        int blue;
+
         for (int xx = 0; xx < width; xx++) {
             for (int yy = 0; yy < height; yy++) {
-
-                int pixel = image.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
+                pixel = image.getRGB(xx, yy);
+                red = (pixel >> 16) & 0xff;
+                green = (pixel >> 8) & 0xff;
+                blue = (pixel) & 0xff;
 
                 rgbArrayRelativeToMap[xx][yy][0] = red;
                 rgbArrayRelativeToMap[xx][yy][1] = green;
