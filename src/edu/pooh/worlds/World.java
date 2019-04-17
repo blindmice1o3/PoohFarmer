@@ -19,6 +19,7 @@ import edu.pooh.utils.Utils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class World {
 
@@ -76,7 +77,8 @@ public class World {
 //        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
         loadTilesViaRGB(Assets.tilesViaRGB);
         loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
-        loadEntitiesPlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+        //loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+        loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
 
 
 
@@ -299,14 +301,75 @@ public class World {
                 //////////////////////////////////////////////////////////////////////////
 
                 if (red == 0 && green == 0 && blue == 0) {        //Wood
-                     entityManager.addEntity( new Wood(handler, (float)xx * Tile.TILE_WIDTH, (float)yy * Tile.TILE_HEIGHT) );
+                     entityManager.addEntity( new Wood(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) );
                 }
             }
         }
     }
 
-    public void loadEntitiesPlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
+    //private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
         // TODO:
+    //}
+
+    private void loadEntities1x1PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
+        int countRock = 30;
+        int countBush = 30;
+        int x;
+        int y;
+        Random randX = new Random();
+        Random randY = new Random();
+
+        boolean[][] availablePosition = determineAvailablePosition(tilesViaRGB, entitiesViaRGB);
+
+        while (countRock > 0) {
+            x = randX.nextInt(widthInTiles);
+            y = randY.nextInt(heightInTiles);
+
+            if (availablePosition[x][y]) {
+                entityManager.addEntity( new Rock(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
+                countRock--;
+                availablePosition[x][y] = false;
+            }
+        }
+
+        while (countBush > 0) {
+            x = randX.nextInt(widthInTiles);
+            y = randY.nextInt(heightInTiles);
+
+            if (availablePosition[x][y]) {
+                entityManager.addEntity( new Bush(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
+                countBush--;
+                availablePosition[x][y] = false;
+            }
+        }
+    }
+
+    private boolean[][] determineAvailablePosition(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
+        boolean[][] availablePosition = new boolean[widthInTiles][heightInTiles];
+
+        int[][][] rgbArrayTiles = Utils.transcribeRGBFromImage(tilesViaRGB);
+        int[][][] rgbArrayEntities = Utils.transcribeRGBFromImage(entitiesViaRGB);
+        int[] rgbTempTiles = new int[3];
+        int[] rgbTempEntities = new int[3];
+
+        for (int xx = 0; xx < widthInTiles; xx++) {
+            for (int yy = 0; yy < heightInTiles; yy++) {
+
+                // get the int[] rgb for both tiles and entities loaded from images.
+                for (int rgb = 0; rgb < 3; rgb++) {
+                    rgbTempTiles[rgb] = rgbArrayTiles[xx][yy][rgb];
+                    rgbTempEntities[rgb] = rgbArrayEntities[xx][yy][rgb];
+                }
+
+                // assign boolean[][] availablePosition elements based on tiles image having a DirtNormalTile
+                // && entities image NOT having an entity in that tile position.
+                availablePosition[xx][yy] = (rgbTempTiles[0] == 255 && rgbTempTiles[1] == 255 && rgbTempTiles[2] == 255 &&
+                        rgbTempEntities[0] == 255 && rgbTempEntities[1] == 255 && rgbTempEntities[2] == 255);
+
+            }
+        }
+
+        return availablePosition;
     }
 
     // GETTERS & SETTERS
