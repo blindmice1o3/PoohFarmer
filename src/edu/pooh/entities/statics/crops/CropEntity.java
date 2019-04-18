@@ -1,6 +1,6 @@
 package edu.pooh.entities.statics.crops;
 
-import edu.pooh.entities.statics.harvests.NuggetWild;
+import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
@@ -40,14 +40,13 @@ public class CropEntity extends StaticEntity {
     public CropEntity(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         // TODO: THIS CLASS CAN BECOME AN abstract CropEntity class !!!!!!!!!!!!!!!
-        cropType = CropType.CORN;
 
         setCurrentImage(Assets.dirtSeedsDry);
         setDaysWatered(0);
         setWaterable(true);
         setHarvestable(false);
 
-        // NO COLLISION WHILE dirtSeed. START COLLISION AT plantSproutling.
+        // NO COLLISION WHILE dirtSeedsDry. START COLLISION AT daysWatered == 3.
         setBoundsWidth(0);
         setBoundsHeight(0);
     } // **** end CropEntity(Handler, float, float) constructor ****
@@ -296,8 +295,30 @@ public class CropEntity extends StaticEntity {
     @Override
     public void die() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(
-                new NuggetWild(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f)));
+        HarvestEntity tempHarvestEntity = new HarvestEntity(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f));
+        switch (cropType) {
+            case CANNABIS_WILD:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
+                break;
+            case TURNIP:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TURNIP);
+                break;
+            case POTATO:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.POTATO);
+                break;
+            case TOMATO:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TOMATO);
+                break;
+            case CORN:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CORN);
+                break;
+            default:
+                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
+                break;
+        }
+        tempHarvestEntity.determineAndSetTexture();
+
+        handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
         handler.getWorld().getEntityManager().setToBeAdded(true);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -332,6 +353,8 @@ public class CropEntity extends StaticEntity {
     // GETTERS & SETTERS
 
     public CropType getCropType() { return cropType; }
+
+    public void setCropType(CropType cropType) { this.cropType = cropType; }
 
     public boolean getHarvestable() {
         return harvestable;

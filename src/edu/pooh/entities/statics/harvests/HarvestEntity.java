@@ -8,15 +8,51 @@ import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class NuggetWild extends StaticEntity
+public class HarvestEntity extends StaticEntity
         implements Holdable {
 
-    // TODO: THIS CAN BECOME AN abstract HarvestEntity class that is instantiated via tha concrete
+    public enum HarvestType {
+        CANNABIS_WILD,
+        TURNIP,
+        POTATO,
+        TOMATO,
+        CORN;
+    }
+
+    private HarvestType harvestType;
+    private BufferedImage texture;
+    // TODO: THIS CAN BECOME AN abstract HarvestEntity class that is instantiated via the concrete
     // subclasses of abstract CropEntity class.
 
-    public NuggetWild(Handler handler, float x, float y) {
+    public HarvestEntity(Handler handler, float x, float y) {
         super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
+    }
+
+    public void determineAndSetTexture() {
+        if (harvestType != null) {
+            switch (harvestType) {
+                case CANNABIS_WILD:
+                    setTexture(Assets.honeyPot);
+                    break;
+                case TURNIP:
+                    setTexture(Assets.turnip0Whole);
+                    break;
+                case POTATO:
+                    setTexture(Assets.potato0Whole);
+                    break;
+                case TOMATO:
+                    setTexture(Assets.tomato0Whole);
+                    break;
+                case CORN:
+                    setTexture(Assets.corn0Whole);
+                    break;
+                default:
+                    setTexture(Assets.honeyPot);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -26,7 +62,7 @@ public class NuggetWild extends StaticEntity
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.honeyPot, (int)(x - handler.getGameCamera().getxOffset()),
+        g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }
 
@@ -81,4 +117,22 @@ public class NuggetWild extends StaticEntity
         }
     }
 
-} // **** end NuggetWild class ****
+    // GETTERS & SETTERS
+
+    public void setTexture(BufferedImage texture) {
+        this.texture = texture;
+    }
+
+    public BufferedImage getTexture() {
+        return texture;
+    }
+
+    public HarvestType getHarvestType() {
+        return harvestType;
+    }
+
+    public void setHarvestType(HarvestType harvestType) {
+        this.harvestType = harvestType;
+    }
+
+} // **** end HarvestEntity class ****

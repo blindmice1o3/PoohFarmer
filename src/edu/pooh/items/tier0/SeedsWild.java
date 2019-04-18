@@ -9,9 +9,21 @@ import edu.pooh.tiles.Tile;
 
 public class SeedsWild extends Item {
 
+    public enum SeedType {
+        CANNABIS_WILD,
+        TURNIP,
+        POTATO,
+        TOMATO,
+        CORN;
+    }
+
+    private SeedType seedType;
+
     public SeedsWild(Handler handler) {
         super(Assets.dirtSeedsDry, "Wild Seeds", ID.SEEDSWILD);
         setHandler(handler);
+
+        seedType = SeedType.CANNABIS_WILD;
         count = 5;
     } // **** end SeedsWild(Handler) constructor ****
 
@@ -30,6 +42,26 @@ public class SeedsWild extends Item {
                 ///////////////////////////////////////////////////////////////////////////////////////////
 
                 temp.setStaticEntity(new CropEntity(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
+                switch (seedType) {
+                    case CANNABIS_WILD:
+                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
+                        break;
+                    case TURNIP:
+                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.TURNIP);
+                        break;
+                    case POTATO:
+                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                        break;
+                    case TOMATO:
+                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.TOMATO);
+                        break;
+                    case CORN:
+                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
+                        break;
+                    default:
+                        ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                        break;
+                }
 
                 ///////////////////////////////////////////////////////////////////////////////////////////
                 handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
