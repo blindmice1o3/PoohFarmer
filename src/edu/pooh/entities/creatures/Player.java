@@ -122,7 +122,7 @@ public class Player extends Creature {
         if (!holding) {
             checkAttacks();
         } else if (holdableObject != null) {                // HOLDING
-            holdableObject.setPosition(x + 5, y + 15);  // Moves image of holdableObject w/ player's.
+            holdableObject.setPosition(x + 10, y - 15);  // Moves image of holdableObject w/ player's.
         }
 
         // INVENTORY

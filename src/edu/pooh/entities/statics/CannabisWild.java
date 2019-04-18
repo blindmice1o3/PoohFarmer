@@ -20,6 +20,8 @@ import java.awt.image.BufferedImage;
  */
 public class CannabisWild extends StaticEntity {
 
+    // TODO: THIS CLASS CAN BECOME AN abstract CropEntity class !!!!!!!!!!!!!!!
+
     private int daysWatered;
 
     private boolean waterable;

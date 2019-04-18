@@ -33,7 +33,7 @@ public class Assets {
     // ENTITIES (/CROPS)
     public static BufferedImage dirtEmptyDry, dirtEmptyWatered,
             dirtSeedsDry, dirtSeedsWatered,
-            secretGarden0Empty, secretGarden1Flower,
+            secretGardenEmpty, secretGardenFlower,
             turnip0Whole, turnip0Fragmented, turnip1Dry, turnip1Watered, turnip2Dry, turnip2Watered,
             potato0Whole, potato0Fragmented, potato1Dry, potato1Watered, potato2Dry, potato2Watered,
             tomato0Whole, tomato0Fragmented, tomato1Dry, tomato1Watered, tomato2Dry, tomato2Watered,
@@ -69,16 +69,33 @@ public class Assets {
 
 
     public static void init() {
+        // **************************************************************
+        // |+|+|+|+|+|+|+| FONT: SLKSCR.TTF (size == 28) |+|+|+|+|+|+|+|
+        // **************************************************************
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
 
+        // **************************************************************
+        // |+|+|+|+|+|+|+| INVENTORY SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
+        // **************************************************************
         inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
 
+        // *****************************************************
+        // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|
+        // *****************************************************
         waterFX = ImageLoader.loadImage("/textures/entities/waterItem.png");
+
+        // ********************************************************
+        // |+|+|+|+|+|+|+| MENUSTATE: STARTBUTTONS |+|+|+|+|+|+|+|
+        // ********************************************************
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/StartButtons(96x64).png"));
         startButtons = new BufferedImage[2];
         startButtons[0] = sheet.crop(0, 0, 96, 31);
         startButtons[1] = sheet.crop(0, 32, 96, 31);
+
+        // *****************************************************************
+        // |+|+|+|+|+|+|+| TILES: SINGLE AND MULTIPLE TILES |+|+|+|+|+|+|+|
+        // *****************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
         dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
@@ -206,7 +223,9 @@ public class Assets {
             }
         }
 
-        // ******************************************
+        // ************************************************************
+        // |+|+|+|+|+|+|+| ITEM: TOOLS (TIER0 && TIER1 |+|+|+|+|+|+|+|
+        // ************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Tools.png"));
         wateringCan = sheet.crop(6, 10, 16, 12);
@@ -220,15 +239,17 @@ public class Assets {
         goldAxe = sheet.crop(54, 22, 15, 16);
         goldHammer = sheet.crop(70, 23, 16, 15);
 
-        // ******************************************
+        // ****************************************************************
+        // |+|+|+|+|+|+|+| DIRT and CROPS (DRY && WATERED) |+|+|+|+|+|+|+|
+        // ****************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Crops.png"));
         dirtEmptyDry = sheet.crop(32, 41, 16, 16);
         dirtEmptyWatered = sheet.crop(50, 41, 16, 16);
         dirtSeedsDry = sheet.crop(99, 41, 16, 16);
         dirtSeedsWatered = sheet.crop(117, 41, 16, 16);
-        secretGarden0Empty = sheet.crop(171, 41, 16, 16);
-        secretGarden1Flower = sheet.crop(189, 41, 16, 16);
+        secretGardenEmpty = sheet.crop(171, 41, 16, 16);
+        secretGardenFlower = sheet.crop(189, 41, 16, 16);
         turnip0Whole = sheet.crop(13, 171, 16, 16);
         turnip0Fragmented = sheet.crop(31, 171, 16, 16);
         turnip1Dry = sheet.crop(13, 135, 16, 16);
@@ -262,7 +283,9 @@ public class Assets {
         corn4Dry = sheet.crop(202, 189, 16, 16);
         corn4Watered = sheet.crop(220, 189, 16, 16);
 
-        // ******************************************
+        // **************************************************************
+        // |+|+|+|+|+|+|+| PLAYER MOVEMENTS && HONEY POT |+|+|+|+|+|+|+|
+        // **************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy Advance - Kingdom Hearts Chain of Memories - Winnie the Pooh.png"));
         honeyPot = sheet.crop(318, 1556, 38, 37);
@@ -380,7 +403,9 @@ public class Assets {
         playerDownRight[9] = sheet.crop(397, 1323, 27, 35);
         playerDownRight[10] = sheet.crop(437, 1325, 25, 33);
 
-        // ******************************************
+        // ***********************************************************************************
+        // |+|+|+|+|+|+|+| ENTITY: TRAVELINGFENCE (name == The Finn) (HAWKER) |+|+|+|+|+|+|+|
+        // ***********************************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Hawker and Peddler.png"));
         hawkerUp = new BufferedImage[3];
@@ -403,7 +428,9 @@ public class Assets {
         hawkerRight[1] = sheet.crop(39, 102, 27, 25);
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
 
-        // ******************************************
+        // **********************************************************************
+        // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
+        // **********************************************************************
 
         tilesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
 
