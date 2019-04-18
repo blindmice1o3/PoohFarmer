@@ -74,4 +74,14 @@ public class SeedsWild extends Item {
         System.out.println("Executed SeedsWild.");
     }
 
+    // GETTERS & SETTERS
+
+    public void setSeedType(SeedType seedType) {
+        this.seedType = seedType;
+    }
+
+    public SeedType getSeedType() {
+        return seedType;
+    }
+
 } // **** end SeedsWild class ****

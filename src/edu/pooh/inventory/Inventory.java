@@ -3,6 +3,7 @@ package edu.pooh.inventory;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
 
@@ -106,7 +107,12 @@ public class Inventory {
     public void addItem(Item item) {
         // If we already have it in the inventory, just increase the count variable.
         for (Item i : inventoryItems) {
-            if (i.getId() == item.getId()) {
+            if ( (i.getId() == item.getId()) && (item.getId() == Item.ID.SEEDSWILD) ) {
+                if ( ((SeedsWild)i).getSeedType() == ((SeedsWild)item).getSeedType() ) {
+                    i.setCount(i.getCount() + item.getCount());
+                    return;
+                }
+            } else if (i.getId() == item.getId()) {
                 i.setCount(i.getCount() + item.getCount());
                 return;
             }

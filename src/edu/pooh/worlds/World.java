@@ -47,7 +47,16 @@ public class World {
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
         entityManager.addEntity(new TravelingFence(handler, 64, 1564));
-        entityManager.addEntity(new Bush(handler, 320, 1150));
+        entityManager.addEntity(new Bush(handler, 320, 1150) {
+            @Override
+            public void die() {
+                SeedsWild temp = new SeedsWild(handler);
+                temp.setPosition((int)x, (int)y);
+                temp.setName("Turnip Seeds");
+                temp.setSeedType(SeedsWild.SeedType.TURNIP);
+                handler.getWorld().getItemManager().addItem( temp );
+            }
+        });
         entityManager.addEntity(new Bush(handler, 320, 1250){
             @Override
             public void die() {
@@ -61,6 +70,8 @@ public class World {
             public void die() {
                 SeedsWild temp = new SeedsWild(handler);
                 temp.setPosition((int)x, (int)y);
+                temp.setName("Corn Seeds");
+                temp.setSeedType(SeedsWild.SeedType.CORN);
                 handler.getWorld().getItemManager().addItem( temp );
             }
         });
