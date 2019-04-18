@@ -1,5 +1,7 @@
-package edu.pooh.entities.statics;
+package edu.pooh.entities.statics.crops;
 
+import edu.pooh.entities.statics.harvests.NuggetWild;
+import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.main.Handler;
@@ -31,7 +33,7 @@ public class CannabisWild extends StaticEntity {
     public CannabisWild(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        setCurrentImage(Assets.dirtSeed);
+        setCurrentImage(Assets.dirtSeedsDry);
         setDaysWatered(0);
         setWaterable(true);
         setHarvestable(false);
@@ -43,26 +45,28 @@ public class CannabisWild extends StaticEntity {
 
     @Override
     public void tick() {
-        if (daysWatered < 3) {
-            return;
-        } else if (daysWatered == 3) {
-            setCurrentImage(Assets.plantSproutling);
+        if (active) {
+            if (daysWatered < 3) {
+                return;
+            } else if (daysWatered == 3) {
+                setCurrentImage(Assets.plantSproutling);
 
-            // START ENTITY COLLISION DETECTION
-            setBoundsWidth(width);
-            setBoundsHeight(height);
-        } else if (daysWatered == 4) {
-            setCurrentImage(Assets.plantJuvenille);
-        } else if (daysWatered == 5) {
-            setCurrentImage(Assets.plantAdult);
-        } else if (daysWatered == 6) {
-            setCurrentImage(Assets.plantFlowering2);
-        } else {
-            setHarvestable(true);
-        }
+                // START ENTITY COLLISION DETECTION
+                setBoundsWidth(width);
+                setBoundsHeight(height);
+            } else if (daysWatered == 4) {
+                setCurrentImage(Assets.plantJuvenille);
+            } else if (daysWatered == 5) {
+                setCurrentImage(Assets.plantAdult);
+            } else if (daysWatered == 6) {
+                setCurrentImage(Assets.plantFlowering2);
+            } else {
+                setHarvestable(true);
+            }
 
-        if (harvestable) {
-            die();
+            if (harvestable) {
+                die();
+            }
         }
     }
 
@@ -76,27 +80,27 @@ public class CannabisWild extends StaticEntity {
 
     @Override
     public void die() {
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(
-                new NuggetWild(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f))
-        );
+                new NuggetWild(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f)));
         handler.getWorld().getEntityManager().setToBeAdded(true);
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Tile[][] tilesViaRGB = handler.getWorld().getTilesViaRGB();
-        for (int y = 0; y < handler.getWorld().getHeight(); y++) {
-            for (int x = 0; x < handler.getWorld().getWidth(); x++) {
-
-                if ( tilesViaRGB[x][y] instanceof DirtNormalTile) {
-                    DirtNormalTile tempDirtNormalTile = (DirtNormalTile) tilesViaRGB[x][y];
+        Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
+        DirtNormalTile tempDirtNormalTile;
+        for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+            for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                if (tempLevel[xx][yy] instanceof DirtNormalTile) {
+                    tempDirtNormalTile = (DirtNormalTile)tempLevel[xx][yy];
 
                     if (tempDirtNormalTile.getStaticEntity() == this) {
+                        tempDirtNormalTile.setTexture(Assets.dirtNormal);
+                        tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
+
                         setActive(false);
                         tempDirtNormalTile.setStaticEntity(null);
                     }
-
                 }
-
             }
         }
     }

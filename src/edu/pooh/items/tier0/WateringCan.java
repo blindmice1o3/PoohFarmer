@@ -1,6 +1,6 @@
 package edu.pooh.items.tier0;
 
-import edu.pooh.entities.statics.CannabisWild;
+import edu.pooh.entities.statics.crops.CannabisWild;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;

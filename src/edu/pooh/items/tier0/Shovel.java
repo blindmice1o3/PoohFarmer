@@ -32,7 +32,7 @@ public class Shovel extends Item {
                 DirtNormalTile temp = (DirtNormalTile)t;
 
                 //temp.setSeedable(true);
-                temp.setTexture(Assets.dirtTilled);
+                temp.setTexture(Assets.dirtTilledDry);
                 temp.setDirtState(DirtNormalTile.DirtState.TILLED);
             }
         }

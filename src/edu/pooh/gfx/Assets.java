@@ -14,7 +14,7 @@ public class Assets {
 
     // SINGLE (/TILES)
     public static BufferedImage waterFX;
-    public static BufferedImage dirtNormal, fence, dirtWalkway, signPost, dirtTilled, dirtSeed;
+    public static BufferedImage dirtNormal, /*dirtTilled, dirtSeed,*/ fence, dirtWalkway, signPost;
     // SINGLE (-CURRENTLY UNUSED).
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, wood;
     // SINGLE (/ENTITIES)
@@ -31,7 +31,7 @@ public class Assets {
             goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
 
     // ENTITIES (/CROPS)
-    public static BufferedImage dirtEmptyDry, dirtEmptyWatered,
+    public static BufferedImage dirtTilledDry, dirtTilledWatered,
             dirtSeedsDry, dirtSeedsWatered,
             secretGardenEmpty, secretGardenFlower,
             turnip0Whole, turnip0Fragmented, turnip1Dry, turnip1Watered, turnip2Dry, turnip2Watered,
@@ -98,13 +98,15 @@ public class Assets {
         // *****************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
+
         dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        /*
         dirtTilled = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtSeed = sheet.crop(0 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-
+        */
         plantSproutling = sheet.crop(0 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         plantJuvenille = sheet.crop(0 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
@@ -244,8 +246,8 @@ public class Assets {
         // ****************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Crops.png"));
-        dirtEmptyDry = sheet.crop(32, 41, 16, 16);
-        dirtEmptyWatered = sheet.crop(50, 41, 16, 16);
+        dirtTilledDry = sheet.crop(32, 41, 16, 16);
+        dirtTilledWatered = sheet.crop(50, 41, 16, 16);
         dirtSeedsDry = sheet.crop(99, 41, 16, 16);
         dirtSeedsWatered = sheet.crop(117, 41, 16, 16);
         secretGardenEmpty = sheet.crop(171, 41, 16, 16);

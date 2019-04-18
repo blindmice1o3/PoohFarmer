@@ -1,5 +1,6 @@
-package edu.pooh.entities.statics;
+package edu.pooh.entities.statics.harvests;
 
+import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.Holdable;
@@ -10,6 +11,9 @@ import java.awt.*;
 
 public class NuggetWild extends StaticEntity
         implements Holdable {
+
+    // TODO: THIS CAN BECOME AN abstract HarvestEntity class that is instantiated via tha concrete
+    // subclasses of abstract CropEntity class.
 
     public NuggetWild(Handler handler, float x, float y) {
         super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
