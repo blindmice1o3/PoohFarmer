@@ -222,13 +222,13 @@ public class Player extends Creature {
                 }
             } else {        // Not holding Holdable.
                 if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
-
-                    //////////////////////////////////////
-                    setHoldableObject( pickUpHoldable() );
-                    holdableObject.pickedUp();
-                    holding = true;
-                    //////////////////////////////////////
-
+                    if (!holding) {
+                        //////////////////////////////////////
+                        setHoldableObject(pickUpHoldable());
+                        holdableObject.pickedUp();
+                        holding = true;
+                        //////////////////////////////////////
+                    }
                 } else {                    // Not holding Holdable, no Holdable in front, use selected item.
 
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
@@ -242,8 +242,9 @@ public class Player extends Creature {
 
     private boolean checkDropableTile() {
         // If DirtNormalTile or chest.
-        if ((getTileCurrentlyFacing() instanceof DirtNormalTile) ||
-                (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236)) {
+        if (((getTileCurrentlyFacing() instanceof DirtNormalTile) ||
+                (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236)) &&
+                        (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null)) {
             return true;
         }
         return false;

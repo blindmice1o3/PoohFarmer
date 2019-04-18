@@ -21,6 +21,7 @@ public class DirtNormalTile extends Tile {
         this.x = x;
         this.y = y;
         dirtState = DirtState.NORMAL;
+
         //seedable = false;
         staticEntity = null;
     } // **** end DirtNormalTile(int, int) constructor ****
@@ -32,10 +33,10 @@ public class DirtNormalTile extends Tile {
 
     @Override
     public void render(Graphics g, int x, int y) {
-        if (staticEntity == null) {
-            g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
-        } else {
+        if (staticEntity != null) {
             staticEntity.render(g);
+        } else {
+            g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
         }
     }
 

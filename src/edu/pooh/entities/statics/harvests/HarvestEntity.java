@@ -23,8 +23,6 @@ public class HarvestEntity extends StaticEntity
 
     private HarvestType harvestType;
     private BufferedImage texture;
-    // TODO: THIS CAN BECOME AN abstract HarvestEntity class that is instantiated via the concrete
-    // subclasses of abstract CropEntity class.
 
     public HarvestEntity(Handler handler, float x, float y) {
         super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
@@ -86,7 +84,16 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void pickedUp() {
-
+        Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
+        for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+            for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                if (tempLevel[xx][yy] instanceof DirtNormalTile) {
+                    if (((DirtNormalTile)tempLevel[xx][yy]).getStaticEntity() == this) {
+                        ((DirtNormalTile)tempLevel[xx][yy]).setStaticEntity(null);
+                    }
+                }
+            }
+        }
     }
 
     @Override

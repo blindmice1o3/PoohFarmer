@@ -53,7 +53,16 @@ public class Rock extends StaticEntity
 
     @Override
     public void pickedUp() {
-
+        Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
+        for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+            for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                if (tempLevel[xx][yy] instanceof DirtNormalTile) {
+                    if (((DirtNormalTile)tempLevel[xx][yy]).getStaticEntity() == this) {
+                        ((DirtNormalTile)tempLevel[xx][yy]).setStaticEntity(null);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -63,6 +72,7 @@ public class Rock extends StaticEntity
             x = tempTile.getX() * Tile.TILE_WIDTH;
             y = tempTile.getY() * Tile.TILE_HEIGHT;
             System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+            tempTile.setStaticEntity(this);
         } else {
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
 //            Tile[][] tempTiles = handler.getWorld().getTiles();

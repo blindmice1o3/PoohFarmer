@@ -314,7 +314,13 @@ public class World {
                 //////////////////////////////////////////////////////////////////////////
 
                 if (red == 0 && green == 0 && blue == 0) {        //Wood
-                     entityManager.addEntity( new Wood(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) );
+                    if (getTile(xx, yy) instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)getTile(xx, yy);
+                        tempTile.setStaticEntity( new Wood(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) );
+
+                        entityManager.addEntity( tempTile.getStaticEntity() );
+                    }
+
                 }
             }
         }
@@ -339,9 +345,14 @@ public class World {
             y = randY.nextInt(heightInTiles);
 
             if (availablePosition[x][y]) {
-                entityManager.addEntity( new Rock(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
-                countRock--;
-                availablePosition[x][y] = false;
+                if (getTile(x, y) instanceof DirtNormalTile) {
+                    DirtNormalTile tempTile = (DirtNormalTile)(getTile(x, y));
+                    tempTile.setStaticEntity( new Rock(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
+
+                    entityManager.addEntity( tempTile.getStaticEntity() );
+                    countRock--;
+                    availablePosition[x][y] = false;
+                }
             }
         }
 
@@ -350,9 +361,14 @@ public class World {
             y = randY.nextInt(heightInTiles);
 
             if (availablePosition[x][y]) {
-                entityManager.addEntity( new Bush(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
-                countBush--;
-                availablePosition[x][y] = false;
+                if (getTile(x, y) instanceof DirtNormalTile) {
+                    DirtNormalTile tempTile = (DirtNormalTile)(getTile(x, y));
+                    tempTile.setStaticEntity( new Bush(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
+
+                    entityManager.addEntity( tempTile.getStaticEntity() );
+                    countBush--;
+                    availablePosition[x][y] = false;
+                }
             }
         }
     }

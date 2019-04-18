@@ -39,7 +39,6 @@ public class CropEntity extends StaticEntity {
 
     public CropEntity(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        // TODO: THIS CLASS CAN BECOME AN abstract CropEntity class !!!!!!!!!!!!!!!
 
         setCurrentImage(Assets.dirtSeedsDry);
         setDaysWatered(0);
@@ -53,14 +52,14 @@ public class CropEntity extends StaticEntity {
 
     @Override
     public void tick() {
-        nextCropLifeCycle(daysWatered, cropType);
+        nextCropLifeCycle();
 
         if (harvestable) {
             die();
         }
     }
 
-    private void nextCropLifeCycle(int daysWatered, CropType cropType) {
+    private void nextCropLifeCycle() {
         switch (daysWatered) {
             case 0:
             case 1:
@@ -329,6 +328,7 @@ public class CropEntity extends StaticEntity {
                 if (tempLevel[xx][yy] instanceof DirtNormalTile) {
                     tempDirtNormalTile = (DirtNormalTile)tempLevel[xx][yy];
 
+                    ////////////////////////////////////////////////////////////////////////////////////////////
                     if (tempDirtNormalTile.getStaticEntity() == this) {
                         tempDirtNormalTile.setTexture(Assets.dirtNormal);
                         tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
@@ -336,6 +336,7 @@ public class CropEntity extends StaticEntity {
                         setActive(false);
                         tempDirtNormalTile.setStaticEntity(null);
                     }
+                    ////////////////////////////////////////////////////////////////////////////////////////////
                 }
             }
         }
