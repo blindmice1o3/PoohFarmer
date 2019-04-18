@@ -1,6 +1,6 @@
 package edu.pooh.items.tier0;
 
-import edu.pooh.entities.statics.crops.CannabisWild;
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
@@ -49,8 +49,8 @@ public class WateringCan extends Item {
                 if (t instanceof DirtNormalTile && ((DirtNormalTile) t).getStaticEntity() != null) {
                     DirtNormalTile tempTile = (DirtNormalTile)t;
 
-                    if (tempTile.getStaticEntity() instanceof CannabisWild) {
-                        CannabisWild tempStaticEntity = (CannabisWild) tempTile.getStaticEntity();
+                    if (tempTile.getStaticEntity() instanceof CropEntity) {
+                        CropEntity tempStaticEntity = (CropEntity) tempTile.getStaticEntity();
                         System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
 
                         if (tempStaticEntity.getWaterable()) {

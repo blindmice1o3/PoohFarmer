@@ -1,6 +1,6 @@
 package edu.pooh.items.tier0;
 
-import edu.pooh.entities.statics.crops.CannabisWild;
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
@@ -29,7 +29,7 @@ public class SeedsWild extends Item {
                 DirtNormalTile temp = (DirtNormalTile) t;
                 ///////////////////////////////////////////////////////////////////////////////////////////
 
-                temp.setStaticEntity(new CannabisWild(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
+                temp.setStaticEntity(new CropEntity(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
 
                 ///////////////////////////////////////////////////////////////////////////////////////////
                 handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
