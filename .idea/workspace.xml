@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/Boulder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/Bush.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/Rock.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/Wood.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/Bush.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Bush.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/Rock.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Rock.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/Wood.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Wood.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/harvests/HarvestEntity.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/harvests/HarvestEntity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/GameState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/GameState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/DirtNormalTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/DirtNormalTile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$2.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/harvests/HarvestEntity.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/harvests/HarvestEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics2x2/TreeStump$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics2x2/TreeStump$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics2x2/TreeStump$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics2x2/TreeStump$4.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" afterPath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -112,13 +97,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TreeStump.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TreeStump.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#502#503#0" expanded="true" />
+                <element signature="e#553#554#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="World.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="361" column="16" lean-forward="false" selection-start-line="361" selection-start-column="16" selection-end-line="361" selection-end-column="16" />
+            <state relative-caret-position="374">
+              <caret line="335" column="8" lean-forward="false" selection-start-line="335" selection-start-column="8" selection-end-line="335" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -1069,21 +1056,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="335" column="8" lean-forward="false" selection-start-line="335" selection-start-column="8" selection-end-line="335" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/TreeStump.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="361" column="16" lean-forward="false" selection-start-line="361" selection-start-column="16" selection-end-line="361" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#502#503#0" expanded="true" />
+            <element signature="e#553#554#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
