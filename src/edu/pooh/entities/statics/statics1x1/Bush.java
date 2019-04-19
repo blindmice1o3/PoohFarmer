@@ -1,5 +1,6 @@
-package edu.pooh.entities.statics;
+package edu.pooh.entities.statics.statics1x1;
 
+import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;

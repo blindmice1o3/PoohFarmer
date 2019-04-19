@@ -100,9 +100,17 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void die() {
-        if ((texture == Assets.turnip0Fragmented) || (texture == Assets.potato0Fragmented) ||
-                (texture == Assets.tomato0Fragmented) || (texture == Assets.corn0Fragmented)) {
-            fragmentedTimer(fragmentedTimeLimit);
+        for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+            for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                    if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+
+                        fragmentedTimer(fragmentedTimeLimit);
+                        ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+
+                    }
+                }
+            }
         }
 
         setActive(false);

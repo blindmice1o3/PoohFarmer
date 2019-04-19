@@ -1,9 +1,6 @@
 package edu.pooh.states;
 
-import edu.pooh.entities.creatures.Player;
-import edu.pooh.entities.statics.Bush;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;

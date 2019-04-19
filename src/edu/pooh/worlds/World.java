@@ -1,12 +1,12 @@
 package edu.pooh.worlds;
 
-import edu.pooh.entities.Entity;
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.TravelingFence;
-import edu.pooh.entities.statics.Bush;
-import edu.pooh.entities.statics.Rock;
-import edu.pooh.entities.statics.Wood;
+import edu.pooh.entities.statics.statics1x1.Bush;
+import edu.pooh.entities.statics.statics1x1.Rock;
+import edu.pooh.entities.statics.statics1x1.Wood;
+import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
@@ -19,7 +19,6 @@ import edu.pooh.utils.Utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class World {
@@ -90,7 +89,7 @@ public class World {
 //        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
         loadTilesViaRGB(Assets.tilesViaRGB);
         loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
-        //loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+        loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
         loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
 
 
@@ -326,9 +325,44 @@ public class World {
         }
     }
 
-    //private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
-        // TODO:
-    //}
+    private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
+        int countTreeStump = 10;
+        int x;
+        int y;
+        Random randX = new Random();
+        Random randY = new Random();
+
+        boolean[][] availablePosition = determineAvailablePosition(tilesViaRGB, entitiesViaRGB);
+
+        while (countTreeStump > 0) {
+            x = randX.nextInt(widthInTiles);
+            y = randY.nextInt(heightInTiles);
+
+            if (y < heightInTiles-2 && x < widthInTiles-2) {
+
+                if (availablePosition[x][y] && availablePosition[x + 1][y] &&
+                        availablePosition[x][y + 1] && availablePosition[x + 1][y + 1]) {
+                    if (getTile(x, y) instanceof DirtNormalTile && getTile(x + 1, y) instanceof DirtNormalTile &&
+                            getTile(x, y + 1) instanceof DirtNormalTile && getTile(x + 1, y + 1) instanceof DirtNormalTile) {
+                        if ((((DirtNormalTile) getTile(x, y)).getStaticEntity() == null) &&
+                                (((DirtNormalTile) getTile(x + 1, y)).getStaticEntity() == null) &&
+                                (((DirtNormalTile) getTile(x, y + 1)).getStaticEntity() == null) &&
+                                (((DirtNormalTile) getTile(x + 1, y + 1)).getStaticEntity() == null)) {
+                            ((DirtNormalTile) getTile(x, y)).setStaticEntity(new TreeStump(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, 2 * Tile.TILE_WIDTH, 2 * Tile.TILE_HEIGHT));
+
+                            entityManager.addEntity(((DirtNormalTile) getTile(x, y)).getStaticEntity());
+                            countTreeStump--;
+                            availablePosition[x][y] = false;
+                            availablePosition[x + 1][y] = false;
+                            availablePosition[x][y + 1] = false;
+                            availablePosition[x + 1][y + 1] = false;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
 
     private void loadEntities1x1PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
         int countRock = 30;

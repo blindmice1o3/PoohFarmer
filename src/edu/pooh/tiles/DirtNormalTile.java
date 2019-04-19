@@ -87,8 +87,6 @@ public class DirtNormalTile extends Tile {
     public void checkRemoveFragmentedStaticEntity() {
         if (checkFragmentedStaticEntity()) {
             staticEntity.die();
-
-            setStaticEntity(null);
         }
     }
 
