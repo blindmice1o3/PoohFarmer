@@ -249,10 +249,11 @@ public class Player extends Creature {
 
     private boolean checkDropableTile() {
         // If DirtNormalTile or chest.
-        if (((getTileCurrentlyFacing() instanceof DirtNormalTile) ||
-                (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236)) &&
-                        (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null)) {
-            return true;
+        if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+            return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
+        }
+        if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
+            return (holdableObject instanceof HarvestEntity);
         }
         return false;
     }
