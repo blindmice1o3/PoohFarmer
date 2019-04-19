@@ -221,6 +221,11 @@ public class Player extends Creature {
                     }
                     /////////////////////////////////////////////////
                     holdableObject.dropped(getTileCurrentlyFacing());
+
+                    if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                        ((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
+                    }
+
                     setHoldableObject(null);
                     holding = false;
                     /////////////////////////////////////////////////

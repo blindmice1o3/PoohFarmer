@@ -294,7 +294,7 @@ public class CropEntity extends StaticEntity {
     @Override
     public void die() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        HarvestEntity tempHarvestEntity = new HarvestEntity(handler, x + (Tile.TILE_WIDTH * 0.25f), y + (Tile.TILE_HEIGHT * 0.25f));
+        HarvestEntity tempHarvestEntity = new HarvestEntity(handler, x, y);
         switch (cropType) {
             case CANNABIS_WILD:
                 tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
@@ -317,6 +317,7 @@ public class CropEntity extends StaticEntity {
         }
         tempHarvestEntity.determineAndSetTexture();
 
+
         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
         handler.getWorld().getEntityManager().setToBeAdded(true);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -332,9 +333,10 @@ public class CropEntity extends StaticEntity {
                     if (tempDirtNormalTile.getStaticEntity() == this) {
                         tempDirtNormalTile.setTexture(Assets.dirtNormal);
                         tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
-
+                        /////////////////
                         setActive(false);
-                        tempDirtNormalTile.setStaticEntity(null);
+                        /////////////////
+                        tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
                     }
                     ////////////////////////////////////////////////////////////////////////////////////////////
                 }

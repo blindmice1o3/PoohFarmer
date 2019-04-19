@@ -34,10 +34,10 @@ public class DirtNormalTile extends Tile {
 
     @Override
     public void render(Graphics g, int x, int y) {
+        g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+
         if (staticEntity != null) {
             staticEntity.render(g);
-        } else {
-            g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
         }
     }
 
@@ -71,21 +71,6 @@ public class DirtNormalTile extends Tile {
         return staticEntity;
     }
 
-    private long fragmentedPrevious;
-    private long fragmentedElapsed = 0;
-    private long fragmentedTimeLimit = 1000 * 3;
-
-    public void fragmentedTimer(long timeLimit) {
-        fragmentedPrevious = System.currentTimeMillis();
-
-        while (fragmentedElapsed <= timeLimit) {
-            fragmentedElapsed += System.currentTimeMillis() - fragmentedPrevious;
-            fragmentedPrevious = System.currentTimeMillis();
-        }
-
-        fragmentedElapsed = 0;
-    }
-
     public boolean checkFragmentedStaticEntity() {
         // Check if fragmented HarvestEntity... if so, set it to inactive.
         if (staticEntity instanceof HarvestEntity) {
@@ -99,12 +84,11 @@ public class DirtNormalTile extends Tile {
             return false;
         }
     }
+    public void checkRemoveFragmentedStaticEntity() {
+        if (checkFragmentedStaticEntity()) {
+            staticEntity.die();
 
-    public void removeStaticEntity() {
-        if (staticEntity != null) {
-            staticEntity.setActive(false);
-            staticEntity = null;
-            setTexture(Assets.dirtNormal);
+            setStaticEntity(null);
         }
     }
 

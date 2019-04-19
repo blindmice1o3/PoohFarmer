@@ -39,6 +39,16 @@ public class Rock extends StaticEntity
 
     @Override
     public void die() {
+        for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+            for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                    if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                        ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                    }
+                }
+            }
+        }
+
         setActive(false);
         //handler.getWorld().getItemManager().addItem(Item.wateringCanItem.createNew((int)x, (int)y));
     }

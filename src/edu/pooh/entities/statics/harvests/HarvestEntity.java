@@ -27,7 +27,7 @@ public class HarvestEntity extends StaticEntity
     private BufferedImage texture;
 
     public HarvestEntity(Handler handler, float x, float y) {
-        super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
     }
 
     public void determineAndSetTexture() {
@@ -79,12 +79,32 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset()),
-                (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset() + (width / 2)),
+                (int)(y - handler.getGameCamera().getyOffset() + (height / 2)), width, height, null);
+    }
+
+    private long fragmentedPrevious;
+    private long fragmentedElapsed = 0;
+    private long fragmentedTimeLimit = 1000 * 3;
+
+    public void fragmentedTimer(long timeLimit) {
+        fragmentedPrevious = System.currentTimeMillis();
+
+        while (fragmentedElapsed <= timeLimit) {
+            fragmentedElapsed += System.currentTimeMillis() - fragmentedPrevious;
+            fragmentedPrevious = System.currentTimeMillis();
+        }
+
+        fragmentedElapsed = 0;
     }
 
     @Override
     public void die() {
+        if ((texture == Assets.turnip0Fragmented) || (texture == Assets.potato0Fragmented) ||
+                (texture == Assets.tomato0Fragmented) || (texture == Assets.corn0Fragmented)) {
+            fragmentedTimer(fragmentedTimeLimit);
+        }
+
         setActive(false);
     }
 
@@ -122,11 +142,9 @@ public class HarvestEntity extends StaticEntity
             if (tempTile.getStaticEntity() == null) {
                 x = tempTile.getX() * Tile.TILE_WIDTH;
                 y = tempTile.getY() * Tile.TILE_HEIGHT;
+
                 tempTile.setStaticEntity(this);
-                if (tempTile.checkFragmentedStaticEntity()) {
-                    tempTile.fragmentedTimer(3000); //3000 milliseconds == 3 seconds???
-                    tempTile.removeStaticEntity();
-                }
+
                 System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
             }
         } else {
