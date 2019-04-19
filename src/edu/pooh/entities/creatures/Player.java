@@ -1,6 +1,7 @@
 package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
+import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
@@ -213,12 +214,18 @@ public class Player extends Creature {
             if (holding) {  // Already holding, can only drop the holdableObject.
                 if (checkDropableTile()) {
 
+                    if (holdableObject instanceof HarvestEntity) {
+                        if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                            ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
+                        }
+                    }
                     /////////////////////////////////////////////////
                     holdableObject.dropped(getTileCurrentlyFacing());
                     setHoldableObject(null);
                     holding = false;
                     /////////////////////////////////////////////////
 
+                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                 }
             } else {        // Not holding Holdable.
                 if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.

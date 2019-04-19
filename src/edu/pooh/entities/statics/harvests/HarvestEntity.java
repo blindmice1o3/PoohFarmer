@@ -10,6 +10,8 @@ import edu.pooh.tiles.Tile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static edu.pooh.entities.statics.harvests.HarvestEntity.HarvestType.*;
+
 public class HarvestEntity extends StaticEntity
         implements Holdable {
 
@@ -25,7 +27,7 @@ public class HarvestEntity extends StaticEntity
     private BufferedImage texture;
 
     public HarvestEntity(Handler handler, float x, float y) {
-        super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
+        super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
     }
 
     public void determineAndSetTexture() {
@@ -50,6 +52,23 @@ public class HarvestEntity extends StaticEntity
                     setTexture(Assets.honeyPot);
                     break;
             }
+        }
+    }
+
+    public BufferedImage determineFragmentedTexture() {
+        switch (harvestType) {
+            case CANNABIS_WILD:
+                return Assets.honeyPot;
+            case TURNIP:
+                return Assets.turnip0Fragmented;
+            case POTATO:
+                return Assets.potato0Fragmented;
+            case TOMATO:
+                return Assets.tomato0Fragmented;
+            case CORN:
+                return Assets.corn0Fragmented;
+            default:
+                return Assets.waterFX;
         }
     }
 
@@ -100,9 +119,16 @@ public class HarvestEntity extends StaticEntity
     public void dropped(Tile t) {
         if (t instanceof DirtNormalTile) {
             DirtNormalTile tempTile = (DirtNormalTile) t;
-            x = tempTile.getX() * Tile.TILE_WIDTH;
-            y = tempTile.getY() * Tile.TILE_HEIGHT;
-            System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+            if (tempTile.getStaticEntity() == null) {
+                x = tempTile.getX() * Tile.TILE_WIDTH;
+                y = tempTile.getY() * Tile.TILE_HEIGHT;
+                tempTile.setStaticEntity(this);
+                if (tempTile.checkFragmentedStaticEntity()) {
+                    tempTile.fragmentedTimer(3000); //3000 milliseconds == 3 seconds???
+                    tempTile.removeStaticEntity();
+                }
+                System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+            }
         } else {
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
 //            Tile[][] tempTiles = handler.getWorld().getTiles();

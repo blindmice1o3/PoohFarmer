@@ -1,6 +1,7 @@
 package edu.pooh.tiles;
 
 import edu.pooh.entities.statics.StaticEntity;
+import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.gfx.Assets;
 
 import java.awt.*;
@@ -68,6 +69,43 @@ public class DirtNormalTile extends Tile {
 
     public StaticEntity getStaticEntity() {
         return staticEntity;
+    }
+
+    private long fragmentedPrevious;
+    private long fragmentedElapsed = 0;
+    private long fragmentedTimeLimit = 1000 * 3;
+
+    public void fragmentedTimer(long timeLimit) {
+        fragmentedPrevious = System.currentTimeMillis();
+
+        while (fragmentedElapsed <= timeLimit) {
+            fragmentedElapsed += System.currentTimeMillis() - fragmentedPrevious;
+            fragmentedPrevious = System.currentTimeMillis();
+        }
+
+        fragmentedElapsed = 0;
+    }
+
+    public boolean checkFragmentedStaticEntity() {
+        // Check if fragmented HarvestEntity... if so, set it to inactive.
+        if (staticEntity instanceof HarvestEntity) {
+            if((((HarvestEntity)staticEntity).getTexture() == Assets.turnip0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.potato0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.tomato0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.corn0Fragmented)) {
+                return true;
+            } else { return false; }
+        } else {
+            return false;
+        }
+    }
+
+    public void removeStaticEntity() {
+        if (staticEntity != null) {
+            staticEntity.setActive(false);
+            staticEntity = null;
+            setTexture(Assets.dirtNormal);
+        }
     }
 
     public void setStaticEntity(StaticEntity staticEntity) {
