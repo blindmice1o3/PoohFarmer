@@ -24,7 +24,14 @@ public class TreeStump extends StaticEntity {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(Assets.treeStump2x2[0][0], (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+        g.drawImage(Assets.treeStump2x2[0][1], (int)(x - handler.getGameCamera().getxOffset() + Tile.TILE_WIDTH),
+                (int)(y - handler.getGameCamera().getyOffset()), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+        g.drawImage(Assets.treeStump2x2[1][0], (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset() + Tile.TILE_HEIGHT), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+        g.drawImage(Assets.treeStump2x2[1][1], (int)(x - handler.getGameCamera().getxOffset() + Tile.TILE_WIDTH),
+                (int)(y - handler.getGameCamera().getyOffset() + Tile.TILE_HEIGHT), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
     }
 
     @Override

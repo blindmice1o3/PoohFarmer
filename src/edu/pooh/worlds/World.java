@@ -327,19 +327,29 @@ public class World {
 
     private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
         int countTreeStump = 10;
-        int x;
-        int y;
+        int x=0;
+        int y=0;
         Random randX = new Random();
         Random randY = new Random();
-
+        TreeStump tempTreeStump=null;
         boolean[][] availablePosition = determineAvailablePosition(tilesViaRGB, entitiesViaRGB);
+
+        if (getTile(2, 16) instanceof DirtNormalTile) {
+            tempTreeStump = new TreeStump(handler, (2)*Tile.TILE_WIDTH, (16)*Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, 2 * Tile.TILE_HEIGHT);
+
+            ((DirtNormalTile) getTile(2, 16)).setStaticEntity(tempTreeStump);
+            ((DirtNormalTile) getTile(3, 16)).setStaticEntity(tempTreeStump);
+            ((DirtNormalTile) getTile(2, 17)).setStaticEntity(tempTreeStump);
+            ((DirtNormalTile) getTile(3, 17)).setStaticEntity(tempTreeStump);
+            entityManager.addEntity(tempTreeStump);
+        }
         /*
         while (countTreeStump > 0) {
             x = randX.nextInt(widthInTiles);
             y = randY.nextInt(heightInTiles);
 
-/////////////////////////////////////////////////////
-
+\
         }
         */
     }
