@@ -6,6 +6,7 @@ import edu.pooh.entities.creatures.TravelingFence;
 import edu.pooh.entities.statics.statics1x1.Bush;
 import edu.pooh.entities.statics.statics1x1.Rock;
 import edu.pooh.entities.statics.statics1x1.Wood;
+import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.ItemManager;
@@ -327,19 +328,19 @@ public class World {
 
     private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
         int countTreeStump = 10;
-        int x=0;
-        int y=0;
+        int countBoulder = 10;
+        int x = 0;
+        int y = 0;
         Random randX = new Random();
         Random randY = new Random();
-        TreeStump tempTreeStump=null;
+        TreeStump tempTreeStump = null;
+        Boulder tempBoulder = null;
         boolean[][] availablePosition = determineAvailablePosition(tilesViaRGB, entitiesViaRGB);
 
         if (availablePosition[2][16] && availablePosition[2+1][16] &&
                 availablePosition[2][16+1] && availablePosition[2+1][16+1]) {
-
             if (getTile(2, 16) instanceof DirtNormalTile) {
-                tempTreeStump = new TreeStump(handler, (2) * Tile.TILE_WIDTH, (16) * Tile.TILE_HEIGHT,
-                        2 * Tile.TILE_WIDTH, 2 * Tile.TILE_HEIGHT);
+                tempTreeStump = new TreeStump(handler, (2) * Tile.TILE_WIDTH, (16) * Tile.TILE_HEIGHT);
 
                 ((DirtNormalTile) getTile(2, 16)).setStaticEntity(tempTreeStump);
                 ((DirtNormalTile) getTile(3, 16)).setStaticEntity(tempTreeStump);
@@ -349,7 +350,6 @@ public class World {
             }
         }
 
-        // TODO: MIDDLE OF
         while (countTreeStump > 0) {
             x = randX.nextInt(widthInTiles);
             y = randY.nextInt(heightInTiles);
@@ -358,25 +358,64 @@ public class World {
                     availablePosition[x][y+1] && availablePosition[x+1][y+1]) {
                 if (getTile(x, y) instanceof DirtNormalTile && getTile(x+1, y) instanceof DirtNormalTile &&
                 getTile(x, y+1) instanceof DirtNormalTile && getTile(x+1, y+1) instanceof DirtNormalTile) {
-                    DirtNormalTile tempTile0 = (DirtNormalTile)(getTile(x, y));
-                    DirtNormalTile tempTile1 = (DirtNormalTile)(getTile(x+1, y));
-                    DirtNormalTile tempTile2 = (DirtNormalTile)(getTile(x, y+1));
-                    DirtNormalTile tempTile3 = (DirtNormalTile)(getTile(x+1, y+1));
+                    DirtNormalTile tempTile0 = (DirtNormalTile) (getTile(x, y));
+                    DirtNormalTile tempTile1 = (DirtNormalTile) (getTile(x + 1, y));
+                    DirtNormalTile tempTile2 = (DirtNormalTile) (getTile(x, y + 1));
+                    DirtNormalTile tempTile3 = (DirtNormalTile) (getTile(x + 1, y + 1));
 
-                    tempTreeStump = new TreeStump(handler, (float)(x * Tile.TILE_WIDTH),
-                            (float)(y * Tile.TILE_HEIGHT), 2*Tile.TILE_WIDTH, 2*Tile.TILE_HEIGHT);
+                    if (tempTile0.getStaticEntity() == null && tempTile1.getStaticEntity() == null &&
+                            tempTile2.getStaticEntity() == null && tempTile3.getStaticEntity() == null) {
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                        tempTreeStump = new TreeStump(handler, (float) (x * Tile.TILE_WIDTH),
+                                (float) (y * Tile.TILE_HEIGHT));
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                        tempTile0.setStaticEntity(tempTreeStump);
+                        tempTile1.setStaticEntity(tempTreeStump);
+                        tempTile2.setStaticEntity(tempTreeStump);
+                        tempTile3.setStaticEntity(tempTreeStump);
 
-                    tempTile0.setStaticEntity( tempTreeStump );
-                    tempTile1.setStaticEntity( tempTreeStump );
-                    tempTile2.setStaticEntity( tempTreeStump );
-                    tempTile3.setStaticEntity( tempTreeStump );
+                        entityManager.addEntity(tempTile0.getStaticEntity());
+                        countTreeStump--;
+                        availablePosition[x][y] = false;
+                        availablePosition[x + 1][y] = false;
+                        availablePosition[x][y + 1] = false;
+                        availablePosition[x + 1][y + 1] = false;
+                    }
+                }
+            }
+        }
 
-                    entityManager.addEntity( tempTile0.getStaticEntity() );
-                    countTreeStump--;
-                    availablePosition[x][y] = false;
-                    availablePosition[x+1][y] = false;
-                    availablePosition[x][y+1] = false;
-                    availablePosition[x+1][y+1] = false;
+        while (countBoulder > 0) {
+            x = randX.nextInt(widthInTiles);
+            y = randY.nextInt(heightInTiles);
+
+            if (availablePosition[x][y] && availablePosition[x+1][y] &&
+                    availablePosition[x][y+1] && availablePosition[x+1][y+1]) {
+                if (getTile(x, y) instanceof DirtNormalTile && getTile(x+1, y) instanceof DirtNormalTile &&
+                        getTile(x, y+1) instanceof DirtNormalTile && getTile(x+1, y+1) instanceof DirtNormalTile) {
+                    DirtNormalTile tempTile0 = (DirtNormalTile) (getTile(x, y));
+                    DirtNormalTile tempTile1 = (DirtNormalTile) (getTile(x + 1, y));
+                    DirtNormalTile tempTile2 = (DirtNormalTile) (getTile(x, y + 1));
+                    DirtNormalTile tempTile3 = (DirtNormalTile) (getTile(x + 1, y + 1));
+
+                    if (tempTile0.getStaticEntity() == null && tempTile1.getStaticEntity() == null &&
+                            tempTile2.getStaticEntity() == null && tempTile3.getStaticEntity() == null) {
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                        tempBoulder = new Boulder(handler, (float) (x * Tile.TILE_WIDTH),
+                                (float) (y * Tile.TILE_HEIGHT));
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                        tempTile0.setStaticEntity(tempBoulder);
+                        tempTile1.setStaticEntity(tempBoulder);
+                        tempTile2.setStaticEntity(tempBoulder);
+                        tempTile3.setStaticEntity(tempBoulder);
+
+                        entityManager.addEntity(tempTile0.getStaticEntity());
+                        countBoulder--;
+                        availablePosition[x][y] = false;
+                        availablePosition[x + 1][y] = false;
+                        availablePosition[x][y + 1] = false;
+                        availablePosition[x + 1][y + 1] = false;
+                    }
                 }
             }
         }
@@ -399,12 +438,15 @@ public class World {
 
             if (availablePosition[x][y]) {
                 if (getTile(x, y) instanceof DirtNormalTile) {
-                    DirtNormalTile tempTile = (DirtNormalTile)(getTile(x, y));
-                    tempTile.setStaticEntity( new Rock(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
-
-                    entityManager.addEntity( tempTile.getStaticEntity() );
-                    countRock--;
-                    availablePosition[x][y] = false;
+                    if (((DirtNormalTile) getTile(x, y)).getStaticEntity() == null) {
+                        DirtNormalTile tempTile = (DirtNormalTile) (getTile(x, y));
+                        ///////////////////////////////////////////////////////////////////////////////////////////
+                        tempTile.setStaticEntity(new Rock(handler, (float) (x * Tile.TILE_WIDTH), (float) (y * Tile.TILE_HEIGHT)));
+                        ///////////////////////////////////////////////////////////////////////////////////////////
+                        entityManager.addEntity(tempTile.getStaticEntity());
+                        countRock--;
+                        availablePosition[x][y] = false;
+                    }
                 }
             }
         }
@@ -415,12 +457,15 @@ public class World {
 
             if (availablePosition[x][y]) {
                 if (getTile(x, y) instanceof DirtNormalTile) {
-                    DirtNormalTile tempTile = (DirtNormalTile)(getTile(x, y));
-                    tempTile.setStaticEntity( new Bush(handler, (float)(x * Tile.TILE_WIDTH), (float)(y * Tile.TILE_HEIGHT)) );
-
-                    entityManager.addEntity( tempTile.getStaticEntity() );
-                    countBush--;
-                    availablePosition[x][y] = false;
+                    if (((DirtNormalTile) getTile(x, y)).getStaticEntity() == null) {
+                        DirtNormalTile tempTile = (DirtNormalTile) (getTile(x, y));
+                        /////////////////////////////////////////////////////////////////////////////////////////////
+                        tempTile.setStaticEntity(new Bush(handler, (float) (x * Tile.TILE_WIDTH), (float) (y * Tile.TILE_HEIGHT)));
+                        /////////////////////////////////////////////////////////////////////////////////////////////
+                        entityManager.addEntity(tempTile.getStaticEntity());
+                        countBush--;
+                        availablePosition[x][y] = false;
+                    }
                 }
             }
         }
