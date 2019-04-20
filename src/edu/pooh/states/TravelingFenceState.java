@@ -4,13 +4,13 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 
-public class GeneralStoreState implements State {
+public class TravelingFenceState implements State {
 
     private Handler handler;
 
-    public GeneralStoreState(Handler handler) {
+    public TravelingFenceState(Handler handler) {
         this.handler = handler;
-    } // **** end GeneralStoreState(Handler) constructor ****
+    } // **** end TravelingFenceState(Handler) constructor ****
 
     @Override
     public void tick() {
@@ -22,4 +22,4 @@ public class GeneralStoreState implements State {
 
     }
 
-} // **** end GeneralStoreState class ****
+} // **** end TravelingFenceState class ****

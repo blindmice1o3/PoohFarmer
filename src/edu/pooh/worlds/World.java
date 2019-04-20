@@ -46,7 +46,9 @@ public class World {
         // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
+        ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new TravelingFence(handler, 64, 1564));
+        ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new Bush(handler, 320, 1150) {
             @Override
             public void die() {

@@ -210,6 +210,11 @@ public class Player extends Creature {
 
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+            // TRAVELINGFENCE CHECK
+            if (checkForTravelingFence()) {
+                System.out.println("FOUND: The Finn!");
+            }
+
             // HOLDING CHECK
             if (holding) {  // Already holding, can only drop the holdableObject.
                 if (checkDropableTile()) {
@@ -222,6 +227,7 @@ public class Player extends Creature {
                     /////////////////////////////////////////////////
                     holdableObject.dropped(getTileCurrentlyFacing());
 
+                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                     if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
                         ((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
                     }
@@ -230,7 +236,6 @@ public class Player extends Creature {
                     holding = false;
                     /////////////////////////////////////////////////
 
-                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                 }
             } else {        // Not holding Holdable.
                 if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
@@ -250,6 +255,47 @@ public class Player extends Creature {
                 }
             }
         }
+    }
+
+    private boolean checkForTravelingFence() {
+        int playerCenterX = (int)(x + (width / 2));
+        int playerCenterY = (int)(y + (height / 2));
+        TravelingFence tempTravelingFence = null;
+
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+            if (e instanceof TravelingFence) {
+                tempTravelingFence = (TravelingFence)e;
+            }
+        }
+
+        if (tempTravelingFence != null) {
+            switch (currentDirection) {
+                case DOWN:
+                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
+                            playerCenterX, playerCenterY + Tile.TILE_HEIGHT)) {
+                        return true;
+                    }
+                case UP:
+                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
+                            playerCenterX, playerCenterY - Tile.TILE_HEIGHT)) {
+                        return true;
+                    }
+                case LEFT:
+                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
+                            playerCenterX - Tile.TILE_WIDTH, playerCenterY)) {
+                        return true;
+                    }
+                case RIGHT:
+                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
+                            playerCenterX + Tile.TILE_WIDTH, playerCenterY)) {
+                        return true;
+                    }
+                default:
+                    return false;
+            }
+        }
+
+        return false;
     }
 
     private boolean checkDropableTile() {
