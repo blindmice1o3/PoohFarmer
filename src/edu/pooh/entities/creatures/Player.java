@@ -213,6 +213,11 @@ public class Player extends Creature {
             // TRAVELINGFENCE CHECK
             if (checkForTravelingFence()) {
                 System.out.println("FOUND: The Finn!");
+                // TODO: Implement TravelingFenceState.
+                /////////////////////////////////////////////////////////////////////
+                StateManager.setCurrentState(handler.getGame().travelingFenceState);
+                /////////////////////////////////////////////////////////////////////
+                return;
             }
 
             // HOLDING CHECK

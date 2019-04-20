@@ -50,8 +50,14 @@ public class Assets {
     // ENTITIES (/HAWKER)
     public static BufferedImage[] hawkerUp, hawkerDown, hawkerLeft, hawkerRight;
 
+    // ENTITIES (/KERO DOG)
+    public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight;
+
     // INVENTORY
     public static BufferedImage inventoryScreen;
+
+    // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
+    public static BufferedImage shoppingScreen;
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
@@ -78,6 +84,11 @@ public class Assets {
         // |+|+|+|+|+|+|+| INVENTORY SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
         // **************************************************************
         inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
+
+        // ************************************************************
+        // |+|+|+|+|+|+|+| SHOPPING SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
+        // ************************************************************
+        shoppingScreen = ImageLoader.loadImage("/shady sundial salesman in hercules (TravelingFenceState500x270).jpg");
 
         // *****************************************************
         // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|

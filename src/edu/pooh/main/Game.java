@@ -4,10 +4,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
-import edu.pooh.states.GameState;
-import edu.pooh.states.MenuState;
-import edu.pooh.states.State;
-import edu.pooh.states.StateManager;
+import edu.pooh.states.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +31,7 @@ public class Game {
     // STATES
     public State gameState;
     public State menuState;
+    public State travelingFenceState;
 
     // INPUT
     private KeyManager keyManager;
@@ -56,6 +54,7 @@ public class Game {
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
+        travelingFenceState = new TravelingFenceState(handler);
         StateManager.setCurrentState(gameState);
     } // **** end edu.pooh.main.Game() constructor ****
 
