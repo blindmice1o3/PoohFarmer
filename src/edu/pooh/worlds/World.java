@@ -334,24 +334,53 @@ public class World {
         TreeStump tempTreeStump=null;
         boolean[][] availablePosition = determineAvailablePosition(tilesViaRGB, entitiesViaRGB);
 
-        if (getTile(2, 16) instanceof DirtNormalTile) {
-            tempTreeStump = new TreeStump(handler, (2)*Tile.TILE_WIDTH, (16)*Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, 2 * Tile.TILE_HEIGHT);
+        if (availablePosition[2][16] && availablePosition[2+1][16] &&
+                availablePosition[2][16+1] && availablePosition[2+1][16+1]) {
 
-            ((DirtNormalTile) getTile(2, 16)).setStaticEntity(tempTreeStump);
-            ((DirtNormalTile) getTile(3, 16)).setStaticEntity(tempTreeStump);
-            ((DirtNormalTile) getTile(2, 17)).setStaticEntity(tempTreeStump);
-            ((DirtNormalTile) getTile(3, 17)).setStaticEntity(tempTreeStump);
-            entityManager.addEntity(tempTreeStump);
+            if (getTile(2, 16) instanceof DirtNormalTile) {
+                tempTreeStump = new TreeStump(handler, (2) * Tile.TILE_WIDTH, (16) * Tile.TILE_HEIGHT,
+                        2 * Tile.TILE_WIDTH, 2 * Tile.TILE_HEIGHT);
+
+                ((DirtNormalTile) getTile(2, 16)).setStaticEntity(tempTreeStump);
+                ((DirtNormalTile) getTile(3, 16)).setStaticEntity(tempTreeStump);
+                ((DirtNormalTile) getTile(2, 17)).setStaticEntity(tempTreeStump);
+                ((DirtNormalTile) getTile(3, 17)).setStaticEntity(tempTreeStump);
+                entityManager.addEntity(tempTreeStump);
+            }
         }
-        /*
+
+        // TODO: MIDDLE OF
         while (countTreeStump > 0) {
             x = randX.nextInt(widthInTiles);
             y = randY.nextInt(heightInTiles);
 
-\
+            if (availablePosition[x][y] && availablePosition[x+1][y] &&
+                    availablePosition[x][y+1] && availablePosition[x+1][y+1]) {
+                if (getTile(x, y) instanceof DirtNormalTile && getTile(x+1, y) instanceof DirtNormalTile &&
+                getTile(x, y+1) instanceof DirtNormalTile && getTile(x+1, y+1) instanceof DirtNormalTile) {
+                    DirtNormalTile tempTile0 = (DirtNormalTile)(getTile(x, y));
+                    DirtNormalTile tempTile1 = (DirtNormalTile)(getTile(x+1, y));
+                    DirtNormalTile tempTile2 = (DirtNormalTile)(getTile(x, y+1));
+                    DirtNormalTile tempTile3 = (DirtNormalTile)(getTile(x+1, y+1));
+
+                    tempTreeStump = new TreeStump(handler, (float)(x * Tile.TILE_WIDTH),
+                            (float)(y * Tile.TILE_HEIGHT), 2*Tile.TILE_WIDTH, 2*Tile.TILE_HEIGHT);
+
+                    tempTile0.setStaticEntity( tempTreeStump );
+                    tempTile1.setStaticEntity( tempTreeStump );
+                    tempTile2.setStaticEntity( tempTreeStump );
+                    tempTile3.setStaticEntity( tempTreeStump );
+
+                    entityManager.addEntity( tempTile0.getStaticEntity() );
+                    countTreeStump--;
+                    availablePosition[x][y] = false;
+                    availablePosition[x+1][y] = false;
+                    availablePosition[x][y+1] = false;
+                    availablePosition[x+1][y+1] = false;
+                }
+            }
         }
-        */
+
     }
 
     private void loadEntities1x1PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
