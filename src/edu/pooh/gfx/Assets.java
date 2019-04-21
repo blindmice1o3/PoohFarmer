@@ -51,7 +51,7 @@ public class Assets {
     public static BufferedImage[] hawkerUp, hawkerDown, hawkerLeft, hawkerRight;
 
     // ENTITIES (/KERO DOG)
-    public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight;
+    public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight, dogLeftPee;
 
     // INVENTORY
     public static BufferedImage inventoryScreen;
@@ -423,6 +423,48 @@ public class Assets {
         playerDownRight[8] = sheet.crop(355, 1323, 26, 35);
         playerDownRight[9] = sheet.crop(397, 1323, 27, 35);
         playerDownRight[10] = sheet.crop(437, 1325, 25, 33);
+
+
+        // *******************************************
+        // |+|+|+|+|+|+|+| ENTITY: DOG |+|+|+|+|+|+|+|
+        // *******************************************
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog.png"));
+        dogUp = new BufferedImage[5];
+        dogUp[0] = sheet.crop(6, 91, 13, 17);
+        dogUp[1] = sheet.crop(36, 91, 13, 18);
+        dogUp[2] = sheet.crop(66, 91, 13, 18);
+        dogUp[3] = sheet.crop(96, 91, 13, 18);
+        dogUp[4] = sheet.crop(126, 91, 13, 18);
+
+        dogDown = new BufferedImage[5];
+        dogDown[0] = sheet.crop(5, 61, 15, 17);
+        dogDown[1] = sheet.crop(37, 61, 12, 17);
+        dogDown[2] = sheet.crop(65, 62, 15, 15);
+        dogDown[3] = sheet.crop(95, 63, 15, 14);
+        dogDown[4] = sheet.crop(126, 62, 13, 16);
+
+        dogLeft = new BufferedImage[5];
+        dogLeft[0] = sheet.crop(3, 3, 20, 13);
+        dogLeft[1] = sheet.crop(30, 1, 25, 17);
+        dogLeft[2] = sheet.crop(63, 3, 20, 13);
+        dogLeft[3] = sheet.crop(93, 2, 20, 15);
+        dogLeft[4] = sheet.crop(123, 0, 19, 20);
+
+        dogRight = new BufferedImage[5];
+        dogRight[0] = sheet.crop(3, 3, 20, 13);
+        dogRight[1] = sheet.crop(30, 1, 25, 17);
+        dogRight[2] = sheet.crop(63, 3, 20, 13);
+        dogRight[3] = sheet.crop(93, 2, 20, 15);
+        dogRight[4] = sheet.crop(123, 0, 19, 20);
+
+        dogLeftPee = new BufferedImage[5];
+        dogLeftPee[0] = sheet.crop(6, 33, 19, 14);
+        dogLeftPee[1] = sheet.crop(34, 33, 18, 14);
+        dogLeftPee[2] = sheet.crop(63, 32, 18, 15);
+        dogLeftPee[3] = sheet.crop(92, 33, 20, 14);
+        dogLeftPee[4] = sheet.crop(120, 32, 25, 15);
+
+
 
         // ***********************************************************************************
         // |+|+|+|+|+|+|+| ENTITY: TRAVELINGFENCE (name == The Finn) (HAWKER) |+|+|+|+|+|+|+|

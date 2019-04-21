@@ -224,18 +224,20 @@ public class Player extends Creature {
             if (holding) {  // Already holding, can only drop the holdableObject.
                 if (checkDropableTile()) {
 
-                    if (holdableObject instanceof HarvestEntity) {
-                        if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                            ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
-                        }
-                    }
+                    //if (holdableObject instanceof HarvestEntity) {
+                      //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                      //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
+                      //  }
+                    //}
                     /////////////////////////////////////////////////
                     holdableObject.dropped(getTileCurrentlyFacing());
 
                     // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
-                    if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        ((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
-                    }
+                    //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                        //((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
+                    //} else {
+
+                    //}
 
                     setHoldableObject(null);
                     holding = false;

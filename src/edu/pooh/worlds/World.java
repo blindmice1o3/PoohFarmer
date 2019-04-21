@@ -1,6 +1,7 @@
 package edu.pooh.worlds;
 
 import edu.pooh.entities.EntityManager;
+import edu.pooh.entities.creatures.Dog;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.TravelingFence;
 import edu.pooh.entities.statics.statics1x1.Bush;
@@ -48,6 +49,7 @@ public class World {
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
         ////////////////////////////////////////////////////////////////////////
+        entityManager.addEntity(new Dog(handler, 384, 1152));
         entityManager.addEntity(new TravelingFence(handler, 64, 1564));
         ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new Bush(handler, 320, 1150) {

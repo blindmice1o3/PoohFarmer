@@ -85,7 +85,7 @@ public class HarvestEntity extends StaticEntity
 
     private long fragmentedPrevious;
     private long fragmentedElapsed = 0;
-    private long fragmentedTimeLimit = 1000 * 3;
+    public static final long FRAGMENTEDTIMELIMIT = 1000 * 2;
 
     public void fragmentedTimer(long timeLimit) {
         fragmentedPrevious = System.currentTimeMillis();
@@ -96,10 +96,13 @@ public class HarvestEntity extends StaticEntity
         }
 
         fragmentedElapsed = 0;
+
+        die();
     }
 
     @Override
     public void die() {
+        /*
         for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
             for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
                 if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
@@ -112,6 +115,7 @@ public class HarvestEntity extends StaticEntity
                 }
             }
         }
+        */
 
         setActive(false);
     }
@@ -151,9 +155,11 @@ public class HarvestEntity extends StaticEntity
                 x = tempTile.getX() * Tile.TILE_WIDTH;
                 y = tempTile.getY() * Tile.TILE_HEIGHT;
 
+                setTexture(determineFragmentedTexture());
+
                 tempTile.setStaticEntity(this);
 
-                System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+                tempTile.checkRemoveFragmentedStaticEntity();
             }
         } else {
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
@@ -164,12 +170,13 @@ public class HarvestEntity extends StaticEntity
                     if (tempTiles[x][y].getId() == t.getId()) {
                         this.x = x * Tile.TILE_WIDTH;
                         this.y = y * Tile.TILE_HEIGHT;
-                        System.out.println("dropped Chest's (x, y): (" + this.x + ", " + this.y + ")");
 
-                        die();
                         /////////////////////////////////////////////////////////////////////////////
                         handler.getWorld().getEntityManager().getPlayer().increaseCannabisCollected();
                         /////////////////////////////////////////////////////////////////////////////
+
+                        System.out.println("dropped Chest's (x, y): (" + this.x + ", " + this.y + ")");
+                        die();
                     }
                 }
             }
