@@ -59,6 +59,9 @@ public class Assets {
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
 
+    // STATE (HOMESTATE)
+    public static BufferedImage homeStateBackground;
+
     // START BUTTONS
     public static BufferedImage[] startButtons;
 
@@ -89,6 +92,11 @@ public class Assets {
         // |+|+|+|+|+|+|+| SHOPPING SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
         shoppingScreen = ImageLoader.loadImage("/shady sundial salesman in hercules (TravelingFenceState500x270).jpg");
+
+        // ************************************************************
+        // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
+        // ************************************************************
+        homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
 
         // *****************************************************
         // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|

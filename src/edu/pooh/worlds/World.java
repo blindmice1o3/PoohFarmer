@@ -14,6 +14,7 @@ import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
+import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
@@ -104,6 +105,15 @@ public class World {
     public void tick() {
         itemManager.tick();
         entityManager.tick();
+
+        checkMapTransferPoints();
+    }
+
+    public void checkMapTransferPoints() {
+        Rectangle tempTransferPointBounds = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        if (tempTransferPointBounds.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().homeState);
+        }
     }
 
     public void render(Graphics g) {

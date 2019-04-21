@@ -32,6 +32,7 @@ public class Game {
     public State gameState;
     public State menuState;
     public State travelingFenceState;
+    public State homeState;
 
     // INPUT
     private KeyManager keyManager;
@@ -55,6 +56,7 @@ public class Game {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
+        homeState = new HomeState(handler);
         StateManager.setCurrentState(gameState);
     } // **** end edu.pooh.main.Game() constructor ****
 
