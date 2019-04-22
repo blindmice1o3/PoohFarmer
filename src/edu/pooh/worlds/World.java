@@ -49,7 +49,7 @@ public class World {
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
         ////////////////////////////////////////////////////////////////////////
-        entityManager.addEntity(new Dog(handler, 384, 1152));
+        entityManager.addEntity(new Dog(handler, 512, 1280));
         entityManager.addEntity(new TravelingFence(handler, 64, 1564));
         ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new Bush(handler, 320, 1150) {

@@ -6,10 +6,11 @@ import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+// TODO: Assets.dogRight is not really an array of dog-right images, it's an array of dog-left images (need to get
+// dog-right images).
 public class Dog extends Creature {
 
     private Animation animUp;
@@ -18,7 +19,6 @@ public class Dog extends Creature {
     private Animation animRight;
     private Animation animLeftPee;
 
-    private BufferedImage currentImage;
     private Random random;
 
     public Dog(Handler handler, float x, float y) {
@@ -30,7 +30,6 @@ public class Dog extends Creature {
         animRight = new Animation(400, Assets.dogRight);
         animLeftPee = new Animation(400, Assets.dogLeftPee);
 
-        currentImage = animDown.getCurrentFrame();
         random = new Random();
     } //  **** end Dog(Handler, float, float) constructor ****
 
@@ -43,13 +42,12 @@ public class Dog extends Creature {
         animLeftPee.tick();
 
         randomlyMove();
+        move();
     }
 
     private void randomlyMove() {
-
-
-        if (random.nextInt(1000) < 4) {
-            int moveDir = random.nextInt(4);
+        if (random.nextInt(100) == 1) {
+            int moveDir = random.nextInt(5);
 
             switch (moveDir) {
                 case 0:
@@ -69,26 +67,15 @@ public class Dog extends Creature {
                     yMove = 0;
                     break;
             }
-
-            move();
         }
     }
 
 
     @Override
     public void render(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
+        g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
+                (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
-        if (xMove > 0) {
-            g2d.drawImage(getCurrentAnimationFrame(), AffineTransform.getRotateInstance(180), null);
-        //    g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
-        //            (int) (y - handler.getGameCamera().getyOffset()), width, height,
-        //            getCurrentAnimationFrame().getWidth(), 0, -getCurrentAnimationFrame().getWidth(),
-        //            getCurrentAnimationFrame().getHeight(), null);
-        } else {
-            g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
-                    (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-        }
     }
 
     private BufferedImage getCurrentAnimationFrame() {
