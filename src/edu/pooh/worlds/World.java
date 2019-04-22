@@ -42,6 +42,10 @@ public class World {
     // ITEMS
     private ItemManager itemManager;
 
+    // TRANFER POINTS (AFTER MAP IS LOADED)
+    private Rectangle transferPointDoorHome, transferPointDoorCowBarn, transferPointDoorChickenCoop,
+            transferPointDoorToolShed, transferPointGateFarm;
+
     public World(Handler handler, String path) {
         this.handler = handler;
         //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
@@ -90,30 +94,54 @@ public class World {
         });
         entityManager.addEntity(new Rock(handler, 192, 1350));
 
-
-
+        // ******************************************************************************************
+        // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
+        // ******************************************************************************************
 //        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
         loadTilesViaRGB(Assets.tilesViaRGB);
         loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
         loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
         loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
-
-
+        // ******************************************************************************************
+        // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
+        // ******************************************************************************************
 
         entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
         entityManager.getPlayer().setY(spawnY * Tile.TILE_HEIGHT);  //convert number of tiles to pixels.
+
+        transferPointDoorHome = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
+                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        transferPointDoorCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
+                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        transferPointDoorChickenCoop = new Rectangle(28*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
+                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        transferPointDoorToolShed = new Rectangle(24*Tile.TILE_WIDTH, 25*Tile.TILE_HEIGHT,
+                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        // TODO: instead of this column of 5-tiles, use the column to the left (which mean, player is at x == 0 AND
+        // currentDirection == DirectionFacing.LEFT).
+        transferPointGateFarm = new Rectangle(0*Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
+                Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
     } // **** end World(Handler, String) constructor ****
 
     public void tick() {
         itemManager.tick();
         entityManager.tick();
-
+        ////////////////////////////
         checkMapTransferPoints();
+        ////////////////////////////
     }
 
+
     public void checkMapTransferPoints() {
-        Rectangle tempTransferPointBounds = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        if (tempTransferPointBounds.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+        if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().homeState);
+        } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().homeState);
+        } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().homeState);
+        } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().homeState);
+        } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
             StateManager.setCurrentState(handler.getGame().homeState);
         }
     }

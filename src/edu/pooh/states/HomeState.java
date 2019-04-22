@@ -6,6 +6,7 @@ import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class HomeState implements State {
 
@@ -17,7 +18,10 @@ public class HomeState implements State {
 
     @Override
     public void tick() {
-        checkMapTransferPoints();
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+            StateManager.setCurrentState(handler.getGame().gameState);
+        }
+        //checkMapTransferPoints();
     }
 
     public void checkMapTransferPoints() {
