@@ -32,6 +32,8 @@ public class WateringCan extends Item {
         countWater += count;
     }
 
+    public void resetCountWater() { countWater = 0; }
+
     @Override
     public void execute() {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();

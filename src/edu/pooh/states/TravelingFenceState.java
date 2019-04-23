@@ -8,9 +8,7 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 // TODO: implement buy/sell functionality. Probably need UIManager for this State.
 public class TravelingFenceState implements State {
@@ -65,13 +63,26 @@ public class TravelingFenceState implements State {
 
     }
 
+    @Override
+    public void enter() {
+
+    }
+
+    @Override
+    public void exit() {
+
+    }
 
     private boolean renderInStockList = false;
     @Override
     public void tick() {
+        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
+            return;
+        }
+
         // VK_ESCAPE will set state to GameState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.setCurrentState(handler.getGame().gameState);
+            StateManager.setCurrentState(handler.getGame().getGameState());
             renderInStockList = false;
         }
 
@@ -82,6 +93,10 @@ public class TravelingFenceState implements State {
 
     @Override
     public void render(Graphics g) {
+        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
+            return;
+        }
+
         g.drawImage(Assets.shoppingScreen, 10, 10,
                 handler.getWidth()-20, handler.getHeight()-20, null);
 

@@ -29,10 +29,10 @@ public class Game {
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     // STATES
-    public State gameState;
-    public State menuState;
-    public State travelingFenceState;
-    public State homeState;
+    private State gameState;
+    private State menuState;
+    private State travelingFenceState;
+    private State homeState;
 
     // INPUT
     private KeyManager keyManager;
@@ -53,11 +53,13 @@ public class Game {
 
         Assets.init();
 
+        ////////////////////////////////////////////////////////
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
         homeState = new HomeState(handler);
-        StateManager.setCurrentState(gameState);
+        StateManager.setCurrentState( getGameState() );
+        ////////////////////////////////////////////////////////
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
@@ -214,6 +216,38 @@ public class Game {
     }
 
     // GETTERS & SETTERS
+
+    public State getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(State gameState) {
+        this.gameState = gameState;
+    }
+
+    public State getMenuState() {
+        return menuState;
+    }
+
+    public void setMenuState(State menuState) {
+        this.menuState = menuState;
+    }
+
+    public State getTravelingFenceState() {
+        return travelingFenceState;
+    }
+
+    public void setTravelingFenceState(State travelingFenceState) {
+        this.travelingFenceState = travelingFenceState;
+    }
+
+    public State getHomeState() {
+        return homeState;
+    }
+
+    public void setHomeState(State homeState) {
+        this.homeState = homeState;
+    }
 
     public KeyManager getKeyManager() {
         return keyManager;

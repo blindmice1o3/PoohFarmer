@@ -134,15 +134,15 @@ public class World {
 
     public void checkMapTransferPoints() {
         if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         }
     }
 

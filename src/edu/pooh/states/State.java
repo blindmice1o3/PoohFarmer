@@ -4,6 +4,10 @@ import java.awt.*;
 
 public interface State {
 
+    public abstract void enter();
+
+    public abstract void exit();
+
     public abstract void tick();
 
     public abstract void render(Graphics g);

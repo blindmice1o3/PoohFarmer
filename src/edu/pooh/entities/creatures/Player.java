@@ -96,7 +96,7 @@ public class Player extends Creature {
     public void tick() {
         // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
         if (cannabisCollected == 3) {
-            StateManager.setCurrentState( new MenuState(handler) );
+            StateManager.setCurrentState( handler.getGame().getMenuState() );
             //handler.getGame().gameStop();
         }
 
@@ -215,7 +215,7 @@ public class Player extends Creature {
                 System.out.println("FOUND: The Finn!");
                 // TODO: Implement TravelingFenceState.
                 /////////////////////////////////////////////////////////////////////
-                StateManager.setCurrentState(handler.getGame().travelingFenceState);
+                StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
                 /////////////////////////////////////////////////////////////////////
                 return;
             }
@@ -402,7 +402,7 @@ public class Player extends Creature {
         g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
                 (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         g.drawImage( inventory.getItem(inventory.getSelectedItem()).getTexture(),
-                (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
+                (Game.  WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
                 Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
         if (inventory.getItem(inventory.getSelectedItem()).getId() == Item.ID.WATERING_CAN) {
             WateringCan temp = (WateringCan)inventory.getItem(inventory.getSelectedItem());
@@ -484,6 +484,8 @@ public class Player extends Creature {
     public void increaseCannabisCollected() {
         cannabisCollected++;
     }
+
+    public void resetCannabisCollected() { cannabisCollected = 0; }
 
     // GETTERS & SETTERS
 
