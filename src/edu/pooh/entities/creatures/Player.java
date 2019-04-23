@@ -56,6 +56,7 @@ public class Player extends Creature {
     private int arSize = 20;
     private boolean attacking = false;
 
+
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
@@ -111,13 +112,17 @@ public class Player extends Creature {
         animDownLeft.tick();
 
 
-
+// TODO: maybe include getInput() for State changing/transitioning.
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+            return;
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ATTACK
         if (!holding) {

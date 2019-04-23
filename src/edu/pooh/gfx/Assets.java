@@ -450,13 +450,6 @@ public class Assets {
         dogLeft[3] = sheet.crop(93, 2, 20, 15);
         dogLeft[4] = sheet.crop(123, 0, 19, 20);
 
-        dogRight = new BufferedImage[5];
-        dogRight[0] = sheet.crop(3, 3, 20, 13);
-        dogRight[1] = sheet.crop(30, 1, 25, 17);
-        dogRight[2] = sheet.crop(63, 3, 20, 13);
-        dogRight[3] = sheet.crop(93, 2, 20, 15);
-        dogRight[4] = sheet.crop(123, 0, 19, 20);
-
         dogLeftPee = new BufferedImage[5];
         dogLeftPee[0] = sheet.crop(6, 33, 19, 14);
         dogLeftPee[1] = sheet.crop(34, 33, 18, 14);
@@ -464,7 +457,14 @@ public class Assets {
         dogLeftPee[3] = sheet.crop(92, 33, 20, 14);
         dogLeftPee[4] = sheet.crop(120, 32, 25, 15);
 
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog (right).png"));
 
+        dogRight = new BufferedImage[5];
+        dogRight[0] = sheet.crop(390, 3, 20, 13);
+        dogRight[1] = sheet.crop(358, 1, 25, 17);
+        dogRight[2] = sheet.crop(330, 3, 20, 13);
+        dogRight[3] = sheet.crop(300, 2, 20, 15);
+        dogRight[4] = sheet.crop(271, 0, 19, 20);
 
         // ***********************************************************************************
         // |+|+|+|+|+|+|+| ENTITY: TRAVELINGFENCE (name == The Finn) (HAWKER) |+|+|+|+|+|+|+|

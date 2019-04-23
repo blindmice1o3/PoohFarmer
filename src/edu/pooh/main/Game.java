@@ -28,6 +28,7 @@ public class Game {
     private Thread gameThread;
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
+
     // STATES
     private State gameState;
     private State menuState;
