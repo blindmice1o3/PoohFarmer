@@ -1,36 +1,49 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
 
-public class GameIState implements IState {
+public class GameState implements IState {
 
-    private Object[] args;
     private Handler handler;
     private World world;
 
-    public GameIState(Handler handler) {
+    private Object[] args;
+    private Player player;
+
+    public GameState(Handler handler) {
         this.handler = handler;
+        args = new Object[5];
+
         world = new World(handler, "res/worlds/chapter1 - tiles (int).txt");
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
-    } // **** end GameIState(Handler) constructor ****
+
+        player = handler.getWorld().getEntityManager().getPlayer();
+    } // **** end GameState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
-
+        if ((args[0] != null) && (args[0] instanceof Player)) {
+            player = (Player)args[0];
+        }
     }
 
     @Override
     public void exit() {
         args = new Object[5];
-        args[0] = handler.getWorld().getEntityManager().getPlayer();
+        args[0] = getPlayer();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
             return;
         }
 
@@ -40,14 +53,14 @@ public class GameIState implements IState {
 
         if ( handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(
                 handler.getWorld().getTransferPointDoorHome()) ) {
-            StateManager.change(handler.getGame().getHomeIState(), args);
+            StateManager.change(handler.getGame().getHomeState(), args);
 
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
             return;
         }
 
@@ -56,4 +69,4 @@ public class GameIState implements IState {
         ////////////////
     }
 
-} // **** end GameIState class ****
+} // **** end GameState class ****

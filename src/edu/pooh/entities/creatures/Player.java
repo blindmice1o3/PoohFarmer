@@ -95,7 +95,7 @@ public class Player extends Creature {
     public void tick() {
         // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
         if (cannabisCollected == 3) {
-            StateManager.setCurrentIState( handler.getGame().getMenuIState() );
+            StateManager.change( handler.getGame().getMenuState(), new Object[5] );
             //handler.getGame().gameStop();
         }
 
@@ -117,7 +117,7 @@ public class Player extends Creature {
         handler.getGameCamera().centerOnEntity(this);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
             return;
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,7 +205,7 @@ public class Player extends Creature {
         if (handler.getKeyManager().right) { xMove = speed; }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
-        if (StateManager.getCurrentIState() == handler.getGame().getGameIState()) {
+        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
 
             // B BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
@@ -217,9 +217,9 @@ public class Player extends Creature {
                 // TRAVELINGFENCE CHECK
                 if (checkForTravelingFence()) {
                     System.out.println("FOUND: The Finn!");
-                    // TODO: Implement TravelingFenceIState.
+                    // TODO: Implement TravelingFenceState.
                     /////////////////////////////////////////////////////////////////////
-                    StateManager.setCurrentIState(handler.getGame().getTravelingFenceIState());
+                    StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
                     /////////////////////////////////////////////////////////////////////
                     return;
                 }
@@ -394,6 +394,10 @@ public class Player extends Creature {
         // MOVEMENT
         g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+            return;
+        }
 
         // MELEE ATTACK
         if (attacking) {

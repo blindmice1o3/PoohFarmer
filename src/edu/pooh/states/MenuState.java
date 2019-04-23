@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.creatures.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
@@ -10,13 +11,19 @@ import edu.pooh.ui.UIManager;
 
 import java.awt.*;
 
-public class MenuIState implements IState {
+public class MenuState implements IState {
 
     private Handler handler;
+
+    private Object[] args;
+    private Player player;
+
     private UIManager uiManager;
 
-    public MenuIState(Handler handler) {
+    public MenuState(Handler handler) {
         this.handler = handler;
+        args = new Object[5];
+
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
 
@@ -31,26 +38,33 @@ public class MenuIState implements IState {
 
                 }
 
-                handler.getGame().setGameIState( new GameIState(handler) );
-                StateManager.setCurrentIState( handler.getGame().getGameIState() );
+                handler.getGame().setGameState( new GameState(handler) );
+                StateManager.setCurrentState( handler.getGame().getGameState() );
                 ///////////////////////////////////////////////////////////////////////////
             }
         }));
-    } // **** end MenuIState(Handler) constructor ****
+    } // **** end MenuState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
-
+        if ((args[0] != null) && (args[0] instanceof Player)) {
+            player = (Player)args[0];
+        }
     }
 
     @Override
     public void exit() {
+        args = new Object[5];
+        args[0] = getPlayer();
+    }
 
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentIState() != handler.getGame().getMenuIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
             return;
         }
 
@@ -59,7 +73,7 @@ public class MenuIState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentIState() != handler.getGame().getMenuIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
             return;
         }
 
@@ -67,4 +81,4 @@ public class MenuIState implements IState {
         uiManager.render(g);
     }
 
-} // **** end MenuIState class ****
+} // **** end MenuState class ****

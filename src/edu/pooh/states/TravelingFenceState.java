@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.creatures.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
@@ -11,16 +12,21 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 // TODO: implement buy/sell functionality. Probably need UIManager for this IState.
-public class TravelingFenceIState implements IState {
+public class TravelingFenceState implements IState {
 
     private Handler handler;
+
+    private Object[] args;
+    private Player player;
+
     private HashMap<Item, Float> inStock;
 
-    public TravelingFenceIState(Handler handler) {
+    public TravelingFenceState(Handler handler) {
         this.handler = handler;
+        args = new Object[5];
 
         initInStock();
-    } // **** end TravelingFenceIState(Handler) constructor ****
+    } // **** end TravelingFenceState(Handler) constructor ****
 
     private void initInStock() {
         inStock = new HashMap<Item, Float>();
@@ -65,24 +71,31 @@ public class TravelingFenceIState implements IState {
 
     @Override
     public void enter(Object[] args) {
-
+        if ((args[0] != null) && (args[0] instanceof Player)) {
+            player = (Player)args[0];
+        }
     }
 
     @Override
     public void exit() {
+        args = new Object[5];
+        args[0] = getPlayer();
+    }
 
+    public Player getPlayer() {
+        return player;
     }
 
     private boolean renderInStockList = false;
     @Override
     public void tick() {
-        if (StateManager.getCurrentIState() != handler.getGame().getTravelingFenceIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
             return;
         }
 
-        // VK_ESCAPE will set state to GameIState.
+        // VK_ESCAPE will set state to GameState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.setCurrentIState(handler.getGame().getGameIState());
+            StateManager.change(handler.getGame().getGameState(), args);
             renderInStockList = false;
         }
 
@@ -93,7 +106,7 @@ public class TravelingFenceIState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentIState() != handler.getGame().getTravelingFenceIState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
             return;
         }
 
@@ -113,4 +126,4 @@ public class TravelingFenceIState implements IState {
         }
     }
 
-} // **** end TravelingFenceIState class ****
+} // **** end TravelingFenceState class ****

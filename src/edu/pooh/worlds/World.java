@@ -42,7 +42,7 @@ public class World {
     // ITEMS
     private ItemManager itemManager;
 
-    // TRANFER POINTS (AFTER MAP IS LOADED)
+    // TRANSFER POINTS (AFTER MAP IS LOADED)
     private Rectangle transferPointDoorHome, transferPointDoorCowBarn, transferPointDoorChickenCoop,
             transferPointDoorToolShed, transferPointGateFarm;
 
@@ -53,8 +53,7 @@ public class World {
         entityManager = new EntityManager(handler);
         itemManager = new ItemManager(handler);
         ////////////////////////////////////////////////////////////////////////
-        entityManager.addEntity(new Dog(handler, 512, 1280));
-        entityManager.addEntity(new TravelingFence(handler, 64, 1564));
+
         ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new Bush(handler, 320, 1150) {
             @Override
@@ -133,15 +132,15 @@ public class World {
 
     public void checkMapTransferPoints() {
         if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentIState(handler.getGame().getHomeIState());
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentIState(handler.getGame().getHomeIState());
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentIState(handler.getGame().getHomeIState());
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentIState(handler.getGame().getHomeIState());
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentIState(handler.getGame().getHomeIState());
+            StateManager.setCurrentState(handler.getGame().getHomeState());
         }
     }
 
@@ -362,9 +361,15 @@ public class World {
                         entityManager.addEntity( tempTile.getStaticEntity() );
                     }
 
-                } else if (red == 255 && green == 0 && blue == 0) {
+                } else if (red == 255 && green == 0 && blue == 0) { //Player
                     Player player = new Player(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                     entityManager.addEntity( player );
+                } else if (red == 0 && green == 0 & blue == 255) {
+                    Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                    entityManager.addEntity( dog );
+                } else if (red == 0 && green == 255 && blue == 0) {
+                    TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                    entityManager.addEntity(travelingFence);
                 }
             }
         }
