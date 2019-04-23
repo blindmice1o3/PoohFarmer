@@ -4,24 +4,24 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
-import edu.pooh.ui.ClickListener;
+import edu.pooh.ui.IClickListener;
 import edu.pooh.ui.UIImageButton;
 import edu.pooh.ui.UIManager;
 
 import java.awt.*;
 
-public class MenuState implements State {
+public class MenuIState implements IState {
 
     private Handler handler;
     private UIManager uiManager;
 
-    public MenuState(Handler handler) {
+    public MenuIState(Handler handler) {
         this.handler = handler;
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
 
         uiManager.addObject(new UIImageButton(200, 200, 96, 31, Assets.startButtons,
-                new ClickListener() {
+                new IClickListener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUIManager(null);
@@ -31,12 +31,12 @@ public class MenuState implements State {
 
                 }
 
-                handler.getGame().setGameState( new GameState(handler) );
-                StateManager.setCurrentState( handler.getGame().getGameState() );
+                handler.getGame().setGameIState( new GameIState(handler) );
+                StateManager.setCurrentIState( handler.getGame().getGameIState() );
                 ///////////////////////////////////////////////////////////////////////////
             }
         }));
-    } // **** end MenuState(Handler) constructor ****
+    } // **** end MenuIState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
@@ -50,7 +50,7 @@ public class MenuState implements State {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getMenuIState()) {
             return;
         }
 
@@ -59,7 +59,7 @@ public class MenuState implements State {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getMenuIState()) {
             return;
         }
 
@@ -67,4 +67,4 @@ public class MenuState implements State {
         uiManager.render(g);
     }
 
-} // **** end MenuState class ****
+} // **** end MenuIState class ****

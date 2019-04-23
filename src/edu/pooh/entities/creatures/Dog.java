@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-// TODO: Implement Holdable interface. Also, Player class's render() will have to sync with Dog class's being-held-images.
+// TODO: Implement IHoldable interface. Also, Player class's render() will have to sync with Dog class's being-held-images.
 public class Dog extends Creature {
 
     private Animation animUp;

@@ -10,12 +10,10 @@ import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
-import edu.pooh.main.Holdable;
-import edu.pooh.states.MenuState;
+import edu.pooh.main.IHoldable;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
-import edu.pooh.ui.UIManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -44,8 +42,8 @@ public class Player extends Creature {
     // INVENTORY
     private Inventory inventory;
 
-    // HOLDING (composed with Holdable type)
-    private Holdable holdableObject;
+    // HOLDING (composed with IHoldable type)
+    private IHoldable IHoldableObject;
     private Rectangle hr; // holding-rectangle
     private int hrSize = 30;
     private boolean holding = false;
@@ -82,7 +80,7 @@ public class Player extends Creature {
         inventory = new Inventory(handler);
 
         // HOLDING
-        holdableObject = null;
+        IHoldableObject = null;
         hr = new Rectangle();
         hr.width = hrSize;
         hr.height = hrSize;
@@ -97,7 +95,7 @@ public class Player extends Creature {
     public void tick() {
         // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
         if (cannabisCollected == 3) {
-            StateManager.setCurrentState( handler.getGame().getMenuState() );
+            StateManager.setCurrentIState( handler.getGame().getMenuIState() );
             //handler.getGame().gameStop();
         }
 
@@ -112,14 +110,14 @@ public class Player extends Creature {
         animDownLeft.tick();
 
 
-// TODO: maybe include getInput() for State changing/transitioning.
+// TODO: maybe include getInput() for IState changing/transitioning.
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
             return;
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,8 +125,8 @@ public class Player extends Creature {
         // ATTACK
         if (!holding) {
             checkAttacks();
-        } else if (holdableObject != null) {                // HOLDING
-            holdableObject.setPosition(x + 10, y - 15);  // Moves image of holdableObject w/ player's.
+        } else if (IHoldableObject != null) {                // HOLDING
+            IHoldableObject.setPosition(x + 10, y - 15);  // Moves image of IHoldableObject w/ player's.
         }
 
         // INVENTORY
@@ -207,7 +205,7 @@ public class Player extends Creature {
         if (handler.getKeyManager().right) { xMove = speed; }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
-        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+        if (StateManager.getCurrentIState() == handler.getGame().getGameIState()) {
 
             // B BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
@@ -219,24 +217,24 @@ public class Player extends Creature {
                 // TRAVELINGFENCE CHECK
                 if (checkForTravelingFence()) {
                     System.out.println("FOUND: The Finn!");
-                    // TODO: Implement TravelingFenceState.
+                    // TODO: Implement TravelingFenceIState.
                     /////////////////////////////////////////////////////////////////////
-                    StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
+                    StateManager.setCurrentIState(handler.getGame().getTravelingFenceIState());
                     /////////////////////////////////////////////////////////////////////
                     return;
                 }
 
                 // HOLDING CHECK
-                if (holding) {  // Already holding, can only drop the holdableObject.
+                if (holding) {  // Already holding, can only drop the IHoldableObject.
                     if (checkDropableTile()) {
 
-                        //if (holdableObject instanceof HarvestEntity) {
+                        //if (IHoldableObject instanceof HarvestEntity) {
                         //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
+                        //      ((HarvestEntity)IHoldableObject).setTexture(((HarvestEntity) IHoldableObject).determineFragmentedTexture());
                         //  }
                         //}
                         /////////////////////////////////////////////////
-                        holdableObject.dropped(getTileCurrentlyFacing());
+                        IHoldableObject.dropped(getTileCurrentlyFacing());
 
                         // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                         //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
@@ -245,21 +243,21 @@ public class Player extends Creature {
 
                         //}
 
-                        setHoldableObject(null);
+                        setIHoldableObject(null);
                         holding = false;
                         /////////////////////////////////////////////////
 
                     }
-                } else {        // Not holding Holdable.
-                    if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
+                } else {        // Not holding IHoldable.
+                    if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
                         if (!holding) {
                             //////////////////////////////////////
-                            setHoldableObject(pickUpHoldable());
-                            holdableObject.pickedUp();
+                            setIHoldableObject(pickUpHoldable());
+                            IHoldableObject.pickedUp();
                             holding = true;
                             //////////////////////////////////////
                         }
-                    } else {                    // Not holding Holdable, no Holdable in front, use selected item.
+                    } else {                    // Not holding IHoldable, no IHoldable in front, use selected item.
 
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                         inventory.getItem(inventory.getSelectedItem()).execute();
@@ -318,7 +316,7 @@ public class Player extends Creature {
             return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
         }
         if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
-            return (holdableObject instanceof HarvestEntity);
+            return (IHoldableObject instanceof HarvestEntity);
         }
         return false;
     }
@@ -351,16 +349,16 @@ public class Player extends Creature {
         }
     }
 
-    private Holdable pickUpHoldable() {
+    private IHoldable pickUpHoldable() {
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             // If the player, skip the rest of the code, move on to the next Entity in the entities ArrayList.
             if (e.equals(this)) { continue; }
 
             // We have an Entity object that isn't the player, check if it intersects with the holding rectangle.
             if (e.getCollisionBounds(0, 0).intersects(hr)) {
-                if (e instanceof Holdable) {
+                if (e instanceof IHoldable) {
                     //////
-                    return (Holdable)e;
+                    return (IHoldable)e;
                 }
             }
         }
@@ -379,8 +377,8 @@ public class Player extends Creature {
 
                 // We have an Entity object that isn't the player, check if it intersects with the holding rectangle.
                 if (e.getCollisionBounds(0, 0).intersects(hr)) {
-                    if (e instanceof Holdable) {
-                        System.out.print("Holdable object in front of player.");
+                    if (e instanceof IHoldable) {
+                        System.out.print("IHoldable object in front of player.");
                         return true;
                     }
                 }
@@ -500,12 +498,12 @@ public class Player extends Creature {
         return cannabisCollected;
     }
 
-    public Holdable getHoldableObject() {
-        return holdableObject;
+    public IHoldable getIHoldableObject() {
+        return IHoldableObject;
     }
 
-    public void setHoldableObject(Holdable holdableObject) {
-        this.holdableObject = holdableObject;
+    public void setIHoldableObject(IHoldable IHoldableObject) {
+        this.IHoldableObject = IHoldableObject;
     }
 
     public boolean getHolding() {

@@ -12,9 +12,9 @@ public class EntityManager {
 
     private Handler handler;
     private Player player;
+
     private ArrayList<Entity> entities;
-    private boolean toBeAdded;
-    private ArrayList<Entity> entitiesToBeAdded;
+
     private Comparator<Entity> renderSorter = new Comparator<Entity>(){     // Comparator to pass into ArrayList's
         @Override                                                           // sort(Comparator) method.
         public int compare(Entity a, Entity b) {
@@ -26,16 +26,27 @@ public class EntityManager {
         }
     };
 
-    public EntityManager(Handler handler, Player player) {
-        this.handler = handler;
-        this.player = player;
-        entities = new ArrayList<Entity>();
-        addEntity(player);
+    private ArrayList<Entity> entitiesToBeAdded;
+    private boolean toBeAdded;
 
+    public EntityManager(Handler handler) {
+        this.handler = handler;
+        entities = new ArrayList<Entity>();
 
         toBeAdded = false;
         entitiesToBeAdded = new ArrayList<Entity>();
-    } // **** end EntityManager(Handler, Player) constructor ****
+    } // **** end EntityManager(Handler) constructor ****
+
+    /**
+     * World class's entityManager WILL HAVE TO CALL locatePlayer() AFTER loading map/level from file.
+     */
+    public void locatePlayer() {
+        for (Entity e : entities) {
+            if (e instanceof Player) {
+                player = (Player)e;
+            }
+        }
+    }
 
     public void tick() {
         Iterator<Entity> iterator = entities.iterator();

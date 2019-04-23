@@ -2,20 +2,20 @@ package edu.pooh.states;
 
 public class StateManager {
 
-    private static State currentState = null;
+    private static IState currentIState = null;
 
-    public static void change(State nextState, Object[] args) {
-        getCurrentState().exit();
-        nextState.enter(args);
-        setCurrentState(nextState);
+    public static void change(IState nextIState, Object[] args) {
+        getCurrentIState().exit();
+        nextIState.enter(args);
+        setCurrentIState(nextIState);
     }
 
-    public static void setCurrentState(State state) {
-        currentState = state;
+    public static void setCurrentIState(IState IState) {
+        currentIState = IState;
     }
 
-    public static State getCurrentState() {
-        return currentState;
+    public static IState getCurrentIState() {
+        return currentIState;
     }
 
 } // **** end StateManager class ****

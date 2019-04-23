@@ -10,17 +10,17 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
-// TODO: implement buy/sell functionality. Probably need UIManager for this State.
-public class TravelingFenceState implements State {
+// TODO: implement buy/sell functionality. Probably need UIManager for this IState.
+public class TravelingFenceIState implements IState {
 
     private Handler handler;
     private HashMap<Item, Float> inStock;
 
-    public TravelingFenceState(Handler handler) {
+    public TravelingFenceIState(Handler handler) {
         this.handler = handler;
 
         initInStock();
-    } // **** end TravelingFenceState(Handler) constructor ****
+    } // **** end TravelingFenceIState(Handler) constructor ****
 
     private void initInStock() {
         inStock = new HashMap<Item, Float>();
@@ -76,13 +76,13 @@ public class TravelingFenceState implements State {
     private boolean renderInStockList = false;
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getTravelingFenceIState()) {
             return;
         }
 
-        // VK_ESCAPE will set state to GameState.
+        // VK_ESCAPE will set state to GameIState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.setCurrentState(handler.getGame().getGameState());
+            StateManager.setCurrentIState(handler.getGame().getGameIState());
             renderInStockList = false;
         }
 
@@ -93,7 +93,7 @@ public class TravelingFenceState implements State {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getTravelingFenceIState()) {
             return;
         }
 
@@ -113,4 +113,4 @@ public class TravelingFenceState implements State {
         }
     }
 
-} // **** end TravelingFenceState class ****
+} // **** end TravelingFenceIState class ****

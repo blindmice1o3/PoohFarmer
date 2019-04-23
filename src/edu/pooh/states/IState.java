@@ -2,7 +2,7 @@ package edu.pooh.states;
 
 import java.awt.*;
 
-public interface State {
+public interface IState {
 
     public abstract void enter(Object[] args);
 
@@ -12,4 +12,4 @@ public interface State {
 
     public abstract void render(Graphics g);
 
-} // **** end State abstract class ****
+} // **** end IState abstract class ****

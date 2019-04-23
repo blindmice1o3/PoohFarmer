@@ -30,10 +30,10 @@ public class Game {
 
 
     // STATES
-    private State gameState;
-    private State homeState;
-    private State menuState;
-    private State travelingFenceState;
+    private IState gameIState;
+    private IState homeIState;
+    private IState menuIState;
+    private IState travelingFenceIState;
 
     // INPUT
     private KeyManager keyManager;
@@ -55,11 +55,11 @@ public class Game {
         Assets.init();
 
         ////////////////////////////////////////////////////////
-        gameState = new GameState(handler);
-        menuState = new MenuState(handler);
-        travelingFenceState = new TravelingFenceState(handler);
-        homeState = new HomeState(handler);
-        StateManager.setCurrentState( getGameState() );
+        gameIState = new GameIState(handler);
+        menuIState = new MenuIState(handler);
+        travelingFenceIState = new TravelingFenceIState(handler);
+        homeIState = new HomeIState(handler);
+        StateManager.setCurrentIState( getGameIState() );
         ////////////////////////////////////////////////////////
     } // **** end edu.pooh.main.Game() constructor ****
 
@@ -190,8 +190,8 @@ public class Game {
     private void tick() {
         keyManager.tick();
 
-        if (StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().tick();
+        if (StateManager.getCurrentIState() != null) {
+            StateManager.getCurrentIState().tick();
         }
     }
 
@@ -207,8 +207,8 @@ public class Game {
         g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         ////////////////////////////////    //Draw here!
 
-        if (StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().render(g);
+        if (StateManager.getCurrentIState() != null) {
+            StateManager.getCurrentIState().render(g);
         }
 
         ////////////////////////////////    //End drawing!
@@ -218,36 +218,36 @@ public class Game {
 
     // GETTERS & SETTERS
 
-    public State getGameState() {
-        return gameState;
+    public IState getGameIState() {
+        return gameIState;
     }
 
-    public void setGameState(State gameState) {
-        this.gameState = gameState;
+    public void setGameIState(IState gameIState) {
+        this.gameIState = gameIState;
     }
 
-    public State getMenuState() {
-        return menuState;
+    public IState getMenuIState() {
+        return menuIState;
     }
 
-    public void setMenuState(State menuState) {
-        this.menuState = menuState;
+    public void setMenuIState(IState menuIState) {
+        this.menuIState = menuIState;
     }
 
-    public State getTravelingFenceState() {
-        return travelingFenceState;
+    public IState getTravelingFenceIState() {
+        return travelingFenceIState;
     }
 
-    public void setTravelingFenceState(State travelingFenceState) {
-        this.travelingFenceState = travelingFenceState;
+    public void setTravelingFenceIState(IState travelingFenceIState) {
+        this.travelingFenceIState = travelingFenceIState;
     }
 
-    public State getHomeState() {
-        return homeState;
+    public IState getHomeIState() {
+        return homeIState;
     }
 
-    public void setHomeState(State homeState) {
-        this.homeState = homeState;
+    public void setHomeIState(IState homeIState) {
+        this.homeIState = homeIState;
     }
 
     public KeyManager getKeyManager() {

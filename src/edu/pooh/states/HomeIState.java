@@ -10,25 +10,24 @@ import edu.pooh.worlds.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class HomeState implements State {
+public class HomeIState implements IState {
 
     private Handler handler;
-    private World homeWorld;
+    private World world;
     private Player player;
 
-    private World prevWorld;
 
     private Rectangle mapTransferPointDoorOut;
 
-    public HomeState(Handler handler) {
+    public HomeIState(Handler handler) {
         this.handler = handler;
-        //homeWorld = new World(handler, );
-    } // **** end HomeState(Handler) constructor ****
+        world = new World(handler, "res/worlds/");
+    } // **** end HomeIState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
         player = (Player)args[0];
-        prevWorld = (World)args[1];
+
     }
 
     @Override
@@ -38,12 +37,12 @@ public class HomeState implements State {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getHomeIState()) {
             return;
         }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.setCurrentState(handler.getGame().getGameState());
+            StateManager.setCurrentIState(handler.getGame().getGameIState());
             player.setPosition(7* Tile.TILE_WIDTH, 18*Tile.TILE_HEIGHT);
 
         }
@@ -55,14 +54,14 @@ public class HomeState implements State {
         /*
         Rectangle tempTransferPointBounds = new Rectangle(7* Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         if (tempTransferPointBounds.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+            StateManager.setCurrentIState(handler.getGame().homeState);
         }
         */
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getHomeIState()) {
             return;
         }
 
@@ -73,4 +72,4 @@ public class HomeState implements State {
         player.render(g);
     }
 
-} // **** end HomeState class ****
+} // **** end HomeIState class ****

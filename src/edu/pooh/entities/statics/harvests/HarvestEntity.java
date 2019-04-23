@@ -3,17 +3,15 @@ package edu.pooh.entities.statics.harvests;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
-import edu.pooh.main.Holdable;
+import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static edu.pooh.entities.statics.harvests.HarvestEntity.HarvestType.*;
-
 public class HarvestEntity extends StaticEntity
-        implements Holdable {
+        implements IHoldable {
 
     public enum HarvestType {
         CANNABIS_WILD,

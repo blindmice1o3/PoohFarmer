@@ -5,16 +5,17 @@ import edu.pooh.worlds.World;
 
 import java.awt.*;
 
-public class GameState implements State {
+public class GameIState implements IState {
 
+    private Object[] args;
     private Handler handler;
     private World world;
 
-    public GameState(Handler handler) {
+    public GameIState(Handler handler) {
         this.handler = handler;
         world = new World(handler, "res/worlds/chapter1 - tiles (int).txt");
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
-    } // **** end GameState(Handler) constructor ****
+    } // **** end GameIState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
@@ -23,12 +24,13 @@ public class GameState implements State {
 
     @Override
     public void exit() {
-
+        args = new Object[5];
+        args[0] = handler.getWorld().getEntityManager().getPlayer();
     }
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
             return;
         }
 
@@ -38,17 +40,14 @@ public class GameState implements State {
 
         if ( handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(
                 handler.getWorld().getTransferPointDoorHome()) ) {
-            Object[] args = new Object[5];
-            args[0] = handler.getWorld().getEntityManager().getPlayer();
-            args[1] = handler.getWorld();
+            StateManager.change(handler.getGame().getHomeIState(), args);
 
-            StateManager.change(handler.getGame().getHomeState(), args);
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (StateManager.getCurrentIState() != handler.getGame().getGameIState()) {
             return;
         }
 
@@ -57,4 +56,4 @@ public class GameState implements State {
         ////////////////
     }
 
-} // **** end GameState class ****
+} // **** end GameIState class ****

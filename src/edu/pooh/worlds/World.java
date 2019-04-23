@@ -50,7 +50,7 @@ public class World {
         this.handler = handler;
         //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
         // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
-        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+        entityManager = new EntityManager(handler);
         itemManager = new ItemManager(handler);
         ////////////////////////////////////////////////////////////////////////
         entityManager.addEntity(new Dog(handler, 512, 1280));
@@ -106,8 +106,7 @@ public class World {
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
 
-        entityManager.getPlayer().setX(spawnX * Tile.TILE_WIDTH);   //convert number of tiles to pixels.
-        entityManager.getPlayer().setY(spawnY * Tile.TILE_HEIGHT);  //convert number of tiles to pixels.
+        entityManager.locatePlayer();
 
         transferPointDoorHome = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
                 Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
@@ -134,15 +133,15 @@ public class World {
 
     public void checkMapTransferPoints() {
         if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
+            StateManager.setCurrentIState(handler.getGame().getHomeIState());
         } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
+            StateManager.setCurrentIState(handler.getGame().getHomeIState());
         } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
+            StateManager.setCurrentIState(handler.getGame().getHomeIState());
         } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
+            StateManager.setCurrentIState(handler.getGame().getHomeIState());
         } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
+            StateManager.setCurrentIState(handler.getGame().getHomeIState());
         }
     }
 
@@ -218,8 +217,8 @@ public class World {
 
         widthInTiles = rgbArrayRelativeToMap.length;
         heightInTiles = rgbArrayRelativeToMap[0].length;
-        spawnX = 7;
-        spawnY = 18;
+        //spawnX = 7;
+        //spawnY = 18;
 
         this.tilesViaRGB = new Tile[widthInTiles][heightInTiles];
 
@@ -363,6 +362,9 @@ public class World {
                         entityManager.addEntity( tempTile.getStaticEntity() );
                     }
 
+                } else if (red == 255 && green == 0 && blue == 0) {
+                    Player player = new Player(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                    entityManager.addEntity( player );
                 }
             }
         }

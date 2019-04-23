@@ -1,13 +1,13 @@
 package edu.pooh.items;
 
 import edu.pooh.main.Handler;
-import edu.pooh.main.Invokable;
+import edu.pooh.main.IInvokable;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Item implements Invokable {
+public abstract class Item implements IInvokable {
 
     public static final int ITEM_WIDTH = 32;
     public static final int ITEM_HEIGHT = 32;
