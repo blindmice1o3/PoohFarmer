@@ -39,7 +39,7 @@ public class MenuState implements State {
     } // **** end MenuState(Handler) constructor ****
 
     @Override
-    public void enter() {
+    public void enter(Object[] args) {
 
     }
 

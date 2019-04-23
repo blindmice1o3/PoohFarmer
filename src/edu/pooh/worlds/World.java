@@ -127,7 +127,7 @@ public class World {
         itemManager.tick();
         entityManager.tick();
         ////////////////////////////
-        checkMapTransferPoints();
+        //checkMapTransferPoints();
         ////////////////////////////
     }
 
@@ -542,6 +542,27 @@ public class World {
     }
 
     // GETTERS & SETTERS
+
+
+    public Rectangle getTransferPointDoorHome() {
+        return transferPointDoorHome;
+    }
+
+    public Rectangle getTransferPointDoorCowBarn() {
+        return transferPointDoorCowBarn;
+    }
+
+    public Rectangle getTransferPointDoorToolShed() {
+        return transferPointDoorToolShed;
+    }
+
+    public Rectangle getTransferPointDoorChickenCoop() {
+        return transferPointDoorChickenCoop;
+    }
+
+    public Rectangle getTransferPointGateFarm() {
+        return transferPointGateFarm;
+    }
 
     public Handler getHandler() {
         return handler;

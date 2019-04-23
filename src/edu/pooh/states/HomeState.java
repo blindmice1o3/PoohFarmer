@@ -5,6 +5,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
+import edu.pooh.worlds.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,18 +13,22 @@ import java.awt.event.KeyEvent;
 public class HomeState implements State {
 
     private Handler handler;
+    private World homeWorld;
     private Player player;
+
+    private World prevWorld;
+
     private Rectangle mapTransferPointDoorOut;
 
     public HomeState(Handler handler) {
         this.handler = handler;
-        player = handler.getWorld().getEntityManager().getPlayer();
-
+        //homeWorld = new World(handler, );
     } // **** end HomeState(Handler) constructor ****
 
     @Override
-    public void enter() {
-
+    public void enter(Object[] args) {
+        player = (Player)args[0];
+        prevWorld = (World)args[1];
     }
 
     @Override

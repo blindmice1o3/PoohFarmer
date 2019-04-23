@@ -206,64 +206,66 @@ public class Player extends Creature {
         if (handler.getKeyManager().left) { xMove = -speed; }
         if (handler.getKeyManager().right) { xMove = speed; }
 
+        ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
+        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
 
-
-        // B BUTTON
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
-            inventory.incrementSelectedItem();
-        }
-
-        // A BUTTON
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
-            // TRAVELINGFENCE CHECK
-            if (checkForTravelingFence()) {
-                System.out.println("FOUND: The Finn!");
-                // TODO: Implement TravelingFenceState.
-                /////////////////////////////////////////////////////////////////////
-                StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
-                /////////////////////////////////////////////////////////////////////
-                return;
+            // B BUTTON
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
+                inventory.incrementSelectedItem();
             }
 
-            // HOLDING CHECK
-            if (holding) {  // Already holding, can only drop the holdableObject.
-                if (checkDropableTile()) {
-
-                    //if (holdableObject instanceof HarvestEntity) {
-                      //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                      //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
-                      //  }
-                    //}
-                    /////////////////////////////////////////////////
-                    holdableObject.dropped(getTileCurrentlyFacing());
-
-                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
-                    //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        //((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
-                    //} else {
-
-                    //}
-
-                    setHoldableObject(null);
-                    holding = false;
-                    /////////////////////////////////////////////////
-
+            // A BUTTON
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+                // TRAVELINGFENCE CHECK
+                if (checkForTravelingFence()) {
+                    System.out.println("FOUND: The Finn!");
+                    // TODO: Implement TravelingFenceState.
+                    /////////////////////////////////////////////////////////////////////
+                    StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
+                    /////////////////////////////////////////////////////////////////////
+                    return;
                 }
-            } else {        // Not holding Holdable.
-                if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
-                    if (!holding) {
-                        //////////////////////////////////////
-                        setHoldableObject(pickUpHoldable());
-                        holdableObject.pickedUp();
-                        holding = true;
-                        //////////////////////////////////////
+
+                // HOLDING CHECK
+                if (holding) {  // Already holding, can only drop the holdableObject.
+                    if (checkDropableTile()) {
+
+                        //if (holdableObject instanceof HarvestEntity) {
+                        //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                        //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
+                        //  }
+                        //}
+                        /////////////////////////////////////////////////
+                        holdableObject.dropped(getTileCurrentlyFacing());
+
+                        // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
+                        //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
+                        //((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
+                        //} else {
+
+                        //}
+
+                        setHoldableObject(null);
+                        holding = false;
+                        /////////////////////////////////////////////////
+
                     }
-                } else {                    // Not holding Holdable, no Holdable in front, use selected item.
+                } else {        // Not holding Holdable.
+                    if (checkForHoldable()) {   // Check if Holdable in front, pick up if true.
+                        if (!holding) {
+                            //////////////////////////////////////
+                            setHoldableObject(pickUpHoldable());
+                            holdableObject.pickedUp();
+                            holding = true;
+                            //////////////////////////////////////
+                        }
+                    } else {                    // Not holding Holdable, no Holdable in front, use selected item.
 
-                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
-                    inventory.getItem(inventory.getSelectedItem()).execute();
-                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
+                        // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
+                        inventory.getItem(inventory.getSelectedItem()).execute();
+                        // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
 
+                    }
                 }
             }
         }

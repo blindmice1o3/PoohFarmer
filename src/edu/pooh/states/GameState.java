@@ -17,7 +17,7 @@ public class GameState implements State {
     } // **** end GameState(Handler) constructor ****
 
     @Override
-    public void enter() {
+    public void enter(Object[] args) {
 
     }
 
@@ -32,7 +32,18 @@ public class GameState implements State {
             return;
         }
 
+        /////////////
         world.tick();
+        /////////////
+
+        if ( handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(
+                handler.getWorld().getTransferPointDoorHome()) ) {
+            Object[] args = new Object[5];
+            args[0] = handler.getWorld().getEntityManager().getPlayer();
+            args[1] = handler.getWorld();
+
+            StateManager.change(handler.getGame().getHomeState(), args);
+        }
     }
 
     @Override
@@ -41,7 +52,9 @@ public class GameState implements State {
             return;
         }
 
+        ////////////////
         world.render(g);
+        ////////////////
     }
 
 } // **** end GameState class ****

@@ -31,9 +31,9 @@ public class Game {
 
     // STATES
     private State gameState;
+    private State homeState;
     private State menuState;
     private State travelingFenceState;
-    private State homeState;
 
     // INPUT
     private KeyManager keyManager;

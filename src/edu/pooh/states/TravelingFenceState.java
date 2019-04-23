@@ -64,7 +64,7 @@ public class TravelingFenceState implements State {
     }
 
     @Override
-    public void enter() {
+    public void enter(Object[] args) {
 
     }
 

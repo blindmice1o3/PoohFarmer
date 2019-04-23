@@ -4,7 +4,7 @@ import java.awt.*;
 
 public interface State {
 
-    public abstract void enter();
+    public abstract void enter(Object[] args);
 
     public abstract void exit();
 

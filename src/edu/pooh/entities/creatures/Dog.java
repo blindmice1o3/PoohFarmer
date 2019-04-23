@@ -9,8 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-// TODO: Assets.dogRight is not really an array of dog-right images, it's an array of dog-left images (need to get
-// dog-right images).
+// TODO: Implement Holdable interface. Also, Player class's render() will have to sync with Dog class's being-held-images.
 public class Dog extends Creature {
 
     private Animation animUp;
