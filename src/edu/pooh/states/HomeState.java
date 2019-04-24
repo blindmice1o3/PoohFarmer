@@ -33,17 +33,11 @@ public class HomeState implements IState {
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];
         }
-
     }
 
     @Override
     public void exit() {
-        args = new Object[5];
-        args[0] = getPlayer();
-    }
-
-    public Player getPlayer() {
-        return player;
+        args[0] = player;
     }
 
     @Override

@@ -33,12 +33,7 @@ public class GameState implements IState {
 
     @Override
     public void exit() {
-        args = new Object[5];
-        args[0] = getPlayer();
-    }
-
-    public Player getPlayer() {
-        return player;
+        args[0] = player;
     }
 
     @Override
