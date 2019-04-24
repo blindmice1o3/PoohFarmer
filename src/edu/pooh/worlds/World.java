@@ -26,10 +26,17 @@ import java.util.Random;
 
 public class World {
 
+    public enum WorldType {
+        GAME, HOME, MENU, TRAVELING_FENCE;
+    }
+
     private Handler handler;
+    private WorldType worldType;
 
     private int widthInTiles;   // Width of world, in terms of number of tiles across.
     private int heightInTiles;  // Height of world, in terms of number of tiles down.
+    private int playerSpawnX;
+    private int playerSpawnY;
 
     private Tile[][] tilesViaRGB;   // Multi-dimensional array of Tile objects loaded via RGB values.
 
@@ -40,11 +47,12 @@ public class World {
     private ItemManager itemManager;
 
     // TRANSFER POINTS (AFTER MAP IS LOADED)
-    private Rectangle transferPointDoorHome, transferPointDoorCowBarn, transferPointDoorChickenCoop,
-            transferPointDoorToolShed, transferPointGateFarm;
+    private Rectangle transferPointGameToHome, transferPointDoorCowBarn, transferPointDoorChickenCoop,
+            transferPointDoorToolShed, transferPointGateFarm, transferPointHomeToGame;
 
-    public World(Handler handler, String path) {
+    public World(Handler handler, WorldType worldType) {
         this.handler = handler;
+        this.worldType = worldType;
 
         entityManager = new EntityManager(handler);
         itemManager = new ItemManager(handler);
@@ -52,21 +60,29 @@ public class World {
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
-        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+        if (worldType == WorldType.GAME) {
             loadTilesViaRGB(Assets.tilesViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
             loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
             loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
 
             entityManager.locatePlayer();   // Sets EntityManager's player variable to player object created from rgb.
+        } else if (worldType == WorldType.HOME) {
+            loadTilesViaRGB(Assets.tilesHomeViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesHomeViaRGB);
         }
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
 
 
-        transferPointDoorHome = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
-                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        if (worldType == WorldType.GAME) {
+            transferPointGameToHome = new Rectangle(7 * Tile.TILE_WIDTH, 17 * Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        } else if (worldType == WorldType.HOME) {
+            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        }
         /*
         transferPointDoorCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
                 Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
@@ -81,26 +97,17 @@ public class World {
          */
     } // **** end World(Handler, String) constructor ****
 
+    public Rectangle getTransferPointGameToHome() {
+        return transferPointGameToHome;
+    }
+
+    public Rectangle getTransferPointHomeToGame() {
+        return transferPointHomeToGame;
+    }
+
     public void tick() {
         itemManager.tick();
         entityManager.tick();
-        ////////////////////////////
-        //checkMapTransferPoints();
-        ////////////////////////////
-    }
-
-    public void checkMapTransferPoints() {
-        if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        }
     }
 
     public void render(Graphics g) {
@@ -171,87 +178,96 @@ public class World {
                     //////////////////////////////////////////////////////////////////////////
                     //            Tile type determination based on rgb values               //
                     //////////////////////////////////////////////////////////////////////////
-
-                    if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
-                        tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);
-                    } else if (red == 0 && green == 0 && blue == 0) {       //fence
-                        tilesViaRGB[xx][yy] = Tile.tiles[1];
-                    } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
-                        tilesViaRGB[xx][yy] = Tile.tiles[2];
-                    } else if (red == 0 && green == 162 && blue == 232) {   //signPost
-                        tilesViaRGB[xx][yy] = Tile.tiles[3];
-                    } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
-                        for (int y = 0; y < 4; y++) {
-                            for (int x = 0; x < 5; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[100 + (y * 5) + x];
+                    if (worldType == WorldType.GAME) {
+                        if (red == 255 && green == 255 && blue == 255) {        //DirtNormalTile
+                            tilesViaRGB[xx][yy] = new DirtNormalTile(xx, yy);
+                        } else if (red == 0 && green == 0 && blue == 0) {       //fence
+                            tilesViaRGB[xx][yy] = Tile.tiles[1];
+                        } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
+                            tilesViaRGB[xx][yy] = Tile.tiles[2];
+                        } else if (red == 0 && green == 162 && blue == 232) {   //signPost
+                            tilesViaRGB[xx][yy] = Tile.tiles[3];
+                        } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
+                            for (int y = 0; y < 4; y++) {
+                                for (int x = 0; x < 5; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[100 + (y * 5) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[100];
-                    } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
-                        for (int y = 0; y < 5; y++) {
-                            for (int x = 0; x < 5; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[120 + (y * 5) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[100];
+                        } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
+                            for (int y = 0; y < 5; y++) {
+                                for (int x = 0; x < 5; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[120 + (y * 5) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[120];
-                    } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
-                        for (int y = 0; y < 6; y++) {
-                            for (int x = 0; x < 5; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[145 + (y * 5) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[120];
+                        } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
+                            for (int y = 0; y < 6; y++) {
+                                for (int x = 0; x < 5; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[145 + (y * 5) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[145];
-                    } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
-                        for (int y = 0; y < 5; y++) {
-                            for (int x = 0; x < 4; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[175 + (y * 4) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[145];
+                        } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
+                            for (int y = 0; y < 5; y++) {
+                                for (int x = 0; x < 4; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[175 + (y * 4) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[175];
-                    } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
-                        for (int y = 0; y < 5; y++) {
-                            for (int x = 0; x < 5; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[195 + (y * 5) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[175];
+                        } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
+                            for (int y = 0; y < 5; y++) {
+                                for (int x = 0; x < 5; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[195 + (y * 5) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[195];
-                    } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
-                        for (int y = 0; y < 3; y++) {
-                            for (int x = 0; x < 2; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[220 + (y * 2) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[195];
+                        } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
+                            for (int y = 0; y < 3; y++) {
+                                for (int x = 0; x < 2; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[220 + (y * 2) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[220];
-                    } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
-                        for (int y = 0; y < 3; y++) {
-                            for (int x = 0; x < 2; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[220];
+                        } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
+                            for (int y = 0; y < 3; y++) {
+                                for (int x = 0; x < 2; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[226];
-                    } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
-                        for (int y = 0; y < 2; y++) {
-                            for (int x = 0; x < 2; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[226];
+                        } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
+                            for (int y = 0; y < 2; y++) {
+                                for (int x = 0; x < 2; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[232];
-                    } else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
-                        for (int y = 0; y < 2; y++) {
-                            for (int x = 0; x < 2; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[236 + (y * 2) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[232];
+                        } else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
+                            for (int y = 0; y < 2; y++) {
+                                for (int x = 0; x < 2; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[236 + (y * 2) + x];
+                                }
                             }
-                        }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[236];
-                    } else if (red == 0 && green == 0 && blue == 254) {     //poolWater3x3
-                        for (int y = 0; y < 3; y++) {
-                            for (int x = 0; x < 3; x++) {
-                                tilesViaRGB[xx + x][yy + y] = Tile.tiles[240 + (y * 3) + x];
+                            //tilesViaRGB[xx][yy] = Tile.tiles[236];
+                        } else if (red == 0 && green == 0 && blue == 254) {     //poolWater3x3
+                            for (int y = 0; y < 3; y++) {
+                                for (int x = 0; x < 3; x++) {
+                                    tilesViaRGB[xx + x][yy + y] = Tile.tiles[240 + (y * 3) + x];
+                                }
                             }
+                            //tilesViaRGB[xx][yy] = Tile.tiles[240];
+                        } else {
+                            tilesViaRGB[xx][yy] = Tile.tiles[2];
                         }
-                        //tilesViaRGB[xx][yy] = Tile.tiles[240];
-                    } else {
-                        tilesViaRGB[xx][yy] = Tile.tiles[2];
+                    }
+                    /////////////////////
+                    else if (worldType == WorldType.HOME) {
+                        if (red == 0 && green == 0 && blue == 0) {              //fence
+                            tilesViaRGB[xx][yy] = Tile.tiles[1];
+                        } else if (red == 255 & green == 255 && blue == 255) {  //dirtWalkway
+                            tilesViaRGB[xx][yy] = Tile.tiles[2];
+                        }
                     }
                 }
             }
@@ -281,145 +297,162 @@ public class World {
                 //////////////////////////////////////////////////////////////////////////
                 //       Entity type/position determination based on rgb values         //
                 //////////////////////////////////////////////////////////////////////////
+                if (worldType == WorldType.GAME) {
+                    // STATIC_ENTITY
+                    if (red == 0 && green == 0 && blue == 0) {        //Wood
+                        if (getTile(xx, yy) instanceof DirtNormalTile) {
+                            DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                            tempTile.setStaticEntity(new Wood(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)));
 
-                // STATIC_ENTITY
-                if (red == 0 && green == 0 && blue == 0) {        //Wood
-                    if (getTile(xx, yy) instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile)getTile(xx, yy);
-                        tempTile.setStaticEntity( new Wood(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) );
+                            entityManager.addEntity(tempTile.getStaticEntity());
+                        }
+                    } else if (red == 128 && green == 128 && blue == 128) { //Rock (Item drop -> Shovel)
+                        if (getTile(xx, yy) instanceof DirtNormalTile) {
+                            DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                            tempTile.setStaticEntity(new Rock(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
+                                @Override
+                                public void die() {
+                                    // The overridden die() method for this special Rock instance... drops loot: Shovel.
+                                    Shovel.getUniqueInstance(handler).setPosition((int) x, (int) y);
+                                    handler.getWorld().getItemManager().addItem(Shovel.getUniqueInstance(handler));
 
-                        entityManager.addEntity( tempTile.getStaticEntity() );
-                    }
-                } else if (red == 128 && green == 128 && blue == 128) { //Rock (Item drop -> Shovel)
-                    if (getTile(xx, yy) instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile)getTile(xx, yy);
-                        tempTile.setStaticEntity( new Rock(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
-                            @Override
-                            public void die() {
-                                // The overridden die() method for this special Rock instance... drops loot: Shovel.
-                                Shovel.getUniqueInstance(handler).setPosition((int)x, (int)y);
-                                handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
-
-                                // The die() method from Rock class that isn't overridden... to remove Rock instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
-                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                    // The die() method from Rock class that isn't overridden... to remove Rock instance.
+                                    for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+                                            if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                                if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                    ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                                }
                                             }
                                         }
                                     }
+
+                                    setActive(false);
                                 }
+                            });
 
-                                setActive(false);
-                            }
-                        } );
+                            entityManager.addEntity(tempTile.getStaticEntity());
+                        }
+                    } else if (red == 0 && green == 255 && blue == 1) { //Bush (Item drop -> SeedsWild w SeedType.CANNABIS_WILD)
+                        if (getTile(xx, yy) instanceof DirtNormalTile) {
+                            DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                            tempTile.setStaticEntity(new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
+                                @Override
+                                public void die() {
+                                    // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                    SeedsWild temp = new SeedsWild(handler);
+                                    temp.setPosition((int) x, (int) y);
+                                    handler.getWorld().getItemManager().addItem(temp);
 
-                        entityManager.addEntity( tempTile.getStaticEntity() );
-                    }
-                } else if (red == 0 && green == 255 && blue == 1) { //Bush (Item drop -> SeedsWild w SeedType.CANNABIS_WILD)
-                    if (getTile(xx, yy) instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
-                        tempTile.setStaticEntity(new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
-                            @Override
-                            public void die() {
-                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
-                                SeedsWild temp = new SeedsWild(handler);
-                                temp.setPosition((int) x, (int) y);
-                                handler.getWorld().getItemManager().addItem(temp);
-
-                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
-                                            if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-                                                ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                    // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                    for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+                                            if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                                if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                    ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                                }
                                             }
                                         }
                                     }
+
+                                    setActive(false);
                                 }
+                            });
 
-                                setActive(false);
-                            }
-                        });
+                            entityManager.addEntity(tempTile.getStaticEntity());
+                        }
+                    } else if (red == 0 && green == 255 && blue == 2) { //Bush (Item drop -> SeedsWild w SeedType.TURNIP)
+                        if (getTile(xx, yy) instanceof DirtNormalTile) {
+                            DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                            tempTile.setStaticEntity(new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
+                                @Override
+                                public void die() {
+                                    // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                    SeedsWild temp = new SeedsWild(handler);
+                                    temp.setPosition((int) x, (int) y);
+                                    temp.setName("Turnip Seeds");
+                                    temp.setSeedType(SeedsWild.SeedType.TURNIP);
+                                    handler.getWorld().getItemManager().addItem(temp);
 
-                        entityManager.addEntity(tempTile.getStaticEntity());
-                    }
-                } else if (red == 0 && green == 255 && blue == 2) { //Bush (Item drop -> SeedsWild w SeedType.TURNIP)
-                    if (getTile(xx, yy) instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
-                        tempTile.setStaticEntity( new Bush(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
-                            @Override
-                            public void die() {
-                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
-                                SeedsWild temp = new SeedsWild(handler);
-                                temp.setPosition( (int)x, (int)y );
-                                temp.setName("Turnip Seeds");
-                                temp.setSeedType(SeedsWild.SeedType.TURNIP);
-                                handler.getWorld().getItemManager().addItem(temp);
-
-                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
-                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                    // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                    for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+                                            if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                                if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                    ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                                }
                                             }
                                         }
                                     }
+
+                                    setActive(false);
                                 }
+                            });
 
-                                setActive(false);
-                            }
-                        } );
+                            entityManager.addEntity(tempTile.getStaticEntity());
+                        }
+                    } else if (red == 0 && green == 255 && blue == 3) { //Bush (Item drop -> SeedsWild w SeedType.CORN)
+                        if (getTile(xx, yy) instanceof DirtNormalTile) {
+                            DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                            tempTile.setStaticEntity(new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
+                                @Override
+                                public void die() {
+                                    // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                    SeedsWild temp = new SeedsWild(handler);
+                                    temp.setPosition((int) x, (int) y);
+                                    temp.setName("Corn Seeds");
+                                    temp.setSeedType(SeedsWild.SeedType.CORN);
+                                    handler.getWorld().getItemManager().addItem(temp);
 
-                        entityManager.addEntity( tempTile.getStaticEntity() );
-                    }
-                } else if (red == 0 && green == 255 && blue == 3) { //Bush (Item drop -> SeedsWild w SeedType.CORN)
-                    if (getTile(xx, yy) instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
-                        tempTile.setStaticEntity( new Bush(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
-                            @Override
-                            public void die() {
-                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
-                                SeedsWild temp = new SeedsWild(handler);
-                                temp.setPosition( (int)x, (int)y );
-                                temp.setName("Corn Seeds");
-                                temp.setSeedType(SeedsWild.SeedType.CORN);
-                                handler.getWorld().getItemManager().addItem(temp);
-
-                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
-                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                    // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                    for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+                                            if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                                if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                    ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                                }
                                             }
                                         }
                                     }
+
+                                    setActive(false);
                                 }
+                            });
 
-                                setActive(false);
-                            }
-                        } );
-
-                        entityManager.addEntity( tempTile.getStaticEntity() );
+                            entityManager.addEntity(tempTile.getStaticEntity());
+                        }
+                    }
+                    // CREATURE
+                    else if (red == 255 && green == 0 && blue == 0) { //Player
+                        Player player = new Player(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(player);
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    } else if (red == 0 && green == 0 & blue == 255) {  //Dog
+                        Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(dog);
+                    } else if (red == 0 && green == 255 && blue == 255) {   //TravelingFence
+                        TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(travelingFence);
                     }
                 }
-                // CREATURE
-                else if (red == 255 && green == 0 && blue == 0) { //Player
-                    Player player = new Player(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                    entityManager.addEntity( player );
-                } else if (red == 0 && green == 0 & blue == 255) {  //Dog
-                    Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                    entityManager.addEntity( dog );
-                } else if (red == 0 && green == 255 && blue == 255) {   //TravelingFence
-                    TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                    entityManager.addEntity(travelingFence);
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.HOME) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
                 }
-
             }
         }
+    }
+
+    public int getPlayerSpawnX() {
+        return playerSpawnX;
+    }
+
+    public int getPlayerSpawnY() {
+        return playerSpawnY;
     }
 
     private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
@@ -597,10 +630,6 @@ public class World {
     }
 
     // GETTERS & SETTERS
-
-    public Rectangle getTransferPointDoorHome() {
-        return transferPointDoorHome;
-    }
 
     public Rectangle getTransferPointDoorCowBarn() {
         return transferPointDoorCowBarn;

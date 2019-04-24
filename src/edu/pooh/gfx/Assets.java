@@ -66,8 +66,8 @@ public class Assets {
     public static BufferedImage[] startButtons;
 
     // LOADING MAP BY RGB VALUES
-    public static BufferedImage tilesViaRGB;
-    public static BufferedImage entitiesViaRGB;
+    public static BufferedImage tilesViaRGB, tilesHomeViaRGB;
+    public static BufferedImage entitiesViaRGB, entitiesHomeViaRGB;
 
 
 
@@ -496,8 +496,9 @@ public class Assets {
         // **********************************************************************
 
         tilesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
-
+        tilesHomeViaRGB = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background - tiles (rgb).png");
         entitiesViaRGB = ImageLoader.loadImage("/worlds/chapter1 - entities (rgb).png");
+        entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background - entities (rgb).png");
 
     }
 

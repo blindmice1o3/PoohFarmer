@@ -25,13 +25,15 @@ public class HomeState implements IState {
         this.handler = handler;
         args = new Object[5];
 
-        world = new World(handler, "res/worlds/Game Boy GBC - Harvest Moon GBC - Home Background (rgb).png");
+        world = new World(handler, World.WorldType.HOME);
     } // **** end HomeState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
         if ((args[0] != null) && (args[0] instanceof Player)) {
+            handler.setWorld(world);
             player = (Player)args[0];
+            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
         }
     }
 
@@ -51,7 +53,15 @@ public class HomeState implements IState {
             player.setPosition(7* Tile.TILE_WIDTH, 18*Tile.TILE_HEIGHT);
 
         }
+
+        ///////////////
         player.tick();
+        ///////////////
+
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
+            StateManager.change(handler.getGame().getGameState(), args);
+            ///////////////
+        }
         //checkMapTransferPoints();
     }
 
@@ -71,7 +81,7 @@ public class HomeState implements IState {
         }
 
         // Render background image.
-        g.drawImage(Assets.homeStateBackground, 0, 0, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
+        g.drawImage(Assets.homeStateBackground, 0, -Tile.TILE_HEIGHT, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
 
         // Render player image.
         player.render(g);

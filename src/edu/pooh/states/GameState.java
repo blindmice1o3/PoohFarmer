@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -18,8 +19,9 @@ public class GameState implements IState {
         this.handler = handler;
         args = new Object[5];
 
-        world = new World(handler, "res/worlds/chapter1 - tiles (int).txt");
+        world = new World(handler, World.WorldType.GAME);
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
+                                    // NOW IT SETS the enum WorldType worldType for the world as well!!!!
 
         player = handler.getWorld().getEntityManager().getPlayer();
     } // **** end GameState(Handler) constructor ****
@@ -27,7 +29,9 @@ public class GameState implements IState {
     @Override
     public void enter(Object[] args) {
         if ((args[0] != null) && (args[0] instanceof Player)) {
+            handler.setWorld(world);
             player = (Player)args[0];
+            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
         }
     }
 
@@ -47,12 +51,28 @@ public class GameState implements IState {
         /////////////
 
 
-        if ( handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(
-                handler.getWorld().getTransferPointDoorHome()) ) {
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToHome()) ) {
             StateManager.change(handler.getGame().getHomeState(), args);
-
+            ///////////
         }
     }
+
+    //Responsibility being moved here FROM World class.
+    /*
+        public void checkMapTransferPoints() {
+        if (transferPointGameToHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().getHomeState());
+        } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().getHomeState());
+        } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().getHomeState());
+        } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().getHomeState());
+        } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
+            StateManager.setCurrentState(handler.getGame().getHomeState());
+        }
+    }
+     */
 
     @Override
     public void render(Graphics g) {
