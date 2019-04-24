@@ -46,6 +46,7 @@ public class GameState implements IState {
         world.tick();
         /////////////
 
+
         if ( handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0, 0).intersects(
                 handler.getWorld().getTransferPointDoorHome()) ) {
             StateManager.change(handler.getGame().getHomeState(), args);

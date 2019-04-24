@@ -43,7 +43,7 @@ public class EntityManager {
     public void locatePlayer() {
         for (Entity e : entities) {
             if (e instanceof Player) {
-                player = (Player)e;
+                setPlayer( (Player)e );
             }
         }
     }

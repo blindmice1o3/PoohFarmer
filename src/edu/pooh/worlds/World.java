@@ -52,18 +52,22 @@ public class World {
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
-        loadTilesViaRGB(Assets.tilesViaRGB);
-        loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
-        loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
-        loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+            loadTilesViaRGB(Assets.tilesViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
+            loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+            loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+
+            entityManager.locatePlayer();   // Sets EntityManager's player variable to player object created from rgb.
+        }
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
 
-        entityManager.locatePlayer();
 
         transferPointDoorHome = new Rectangle(7*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
                 Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        /*
         transferPointDoorCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
                 Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         transferPointDoorChickenCoop = new Rectangle(28*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
@@ -74,6 +78,7 @@ public class World {
         // currentDirection == DirectionFacing.LEFT).
         transferPointGateFarm = new Rectangle(0*Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                 Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
+         */
     } // **** end World(Handler, String) constructor ****
 
     public void tick() {
@@ -99,7 +104,6 @@ public class World {
     }
 
     public void render(Graphics g) {
-        // RENDER TILES
         ////////////////////////////////////////////////////////////////////////////////////////////
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,6 +117,7 @@ public class World {
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
         ////////////////////////////////////////////////////////////////////////////////////////////
 
+        // RENDER TILES
         for (int y = yStart; y < yEnd; y++) {
             for (int x = xStart; x < xEnd; x++) {
                 getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
@@ -510,7 +515,6 @@ public class World {
                 }
             }
         }
-
     }
 
     private void loadEntities1x1PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
@@ -581,8 +585,10 @@ public class World {
 
                 // assign boolean[][] availablePosition elements based on tiles image having a DirtNormalTile
                 // && entities image NOT having an entity in that tile position.
-                availablePosition[xx][yy] = (rgbTempTiles[0] == 255 && rgbTempTiles[1] == 255 && rgbTempTiles[2] == 255 &&
-                        rgbTempEntities[0] == 255 && rgbTempEntities[1] == 255 && rgbTempEntities[2] == 255);
+                availablePosition[xx][yy] = (
+                        rgbTempTiles[0] == 255 && rgbTempTiles[1] == 255 && rgbTempTiles[2] == 255 &&
+                  rgbTempEntities[0] == 255 && rgbTempEntities[1] == 255 && rgbTempEntities[2] == 255
+                );
 
             }
         }
