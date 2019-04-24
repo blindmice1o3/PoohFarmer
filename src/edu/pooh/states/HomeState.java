@@ -30,10 +30,17 @@ public class HomeState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        handler.setWorld(world);
+
         if ((args[0] != null) && (args[0] instanceof Player)) {
-            handler.setWorld(world);
             player = (Player)args[0];
-            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
+            player.setPosition(world.getPlayerSpawnX() * 59, world.getPlayerSpawnY() * 60);
+            world.getEntityManager().addEntity(player);
+            world.getEntityManager().setPlayer(player);
+            player.setBoundsWidth(59);
+            player.setBoundsHeight(60);
+            player.setWidth(59);
+            player.setHeight(60);
         }
     }
 
@@ -49,19 +56,17 @@ public class HomeState implements IState {
         }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.setCurrentState(handler.getGame().getGameState());
-            player.setPosition(7* Tile.TILE_WIDTH, 18*Tile.TILE_HEIGHT);
-
+            StateManager.change(handler.getGame().getGameState(), args);
         }
 
         ///////////////
         player.tick();
         ///////////////
 
-        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+        //if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
+        //    StateManager.change(handler.getGame().getGameState(), args);
             ///////////////
-        }
+        //}
         //checkMapTransferPoints();
     }
 
@@ -81,10 +86,11 @@ public class HomeState implements IState {
         }
 
         // Render background image.
-        g.drawImage(Assets.homeStateBackground, 0, -Tile.TILE_HEIGHT, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
+        //g.drawImage(Assets.homeStateBackground, 0, 0, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
+        world.render(g);
 
         // Render player image.
-        player.render(g);
+        //player.render(g);
     }
 
 } // **** end HomeState class ****

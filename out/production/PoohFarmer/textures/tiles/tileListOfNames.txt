@@ -1,4 +1,4 @@
-0 - dirtNormal (rgb: 255, 255, 255)
+0 - DirtNormalTile (rgb: 255, 255, 255)
 1 - fence (rgb: 0, 0, 0)
 2 - dirtWalkway (rgb: 136, 0, 21)
 3 - signPost (rgb: 0, 162, 232)
@@ -16,6 +16,9 @@ StaticEntity.Rock - rock
 
  - boulder2x2		 		  4
  - treeStump2x2		 		  4
+
+
+99 - HomeTile
 
 MULTIPLE-TILE-BUILDINGS (rgb: 163, 7#, 164)
 

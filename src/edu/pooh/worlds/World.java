@@ -15,8 +15,8 @@ import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
-import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
+import edu.pooh.tiles.HomeTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
@@ -47,8 +47,8 @@ public class World {
     private ItemManager itemManager;
 
     // TRANSFER POINTS (AFTER MAP IS LOADED)
-    private Rectangle transferPointGameToHome, transferPointDoorCowBarn, transferPointDoorChickenCoop,
-            transferPointDoorToolShed, transferPointGateFarm, transferPointHomeToGame;
+    private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
+            transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -61,40 +61,35 @@ public class World {
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
         if (worldType == WorldType.GAME) {
-            loadTilesViaRGB(Assets.tilesViaRGB);
-            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
-            loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
-            loadEntities1x1PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
+            loadTilesViaRGB(Assets.tilesGameViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesGameViaRGB);
+            loadEntities2x2PlacedRandomly(Assets.tilesGameViaRGB, Assets.entitiesGameViaRGB);
+            loadEntities1x1PlacedRandomly(Assets.tilesGameViaRGB, Assets.entitiesGameViaRGB);
 
             entityManager.locatePlayer();   // Sets EntityManager's player variable to player object created from rgb.
         } else if (worldType == WorldType.HOME) {
             loadTilesViaRGB(Assets.tilesHomeViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesHomeViaRGB);
         }
-        // ******************************************************************************************
-        // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
-        // ******************************************************************************************
 
-
+        // ****************************************************
+        // |+|+|+|+|+|+|+| LOAD TRANSFER_POINTS |+|+|+|+|+|+|+|
+        // ****************************************************
         if (worldType == WorldType.GAME) {
             transferPointGameToHome = new Rectangle(7 * Tile.TILE_WIDTH, 17 * Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointGameToCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointGameToChickenCoop = new Rectangle(28*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointGameToToolShed = new Rectangle(24*Tile.TILE_WIDTH, 25*Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointGameToGate = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
             transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         }
-        /*
-        transferPointDoorCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
-                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        transferPointDoorChickenCoop = new Rectangle(28*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
-                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        transferPointDoorToolShed = new Rectangle(24*Tile.TILE_WIDTH, 25*Tile.TILE_HEIGHT,
-                Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        // TODO: instead of this column of 5-tiles, use the column to the left (which mean, player is at x == 0 AND
-        // currentDirection == DirectionFacing.LEFT).
-        transferPointGateFarm = new Rectangle(0*Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
-                Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
-         */
     } // **** end World(Handler, String) constructor ****
 
     public Rectangle getTransferPointGameToHome() {
@@ -193,82 +188,96 @@ public class World {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[100 + (y * 5) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[100];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[100];
                         } else if (red == 163 && green == 76 && blue == 164) {  //cowBarn5x5
                             for (int y = 0; y < 5; y++) {
                                 for (int x = 0; x < 5; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[120 + (y * 5) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[120];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[120];
                         } else if (red == 163 && green == 77 && blue == 164) {  //silos5x6
                             for (int y = 0; y < 6; y++) {
                                 for (int x = 0; x < 5; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[145 + (y * 5) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[145];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[145];
                         } else if (red == 163 && green == 78 && blue == 164) {  //chickenCoop4x5
                             for (int y = 0; y < 5; y++) {
                                 for (int x = 0; x < 4; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[175 + (y * 4) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[175];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[175];
                         } else if (red == 163 && green == 79 && blue == 164) {  //toolShed5x5
                             for (int y = 0; y < 5; y++) {
                                 for (int x = 0; x < 5; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[195 + (y * 5) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[195];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[195];
                         } else if (red == 163 && green == 75 && blue == 164) {  //stable2x3
                             for (int y = 0; y < 3; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[220 + (y * 2) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[220];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[220];
                         } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
                             for (int y = 0; y < 3; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[226];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[226];
                         } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
                             for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[232];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[232];
                         } else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
                             for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[236 + (y * 2) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[236];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[236];
                         } else if (red == 0 && green == 0 && blue == 254) {     //poolWater3x3
                             for (int y = 0; y < 3; y++) {
                                 for (int x = 0; x < 3; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[240 + (y * 3) + x];
                                 }
                             }
-                            //tilesViaRGB[xx][yy] = Tile.tiles[240];
+                            //tilesGameViaRGB[xx][yy] = Tile.tiles[240];
                         } else {
                             tilesViaRGB[xx][yy] = Tile.tiles[2];
                         }
                     }
                     /////////////////////
                     else if (worldType == WorldType.HOME) {
-                        if (red == 0 && green == 0 && blue == 0) {              //fence
-                            tilesViaRGB[xx][yy] = Tile.tiles[1];
-                        } else if (red == 255 & green == 255 && blue == 255) {  //dirtWalkway
-                            tilesViaRGB[xx][yy] = Tile.tiles[2];
+                        for (int y = 0; y < 11; y++) {
+                            for (int x = 0; x < 16; x++) {
+                                if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                                    tilesViaRGB[xx + x][yy + y] = new HomeTile(Assets.homeStateBackground);
+                                    tilesViaRGB[xx + x][yy + y].setTexture(Assets.homeStateBackground.getSubimage((x * 59),
+                                            (y * 60), 59, 60));
+                                } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                                    tilesViaRGB[xx + x][yy + y] = new HomeTile(Assets.homeStateBackground) {
+                                        @Override
+                                        public boolean isSolid() {
+                                            return false;
+                                        }
+                                    };
+                                    tilesViaRGB[xx + x][yy + y].setTexture(Assets.homeStateBackground.getSubimage((x *59),
+                                            (y * 60), 59, 60));
+                                }
+                            }
                         }
                     }
+                    //////////////////////
                 }
             }
         }
@@ -631,20 +640,20 @@ public class World {
 
     // GETTERS & SETTERS
 
-    public Rectangle getTransferPointDoorCowBarn() {
-        return transferPointDoorCowBarn;
+    public Rectangle getTransferPointGameToCowBarn() {
+        return transferPointGameToCowBarn;
     }
 
-    public Rectangle getTransferPointDoorToolShed() {
-        return transferPointDoorToolShed;
+    public Rectangle getTransferPointGameToToolShed() {
+        return transferPointGameToToolShed;
     }
 
-    public Rectangle getTransferPointDoorChickenCoop() {
-        return transferPointDoorChickenCoop;
+    public Rectangle getTransferPointGameToChickenCoop() {
+        return transferPointGameToChickenCoop;
     }
 
-    public Rectangle getTransferPointGateFarm() {
-        return transferPointGateFarm;
+    public Rectangle getTransferPointGameToGate() {
+        return transferPointGameToGate;
     }
 
     public Handler getHandler() {

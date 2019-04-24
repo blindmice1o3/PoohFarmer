@@ -28,8 +28,9 @@ public class GameState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        handler.setWorld(world);
+
         if ((args[0] != null) && (args[0] instanceof Player)) {
-            handler.setWorld(world);
             player = (Player)args[0];
             player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
         }
