@@ -10,6 +10,7 @@ import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
+import edu.pooh.items.Item;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
@@ -55,43 +56,7 @@ public class World {
         ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////
-        entityManager.addEntity(new Bush(handler, 320, 1150) {
-            @Override
-            public void die() {
-                SeedsWild temp = new SeedsWild(handler);
-                temp.setPosition((int)x, (int)y);
-                temp.setName("Turnip Seeds");
-                temp.setSeedType(SeedsWild.SeedType.TURNIP);
-                handler.getWorld().getItemManager().addItem( temp );
-            }
-        });
-        entityManager.addEntity(new Bush(handler, 320, 1250){
-            @Override
-            public void die() {
-                SeedsWild temp = new SeedsWild(handler);
-                temp.setPosition((int)x, (int)y);
-                handler.getWorld().getItemManager().addItem( temp );
-            }
-        });
-        entityManager.addEntity(new Bush(handler, 320, 1350) {
-            @Override
-            public void die() {
-                SeedsWild temp = new SeedsWild(handler);
-                temp.setPosition((int)x, (int)y);
-                temp.setName("Corn Seeds");
-                temp.setSeedType(SeedsWild.SeedType.CORN);
-                handler.getWorld().getItemManager().addItem( temp );
-            }
-        });
-        entityManager.addEntity(new Rock(handler, 192, 1150));
-        entityManager.addEntity(new Rock(handler, 192, 1250) {
-            @Override
-            public void die() {
-                Shovel.getUniqueInstance(handler).setPosition((int)x, (int)y);
-                handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
-            }
-        });
-        entityManager.addEntity(new Rock(handler, 192, 1350));
+
 
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
@@ -353,6 +318,7 @@ public class World {
                 //       Entity type/position determination based on rgb values         //
                 //////////////////////////////////////////////////////////////////////////
 
+                // STATIC_ENTITY
                 if (red == 0 && green == 0 && blue == 0) {        //Wood
                     if (getTile(xx, yy) instanceof DirtNormalTile) {
                         DirtNormalTile tempTile = (DirtNormalTile)getTile(xx, yy);
@@ -360,17 +326,134 @@ public class World {
 
                         entityManager.addEntity( tempTile.getStaticEntity() );
                     }
+                } else if (red == 128 && green == 128 && blue == 128) { //Rock (Item drop -> Shovel)
+                    if (getTile(xx, yy) instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)getTile(xx, yy);
+                        tempTile.setStaticEntity( new Rock(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
+                            @Override
+                            public void die() {
+                                // The overridden die() method for this special Rock instance... drops loot: Shovel.
+                                Shovel.getUniqueInstance(handler).setPosition((int)x, (int)y);
+                                handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
 
-                } else if (red == 255 && green == 0 && blue == 0) { //Player
+                                // The die() method from Rock class that isn't overridden... to remove Rock instance.
+                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                setActive(false);
+                            }
+                        } );
+
+                        entityManager.addEntity( tempTile.getStaticEntity() );
+                    }
+                } else if (red == 0 && green == 255 && blue == 1) { //Bush (Item drop -> SeedsWild w SeedType.CANNABIS_WILD)
+                    if (getTile(xx, yy) instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                        tempTile.setStaticEntity(new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT)) {
+                            @Override
+                            public void die() {
+                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                SeedsWild temp = new SeedsWild(handler);
+                                temp.setPosition((int) x, (int) y);
+                                handler.getWorld().getItemManager().addItem(temp);
+
+                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                            if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                setActive(false);
+                            }
+                        });
+
+                        entityManager.addEntity(tempTile.getStaticEntity());
+                    }
+                } else if (red == 0 && green == 255 && blue == 2) { //Bush (Item drop -> SeedsWild w SeedType.TURNIP)
+                    if (getTile(xx, yy) instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                        tempTile.setStaticEntity( new Bush(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
+                            @Override
+                            public void die() {
+                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                SeedsWild temp = new SeedsWild(handler);
+                                temp.setPosition( (int)x, (int)y );
+                                temp.setName("Turnip Seeds");
+                                temp.setSeedType(SeedsWild.SeedType.TURNIP);
+                                handler.getWorld().getItemManager().addItem(temp);
+
+                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                setActive(false);
+                            }
+                        } );
+
+                        entityManager.addEntity( tempTile.getStaticEntity() );
+                    }
+                } else if (red == 0 && green == 255 && blue == 3) { //Bush (Item drop -> SeedsWild w SeedType.CORN)
+                    if (getTile(xx, yy) instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile) getTile(xx, yy);
+                        tempTile.setStaticEntity( new Bush(handler, (float)(xx * Tile.TILE_WIDTH), (float)(yy * Tile.TILE_HEIGHT)) {
+                            @Override
+                            public void die() {
+                                // The overridden die() method for this special Bush instance... drops loot: SeedsWild.
+                                SeedsWild temp = new SeedsWild(handler);
+                                temp.setPosition( (int)x, (int)y );
+                                temp.setName("Corn Seeds");
+                                temp.setSeedType(SeedsWild.SeedType.CORN);
+                                handler.getWorld().getItemManager().addItem(temp);
+
+                                // The die() method from Bush class that isn't overridden... to remove Bush instance.
+                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                        if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
+                                            if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                setActive(false);
+                            }
+                        } );
+
+                        entityManager.addEntity( tempTile.getStaticEntity() );
+                    }
+                }
+                // CREATURE
+                else if (red == 255 && green == 0 && blue == 0) { //Player
                     Player player = new Player(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                     entityManager.addEntity( player );
-                } else if (red == 0 && green == 0 & blue == 255) {
+                } else if (red == 0 && green == 0 & blue == 255) {  //Dog
                     Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                     entityManager.addEntity( dog );
-                } else if (red == 0 && green == 255 && blue == 0) {
+                } else if (red == 0 && green == 255 && blue == 255) {   //TravelingFence
                     TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                     entityManager.addEntity(travelingFence);
                 }
+
             }
         }
     }

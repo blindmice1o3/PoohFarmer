@@ -62,8 +62,8 @@ public abstract class Item implements IInvokable {
             return;
         }
 
-        render(g, (int)(x - handler.getGameCamera().getxOffset() + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2)),
-                (int)(y - handler.getGameCamera().getyOffset() + (Tile.TILE_HEIGHT / 2) - (ITEM_HEIGHT / 2)) );    // x and y that the Item is currently storing
+        render(g, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()) );    // x and y that the Item is currently storing
     }
 
     public void render(Graphics g, int x, int y) {
@@ -71,10 +71,10 @@ public abstract class Item implements IInvokable {
     }
 
     public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-        bounds.x = x;
-        bounds.y = y;
+        this.x = x + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2);
+        this.y = y + (Tile.TILE_HEIGHT / 2) - (ITEM_HEIGHT / 2);
+        bounds.x = x + (Tile.TILE_WIDTH / 2) - (ITEM_WIDTH / 2);
+        bounds.y = y + (Tile.TILE_HEIGHT / 2) - (ITEM_HEIGHT / 2);
     }
 
     // GETTERS & SETTERS
@@ -137,6 +137,10 @@ public abstract class Item implements IInvokable {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 
 } // **** end Item class ****
