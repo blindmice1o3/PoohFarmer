@@ -344,7 +344,7 @@ public class Player extends Creature {
                 break;
             default: // if not facing UDLR-directions, give bottom-left tile of the world map.
                 hr.x = 0;
-                hr.y = handler.getWorld().getHeight() - Tile.TILE_HEIGHT;
+                hr.y = handler.getWorld().getHeightInTiles() - Tile.TILE_HEIGHT;
                 break;
         }
     }
@@ -369,7 +369,7 @@ public class Player extends Creature {
         setHRPosition();
 
         // The above holding rectangle coordinates were set to some UDLR-directional values
-        if (hr.y != (handler.getWorld().getHeight() - Tile.TILE_HEIGHT)) {
+        if (hr.y != (handler.getWorld().getHeightInTiles() - Tile.TILE_HEIGHT)) {
 
             for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
                 // If the player, skip the rest of the code, move on to the next Entity in the entities ArrayList.

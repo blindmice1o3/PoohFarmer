@@ -21,14 +21,14 @@ public class GameCamera {
 
         if (xOffset < 0) {
             xOffset = 0;
-        } else if (xOffset > (handler.getWorld().getWidth() * Tile.TILE_WIDTH) - handler.getWidth()) {
-            xOffset = (handler.getWorld().getWidth() * Tile.TILE_WIDTH) - handler.getWidth();
+        } else if (xOffset > (handler.getWorld().getWidthInTiles() * Tile.TILE_WIDTH) - handler.getWidth()) {
+            xOffset = (handler.getWorld().getWidthInTiles() * Tile.TILE_WIDTH) - handler.getWidth();
         }
 
         if (yOffset < 0) {
             yOffset = 0;
-        } else if (yOffset > (handler.getWorld().getHeight() * Tile.TILE_HEIGHT) - handler.getHeight()) {
-            yOffset = (handler.getWorld().getHeight() * Tile.TILE_HEIGHT) - handler.getHeight();
+        } else if (yOffset > (handler.getWorld().getHeightInTiles() * Tile.TILE_HEIGHT) - handler.getHeight()) {
+            yOffset = (handler.getWorld().getHeightInTiles() * Tile.TILE_HEIGHT) - handler.getHeight();
         }
 
     }

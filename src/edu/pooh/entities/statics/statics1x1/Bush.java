@@ -2,7 +2,6 @@ package edu.pooh.entities.statics.statics1x1;
 
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
-import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
@@ -38,8 +37,8 @@ public class Bush extends StaticEntity {
 
     @Override
     public void die() {
-        for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-            for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+        for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+            for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                 if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                     if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                         ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);

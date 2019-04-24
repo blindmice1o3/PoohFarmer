@@ -10,7 +10,6 @@ import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
-import edu.pooh.items.Item;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
@@ -31,10 +30,7 @@ public class World {
 
     private int widthInTiles;   // Width of world, in terms of number of tiles across.
     private int heightInTiles;  // Height of world, in terms of number of tiles down.
-    private int spawnX; //NEED map to load before can be used.
-    private int spawnY; //NEED map to load before can be used.
 
-    private Tile[][] tiles;         // Multi-dimensional array of Tile objects loaded via int values.
     private Tile[][] tilesViaRGB;   // Multi-dimensional array of Tile objects loaded via RGB values.
 
     // ENTITIES
@@ -49,19 +45,13 @@ public class World {
 
     public World(Handler handler, String path) {
         this.handler = handler;
-        //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
-        // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
+
         entityManager = new EntityManager(handler);
         itemManager = new ItemManager(handler);
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
-
 
         // ******************************************************************************************
         // |+|+|+|+|+|+|+| LOAD TILES and ENTITIES (non-randomly and randomly placed) |+|+|+|+|+|+|+|
         // ******************************************************************************************
-//        loadWorld(path);    // Initializes tiles (multi-dimensional int array), and 4 instance variables.
         loadTilesViaRGB(Assets.tilesViaRGB);
         loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesViaRGB);
         loadEntities2x2PlacedRandomly(Assets.tilesViaRGB, Assets.entitiesViaRGB);
@@ -93,7 +83,6 @@ public class World {
         //checkMapTransferPoints();
         ////////////////////////////
     }
-
 
     public void checkMapTransferPoints() {
         if (transferPointDoorHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
@@ -145,35 +134,7 @@ public class World {
             return Tile.dirtWalkway;
         }
 
-
-
-//        return tiles[x][y];
         return tilesViaRGB[x][y];
-
-
-    }
-
-    private void loadWorld(String path) {
-        String file = Utils.loadFileAsString(path);
-        String[] tokens = file.split("\\s+");   // Any amount of white space is a separator.
-
-        widthInTiles = Utils.parseInt(tokens[0]);
-        heightInTiles = Utils.parseInt(tokens[1]);
-        spawnX = Utils.parseInt(tokens[2]);
-        spawnY = Utils.parseInt(tokens[3]);
-
-        tiles = new Tile[widthInTiles][heightInTiles];
-
-        for (int y = 0; y < heightInTiles; y++) {
-            for (int x = 0; x < widthInTiles; x++) {
-                // If it's suppose to be a dirtNormalTile... instantiate new non-static Tile object.
-                if (Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) == 0) {
-                    tiles[x][y] = new DirtNormalTile(x, y);
-                } else {    // use Tile class's static Tile[] array's static Tile object.
-                    tiles[x][y] = Tile.tiles[ Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) ];
-                }
-            }
-        }
     }
 
     private void loadTilesViaRGB(BufferedImage tilesViaRGB) {
@@ -181,8 +142,6 @@ public class World {
 
         widthInTiles = rgbArrayRelativeToMap.length;
         heightInTiles = rgbArrayRelativeToMap[0].length;
-        //spawnX = 7;
-        //spawnY = 18;
 
         this.tilesViaRGB = new Tile[widthInTiles][heightInTiles];
 
@@ -337,8 +296,8 @@ public class World {
                                 handler.getWorld().getItemManager().addItem( Shovel.getUniqueInstance(handler) );
 
                                 // The die() method from Rock class that isn't overridden... to remove Rock instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                                         if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                                             if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                                                 ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
@@ -365,8 +324,8 @@ public class World {
                                 handler.getWorld().getItemManager().addItem(temp);
 
                                 // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                                         if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                                             if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                                                 ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
@@ -395,8 +354,8 @@ public class World {
                                 handler.getWorld().getItemManager().addItem(temp);
 
                                 // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                                         if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                                             if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                                                 ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
@@ -425,8 +384,8 @@ public class World {
                                 handler.getWorld().getItemManager().addItem(temp);
 
                                 // The die() method from Bush class that isn't overridden... to remove Bush instance.
-                                for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-                                    for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+                                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                                    for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                                         if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                                             if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                                                 ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
@@ -633,7 +592,6 @@ public class World {
 
     // GETTERS & SETTERS
 
-
     public Rectangle getTransferPointDoorHome() {
         return transferPointDoorHome;
     }
@@ -662,14 +620,6 @@ public class World {
         this.handler = handler;
     }
 
-    public int getSpawnX() { return spawnX; }
-
-    public int getSpawnY() { return spawnY; }
-
-    public Tile[][] getTiles() {
-        return tiles;
-    }
-
     public Tile[][] getTilesViaRGB() { return tilesViaRGB; }
 
     public EntityManager getEntityManager() { return entityManager; }
@@ -684,12 +634,75 @@ public class World {
         this.itemManager = itemManager;
     }
 
-    public int getWidth() {
+    public int getWidthInTiles() {
         return widthInTiles;
     }
 
-    public int getHeight() {
+    public int getHeightInTiles() {
         return heightInTiles;
     }
 
 } // **** end World class ****
+
+// An implementation for loading the collection of Tile objects,
+// referred to by the player when checking for valid moves, this
+// version loads a multi-dimensional array of Tile based on a
+// text file containing int values representing the tile's
+// final int id.
+/*
+    private int spawnX; //NEED map to load before can be used.
+    private int spawnY; //NEED map to load before can be used.
+
+    private Tile[][] tiles;         // Multi-dimensional array of Tile objects loaded via int values.
+
+    public World(Handler handler, String path) {
+        //giving a random hardcoded coordinate during Player instantiation BEFORE loadWorld(String)
+        // AFTER loadWorld(String) the variables spawnX and spawnY are initialized from the text file.
+
+        // Initializes tiles (multi-dimensional int array), and 4 instance variables.
+        loadWorld(path);
+
+        entityManager.locatePlayer().setPosition(spawnX, spawnY);
+    }
+
+    private void loadWorld(String path) {
+        String file = Utils.loadFileAsString(path);
+        String[] tokens = file.split("\\s+");   // Any amount of white space is a separator.
+
+        widthInTiles = Utils.parseInt(tokens[0]);
+        heightInTiles = Utils.parseInt(tokens[1]);
+        spawnX = Utils.parseInt(tokens[2]);
+        spawnY = Utils.parseInt(tokens[3]);
+
+        tiles = new Tile[widthInTiles][heightInTiles];
+
+        for (int y = 0; y < heightInTiles; y++) {
+            for (int x = 0; x < widthInTiles; x++) {
+                // If it's suppose to be a dirtNormalTile... instantiate new non-static Tile object.
+                if (Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) == 0) {
+                    tiles[x][y] = new DirtNormalTile(x, y);
+                } else {    // use Tile class's static Tile[] array's static Tile object.
+                    tiles[x][y] = Tile.tiles[ Utils.parseInt( tokens[x + (y * widthInTiles) + 4] ) ];
+                }
+            }
+        }
+    }
+
+    public Tile getTile(int x, int y) {
+        // This checks if the player is going outside the map's bound, returns a DirtWalkwayTile object as default.
+        if (x < 0 || y < 0 || x >= widthInTiles || y >= heightInTiles) {
+            return Tile.dirtWalkway;
+        }
+
+        return tiles[x][y];
+    }
+
+    // GETTERS & SETTERS
+
+    public int getSpawnX() { return spawnX; }
+
+    public int getSpawnY() { return spawnY; }
+
+    public Tile[][] getTiles() { return tiles; }
+ */
+

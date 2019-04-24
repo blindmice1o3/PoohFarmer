@@ -34,8 +34,8 @@ public class Wood extends StaticEntity
 
     @Override
     public void die() {
-        for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
-            for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
+        for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+            for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
                 if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                     if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                         ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
@@ -63,8 +63,8 @@ public class Wood extends StaticEntity
     @Override
     public void pickedUp() {
         Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
-        for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
-            for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+            for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 if (tempLevel[xx][yy] instanceof DirtNormalTile) {
                     if (((DirtNormalTile)tempLevel[xx][yy]).getStaticEntity() != null) {
                         if (((DirtNormalTile)tempLevel[xx][yy]).getStaticEntity() == this) {
@@ -88,8 +88,8 @@ public class Wood extends StaticEntity
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
 //            Tile[][] tempTiles = handler.getWorld().getTiles();
 
-            for (int y = 0; y < handler.getWorld().getHeight(); y++) {
-                for (int x = 0; x < handler.getWorld().getWidth(); x++) {
+            for (int y = 0; y < handler.getWorld().getHeightInTiles(); y++) {
+                for (int x = 0; x < handler.getWorld().getWidthInTiles(); x++) {
                     if (tempTiles[x][y].getId() == t.getId()) {
                         this.x = x * Tile.TILE_WIDTH;
                         this.y = y * Tile.TILE_HEIGHT;

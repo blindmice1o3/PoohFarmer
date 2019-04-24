@@ -324,8 +324,8 @@ public class CropEntity extends StaticEntity {
 
         Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
         DirtNormalTile tempDirtNormalTile;
-        for (int xx = 0; xx < handler.getWorld().getWidth(); xx++) {
-            for (int yy = 0; yy < handler.getWorld().getHeight(); yy++) {
+        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+            for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 if (tempLevel[xx][yy] instanceof DirtNormalTile) {
                     tempDirtNormalTile = (DirtNormalTile)tempLevel[xx][yy];
 
