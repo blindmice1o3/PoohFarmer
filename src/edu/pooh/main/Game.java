@@ -4,6 +4,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
+import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.*;
 
 import javax.swing.*;
@@ -28,7 +29,6 @@ public class Game {
     private Thread gameThread;
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
-
     // STATES
     private IState gameState;
     private IState homeState;
@@ -52,7 +52,10 @@ public class Game {
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
 
+
         Assets.init();
+        SoundManager.init();
+
 
         ////////////////////////////////////////////////////////
         gameState = new GameState(handler);

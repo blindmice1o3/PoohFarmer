@@ -11,10 +11,13 @@ import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -23,6 +26,7 @@ public class Player extends Creature {
 
     // CANNABIS COUNTER
     private int cannabisCollected;
+    public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
 
     // ANIMATIONS
     private Animation animDown;
@@ -96,6 +100,7 @@ public class Player extends Creature {
         // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
         if (cannabisCollected == 3) {
             StateManager.change( handler.getGame().getMenuState(), new Object[5] );
+            sfxCannabisCollected.play();
             //handler.getGame().gameStop();
         }
 
@@ -214,6 +219,8 @@ public class Player extends Creature {
 
             // A BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+                sfxCannabisCollected.play();
+
                 // TRAVELINGFENCE CHECK
                 if (checkForTravelingFence()) {
                     System.out.println("FOUND: The Finn!");
