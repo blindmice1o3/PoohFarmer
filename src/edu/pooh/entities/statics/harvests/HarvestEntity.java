@@ -25,7 +25,8 @@ public class HarvestEntity extends StaticEntity
     private BufferedImage texture;
 
     public HarvestEntity(Handler handler, float x, float y) {
-        super(handler, x, y, (int)(Tile.TILE_WIDTH * 0.5), (int)(Tile.TILE_HEIGHT * 0.5));
+        super(handler, (int)(x + (Tile.TILE_WIDTH * 0.125)), (int)(y + (Tile.TILE_HEIGHT * 0.125)),
+                (int)(Tile.TILE_WIDTH * 0.75), (int)(Tile.TILE_HEIGHT * 0.75));
     }
 
     public void determineAndSetTexture() {
@@ -77,8 +78,8 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset() + (width / 2)),
-                (int)(y - handler.getGameCamera().getyOffset() + (height / 2)), width, height, null);
+        g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }
 
     private long fragmentedPrevious;
