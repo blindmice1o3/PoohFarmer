@@ -37,10 +37,7 @@ public class HomeState implements IState {
             player.setPosition(world.getPlayerSpawnX() * 59, world.getPlayerSpawnY() * 60);
             world.getEntityManager().addEntity(player);
             world.getEntityManager().setPlayer(player);
-            player.setBoundsWidth(59);
-            player.setBoundsHeight(60);
-            player.setWidth(59);
-            player.setHeight(60);
+
         }
     }
 
