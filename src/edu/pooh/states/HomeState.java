@@ -83,10 +83,10 @@ public class HomeState implements IState {
         player.tick();
         ///////////////
 
-        //if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
-        //    StateManager.change(handler.getGame().getGameState(), args);
-            ///////////////
-        //}
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
+            StateManager.change(handler.getGame().getGameState(), args);
+            ///////////
+        }
         //checkMapTransferPoints();
     }
 

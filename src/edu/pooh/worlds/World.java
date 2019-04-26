@@ -87,8 +87,8 @@ public class World {
             transferPointGameToGate = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
-            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointHomeToGame = new Rectangle(8 * 59, 11 * 60,
+                    2 * 59, 60);
         }
     } // **** end World(Handler, String) constructor ****
 

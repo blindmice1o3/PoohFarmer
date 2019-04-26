@@ -10,7 +10,7 @@ public class SoundManager {
     public static void init() {
         sounds = new AudioClip[256];
 
-        sounds[0] = Applet.newAudioClip(SoundManager.class.getResource("/38.wav"));
+        sounds[0] = Applet.newAudioClip(SoundManager.class.getResource("/38 - shotgun.wav"));
     }
 
 } // **** end SoundManager class ****

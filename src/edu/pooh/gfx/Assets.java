@@ -98,6 +98,10 @@ public class Assets {
         // ************************************************************
         homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
             homeStateBackground2 = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background2.png");
+
+
+
+
         // *****************************************************
         // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|
         // *****************************************************
