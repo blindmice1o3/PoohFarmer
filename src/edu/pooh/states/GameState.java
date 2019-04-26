@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -26,19 +27,44 @@ public class GameState implements IState {
         player = handler.getWorld().getEntityManager().getPlayer();
     } // **** end GameState(Handler) constructor ****
 
+    int prevBoundsX = 0;
+    int prevBoundsY = 0;
+    int prevBoundsWidth = 0;
+    int prevBoundsHeight = 0;
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
 
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];
+            prevBoundsX = player.getBoundsX();
+            prevBoundsY = player.getBoundsY();
+            prevBoundsWidth = player.getBoundsWidth();
+            prevBoundsHeight = player.getBoundsHeight();
+
+            player.setBoundsX((int)args[1]);
+            player.setBoundsY((int)args[2]);
+            player.setBoundsWidth((int)args[3]);
+            player.setBoundsHeight((int)args[4]);
+            player.setWidth(Creature.DEFAULT_CREATURE_WIDTH);
+            player.setHeight(Creature.DEFAULT_CREATURE_HEIGHT);
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
             player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            world.getEntityManager().addEntity(player);
+            world.getEntityManager().setPlayer(player);
         }
     }
 
     @Override
     public void exit() {
         args[0] = player;
+        args[1] = prevBoundsX;
+        args[2] = prevBoundsY;
+        args[3] = prevBoundsWidth;
+        args[4] = prevBoundsHeight;
     }
 
     @Override

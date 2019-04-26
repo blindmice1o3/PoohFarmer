@@ -259,18 +259,24 @@ public class World {
                     /////////////////////
                     else if (worldType == WorldType.HOME) {
                                 if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
-                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground);
-                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground2);
+                                    //tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground);
+                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                             (yy * 60), 59, 60));
+                                    //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                                    //        (yy * 60), 59, 60));
                                 } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
-                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground) {
+                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground2) {
+                                    //tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground) {
                                         @Override
                                         public boolean isSolid() {
                                             return false;
                                         }
                                     };
-                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                             (yy * 60), 59, 60));
+                                    //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                                    //        (yy * 60), 59, 60));
                                 }
                     }
                     //////////////////////

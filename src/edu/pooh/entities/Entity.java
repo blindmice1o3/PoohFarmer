@@ -66,15 +66,43 @@ public abstract class Entity {
         this.y = y;
     }
 
+    // GETTERS & SETTERS
+
+    public int getBoundsX() { return bounds.x; }
+
+    public void setBoundsX(int x) { bounds.x = x; }
+
+    public int getBoundsY() { return bounds.y; }
+
+    public void setBoundsY(int y) { bounds.y = y; }
+
+    public int getBoundsWidth() { return bounds.width; }
+
     public void setBoundsWidth(int width) {
         bounds.width = width;
     }
+
+    public int getBoundsHeight() { return bounds.height; }
 
     public void setBoundsHeight(int height) {
         bounds.height = height;
     }
 
-    // GETTERS & SETTERS
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     public int getHealth() {
         return health;
@@ -106,22 +134,6 @@ public abstract class Entity {
 
     public void setY(float y) {
         this.y = y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
 } // **** end Entity class ****

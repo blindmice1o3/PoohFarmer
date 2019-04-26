@@ -78,7 +78,9 @@ public class EntityManager {
     }
 
     public void addEntity(Entity e) {
-        entities.add(e);
+        if (!entities.contains(e)) {
+            entities.add(e);
+        }
     }
 
     // GETTERS & SETTERS

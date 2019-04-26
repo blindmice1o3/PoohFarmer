@@ -28,22 +28,45 @@ public class HomeState implements IState {
         world = new World(handler, World.WorldType.HOME);
     } // **** end HomeState(Handler) constructor ****
 
+
+    int prevBoundsX = 0;
+    int prevBoundsY = 0;
+    int prevBoundsWidth = 0;
+    int prevBoundsHeight = 0;
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
 
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];
+            prevBoundsX = player.getBoundsX();
+            prevBoundsY = player.getBoundsY();
+            prevBoundsWidth = player.getBoundsWidth();
+            prevBoundsHeight = player.getBoundsHeight();
+
+            player.setBoundsX(14);
+            player.setBoundsY(16);
+            player.setBoundsWidth(32);
+            player.setBoundsHeight(44);
+            player.setWidth(60);
+            player.setHeight(52);
+
+            /////////////////////////////////////////////////////////////////////////////////////
             player.setPosition(world.getPlayerSpawnX() * 59, world.getPlayerSpawnY() * 60);
+            /////////////////////////////////////////////////////////////////////////////////////
+
             world.getEntityManager().addEntity(player);
             world.getEntityManager().setPlayer(player);
-
         }
     }
 
     @Override
     public void exit() {
         args[0] = player;
+        args[1] = prevBoundsX;
+        args[2] = prevBoundsY;
+        args[3] = prevBoundsWidth;
+        args[4] = prevBoundsHeight;
     }
 
     @Override

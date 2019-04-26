@@ -61,6 +61,7 @@ public class Assets {
 
     // STATE (HOMESTATE)
     public static BufferedImage homeStateBackground;
+        public static BufferedImage homeStateBackground2;
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
@@ -68,7 +69,6 @@ public class Assets {
     // LOADING MAP BY RGB VALUES
     public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB;
     public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB;
-
 
 
 /* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
@@ -97,7 +97,7 @@ public class Assets {
         // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
         homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
-
+            homeStateBackground2 = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background2.png");
         // *****************************************************
         // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|
         // *****************************************************
