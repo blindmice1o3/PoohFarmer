@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -17,42 +18,20 @@ public class HomeState implements IState {
 
     public HomeState(Handler handler) {
         this.handler = handler;
-        args = new Object[10];
 
         world = new World(handler, World.WorldType.HOME);
     } // **** end HomeState(Handler) constructor ****
 
-
-    int prevBoundsX = 0;
-    int prevBoundsY = 0;
-    int prevBoundsWidth = 0;
-    int prevBoundsHeight = 0;
-    int prevX = 0;
-    int prevY = 0;
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
+        player = (Player)args[0];
 
-        player = (Player) args[0];
-        /*
-        prevBoundsX = (int) args[1];
-        prevBoundsY = (int) args[2];
-        prevBoundsWidth = (int) args[3];
-        prevBoundsHeight = (int) args[4];
-        */
-        prevX = (int) args[5];
-        prevY = (int) args[6];
+        this.args = args;
 
-        /*
-        player.setBoundsX(14);
-        player.setBoundsY(18);
-        player.setBoundsWidth(32);
-        player.setBoundsHeight(40);
-        player.setWidth(60);
-        player.setHeight(59);
-        */
         /////////////////////////////////////////////////////////////////////////////////////
-        player.setPosition(world.getPlayerSpawnX()*64, world.getPlayerSpawnY()*64);
+        player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH,
+                world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
         /////////////////////////////////////////////////////////////////////////////////////
 
         world.getEntityManager().addEntity(player);
@@ -61,15 +40,7 @@ public class HomeState implements IState {
 
     @Override
     public void exit() {
-        args[0] = player;
-        /*
-        args[1] = prevBoundsX;
-        args[2] = prevBoundsY;
-        args[3] = prevBoundsWidth;
-        args[4] = prevBoundsHeight;
-        */
-        args[5] = prevX;
-        args[6] = prevY;
+
     }
 
     @Override

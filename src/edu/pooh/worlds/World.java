@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, CHICKEN_COOP, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, COW_BARN, MENU, TRAVELING_FENCE;
     }
 
     private Handler handler;
@@ -49,7 +49,7 @@ public class World {
     // TRANSFER POINTS (AFTER MAP IS LOADED)
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
             transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame,
-            transferPointChickenCoopToGame;
+            transferPointChickenCoopToGame, transferPointCowBarnToGame;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -74,6 +74,9 @@ public class World {
         } else if (worldType == WorldType.CHICKEN_COOP) {
             loadTilesViaRGB(Assets.tilesChickenCoopViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesChickenCoopViaRGB);
+        } else if (worldType == WorldType.COW_BARN) {
+            loadTilesViaRGB(Assets.tilesCowBarnViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesCowBarnViaRGB);
         }
 
         // ****************************************************
@@ -91,9 +94,14 @@ public class World {
             transferPointGameToGate = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
-            transferPointHomeToGame = new Rectangle(7 * 64, 10 * 64, 2 * 64, 64);
+            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.CHICKEN_COOP) {
-            transferPointChickenCoopToGame = new Rectangle(7 * 64, 13 * 64, 2 * 64, 64);
+            transferPointChickenCoopToGame = new Rectangle(7 * Tile.TILE_WIDTH, 13 * Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        } else if (worldType == WorldType.COW_BARN) {
+            transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH, 21 * Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -108,6 +116,8 @@ public class World {
 
     public Rectangle getTransferPointChickenCoopToGame() { return transferPointChickenCoopToGame; }
 
+    public Rectangle getTransferPointCowBarnToGame() { return transferPointCowBarnToGame; }
+
     public void tick() {
         itemManager.tick();
         entityManager.tick();
@@ -121,7 +131,7 @@ public class World {
         int xEnd = (int)Math.min(widthInTiles,
                 (handler.getGameCamera().getxOffset() + Game.WIDTH_OF_FRAME) / Tile.TILE_WIDTH + 1);
         int yStart = (int)Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILE_HEIGHT);
-        int yEnd = (int)Math.min(widthInTiles,
+        int yEnd = (int)Math.min(heightInTiles,
                 (handler.getGameCamera().getyOffset() + Game.HEIGHT_OF_FRAME) / Tile.TILE_HEIGHT + 1);
         ////////////////////////////////////////////////////////////////////////////////////////////
         // RENDERING EFFICIENCY from youtube's CodeNMore NEW Beginner 2D Game Programming series. //
@@ -303,28 +313,74 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
-                            //TODO: ChestTile
+                            //TODO: ChestTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 0 && blue == 255) {     //signPost - solid, special.
-                            //TODO: SignPostTile
+                            //TODO: SignPostTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 255 && blue == 255) {   //chickenFeed - solid, special.
-                            //TODO: ChickenFeedTile
+                            //TODO: ChickenFeedTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.
-                            //TODO: ChickenIncubatorTile
+                            //TODO: ChickenIncubatorTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
                     }
-                    ///////////////////////
+                    /////////////////////
+                    else if (worldType == WorldType.COW_BARN) {
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 0 && blue == 0) {     //cowTroughVisual - solid, special.
+                            //TODO: CowTroughVisualTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
+                            //TODO: ChestTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 0 && blue == 255) {     //cowFeed - solid, special.
+                            //TODO: CowFeedTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 0 && blue == 255) {   //cowTrough - solid, special.
+                            //TODO: CowTroughTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 255 && blue == 255) {   //signPost - solid, special.
+                            //TODO: SignPostTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 255 && blue == 0) {   //cowIncubator - solid, special.
+                            //TODO: CowIncubatorTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+                    }
                 }
             }
         }
@@ -501,6 +557,13 @@ public class World {
                 }
                 /////////////////////////////////////////////////
                 else if (worldType == WorldType.CHICKEN_COOP) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
+                }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.COW_BARN) {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;

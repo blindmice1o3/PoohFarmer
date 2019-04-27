@@ -1,0 +1,12 @@
+CowBarnState background.jpg
+
+tile - 40 pixels x 40 pixels
+
+WIDTH - 16 tiles
+14 walkable tiles
+(left-border is 1 tile, right-border is 1 tile)
+
+
+HEIGHT - 22 tiles
+20 walkable tiles
+(top-border is 1 tile, bottom-border is 1 tile)

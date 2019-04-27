@@ -30,7 +30,7 @@ public class Game {
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     // STATES
-    private IState gameState, homeState, chickenCoopState, menuState, travelingFenceState;
+    private IState gameState, homeState, chickenCoopState, cowBarnState, menuState, travelingFenceState;
 
     // INPUT
     private KeyManager keyManager;
@@ -58,6 +58,7 @@ public class Game {
         gameState = new GameState(handler);
         homeState = new HomeState(handler);
         chickenCoopState = new ChickenCoopState(handler);
+        cowBarnState = new CowBarnState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
         StateManager.setCurrentState( getGameState() );
@@ -238,6 +239,10 @@ public class Game {
     public IState getChickenCoopState() { return chickenCoopState; }
 
     public void setChickenCoopState(IState chickenCoopState) { this.chickenCoopState = chickenCoopState; }
+
+    public IState getCowBarnState() { return cowBarnState; }
+
+    public void setCowBarnState(IState cowBarnState) { this.cowBarnState = cowBarnState; }
 
     public IState getMenuState() {
         return menuState;

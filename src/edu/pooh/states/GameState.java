@@ -25,36 +25,15 @@ public class GameState implements IState {
         player = handler.getWorld().getEntityManager().getPlayer();
     } // **** end GameState(Handler) constructor ****
 
-    int prevBoundsX = 0;
-    int prevBoundsY = 0;
-    int prevBoundsWidth = 0;
-    int prevBoundsHeight = 0;
-    int prevX = 0;
-    int prevY = 0;
+
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
 
-        player = (Player) args[0];
-        /*
-        prevBoundsX = (int) args[1];
-        prevBoundsY = (int) args[2];
-        prevBoundsWidth = (int) args[3];
-        prevBoundsHeight = (int) args[4];
-        */
-        prevX = (int) args[5];
-        prevY = (int) args[6];
+        this.args = args;
 
-        /*
-        player.setBoundsX((int) args[1]);
-        player.setBoundsY((int) args[2]);
-        player.setBoundsWidth((int) args[3]);
-        player.setBoundsHeight((int) args[4]);
-        player.setWidth(Creature.DEFAULT_CREATURE_WIDTH);
-        player.setHeight(Creature.DEFAULT_CREATURE_HEIGHT);
-        */
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
-        player.setPosition((int)args[5], (int)args[6]);
+        player.setPosition((int)args[1], (int)args[2]);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         world.getEntityManager().addEntity(player);
@@ -63,18 +42,9 @@ public class GameState implements IState {
 
     @Override
     public void exit() {
-        prevX = (int)player.getX();
-        prevY = (int)player.getY();
-
         args[0] = player;
-        /*
-        args[1] = prevBoundsX;
-        args[2] = prevBoundsY;
-        args[3] = prevBoundsWidth;
-        args[4] = prevBoundsHeight;
-        */
-        args[5] = prevX;
-        args[6] = prevY;
+        args[1] = (int)player.getX();
+        args[2] = (int)player.getY();
     }
 
     @Override
@@ -92,6 +62,8 @@ public class GameState implements IState {
             StateManager.change(handler.getGame().getHomeState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
             StateManager.change(handler.getGame().getChickenCoopState(), args);
+        } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCowBarn()) ) {
+            StateManager.change(handler.getGame().getCowBarnState(), args);
         }
     }
 

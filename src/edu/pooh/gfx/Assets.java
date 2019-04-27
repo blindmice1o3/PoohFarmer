@@ -56,21 +56,20 @@ public class Assets {
     // INVENTORY
     public static BufferedImage inventoryScreen;
 
+    // START BUTTONS
+    public static BufferedImage[] startButtons;
+
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
 
     // STATE (HOMESTATE)
     //public static BufferedImage homeStateBackground;
-    public static BufferedImage homeStateBackground2,
-    cowBarnStateBackground, chickenCoopStateBackground,
-    toolShedStateBackground;
-
-    // START BUTTONS
-    public static BufferedImage[] startButtons;
+    public static BufferedImage homeStateBackground2, cowBarnStateBackground,
+            chickenCoopStateBackground, toolShedStateBackground;
 
     // LOADING MAP BY RGB VALUES
-    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB;
-    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB, entitiesChickenCoopViaRGB;
+    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB, tilesCowBarnViaRGB;
+    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB, entitiesChickenCoopViaRGB, entitiesCowBarnViaRGB;
 
 
 
@@ -95,15 +94,6 @@ public class Assets {
         // |+|+|+|+|+|+|+| SHOPPING SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
         shoppingScreen = ImageLoader.loadImage("/shady sundial salesman in hercules (TravelingFenceState500x270).jpg");
-
-        // ************************************************************
-        // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
-        // ************************************************************
-        //homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
-        homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
-        chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
-
-
 
         // *****************************************************
         // |+|+|+|+|+|+|+| (unused???) WATERITEM |+|+|+|+|+|+|+|
@@ -498,6 +488,14 @@ public class Assets {
         hawkerRight[1] = sheet.crop(39, 102, 27, 25);
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
 
+        // ************************************************************
+        // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
+        // ************************************************************
+        //homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
+        homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
+        chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
+        cowBarnStateBackground = ImageLoader.loadImage("/worlds/CowBarnState background.jpg");
+
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
         // **********************************************************************
@@ -505,10 +503,11 @@ public class Assets {
         tilesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 tiles (rgb).png");
         tilesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState tiles (rgb).png");
         tilesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState tiles (rgb).png");
+        tilesCowBarnViaRGB = ImageLoader.loadImage("/worlds/CowBarnState tiles (rgb).png");
         entitiesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 entities (rgb).png");
         entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState entities (rgb).png");
         entitiesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState entities (rgb).png");
-
+        entitiesCowBarnViaRGB = ImageLoader.loadImage("/worlds/CowBarnState entities (rgb).png");
     }
 
 } // **** end Assets class ****
