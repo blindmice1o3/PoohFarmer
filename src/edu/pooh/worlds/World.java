@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, CHICKEN_COOP, COW_BARN, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, MENU, TRAVELING_FENCE;
     }
 
     private Handler handler;
@@ -49,7 +49,7 @@ public class World {
     // TRANSFER POINTS (AFTER MAP IS LOADED)
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
             transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame,
-            transferPointChickenCoopToGame, transferPointCowBarnToGame;
+            transferPointChickenCoopToGame, transferPointCowBarnToGame, transferPointToolShedToGame;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -77,6 +77,9 @@ public class World {
         } else if (worldType == WorldType.COW_BARN) {
             loadTilesViaRGB(Assets.tilesCowBarnViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesCowBarnViaRGB);
+        } else if (worldType == WorldType.TOOL_SHED) {
+            loadTilesViaRGB(Assets.tilesToolShedViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesToolShedViaRGB);
         }
 
         // ****************************************************
@@ -102,6 +105,9 @@ public class World {
         } else if (worldType == WorldType.COW_BARN) {
             transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH, 21 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        } else if (worldType == WorldType.TOOL_SHED) {
+            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 12 * Tile.TILE_HEIGHT,
+                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -117,6 +123,8 @@ public class World {
     public Rectangle getTransferPointChickenCoopToGame() { return transferPointChickenCoopToGame; }
 
     public Rectangle getTransferPointCowBarnToGame() { return transferPointCowBarnToGame; }
+
+    public Rectangle getTransferPointToolShedToGame() { return transferPointToolShedToGame; }
 
     public void tick() {
         itemManager.tick();
@@ -140,9 +148,9 @@ public class World {
         // RENDER TILES
         for (int y = yStart; y < yEnd; y++) {
             for (int x = xStart; x < xEnd; x++) {
+                // Multiple to convert from x,y indexes to tile-size.
                 getTile(x, y).render(g, (int)(x * Tile.TILE_WIDTH - handler.getGameCamera().getxOffset()),
-                        (int)(y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset())); // Multiple to convert from
-                                                                                          // x,y indexes to tile-size.
+                        (int)(y * Tile.TILE_HEIGHT - handler.getGameCamera().getyOffset()));
             }
         }
 
@@ -381,6 +389,28 @@ public class World {
                                     (yy * 40), 40, 40));
                         }
                     }
+                    /////////////////////
+                    else if (worldType == WorldType.TOOL_SHED) {
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
+                        } else if (red == 0 && green == 0 && blue == 255) {   //doorToCave - solid, special.
+                            //TODO: DoorToCaveTile tool shed
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
+                        }
+                    }
                 }
             }
         }
@@ -564,6 +594,13 @@ public class World {
                 }
                 /////////////////////////////////////////////////
                 else if (worldType == WorldType.COW_BARN) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
+                }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.TOOL_SHED) {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;

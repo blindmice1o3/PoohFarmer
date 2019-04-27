@@ -64,6 +64,8 @@ public class GameState implements IState {
             StateManager.change(handler.getGame().getChickenCoopState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCowBarn()) ) {
             StateManager.change(handler.getGame().getCowBarnState(), args);
+        } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToToolShed()) ) {
+            StateManager.change(handler.getGame().getToolShedState(), args);
         }
     }
 

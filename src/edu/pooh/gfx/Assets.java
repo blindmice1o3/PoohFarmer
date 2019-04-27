@@ -68,8 +68,10 @@ public class Assets {
             chickenCoopStateBackground, toolShedStateBackground;
 
     // LOADING MAP BY RGB VALUES
-    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB, tilesCowBarnViaRGB;
-    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB, entitiesChickenCoopViaRGB, entitiesCowBarnViaRGB;
+    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB,
+            tilesChickenCoopViaRGB, tilesCowBarnViaRGB, tilesToolShedViaRGB;
+    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB,
+            entitiesChickenCoopViaRGB, entitiesCowBarnViaRGB, entitiesToolShedViaRGB;
 
 
 
@@ -495,6 +497,7 @@ public class Assets {
         homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
         chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
         cowBarnStateBackground = ImageLoader.loadImage("/worlds/CowBarnState background.jpg");
+        toolShedStateBackground = ImageLoader.loadImage("/worlds/ToolShedState background.jpg");
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
@@ -504,10 +507,12 @@ public class Assets {
         tilesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState tiles (rgb).png");
         tilesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState tiles (rgb).png");
         tilesCowBarnViaRGB = ImageLoader.loadImage("/worlds/CowBarnState tiles (rgb).png");
+        tilesToolShedViaRGB = ImageLoader.loadImage("/worlds/ToolShedState tiles (rgb).png");
         entitiesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 entities (rgb).png");
         entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState entities (rgb).png");
         entitiesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState entities (rgb).png");
         entitiesCowBarnViaRGB = ImageLoader.loadImage("/worlds/CowBarnState entities (rgb).png");
+        entitiesToolShedViaRGB = ImageLoader.loadImage("/worlds/ToolShedState entities (rgb).png");
     }
 
 } // **** end Assets class ****
