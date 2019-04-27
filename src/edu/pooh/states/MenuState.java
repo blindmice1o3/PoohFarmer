@@ -22,7 +22,7 @@ public class MenuState implements IState {
 
     public MenuState(Handler handler) {
         this.handler = handler;
-        args = new Object[5];
+        args = new Object[10];
 
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);

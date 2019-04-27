@@ -1,9 +1,7 @@
 package edu.pooh.states;
 
-import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -18,7 +16,7 @@ public class GameState implements IState {
 
     public GameState(Handler handler) {
         this.handler = handler;
-        args = new Object[5];
+        args = new Object[10];
 
         world = new World(handler, World.WorldType.GAME);
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
@@ -31,40 +29,52 @@ public class GameState implements IState {
     int prevBoundsY = 0;
     int prevBoundsWidth = 0;
     int prevBoundsHeight = 0;
+    int prevX = 0;
+    int prevY = 0;
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
 
-        if ((args[0] != null) && (args[0] instanceof Player)) {
-            player = (Player)args[0];
-            prevBoundsX = player.getBoundsX();
-            prevBoundsY = player.getBoundsY();
-            prevBoundsWidth = player.getBoundsWidth();
-            prevBoundsHeight = player.getBoundsHeight();
+        player = (Player) args[0];
+        /*
+        prevBoundsX = (int) args[1];
+        prevBoundsY = (int) args[2];
+        prevBoundsWidth = (int) args[3];
+        prevBoundsHeight = (int) args[4];
+        */
+        prevX = (int) args[5];
+        prevY = (int) args[6];
 
-            player.setBoundsX((int)args[1]);
-            player.setBoundsY((int)args[2]);
-            player.setBoundsWidth((int)args[3]);
-            player.setBoundsHeight((int)args[4]);
-            player.setWidth(Creature.DEFAULT_CREATURE_WIDTH);
-            player.setHeight(Creature.DEFAULT_CREATURE_HEIGHT);
+        /*
+        player.setBoundsX((int) args[1]);
+        player.setBoundsY((int) args[2]);
+        player.setBoundsWidth((int) args[3]);
+        player.setBoundsHeight((int) args[4]);
+        player.setWidth(Creature.DEFAULT_CREATURE_WIDTH);
+        player.setHeight(Creature.DEFAULT_CREATURE_HEIGHT);
+        */
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        player.setPosition((int)args[5], (int)args[6]);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH, world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            world.getEntityManager().addEntity(player);
-            world.getEntityManager().setPlayer(player);
-        }
+        world.getEntityManager().addEntity(player);
+        world.getEntityManager().setPlayer(player);
     }
 
     @Override
     public void exit() {
+        prevX = (int)player.getX();
+        prevY = (int)player.getY();
+
         args[0] = player;
+        /*
         args[1] = prevBoundsX;
         args[2] = prevBoundsY;
         args[3] = prevBoundsWidth;
         args[4] = prevBoundsHeight;
+        */
+        args[5] = prevX;
+        args[6] = prevY;
     }
 
     @Override
@@ -80,7 +90,8 @@ public class GameState implements IState {
 
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToHome()) ) {
             StateManager.change(handler.getGame().getHomeState(), args);
-            ///////////
+        } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
+            StateManager.change(handler.getGame().getChickenCoopState(), args);
         }
     }
 

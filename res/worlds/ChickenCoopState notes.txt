@@ -1,0 +1,28 @@
+SNES Harvest Moon - Inside Chicken Coop 640x560.jpg
+
+40pixels x 40 pixels == 1 tile
+16 tiles x 14 tiles
+
+
+
+
+
+
+WIDTH
+600 / 40 = 14 tiles 
+(bordered by 1/2 tile on LEFT and 1/2 tile MORE with one or two special collision box tiles) (using 1 full tile each side for now... 16 tiles total)
+
+HEIGHT
+360 / 40 = 9 tiles 
+(bordered by 
+4 tiles on top [including feeding trough] and 1 tile on bottom)
+
+
+
+PLAYER
+bounds.x = 9.333
+bounds.y = 10.6667
+bounds.width = 21.3333
+bounds.height = 29.33333
+width  = 40
+height =34

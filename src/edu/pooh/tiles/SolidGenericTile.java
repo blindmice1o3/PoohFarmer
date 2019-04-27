@@ -2,9 +2,9 @@ package edu.pooh.tiles;
 
 import java.awt.image.BufferedImage;
 
-public class HomeTile extends Tile {
+public class SolidGenericTile extends Tile {
 
-    public HomeTile(BufferedImage texture) {
+    public SolidGenericTile(BufferedImage texture) {
         super(texture, 99);
     }
 

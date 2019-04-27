@@ -7,7 +7,7 @@ import edu.pooh.worlds.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class HomeState implements IState {
+public class ChickenCoopState implements IState {
 
     private Handler handler;
     private World world;
@@ -15,20 +15,19 @@ public class HomeState implements IState {
     private Object[] args;
     private Player player;
 
-    public HomeState(Handler handler) {
+    public ChickenCoopState(Handler handler) {
         this.handler = handler;
         args = new Object[10];
 
-        world = new World(handler, World.WorldType.HOME);
-    } // **** end HomeState(Handler) constructor ****
-
+        world = new World(handler, World.WorldType.CHICKEN_COOP);
+    } // **** end ChickenCoopState(Handler) constructor ****
 
     int prevBoundsX = 0;
     int prevBoundsY = 0;
     int prevBoundsWidth = 0;
     int prevBoundsHeight = 0;
-    int prevX = 0;
-    int prevY = 0;
+    int prevSpawnX = 0;
+    int prevSpawnY = 0;
     @Override
     public void enter(Object[] args) {
         handler.setWorld(world);
@@ -40,20 +39,21 @@ public class HomeState implements IState {
         prevBoundsWidth = (int) args[3];
         prevBoundsHeight = (int) args[4];
         */
-        prevX = (int) args[5];
-        prevY = (int) args[6];
+        prevSpawnX = (int) args[5];
+        prevSpawnY = (int) args[6];
 
         /*
-        player.setBoundsX(14);
-        player.setBoundsY(18);
-        player.setBoundsWidth(32);
-        player.setBoundsHeight(40);
-        player.setWidth(60);
-        player.setHeight(59);
+        player.setBoundsX(9);
+        player.setBoundsY(12);
+        player.setBoundsWidth(21);
+        player.setBoundsHeight(27);
+        player.setWidth(40);
+        player.setHeight(40);
         */
         /////////////////////////////////////////////////////////////////////////////////////
-        player.setPosition(world.getPlayerSpawnX()*64, world.getPlayerSpawnY()*64);
+        player.setPosition(world.getPlayerSpawnX()*64 , world.getPlayerSpawnY()*64);
         /////////////////////////////////////////////////////////////////////////////////////
+        System.out.println(world.getPlayerSpawnX()  + ", " + world.getPlayerSpawnY());
 
         world.getEntityManager().addEntity(player);
         world.getEntityManager().setPlayer(player);
@@ -68,13 +68,13 @@ public class HomeState implements IState {
         args[3] = prevBoundsWidth;
         args[4] = prevBoundsHeight;
         */
-        args[5] = prevX;
-        args[6] = prevY;
+        args[5] = prevSpawnX;
+        args[6] = prevSpawnY;
     }
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
             return;
         }
 
@@ -86,34 +86,20 @@ public class HomeState implements IState {
         player.tick();
         ///////////////
 
-        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointChickenCoopToGame()) ) {
             StateManager.change(handler.getGame().getGameState(), args);
             ///////////
         }
-        //checkMapTransferPoints();
-    }
-
-    public void checkMapTransferPoints() {
-        /*
-        Rectangle tempTransferPointBounds = new Rectangle(7* Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        if (tempTransferPointBounds.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
-        }
-        */
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
             return;
         }
 
         // Render background image.
-        //g.drawImage(Assets.homeStateBackground, 0, 0, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
         world.render(g);
-
-        // Render player image.
-        //player.render(g);
     }
 
-} // **** end HomeState class ****
+} // **** end ChickenCoopState class ****

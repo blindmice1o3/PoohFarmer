@@ -30,10 +30,7 @@ public class Game {
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     // STATES
-    private IState gameState;
-    private IState homeState;
-    private IState menuState;
-    private IState travelingFenceState;
+    private IState gameState, homeState, chickenCoopState, menuState, travelingFenceState;
 
     // INPUT
     private KeyManager keyManager;
@@ -59,9 +56,10 @@ public class Game {
 
         ////////////////////////////////////////////////////////
         gameState = new GameState(handler);
+        homeState = new HomeState(handler);
+        chickenCoopState = new ChickenCoopState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
-        homeState = new HomeState(handler);
         StateManager.setCurrentState( getGameState() );
         ////////////////////////////////////////////////////////
     } // **** end edu.pooh.main.Game() constructor ****
@@ -229,6 +227,18 @@ public class Game {
         this.gameState = gameState;
     }
 
+    public IState getHomeState() {
+        return homeState;
+    }
+
+    public void setHomeState(IState homeState) {
+        this.homeState = homeState;
+    }
+
+    public IState getChickenCoopState() { return chickenCoopState; }
+
+    public void setChickenCoopState(IState chickenCoopState) { this.chickenCoopState = chickenCoopState; }
+
     public IState getMenuState() {
         return menuState;
     }
@@ -243,14 +253,6 @@ public class Game {
 
     public void setTravelingFenceState(IState travelingFenceState) {
         this.travelingFenceState = travelingFenceState;
-    }
-
-    public IState getHomeState() {
-        return homeState;
-    }
-
-    public void setHomeState(IState homeState) {
-        this.homeState = homeState;
     }
 
     public KeyManager getKeyManager() {

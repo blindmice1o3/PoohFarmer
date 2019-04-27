@@ -60,15 +60,18 @@ public class Assets {
     public static BufferedImage shoppingScreen;
 
     // STATE (HOMESTATE)
-    public static BufferedImage homeStateBackground;
-        public static BufferedImage homeStateBackground2;
+    //public static BufferedImage homeStateBackground;
+    public static BufferedImage homeStateBackground2,
+    cowBarnStateBackground, chickenCoopStateBackground,
+    toolShedStateBackground;
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
 
     // LOADING MAP BY RGB VALUES
-    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB;
-    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB;
+    public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB;
+    public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB, entitiesChickenCoopViaRGB;
+
 
 
 /* |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+| */
@@ -96,9 +99,9 @@ public class Assets {
         // ************************************************************
         // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
-        homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
-            homeStateBackground2 = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background2.png");
-
+        //homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
+        homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
+        chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
 
 
 
@@ -499,10 +502,12 @@ public class Assets {
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
         // **********************************************************************
 
-        tilesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 - tiles (rgb).png");
-        tilesHomeViaRGB = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background - tiles (rgb).png");
-        entitiesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 - entities (rgb).png");
-        entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background - entities (rgb).png");
+        tilesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 tiles (rgb).png");
+        tilesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState tiles (rgb).png");
+        tilesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState tiles (rgb).png");
+        entitiesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 entities (rgb).png");
+        entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState entities (rgb).png");
+        entitiesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState entities (rgb).png");
 
     }
 

@@ -16,7 +16,7 @@ import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
-import edu.pooh.tiles.HomeTile;
+import edu.pooh.tiles.SolidGenericTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.utils.Utils;
 
@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, MENU, TRAVELING_FENCE;
     }
 
     private Handler handler;
@@ -48,7 +48,8 @@ public class World {
 
     // TRANSFER POINTS (AFTER MAP IS LOADED)
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
-            transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame;
+            transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame,
+            transferPointChickenCoopToGame;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -70,6 +71,9 @@ public class World {
         } else if (worldType == WorldType.HOME) {
             loadTilesViaRGB(Assets.tilesHomeViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesHomeViaRGB);
+        } else if (worldType == WorldType.CHICKEN_COOP) {
+            loadTilesViaRGB(Assets.tilesChickenCoopViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesChickenCoopViaRGB);
         }
 
         // ****************************************************
@@ -87,9 +91,11 @@ public class World {
             transferPointGameToGate = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
-            transferPointHomeToGame = new Rectangle(8 * 59, 11 * 60,
-                    2 * 59, 60);
+            transferPointHomeToGame = new Rectangle(7 * 64, 10 * 64, 2 * 64, 64);
+        } else if (worldType == WorldType.CHICKEN_COOP) {
+            transferPointChickenCoopToGame = new Rectangle(7 * 64, 13 * 64, 2 * 64, 64);
         }
+
     } // **** end World(Handler, String) constructor ****
 
     public Rectangle getTransferPointGameToHome() {
@@ -99,6 +105,8 @@ public class World {
     public Rectangle getTransferPointHomeToGame() {
         return transferPointHomeToGame;
     }
+
+    public Rectangle getTransferPointChickenCoopToGame() { return transferPointChickenCoopToGame; }
 
     public void tick() {
         itemManager.tick();
@@ -258,28 +266,65 @@ public class World {
                     }
                     /////////////////////
                     else if (worldType == WorldType.HOME) {
-                                if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
-                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground2);
-                                    //tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground);
-                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
-                                            (yy * 60), 59, 60));
-                                    //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
-                                    //        (yy * 60), 59, 60));
-                                } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
-                                    tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground2) {
-                                    //tilesViaRGB[xx][yy] = new HomeTile(Assets.homeStateBackground) {
-                                        @Override
-                                        public boolean isSolid() {
-                                            return false;
-                                        }
-                                    };
-                                    tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
-                                            (yy * 60), 59, 60));
-                                    //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
-                                    //        (yy * 60), 59, 60));
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground2);
+                            //tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
+                                    (yy * 60), 59, 60));
+                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //        (yy * 60), 59, 60));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground2) {
+                                //tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
                                 }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
+                                    (yy * 60), 59, 60));
+                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //        (yy * 60), 59, 60));
+                        }
                     }
                     //////////////////////
+                    else if (worldType == WorldType.CHICKEN_COOP) {
+                        if (red == 0 && green == 0 && blue == 0) {             //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
+                            //TODO: ChestTile
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 0 && blue == 255) {     //signPost - solid, special.
+                            //TODO: SignPostTile
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 255 && blue == 255) {   //chickenFeed - solid, special.
+                            //TODO: ChickenFeedTile
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.
+                            //TODO: ChickenIncubatorTile
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+                    }
+                    ///////////////////////
                 }
             }
         }
@@ -454,16 +499,15 @@ public class World {
                         playerSpawnY = yy;
                     }
                 }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.CHICKEN_COOP) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
+                }
             }
         }
-    }
-
-    public int getPlayerSpawnX() {
-        return playerSpawnX;
-    }
-
-    public int getPlayerSpawnY() {
-        return playerSpawnY;
     }
 
     private void loadEntities2x2PlacedRandomly(BufferedImage tilesViaRGB, BufferedImage entitiesViaRGB) {
@@ -641,6 +685,22 @@ public class World {
     }
 
     // GETTERS & SETTERS
+
+    public int getPlayerSpawnX() {
+        return playerSpawnX;
+    }
+
+    public void setPlayerSpawnX(int playerSpawnX) {
+        this.playerSpawnX = playerSpawnX;
+    }
+
+    public int getPlayerSpawnY() {
+        return playerSpawnY;
+    }
+
+    public void setPlayerSpawnY(int playerSpawnY) {
+        this.playerSpawnY = playerSpawnY;
+    }
 
     public Rectangle getTransferPointGameToCowBarn() {
         return transferPointGameToCowBarn;

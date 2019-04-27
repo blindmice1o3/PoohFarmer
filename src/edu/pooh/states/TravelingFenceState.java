@@ -23,7 +23,7 @@ public class TravelingFenceState implements IState {
 
     public TravelingFenceState(Handler handler) {
         this.handler = handler;
-        args = new Object[5];
+        args = new Object[10];
 
         initInStock();
     } // **** end TravelingFenceState(Handler) constructor ****
