@@ -30,8 +30,8 @@ public class Game {
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     // STATES
-    private IState gameState, homeState, chickenCoopState, cowBarnState,
-            toolShedState, crossroadState, menuState, travelingFenceState;
+    private IState gameState, homeState, chickenCoopState, cowBarnState, toolShedState,
+            crossroadState, mountainState, menuState, travelingFenceState;
 
     // INPUT
     private KeyManager keyManager;
@@ -62,6 +62,7 @@ public class Game {
         cowBarnState = new CowBarnState(handler);
         toolShedState = new ToolShedState(handler);
         crossroadState = new CrossroadState(handler);
+        mountainState = new MountainState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
         StateManager.setCurrentState( getGameState() );
@@ -254,6 +255,10 @@ public class Game {
     public IState getCrossroadState() { return crossroadState; }
 
     public void setCrossroadState(IState crossroadState) { this.crossroadState = crossroadState; }
+
+    public IState getMountainState() { return mountainState; }
+
+    public void setMountainState(IState mountainState) { this.mountainState = mountainState; }
 
     public IState getMenuState() {
         return menuState;

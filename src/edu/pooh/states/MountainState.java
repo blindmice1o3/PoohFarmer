@@ -8,7 +8,7 @@ import edu.pooh.worlds.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class CrossroadState implements IState {
+public class MountainState implements IState {
 
     private Handler handler;
     private World world;
@@ -16,11 +16,11 @@ public class CrossroadState implements IState {
     private Object[] args;
     private Player player;
 
-    public CrossroadState(Handler handler) {
+    public MountainState(Handler handler) {
         this.handler = handler;
 
-        world = new World(handler, World.WorldType.CROSSROAD);
-    } // **** end CrossroadState(Handler) constructor ****
+        world = new World(handler, World.WorldType.MOUNTAIN);
+    } // **** end MountainState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
@@ -45,7 +45,7 @@ public class CrossroadState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getCrossroadState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getMountainState()) {
             return;
         }
 
@@ -57,17 +57,15 @@ public class CrossroadState implements IState {
         player.tick();
         ///////////////
 
-        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCrossroadToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointMountainToCrossroad()) ) {
+            StateManager.change(handler.getGame().getCrossroadState(), args);
             ///////////
-        } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToMoutain()) ) {
-            StateManager.change(handler.getGame().getMountainState(), args);
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getCrossroadState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getMountainState()) {
             return;
         }
 
@@ -75,4 +73,4 @@ public class CrossroadState implements IState {
         world.render(g);
     }
 
-} // **** end CrossroadState class ****
+} // **** end MountainState class ****

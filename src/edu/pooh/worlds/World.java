@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN, MENU, TRAVELING_FENCE;
     }
 
     private Handler handler;
@@ -50,7 +50,7 @@ public class World {
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
             transferPointGameToToolShed, transferPointGameToCrossroad, transferPointHomeToGame,
             transferPointChickenCoopToGame, transferPointCowBarnToGame, transferPointToolShedToGame,
-            transferPointCrossroadToGame;
+            transferPointCrossroadToGame, transferPointCrossroadToMountain, transferPointMountainToCrossroad;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -84,6 +84,9 @@ public class World {
         } else if (worldType == WorldType.CROSSROAD) {
             loadTilesViaRGB(Assets.tilesCrossroadViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesCrossroadViaRGB);
+        } else if (worldType == WorldType.MOUNTAIN) {
+            loadTilesViaRGB(Assets.tilesMountainViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesMountainViaRGB);
         }
 
         // ****************************************************
@@ -115,6 +118,11 @@ public class World {
         } else if (worldType == WorldType.CROSSROAD) {
             transferPointCrossroadToGame = new Rectangle(15 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT);
+            transferPointCrossroadToMountain = new Rectangle(6 * Tile.TILE_WIDTH, 0,
+                    3 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        } else if (worldType == WorldType.MOUNTAIN) {
+            transferPointMountainToCrossroad = new Rectangle(19 * Tile.TILE_WIDTH, 45 * Tile.TILE_HEIGHT,
+                    4 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -134,6 +142,10 @@ public class World {
     public Rectangle getTransferPointToolShedToGame() { return transferPointToolShedToGame; }
 
     public Rectangle getTransferPointCrossroadToGame() { return transferPointCrossroadToGame; }
+
+    public Rectangle getTransferPointCrossroadToMoutain() { return transferPointCrossroadToMountain; }
+
+    public Rectangle getTransferPointMountainToCrossroad() { return transferPointMountainToCrossroad; }
 
     public void tick() {
         itemManager.tick();
@@ -437,6 +449,23 @@ public class World {
                                     (yy * 56), 56, 56));
                         }
                     }
+                    /////////////////////
+                    else if (worldType == WorldType.MOUNTAIN) {
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.mountainStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.mountainStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.mountainStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.mountainStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
+                        }
+                    }
                 }
             }
         }
@@ -634,6 +663,13 @@ public class World {
                 }
                 /////////////////////////////////////////////////
                 else if (worldType == WorldType.CROSSROAD) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
+                }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.MOUNTAIN) {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
