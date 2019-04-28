@@ -1,0 +1,8 @@
+CrossroadState background.png
+840 x 672
+
+tile: 56 pixels x 56 pixels
+	
+15 tiles x 12 tiles
+
+

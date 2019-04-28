@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MENU, TRAVELING_FENCE;
     }
 
     private Handler handler;
@@ -48,8 +48,9 @@ public class World {
 
     // TRANSFER POINTS (AFTER MAP IS LOADED)
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
-            transferPointGameToToolShed, transferPointGameToGate, transferPointHomeToGame,
-            transferPointChickenCoopToGame, transferPointCowBarnToGame, transferPointToolShedToGame;
+            transferPointGameToToolShed, transferPointGameToCrossroad, transferPointHomeToGame,
+            transferPointChickenCoopToGame, transferPointCowBarnToGame, transferPointToolShedToGame,
+            transferPointCrossroadToGame;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
@@ -80,6 +81,9 @@ public class World {
         } else if (worldType == WorldType.TOOL_SHED) {
             loadTilesViaRGB(Assets.tilesToolShedViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesToolShedViaRGB);
+        } else if (worldType == WorldType.CROSSROAD) {
+            loadTilesViaRGB(Assets.tilesCrossroadViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesCrossroadViaRGB);
         }
 
         // ****************************************************
@@ -94,7 +98,7 @@ public class World {
                     Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
             transferPointGameToToolShed = new Rectangle(24*Tile.TILE_WIDTH, 25*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-            transferPointGameToGate = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
+            transferPointGameToCrossroad = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
             transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
@@ -108,6 +112,9 @@ public class World {
         } else if (worldType == WorldType.TOOL_SHED) {
             transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 12 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        } else if (worldType == WorldType.CROSSROAD) {
+            transferPointCrossroadToGame = new Rectangle(14 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
+                    Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT);
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -125,6 +132,8 @@ public class World {
     public Rectangle getTransferPointCowBarnToGame() { return transferPointCowBarnToGame; }
 
     public Rectangle getTransferPointToolShedToGame() { return transferPointToolShedToGame; }
+
+    public Rectangle getTransferPointCrossroadToGame() { return transferPointCrossroadToGame; }
 
     public void tick() {
         itemManager.tick();
@@ -411,6 +420,23 @@ public class World {
                                     (yy * 16), 16, 16));
                         }
                     }
+                    /////////////////////
+                    else if (worldType == WorldType.CROSSROAD) {
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.crossroadStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.crossroadStateBackground.getSubimage((xx * 56),
+                                    (yy * 56), 56, 56));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.crossroadStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.crossroadStateBackground.getSubimage((xx * 56),
+                                    (yy * 56), 56, 56));
+                        }
+                    }
                 }
             }
         }
@@ -601,6 +627,13 @@ public class World {
                 }
                 /////////////////////////////////////////////////
                 else if (worldType == WorldType.TOOL_SHED) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
+                    }
+                }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.CROSSROAD) {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
@@ -814,8 +847,8 @@ public class World {
         return transferPointGameToChickenCoop;
     }
 
-    public Rectangle getTransferPointGameToGate() {
-        return transferPointGameToGate;
+    public Rectangle getTransferPointGameToCrossroad() {
+        return transferPointGameToCrossroad;
     }
 
     public Handler getHandler() {
