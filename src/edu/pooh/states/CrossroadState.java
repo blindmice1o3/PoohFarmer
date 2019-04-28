@@ -29,10 +29,6 @@ public class CrossroadState implements IState {
         player = (Player)args[0];
 
         this.args = args;
-        //args[1] = player.getWidth();
-        //args[2] = player.getHeight();
-        //args[3] = player.getBoundsWidth();
-        //args[4] = player.getBoundsHeight();
 
         /////////////////////////////////////////////////////////////////////////////////////
         player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH,
@@ -45,10 +41,7 @@ public class CrossroadState implements IState {
 
     @Override
     public void exit() {
-        //player.setWidth((int)args[1]);
-        //player.setHeight((int)args[2]);
-        //player.setBoundsWidth((int)args[3]);
-        //player.setBoundsHeight((int)args[4]);
+
     }
 
     @Override

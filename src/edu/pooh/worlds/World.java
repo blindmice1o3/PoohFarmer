@@ -113,7 +113,7 @@ public class World {
             transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.CROSSROAD) {
-            transferPointCrossroadToGame = new Rectangle(14 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
+            transferPointCrossroadToGame = new Rectangle(15 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT);
         }
 
