@@ -497,7 +497,7 @@ public class Assets {
         homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
         chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
         cowBarnStateBackground = ImageLoader.loadImage("/worlds/CowBarnState background.jpg");
-        toolShedStateBackground = ImageLoader.loadImage("/worlds/ToolShedState background.jpg");
+        toolShedStateBackground = ImageLoader.loadImage("/worlds/ToolShedState background.png");
         crossroadStateBackground = ImageLoader.loadImage("/worlds/CrossroadState background.png");
 
         // **********************************************************************

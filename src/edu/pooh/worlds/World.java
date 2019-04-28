@@ -110,7 +110,7 @@ public class World {
             transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH, 21 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.TOOL_SHED) {
-            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 12 * Tile.TILE_HEIGHT,
+            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
                     2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.CROSSROAD) {
             transferPointCrossroadToGame = new Rectangle(14 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
@@ -402,8 +402,8 @@ public class World {
                     else if (worldType == WorldType.TOOL_SHED) {
                         if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
-                                    (yy * 16), 16, 16));
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 64),
+                                    (yy * 64), 64, 64));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground) {
                                 @Override
@@ -411,13 +411,13 @@ public class World {
                                     return false;
                                 }
                             };
-                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
-                                    (yy * 16), 16, 16));
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 64),
+                                    (yy * 64), 64, 64));
                         } else if (red == 0 && green == 0 && blue == 255) {   //doorToCave - solid, special.
                             //TODO: DoorToCaveTile tool shed
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.toolShedStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 16),
-                                    (yy * 16), 16, 16));
+                            tilesViaRGB[xx][yy].setTexture(Assets.toolShedStateBackground.getSubimage((xx * 64),
+                                    (yy * 64), 64, 64));
                         }
                     }
                     /////////////////////
