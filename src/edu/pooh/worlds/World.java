@@ -1,9 +1,7 @@
 package edu.pooh.worlds;
 
 import edu.pooh.entities.EntityManager;
-import edu.pooh.entities.creatures.Dog;
-import edu.pooh.entities.creatures.Player;
-import edu.pooh.entities.creatures.TravelingFence;
+import edu.pooh.entities.creatures.*;
 import edu.pooh.entities.statics.statics1x1.Bush;
 import edu.pooh.entities.statics.statics1x1.Rock;
 import edu.pooh.entities.statics.statics1x1.Wood;
@@ -625,9 +623,9 @@ public class World {
                         entityManager.addEntity(player);
                         playerSpawnX = xx;
                         playerSpawnY = yy;
-                    } else if (red == 0 && green == 0 & blue == 255) {  //Dog
-                        Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(dog);
+                    } else if (red == 0 && green == 0 & blue == 255) {  //XDog
+                        XDog xDog = new XDog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(xDog);
                     } else if (red == 0 && green == 255 && blue == 255) {   //TravelingFence
                         TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(travelingFence);
@@ -645,6 +643,21 @@ public class World {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
+                    } else if (red == 0 && green == 255 && blue == 0) { //Dog
+                        Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(dog);
+                    } else if (red == 0 && green == 0 && blue == 255) { //Cow
+                        Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(cow);
+                    } else if (red == 255 && green == 255 && blue == 0) {//Chicken
+                        Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(chicken);
+                    } else if (red == 0 && green == 255 && blue == 255) {//Horse
+                        Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(horse);
+                    } else if (red == 255 && green == 0 && blue == 255) {//Jack
+                        Jack jack = new Jack(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(jack);
                     }
                 }
                 /////////////////////////////////////////////////

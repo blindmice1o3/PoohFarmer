@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Dog extends Creature {
+public class Cow extends Creature {
 
     private Animation animUp;
     private Animation animDown;
@@ -18,17 +18,16 @@ public class Dog extends Creature {
 
     private Random random;
 
-    public Dog(Handler handler, float x, float y) {
-        super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
-                (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
+    public Cow(Handler handler, float x, float y) {
+        super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.dogUp);
-        animDown = new Animation(400, Assets.dogDown);
-        animLeft = new Animation(400, Assets.dogLeft);
-        animRight = new Animation(400, Assets.dogRight);
+        animUp = new Animation(400, Assets.cowUp);
+        animDown = new Animation(400, Assets.cowDown);
+        animLeft = new Animation(400, Assets.cowLeft);
+        animRight = new Animation(400, Assets.cowRight);
 
         random = new Random();
-    } // **** end Dog(Handler, float, float) constructor ****
+    } // **** end Cow(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
@@ -83,7 +82,7 @@ public class Dog extends Creature {
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
         } else {
-            return Assets.dogDown[0];
+            return Assets.cowDown[0];
         }
     }
 
@@ -95,4 +94,4 @@ public class Dog extends Creature {
         setActive(false);
     }
 
-} // **** end Dog class ****
+} // **** end Cow class ****

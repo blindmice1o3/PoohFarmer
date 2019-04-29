@@ -12,17 +12,26 @@ public class Assets {
     // FONT
     public static Font font28;
 
-    // SINGLE (/TILES)
+    // START BUTTONS
+    public static BufferedImage[] startButtons;
+
+    // INVENTORY
+    public static BufferedImage inventoryScreen;
+
+    // SELF-CREATED TEXTURE
     public static BufferedImage waterFX;
+
+    // SPANNING SINGLE-TILE (/TILES)
     public static BufferedImage dirtNormal, /*dirtTilled, dirtSeed,*/ fence, dirtWalkway, signPost;
-    // SINGLE (-CURRENTLY UNUSED).
-    public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, wood;
-    // SINGLE (/ENTITIES)
-    public static BufferedImage honeyPot, plantFlowering1, rock;
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
             stable2x3, building2x3, chest2x2, poolWater2x2, poolWater3x3;
+
+    // SINGLE (/ENTITIES)
+    public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, honeyPot,
+            plantFlowering1, rock, wood;
+
     // SPANNING MULTIPLE-TILE (/ENTITIES)
     public static BufferedImage[][] boulder2x2, treeStump2x2;
 
@@ -41,23 +50,26 @@ public class Assets {
             corn0Whole, corn0Fragmented, corn1Dry, corn1Watered, corn2Dry, corn2Watered,
             corn3Dry, corn3Watered, corn4Dry, corn4Watered;
 
-    // ENTITIES (/PLAYER)
+    // ENTITIES STANDING-STILL (/PLAYER)
     public static BufferedImage playerUpDefault, playerDownDefault, playerLeftDefault, playerRightDefault,
             playerUpLeftDefault, playerUpRightDefault, playerDownLeftDefault, playerDownRightDefault;
+    // ENTITIES MOVING/ANIMATED (/PLAYER)
     public static BufferedImage[] playerUp, playerDown, playerLeft, playerRight,
             playerUpLeft, playerUpRight, playerDownLeft, playerDownRight;
 
-    // ENTITIES (/HAWKER)
+    // ENTITIES MOVING/ANIMATED (/HAWKER)
     public static BufferedImage[] hawkerUp, hawkerDown, hawkerLeft, hawkerRight;
 
-    // ENTITIES (/KERO DOG)
-    public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight, dogLeftPee;
+    // ENTITIES MOVING/ANIMATED (/KERO DOG)
+    public static BufferedImage[] xDogUp, xDogDown, xDogLeft, xDogRight, xDogLeftPee;
 
-    // INVENTORY
-    public static BufferedImage inventoryScreen;
-
-    // START BUTTONS
-    public static BufferedImage[] startButtons;
+    // ENTITIES MOVING/ANIMATED (/DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNING)
+    public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight,
+            cowUp, cowDown, cowLeft, cowRight,
+            chickenUp, chickenDown, chickenLeft, chickenRight,
+            horseUp, horseDown, horseLeft, horseRight,
+            jackWalkingUp, jackWalkingDown, jackWalkingLeft, jackWalkingRight,
+            jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
 
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
@@ -427,43 +439,180 @@ public class Assets {
         // *******************************************
         // |+|+|+|+|+|+|+| ENTITY: DOG |+|+|+|+|+|+|+|
         // *******************************************
+
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog.png"));
-        dogUp = new BufferedImage[5];
-        dogUp[0] = sheet.crop(6, 91, 13, 17);
-        dogUp[1] = sheet.crop(36, 91, 13, 18);
-        dogUp[2] = sheet.crop(66, 91, 13, 18);
-        dogUp[3] = sheet.crop(96, 91, 13, 18);
-        dogUp[4] = sheet.crop(126, 91, 13, 18);
+        xDogUp = new BufferedImage[5];
+        xDogUp[0] = sheet.crop(6, 91, 13, 17);
+        xDogUp[1] = sheet.crop(36, 91, 13, 18);
+        xDogUp[2] = sheet.crop(66, 91, 13, 18);
+        xDogUp[3] = sheet.crop(96, 91, 13, 18);
+        xDogUp[4] = sheet.crop(126, 91, 13, 18);
 
-        dogDown = new BufferedImage[5];
-        dogDown[0] = sheet.crop(5, 61, 15, 17);
-        dogDown[1] = sheet.crop(37, 61, 12, 17);
-        dogDown[2] = sheet.crop(65, 62, 15, 15);
-        dogDown[3] = sheet.crop(95, 63, 15, 14);
-        dogDown[4] = sheet.crop(126, 62, 13, 16);
+        xDogDown = new BufferedImage[5];
+        xDogDown[0] = sheet.crop(5, 61, 15, 17);
+        xDogDown[1] = sheet.crop(37, 61, 12, 17);
+        xDogDown[2] = sheet.crop(65, 62, 15, 15);
+        xDogDown[3] = sheet.crop(95, 63, 15, 14);
+        xDogDown[4] = sheet.crop(126, 62, 13, 16);
 
-        dogLeft = new BufferedImage[5];
-        dogLeft[0] = sheet.crop(3, 3, 20, 13);
-        dogLeft[1] = sheet.crop(30, 1, 25, 17);
-        dogLeft[2] = sheet.crop(63, 3, 20, 13);
-        dogLeft[3] = sheet.crop(93, 2, 20, 15);
-        dogLeft[4] = sheet.crop(123, 0, 19, 20);
+        xDogLeft = new BufferedImage[5];
+        xDogLeft[0] = sheet.crop(3, 3, 20, 13);
+        xDogLeft[1] = sheet.crop(30, 1, 25, 17);
+        xDogLeft[2] = sheet.crop(63, 3, 20, 13);
+        xDogLeft[3] = sheet.crop(93, 2, 20, 15);
+        xDogLeft[4] = sheet.crop(123, 0, 19, 20);
 
-        dogLeftPee = new BufferedImage[5];
-        dogLeftPee[0] = sheet.crop(6, 33, 19, 14);
-        dogLeftPee[1] = sheet.crop(34, 33, 18, 14);
-        dogLeftPee[2] = sheet.crop(63, 32, 18, 15);
-        dogLeftPee[3] = sheet.crop(92, 33, 20, 14);
-        dogLeftPee[4] = sheet.crop(120, 32, 25, 15);
+        xDogLeftPee = new BufferedImage[5];
+        xDogLeftPee[0] = sheet.crop(6, 33, 19, 14);
+        xDogLeftPee[1] = sheet.crop(34, 33, 18, 14);
+        xDogLeftPee[2] = sheet.crop(63, 32, 18, 15);
+        xDogLeftPee[3] = sheet.crop(92, 33, 20, 14);
+        xDogLeftPee[4] = sheet.crop(120, 32, 25, 15);
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog (right).png"));
 
-        dogRight = new BufferedImage[5];
-        dogRight[0] = sheet.crop(390, 3, 20, 13);
-        dogRight[1] = sheet.crop(358, 1, 25, 17);
-        dogRight[2] = sheet.crop(330, 3, 20, 13);
-        dogRight[3] = sheet.crop(300, 2, 20, 15);
-        dogRight[4] = sheet.crop(271, 0, 19, 20);
+        xDogRight = new BufferedImage[5];
+        xDogRight[0] = sheet.crop(390, 3, 20, 13);
+        xDogRight[1] = sheet.crop(358, 1, 25, 17);
+        xDogRight[2] = sheet.crop(330, 3, 20, 13);
+        xDogRight[3] = sheet.crop(300, 2, 20, 15);
+        xDogRight[4] = sheet.crop(271, 0, 19, 20);
+
+        // ********************************************************************************************
+        // |+|+|+|+|+|+|+| ENTITY: DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNNING |+|+|+|+|+|+|+|
+        // ********************************************************************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Creatures.png"));
+
+        dogUp = new BufferedImage[3];
+        dogUp[0] = sheet.crop(6, 141, 13, 18);
+        dogUp[1] = sheet.crop(30, 142, 13, 17);
+        dogUp[2] = sheet.crop(54, 141, 13, 18);
+
+        dogDown = new BufferedImage[3];
+        dogDown[0] = sheet.crop(6, 204, 13, 19);
+        dogDown[1] = sheet.crop(30, 205, 13, 18);
+        dogDown[2] = sheet.crop(54, 204, 13, 19);
+
+        dogLeft = new BufferedImage[3];
+        dogLeft[0] = sheet.crop(3, 242, 19, 13);
+        dogLeft[1] = sheet.crop(27, 242, 19, 13);
+        dogLeft[2] = sheet.crop(51, 242, 19, 13);
+
+        dogRight = new BufferedImage[3];
+        dogRight[0] = sheet.crop(3, 178, 19, 13);
+        dogRight[1] = sheet.crop(27, 178, 19, 13);
+        dogRight[2] = sheet.crop(51, 178, 19, 13);
+
+
+        cowUp = new BufferedImage[3];
+        cowUp[0] = sheet.crop(77, 139, 15, 21);
+        cowUp[1] = sheet.crop(101, 139, 15, 21);
+        cowUp[2] = sheet.crop(125, 139, 15, 21);
+
+        cowDown = new BufferedImage[3];
+        cowDown[0] = sheet.crop(77, 205, 15, 19);
+        cowDown[1] = sheet.crop(101, 205, 15, 19);
+        cowDown[2] = sheet.crop(125, 205, 15, 19);
+
+        cowLeft = new BufferedImage[3];
+        cowLeft[0] = sheet.crop(74, 240, 21, 15);
+        cowLeft[1] = sheet.crop(98, 239, 21, 16);
+        cowLeft[2] = sheet.crop(122, 240, 21, 15);
+
+        cowRight = new BufferedImage[3];
+        cowRight[0] = sheet.crop(74, 176, 21, 15);
+        cowRight[1] = sheet.crop(98, 175, 21, 16);
+        cowRight[2] = sheet.crop(122, 176, 21, 15);
+
+
+        chickenUp = new BufferedImage[3];
+        chickenUp[0] = sheet.crop(147, 144, 16, 16);
+        chickenUp[1] = sheet.crop(172, 145, 14, 15);
+        chickenUp[2] = sheet.crop(195, 144, 16, 16);
+
+        chickenDown = new BufferedImage[3];
+        chickenDown[0] = sheet.crop(147, 207, 16, 16);
+        chickenDown[1] = sheet.crop(171, 208, 16, 15);
+        chickenDown[2] = sheet.crop(195, 207, 16, 16);
+
+        chickenLeft = new BufferedImage[3];
+        chickenLeft[0] = sheet.crop(147, 239, 16, 16);
+        chickenLeft[1] = sheet.crop(171, 240, 16, 15);
+        chickenLeft[2] = sheet.crop(195, 239, 16, 16);
+
+        chickenRight = new BufferedImage[3];
+        chickenRight[0] = sheet.crop(147, 175, 16, 16);
+        chickenRight[1] = sheet.crop(171, 176, 16, 15);
+        chickenRight[2] = sheet.crop(195, 175, 16, 16);
+
+
+        horseUp = new BufferedImage[3];
+        horseUp[0] = sheet.crop(222, 137, 12, 22);
+        horseUp[1] = sheet.crop(246, 137, 12, 22);
+        horseUp[2] = sheet.crop(270, 137, 12, 22);
+
+        horseDown = new BufferedImage[3];
+        horseDown[0] = sheet.crop(222, 204, 12, 19);
+        horseDown[1] = sheet.crop(246, 204, 12, 19);
+        horseDown[2] = sheet.crop(270, 204, 12, 19);
+
+        horseLeft = new BufferedImage[3];
+        horseLeft[0] = sheet.crop(216, 237, 24, 18);
+        horseLeft[1] = sheet.crop(240, 235, 24, 20);
+        horseLeft[2] = sheet.crop(264, 237, 24, 18);
+
+        horseRight = new BufferedImage[3];
+        horseRight[0] = sheet.crop(216, 173, 24, 18);
+        horseRight[1] = sheet.crop(240, 171, 24, 20);
+        horseRight[2] = sheet.crop(264, 173, 24, 18);
+
+
+        jackWalkingUp = new BufferedImage[3];
+        jackWalkingUp[0] = sheet.crop(76, 7, 16, 24);
+        jackWalkingUp[1] = sheet.crop(100, 8, 16, 23);
+        jackWalkingUp[2] = sheet.crop(124, 7, 16, 24);
+
+        jackWalkingDown = new BufferedImage[3];
+        jackWalkingDown[0] = sheet.crop(76, 71, 16, 24);
+        jackWalkingDown[1] = sheet.crop(100, 72, 16, 23);
+        jackWalkingDown[2] = sheet.crop(124, 71, 16, 24);
+
+        jackWalkingLeft = new BufferedImage[3];
+        jackWalkingLeft[0] = sheet.crop(76, 103, 16, 24);
+        jackWalkingLeft[1] = sheet.crop(100, 104, 16, 23);
+        jackWalkingLeft[2] = sheet.crop(124, 103, 16, 24);
+
+        jackWalkingRight = new BufferedImage[3];
+        jackWalkingRight[0] = sheet.crop(76, 39, 16, 24);
+        jackWalkingRight[1] = sheet.crop(100, 40, 16, 23);
+        jackWalkingRight[2] = sheet.crop(124, 39, 16, 24);
+
+
+        jackRunningUp = new BufferedImage[3];
+        jackRunningUp[0] = sheet.crop(148, 5, 16, 26);
+        jackRunningUp[1] = sheet.crop(172, 8, 16, 23);
+        jackRunningUp[2] = sheet.crop(196, 5, 16, 26);
+
+        jackRunningDown = new BufferedImage[3];
+        jackRunningDown[0] = sheet.crop(149, 70, 15, 25);
+        jackRunningDown[1] = sheet.crop(172, 72, 16, 23);
+        jackRunningDown[2] = sheet.crop(197, 70, 15, 25);
+
+        jackRunningLeft = new BufferedImage[3];
+        jackRunningLeft[0] = sheet.crop(148, 102, 16, 25);
+        jackRunningLeft[1] = sheet.crop(172, 104, 16, 23);
+        jackRunningLeft[2] = sheet.crop(196, 102, 16, 25);
+
+        jackRunningRight = new BufferedImage[3];
+        jackRunningRight[0] = sheet.crop(148, 38, 16, 25);
+        jackRunningRight[1] = sheet.crop(172, 40, 16, 23);
+        jackRunningRight[2] = sheet.crop(196, 38, 16, 25);
+
+
+
+
+
 
         // ***********************************************************************************
         // |+|+|+|+|+|+|+| ENTITY: TRAVELINGFENCE (name == The Finn) (HAWKER) |+|+|+|+|+|+|+|

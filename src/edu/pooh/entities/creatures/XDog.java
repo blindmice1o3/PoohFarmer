@@ -9,26 +9,29 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Dog extends Creature {
+// TODO: Implement IHoldable interface. Also, Player class's render() will have to sync with XDog class's being-held-images.
+public class XDog extends Creature {
 
     private Animation animUp;
     private Animation animDown;
     private Animation animLeft;
     private Animation animRight;
+    private Animation animLeftPee;
 
     private Random random;
 
-    public Dog(Handler handler, float x, float y) {
+    public XDog(Handler handler, float x, float y) {
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
-        animUp = new Animation(400, Assets.dogUp);
-        animDown = new Animation(400, Assets.dogDown);
-        animLeft = new Animation(400, Assets.dogLeft);
-        animRight = new Animation(400, Assets.dogRight);
+        animUp = new Animation(400, Assets.xDogUp);
+        animDown = new Animation(400, Assets.xDogDown);
+        animLeft = new Animation(400, Assets.xDogLeft);
+        animRight = new Animation(400, Assets.xDogRight);
+        animLeftPee = new Animation(400, Assets.xDogLeftPee);
 
         random = new Random();
-    } // **** end Dog(Handler, float, float) constructor ****
+    } //  **** end XDog(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
@@ -36,6 +39,7 @@ public class Dog extends Creature {
         animDown.tick();
         animLeft.tick();
         animRight.tick();
+        animLeftPee.tick();
 
         randomlyMove();
         move();
@@ -66,6 +70,7 @@ public class Dog extends Creature {
         }
     }
 
+
     @Override
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
@@ -83,16 +88,16 @@ public class Dog extends Creature {
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
         } else {
-            return Assets.dogDown[0];
+            return animLeftPee.getCurrentFrame();
         }
     }
 
-    @Override
-    public void hurt(int amt) { return; }
+        @Override
+        public void hurt(int amt) { return; }
 
-    @Override
-    public void die() {
-        setActive(false);
-    }
+        @Override
+        public void die() {
+            setActive(false);
+        }
 
-} // **** end Dog class ****
+} //  **** end XDog class ****

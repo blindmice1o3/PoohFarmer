@@ -54,7 +54,7 @@ public class ChickenCoopState implements IState {
         }
 
         ///////////////
-        player.tick();
+        world.tick();
         ///////////////
 
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointChickenCoopToGame()) ) {
