@@ -462,6 +462,10 @@ public class World {
                             };
                             tilesViaRGB[xx][yy].setTexture(Assets.mountainStateBackground.getSubimage((xx * 16),
                                     (yy * 16), 16, 16));
+                        } else if (red == 0 && green == 255 && blue == 255) {   //signPost.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.mountainStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.mountainStateBackground.getSubimage((xx * 16),
+                                    (yy * 16), 16, 16));
                         }
                     }
                 }

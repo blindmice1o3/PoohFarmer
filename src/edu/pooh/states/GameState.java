@@ -57,7 +57,6 @@ public class GameState implements IState {
         world.tick();
         /////////////
 
-
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToHome()) ) {
             StateManager.change(handler.getGame().getHomeState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
