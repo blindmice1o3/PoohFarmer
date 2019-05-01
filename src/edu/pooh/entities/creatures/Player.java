@@ -129,7 +129,7 @@ public class Player extends Creature {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ATTACK
-        if (!holding) {
+        if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
             checkAttacks();
         } else if (IHoldableObject != null) {                // HOLDING
             IHoldableObject.setPosition(x + 10, y - 15);  // Moves image of IHoldableObject w/ player's.
@@ -223,7 +223,8 @@ public class Player extends Creature {
                 sfxCannabisCollected.play();
 
                 // TRAVELINGFENCE CHECK
-                if (checkForTravelingFence()) {
+                if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
+                        checkForTravelingFence()) {
                     System.out.println("FOUND: The Finn!");
                     // TODO: Implement TravelingFenceState.
                     /////////////////////////////////////////////////////////////////////
@@ -403,9 +404,11 @@ public class Player extends Creature {
         g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
-            return;
-        }
+        // COLLISION BOX
+        g.setColor(Color.RED);
+        g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+                bounds.width, bounds.height);
 
         // MELEE ATTACK
         if (attacking) {
@@ -413,6 +416,12 @@ public class Player extends Creature {
             g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
                     (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
         }
+
+        // @@@@@@@@@@@@ LEAVE Player class's render(Graphics) EARLY IF NOT GAMESTATE @@@@@@@@@@@@@@
+        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+            return;
+        }
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         // HUD (Head-Up-Display)
         g.setColor(Color.BLUE);
@@ -435,12 +444,6 @@ public class Player extends Creature {
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         Text.drawString(g, Integer.toString(getCannabisCollected()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
-
-        // COLLISION BOX
-        //g.setColor(Color.RED);
-        //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-        //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-        //        bounds.width, bounds.height);
     }
 
     public void postRender(Graphics g) {

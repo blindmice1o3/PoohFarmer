@@ -12,6 +12,7 @@ import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
+import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtMountainTile;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.SolidGenericTile;
@@ -92,35 +93,40 @@ public class World {
         // ****************************************************
         if (worldType == WorldType.GAME) {
             transferPointGameToHome = new Rectangle(7 * Tile.TILE_WIDTH, 17 * Tile.TILE_HEIGHT,
-                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                    Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
             transferPointGameToCowBarn = new Rectangle(19*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
-                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                    Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
             transferPointGameToChickenCoop = new Rectangle(28*Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT,
-                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                    Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
             transferPointGameToToolShed = new Rectangle(24*Tile.TILE_WIDTH, 25*Tile.TILE_HEIGHT,
-                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                    Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
             transferPointGameToCrossroad = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
-            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH,
+                    (10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
+                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.CHICKEN_COOP) {
-            transferPointChickenCoopToGame = new Rectangle(7 * Tile.TILE_WIDTH, 13 * Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointChickenCoopToGame = new Rectangle(7 * Tile.TILE_WIDTH,
+                    (13 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
+                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.COW_BARN) {
-            transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH, 21 * Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH,
+                    (21 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
+                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.TOOL_SHED) {
-            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH, 10 * Tile.TILE_HEIGHT,
-                    2 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH,
+                    (10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
+                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.CROSSROAD) {
-            transferPointCrossroadToGame = new Rectangle(15 * Tile.TILE_WIDTH, 5 * Tile.TILE_HEIGHT,
-                    Tile.TILE_WIDTH, 4 * Tile.TILE_HEIGHT);
+            transferPointCrossroadToGame = new Rectangle((15 * Tile.TILE_WIDTH) + (Tile.TILE_WIDTH / 2),
+                    5 * Tile.TILE_HEIGHT, (Tile.TILE_WIDTH / 2), 4 * Tile.TILE_HEIGHT);
             transferPointCrossroadToMountain = new Rectangle(6 * Tile.TILE_WIDTH, 0,
-                    3 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                    3 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.MOUNTAIN) {
-            transferPointMountainToCrossroad = new Rectangle(19 * Tile.TILE_WIDTH, 45 * Tile.TILE_HEIGHT,
-                    4 * Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            transferPointMountainToCrossroad = new Rectangle(19 * Tile.TILE_WIDTH,
+                    (45 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
+                    4 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -178,6 +184,59 @@ public class World {
 
         // RENDER ENTITIES
         entityManager.render(g);
+
+        // RENDER TRANSFER POINTS
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        renderTransferPoints(g);
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    }
+
+    private void renderTransferPoints(Graphics g) {
+        g.setColor(Color.GREEN);
+        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+            g.fillRect((int)(transferPointGameToHome.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointGameToHome.y - handler.getGameCamera().getyOffset()),
+                    transferPointGameToHome.width, transferPointGameToHome.height);
+            g.fillRect((int)(transferPointGameToCowBarn.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointGameToCowBarn.y - handler.getGameCamera().getyOffset()),
+                    transferPointGameToCowBarn.width, transferPointGameToCowBarn.height);
+            g.fillRect((int)(transferPointGameToChickenCoop.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointGameToChickenCoop.y - handler.getGameCamera().getyOffset()),
+                    transferPointGameToChickenCoop.width, transferPointGameToChickenCoop.height);
+            g.fillRect((int)(transferPointGameToToolShed.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointGameToToolShed.y - handler.getGameCamera().getyOffset()),
+                    transferPointGameToToolShed.width, transferPointGameToToolShed.height);
+            g.fillRect((int)(transferPointGameToCrossroad.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointGameToCrossroad.y - handler.getGameCamera().getyOffset()),
+                    transferPointGameToCrossroad.width, transferPointGameToCrossroad.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getHomeState()) {
+            g.fillRect((int)(transferPointHomeToGame.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointHomeToGame.y - handler.getGameCamera().getyOffset()),
+                    transferPointHomeToGame.width, transferPointHomeToGame.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getCowBarnState()) {
+            g.fillRect((int)(transferPointCowBarnToGame.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointCowBarnToGame.y - handler.getGameCamera().getyOffset()),
+                    transferPointCowBarnToGame.width, transferPointCowBarnToGame.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getChickenCoopState()) {
+            g.fillRect((int)(transferPointChickenCoopToGame.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointChickenCoopToGame.y - handler.getGameCamera().getyOffset()),
+                    transferPointChickenCoopToGame.width, transferPointChickenCoopToGame.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getToolShedState()) {
+            g.fillRect((int)(transferPointToolShedToGame.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointToolShedToGame.y - handler.getGameCamera().getyOffset()),
+                    transferPointToolShedToGame.width, transferPointToolShedToGame.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getCrossroadState()) {
+            g.fillRect((int)(transferPointCrossroadToGame.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointCrossroadToGame.y - handler.getGameCamera().getyOffset()),
+                    transferPointCrossroadToGame.width, transferPointCrossroadToGame.height);
+            g.fillRect((int)(transferPointCrossroadToMountain.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointCrossroadToMountain.y - handler.getGameCamera().getyOffset()),
+                    transferPointCrossroadToMountain.width, transferPointCrossroadToMountain.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getMountainState()) {
+            g.fillRect((int)(transferPointMountainToCrossroad.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointMountainToCrossroad.y - handler.getGameCamera().getyOffset()),
+                    transferPointMountainToCrossroad.width, transferPointMountainToCrossroad.height);
+        }
     }
 
     public Tile getTile(int x, int y) {

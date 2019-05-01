@@ -9,7 +9,8 @@ import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 
-public class Berry extends StaticEntity implements IHoldable {
+public class Berry extends StaticEntity
+        implements IHoldable {
 
     public Berry(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
