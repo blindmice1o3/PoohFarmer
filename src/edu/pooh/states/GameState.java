@@ -57,6 +57,10 @@ public class GameState implements IState {
         world.tick();
         /////////////
 
+        checkTransferPoints();
+    }
+
+    private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToHome()) ) {
             StateManager.change(handler.getGame().getHomeState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
@@ -69,23 +73,6 @@ public class GameState implements IState {
             StateManager.change(handler.getGame().getCrossroadState(),args);
         }
     }
-
-    //Responsibility being moved here FROM World class.
-    /*
-        public void checkMapTransferPoints() {
-        if (transferPointGameToHome.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorCowBarn.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorChickenCoop.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointDoorToolShed.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        } else if (transferPointGateFarm.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().getHomeState());
-        }
-    }
-     */
 
     @Override
     public void render(Graphics g) {

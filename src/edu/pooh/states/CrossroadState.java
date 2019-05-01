@@ -6,7 +6,6 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class CrossroadState implements IState {
 
@@ -49,17 +48,16 @@ public class CrossroadState implements IState {
             return;
         }
 
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.change(handler.getGame().getGameState(), args);
-        }
-
         ///////////////
-        player.tick();
+        world.tick();
         ///////////////
 
+        checkTransferPoints();
+    }
+
+    private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCrossroadToGame()) ) {
             StateManager.change(handler.getGame().getGameState(), args);
-            ///////////
         } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToMoutain()) ) {
             StateManager.change(handler.getGame().getMountainState(), args);
         }
@@ -71,8 +69,9 @@ public class CrossroadState implements IState {
             return;
         }
 
-        // Render background image.
+        ////////////////
         world.render(g);
+        ////////////////
     }
 
 } // **** end CrossroadState class ****

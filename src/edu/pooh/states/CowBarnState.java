@@ -6,7 +6,6 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class CowBarnState implements IState {
 
@@ -49,17 +48,16 @@ public class CowBarnState implements IState {
             return;
         }
 
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.change(handler.getGame().getGameState(), args);
-        }
-
         ///////////////
-        player.tick();
+        world.tick();
         ///////////////
 
+        checkTransferPoints();
+    }
+
+    private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCowBarnToGame()) ) {
             StateManager.change(handler.getGame().getGameState(), args);
-            ///////////
         }
     }
 
@@ -69,8 +67,9 @@ public class CowBarnState implements IState {
             return;
         }
 
-        // Render background image.
+        ////////////////
         world.render(g);
+        ////////////////
     }
 
 } // **** end CowBarnState class ****

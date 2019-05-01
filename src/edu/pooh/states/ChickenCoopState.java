@@ -6,7 +6,6 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class ChickenCoopState implements IState {
 
@@ -49,17 +48,16 @@ public class ChickenCoopState implements IState {
             return;
         }
 
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.change(handler.getGame().getGameState(), args);
-        }
-
         ///////////////
         world.tick();
         ///////////////
 
+        checkTransferPoints();
+    }
+
+    private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointChickenCoopToGame()) ) {
             StateManager.change(handler.getGame().getGameState(), args);
-            ///////////
         }
     }
 
@@ -69,8 +67,9 @@ public class ChickenCoopState implements IState {
             return;
         }
 
-        // Render background image.
+        ////////////////
         world.render(g);
+        ////////////////
     }
 
 } // **** end ChickenCoopState class ****

@@ -63,7 +63,9 @@ public class MenuState implements IState {
             return;
         }
 
+        ////////////////
         uiManager.tick();
+        ////////////////
     }
 
     @Override
@@ -73,7 +75,10 @@ public class MenuState implements IState {
         }
 
         g.drawString("Congratuations! Play again?", 175, 175);
+
+        ////////////////
         uiManager.render(g);
+        ////////////////
     }
 
 } // **** end MenuState class ****

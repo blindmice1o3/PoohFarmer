@@ -6,7 +6,6 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class HomeState implements IState {
 
@@ -49,28 +48,17 @@ public class HomeState implements IState {
             return;
         }
 
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-            StateManager.change(handler.getGame().getGameState(), args);
-        }
-
         ///////////////
-        player.tick();
+        world.tick();
         ///////////////
 
-        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
-            ///////////
-        }
-        //checkMapTransferPoints();
+        checkTransferPoints();
     }
 
-    public void checkMapTransferPoints() {
-        /*
-        Rectangle tempTransferPointBounds = new Rectangle(7* Tile.TILE_WIDTH, 17*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        if (tempTransferPointBounds.intersects(entityManager.getPlayer().getCollisionBounds(0, 0))) {
-            StateManager.setCurrentState(handler.getGame().homeState);
+    private void checkTransferPoints() {
+        if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
+            StateManager.change(handler.getGame().getGameState(), args);
         }
-        */
     }
 
     @Override
@@ -79,12 +67,9 @@ public class HomeState implements IState {
             return;
         }
 
-        // Render background image.
-        //g.drawImage(Assets.homeStateBackground, 0, 0, Game.WIDTH_OF_FRAME, Game.HEIGHT_OF_FRAME, null);
+        ////////////////
         world.render(g);
-
-        // Render player image.
-        //player.render(g);
+        ////////////////
     }
 
 } // **** end HomeState class ****
