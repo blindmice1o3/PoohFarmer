@@ -50,10 +50,9 @@ public class Rock extends StaticEntity
         }
 
         setActive(false);
-        //handler.getWorld().getItemManager().addItem(Item.wateringCanItem.createNew((int)x, (int)y));
     }
 
-    // HOLDABLE INTERFACE
+    // IHOLDABLE INTERFACE
 
     @Override
     public void setPosition(float x, float y) {
@@ -85,7 +84,6 @@ public class Rock extends StaticEntity
             tempTile.setStaticEntity(this);
         } else {
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
-//            Tile[][] tempTiles = handler.getWorld().getTiles();
 
             for (int y = 0; y < handler.getWorld().getHeightInTiles(); y++) {
                 for (int x = 0; x < handler.getWorld().getWidthInTiles(); x++) {

@@ -48,6 +48,10 @@ public class CrossroadState implements IState {
             return;
         }
 
+        // @@@@@@@@@@@@@@
+        //StateManager.change(handler.getGame().getMountainState(), args);
+        // @@@@@@@@@@@@@@
+
         ///////////////
         world.tick();
         ///////////////

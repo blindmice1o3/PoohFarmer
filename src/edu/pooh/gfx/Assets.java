@@ -22,7 +22,8 @@ public class Assets {
     public static BufferedImage waterFX;
 
     // SPANNING SINGLE-TILE (/TILES)
-    public static BufferedImage dirtNormal, /*dirtTilled, dirtSeed,*/ fence, dirtWalkway, signPost;
+    public static BufferedImage dirtNormal, /*dirtTilled, dirtSeed,*/ fence, dirtWalkway, signPostNotTransparent,
+            signPostTransparent, berry, rockMountain, flowerYellow, flowerPurple;
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
@@ -152,11 +153,21 @@ public class Assets {
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         wood = sheet.crop(1 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        signPost = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
+        signPostNotTransparent = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         fence = sheet.crop(1 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        signPostTransparent = sheet.crop(1 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        berry = sheet.crop(0 * WIDTH_IN_PIXEL, 18 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        rockMountain = sheet.crop(1 * WIDTH_IN_PIXEL, 18 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        flowerYellow = sheet.crop(2 * WIDTH_IN_PIXEL, 18 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
+        flowerPurple = sheet.crop(2 * WIDTH_IN_PIXEL, 19 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
 
         home5x4 = new BufferedImage[4][5];
@@ -648,8 +659,8 @@ public class Assets {
         cowBarnStateBackground = ImageLoader.loadImage("/worlds/CowBarnState background.jpg");
         toolShedStateBackground = ImageLoader.loadImage("/worlds/ToolShedState background.png");
         crossroadStateBackground = ImageLoader.loadImage("/worlds/CrossroadState background.png");
-        //mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (no entities).png");
-        mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (entities as tiles).png");
+        mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (no entities).png");
+        //mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (entities as tiles).png");
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|

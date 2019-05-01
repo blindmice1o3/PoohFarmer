@@ -122,7 +122,8 @@ public class Player extends Creature {
         handler.getGameCamera().centerOnEntity(this);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (StateManager.getCurrentState() != handler.getGame().getGameState() &&
+                StateManager.getCurrentState() != handler.getGame().getMountainState()) {
             return;
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +188,7 @@ public class Player extends Creature {
 
             // We have an Entity object that isn't the player, check if it intersects with the attack rectangle.
             if (e.getCollisionBounds(0, 0).intersects(ar)) {
-                e.hurt(2);      // Successful attack collision, invoke hurt() method.
+                e.hurt(4);      // Successful attack collision, invoke hurt() method.
                 return;
             }
         }

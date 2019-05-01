@@ -53,6 +53,10 @@ public class GameState implements IState {
             return;
         }
 
+        // @@@@@@@@@@@@@@@
+        //StateManager.change(handler.getGame().getCrossroadState(), args);
+        // @@@@@@@@@@@@@@@
+
         /////////////
         world.tick();
         /////////////

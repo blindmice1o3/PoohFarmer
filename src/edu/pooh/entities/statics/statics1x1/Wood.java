@@ -52,7 +52,7 @@ public class Wood extends StaticEntity
         return;
     }
 
-    // HOLDABLE INTERFACE
+    // IHOLDABLE INTERFACE
 
     @Override
     public void setPosition(float x, float y) {

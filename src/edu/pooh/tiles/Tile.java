@@ -28,7 +28,7 @@ public class Tile {
         }
     };
     //not really a Tile? more of a StaticEntity?
-    public static Tile signPostTile = new Tile(Assets.signPost, 3);
+    public static Tile signPostTile = new Tile(Assets.signPostNotTransparent, 3);
 
 
     private static int idMultiTiles = 100;
