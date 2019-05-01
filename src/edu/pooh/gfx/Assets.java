@@ -648,7 +648,8 @@ public class Assets {
         cowBarnStateBackground = ImageLoader.loadImage("/worlds/CowBarnState background.jpg");
         toolShedStateBackground = ImageLoader.loadImage("/worlds/ToolShedState background.png");
         crossroadStateBackground = ImageLoader.loadImage("/worlds/CrossroadState background.png");
-        mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background.png");
+        //mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (no entities).png");
+        mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (entities as tiles).png");
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|

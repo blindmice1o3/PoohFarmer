@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/worlds/MountainState background.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/MountainState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/MountainState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/ToolShedState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/ToolShedState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +19,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="World.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+      <file leaf-file-name="Assets.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="467" column="56" lean-forward="true" selection-start-line="467" selection-start-column="56" selection-end-line="467" selection-end-column="56" />
+            <state relative-caret-position="71">
+              <caret line="651" column="8" lean-forward="false" selection-start-line="651" selection-start-column="8" selection-end-line="651" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="36" column="114" lean-forward="false" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -99,7 +103,6 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/Entity.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/sfx/SoundManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/XDog.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Dog.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Cow.java" />
@@ -110,7 +113,6 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/IState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/BaseState.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" />
@@ -118,6 +120,8 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/states/MountainState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/ToolShedState.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
       </list>
     </option>
   </component>
@@ -542,7 +546,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5060514" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.47916666" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6143791" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6143791" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5735294" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -902,14 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="568" column="0" lean-forward="false" selection-start-line="568" selection-start-column="0" selection-end-line="568" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -950,14 +946,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -984,8 +972,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="467" column="56" lean-forward="true" selection-start-line="467" selection-start-column="56" selection-end-line="467" selection-end-column="56" />
+        <state relative-caret-position="204">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="651" column="8" lean-forward="false" selection-start-line="651" selection-start-column="8" selection-end-line="651" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="36" column="114" lean-forward="false" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
           <folding />
         </state>
       </provider>
