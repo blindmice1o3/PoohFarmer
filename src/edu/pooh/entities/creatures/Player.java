@@ -27,6 +27,7 @@ public class Player extends Creature {
     // CANNABIS COUNTER
     private int cannabisCollected;
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
+    public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
     // ANIMATIONS
     private Animation animDown;
@@ -216,11 +217,11 @@ public class Player extends Creature {
             // B BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
                 inventory.incrementSelectedItem();
+                sfxBButtonPressed.play();
             }
 
             // A BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
-                sfxCannabisCollected.play();
 
                 // TRAVELINGFENCE CHECK
                 if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
@@ -503,6 +504,7 @@ public class Player extends Creature {
 
     public void increaseCannabisCollected() {
         cannabisCollected++;
+        sfxCannabisCollected.play();
     }
 
     public void resetCannabisCollected() { cannabisCollected = 0; }
