@@ -16,7 +16,6 @@ import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
-import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -48,7 +47,7 @@ public class Player extends Creature {
     private Inventory inventory;
 
     // HOLDING (composed with IHoldable type)
-    private IHoldable IHoldableObject;
+    private IHoldable holdableObject;
     private Rectangle hr; // holding-rectangle
     private int hrSize = 30;
     private boolean holding = false;
@@ -85,7 +84,7 @@ public class Player extends Creature {
         inventory = new Inventory(handler);
 
         // HOLDING
-        IHoldableObject = null;
+        holdableObject = null;
         hr = new Rectangle();
         hr.width = hrSize;
         hr.height = hrSize;
@@ -98,7 +97,7 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
-        // CANNABIS COUNTER (((((((( |+|+|+|+| checks for WINNER STATE |+|+|+|+| )))))))))
+        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
         if (cannabisCollected == 3) {
             StateManager.change( handler.getGame().getMenuState(), new Object[5] );
             sfxCannabisCollected.play();
@@ -116,24 +115,26 @@ public class Player extends Creature {
         animDownLeft.tick();
 
 
-// TODO: maybe include getInput() for IState changing/transitioning.
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (StateManager.getCurrentState() != handler.getGame().getGameState() &&
-                StateManager.getCurrentState() != handler.getGame().getMountainState()) {
-            return;
-        }
+        //if (StateManager.getCurrentState() != handler.getGame().getGameState() &&
+        //        StateManager.getCurrentState() != handler.getGame().getMountainState()) {
+        //    return;
+        //}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ATTACK
         if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
             checkAttacks();
-        } else if (IHoldableObject != null) {                // HOLDING
-            IHoldableObject.setPosition(x + 10, y - 15);  // Moves image of IHoldableObject w/ player's.
+        }
+        // HOLDING (at this point: holding is true)
+        // but we do another (similar, possibly redundant) check... holdableObject should not be null.
+        else if (holdableObject != null) {
+            holdableObject.setPosition(x + 10, y - 15);  // Moves image of holdableObject w/ player's.
         }
 
         // INVENTORY
@@ -141,24 +142,32 @@ public class Player extends Creature {
     }
 
     private void checkAttacks() {
-        // Use attack timer to check eligibility for new attack.
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        // Attack timer to check eligibility for new attack.
         attackTimer += System.currentTimeMillis() - lastAttackTimer;    // time elapsed
         lastAttackTimer = System.currentTimeMillis();
+
+        // Time elapsed has not reached targeted attackCooldown, exit this method early.
         if (attackTimer < attackCooldown) {
             return;
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        // IF AT THIS LINE, targeted attackCooldown has been reached, ELIGIBLE TO ATTACK.
         attacking = false;
 
+        // (UNLESS THE INVENTORY IS TOGGLED ON)
         if (inventory.isActive()) {
             return;
         }
 
-        cb = getCollisionBounds(0, 0);    // player's collision box (center square)
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        // Setting the coordinate of the attack rectangle
-        // (attacking in one direction at a time [a bunch of if-else statements])
+        // player's collision box (center square in color-penciled drawing/notes).
+        cb = getCollisionBounds(0, 0);
+        // Set the coordinates of the attack rectangle (attacking is one-direction-at-a-time])
         if (handler.getKeyManager().aUp) {
             ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
             ar.y = cb.y - arSize;
@@ -179,12 +188,16 @@ public class Player extends Creature {
             return; // if none of the attack keys are being called, don't continue on with the rest of this method.
         }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // RESET attackTimer.
         attackTimer = 0;
 
-        // The above attack rectangle coordinates were set to some values
+        // The above attack rectangle coordinates were set to some values (did not exit this method early).
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            if (e.equals(this)) {   // Find the player.
-                continue;   // Skip the rest of the code and move on to the next Entity in the entities ArrayList.
+            // If player, skip this for-loop iteration and move on to the next Entity object in the entities ArrayList.
+            if (e.equals(this)) {
+                continue;
             }
 
             // We have an Entity object that isn't the player, check if it intersects with the attack rectangle.
@@ -212,7 +225,10 @@ public class Player extends Creature {
         if (handler.getKeyManager().right) { xMove = speed; }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
-        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+
+        // !!!!! GAMESTATE SPECIFIC KEY ASSIGNMENTS !!!!!
+        if (StateManager.getCurrentState() == handler.getGame().getGameState() ||
+                StateManager.getCurrentState() == handler.getGame().getChickenCoopState()) {
 
             // B BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
@@ -235,16 +251,16 @@ public class Player extends Creature {
                 }
 
                 // HOLDING CHECK
-                if (holding) {  // Already holding, can only drop the IHoldableObject.
+                if (holding) {  // Already holding, can only drop the holdableObject.
                     if (checkDropableTile()) {
 
-                        //if (IHoldableObject instanceof HarvestEntity) {
+                        //if (holdableObject instanceof HarvestEntity) {
                         //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        //      ((HarvestEntity)IHoldableObject).setTexture(((HarvestEntity) IHoldableObject).determineFragmentedTexture());
+                        //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
                         //  }
                         //}
                         /////////////////////////////////////////////////
-                        IHoldableObject.dropped(getTileCurrentlyFacing());
+                        holdableObject.dropped(getTileCurrentlyFacing());
 
                         // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                         //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
@@ -253,7 +269,7 @@ public class Player extends Creature {
 
                         //}
 
-                        setIHoldableObject(null);
+                        setHoldableObject(null);
                         holding = false;
                         /////////////////////////////////////////////////
 
@@ -262,8 +278,8 @@ public class Player extends Creature {
                     if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
                         if (!holding) {
                             //////////////////////////////////////
-                            setIHoldableObject(pickUpHoldable());
-                            IHoldableObject.pickedUp();
+                            setHoldableObject(pickUpHoldable());
+                            holdableObject.pickedUp();
                             holding = true;
                             //////////////////////////////////////
                         }
@@ -324,10 +340,14 @@ public class Player extends Creature {
         // If DirtNormalTile or chest.
         if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
             return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
+        } else if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
+            return (holdableObject instanceof HarvestEntity);
         }
-        if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
-            return (IHoldableObject instanceof HarvestEntity);
+        // @@@@@@@@@@@@@
+        else if (holdableObject instanceof Creature && !getTileCurrentlyFacing().isSolid()) {
+            return true;
         }
+        // @@@@@@@@@@@@@
         return false;
     }
 
@@ -515,12 +535,12 @@ public class Player extends Creature {
         return cannabisCollected;
     }
 
-    public IHoldable getIHoldableObject() {
-        return IHoldableObject;
+    public IHoldable getHoldableObject() {
+        return holdableObject;
     }
 
-    public void setIHoldableObject(IHoldable IHoldableObject) {
-        this.IHoldableObject = IHoldableObject;
+    public void setHoldableObject(IHoldable holdableObject) {
+        this.holdableObject = holdableObject;
     }
 
     public boolean getHolding() {

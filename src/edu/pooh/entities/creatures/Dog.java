@@ -3,13 +3,14 @@ package edu.pooh.entities.creatures;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
+import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Dog extends Creature {
+public class Dog extends Creature implements IHoldable {
 
     private Animation animUp;
     private Animation animDown;
@@ -17,6 +18,7 @@ public class Dog extends Creature {
     private Animation animRight;
 
     private Random random;
+    private boolean pickedUp;
 
     public Dog(Handler handler, float x, float y) {
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
@@ -28,17 +30,20 @@ public class Dog extends Creature {
         animRight = new Animation(400, Assets.dogRight);
 
         random = new Random();
+        pickedUp = false;
     } // **** end Dog(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
-        animUp.tick();
-        animDown.tick();
-        animLeft.tick();
-        animRight.tick();
+        if (!pickedUp) {
+            animUp.tick();
+            animDown.tick();
+            animLeft.tick();
+            animRight.tick();
 
-        randomlyMove();
-        move();
+            randomlyMove();
+            move();
+        }
     }
 
     private void randomlyMove() {
@@ -93,6 +98,37 @@ public class Dog extends Creature {
     @Override
     public void die() {
         setActive(false);
+    }
+
+    // IHOLDABLE INTERFACE
+
+    @Override
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public void pickedUp() {
+        pickedUp = true;
+    }
+
+    @Override
+    public void dropped(Tile t) {
+        Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
+        for (int xx = 0; xx < tempTiles.length; xx++) {
+            for (int yy = 0; yy < tempTiles[xx].length; yy++) {
+                if (tempTiles[xx][yy] == t) {
+                    x = xx * Tile.TILE_WIDTH;
+                    y = yy * Tile.TILE_HEIGHT;
+
+                    System.out.println("dropped(Tile) method successfully called.");
+                }
+            }
+        }
+
+
+        pickedUp = false;
     }
 
 } // **** end Dog class ****
