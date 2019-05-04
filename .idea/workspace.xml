@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/XDog.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/XDog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java" afterPath="$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,11 +19,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="BedTile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/BedTile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#252#253#0" expanded="true" />
+                <element signature="e#282#283#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GameState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
               <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/HomeState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="64" column="10" lean-forward="false" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -54,7 +76,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MouseManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MouseManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/input/MouseManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="245">
@@ -67,14 +89,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TravelingFenceState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java">
+      <file leaf-file-name="TimeManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="527">
+              <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
               <folding>
-                <element signature="e#2630#2631#0" expanded="true" />
-                <element signature="e#2662#2663#0" expanded="true" />
+                <element signature="e#403#404#0" expanded="true" />
+                <element signature="e#438#439#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -185,17 +207,17 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/sfx/SoundManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Dog.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/BedTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/SignPostTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/XDog.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java" />
       </list>
     </option>
   </component>
@@ -971,24 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/BedTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/HomeState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1028,14 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1102,14 +1098,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/input/MouseManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
@@ -1117,6 +1105,45 @@
           <folding>
             <element signature="e#489#490#0" expanded="true" />
             <element signature="e#531#532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/BedTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#252#253#0" expanded="true" />
+            <element signature="e#282#283#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/HomeState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="64" column="10" lean-forward="false" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/TimeManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+          <folding>
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
           </folding>
         </state>
       </provider>

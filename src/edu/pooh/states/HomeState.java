@@ -41,11 +41,28 @@ public class HomeState implements IState {
     @Override
     public void exit() {
         if (TimeManager.getNewDay()) {
+            TimeManager.incrementElapsedInGameDays();
+
+            //////// RESET TIME FOR NEW DAY /////////
             TimeManager.resetElapsedRealSeconds();
             TimeManager.setClockRunningTrue();
+            /////////////////////////////////////////
 
+            /////////////////////////////
             TimeManager.setNewDayFalse();
+            /////////////////////////////
         }
+
+        TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays();
+
+        System.out.println(
+                "gameYear: " + TimeManager.gameYear +
+                        "\ngameSeason: " + TimeManager.gameSeason +
+                        "\ngameMonth: " + TimeManager.gameMonth +
+                        "\ngameDay: " + TimeManager.gameDay +
+                        "\nelapsedInGameDays: " + TimeManager.elapsedInGameDays +
+                        "\ngameHoursMinutes: " + TimeManager.translateElapsedRealSecondsToGameHoursMinutes()
+        );
     }
 
     @Override
