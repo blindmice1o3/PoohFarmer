@@ -6,6 +6,7 @@ import edu.pooh.items.Item;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
+import edu.pooh.main.TimeManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

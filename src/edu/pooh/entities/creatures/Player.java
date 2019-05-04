@@ -510,8 +510,10 @@ public class Player extends Creature {
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         Text.drawString(g, Integer.toString(getCannabisCollected()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds), ((handler.getWidth() / 2) - 25), 30,
-                true, Color.YELLOW, Assets.font28);
+        Text.drawString(g, TimeManager.translateRealSecondsToGameHoursMinutes(),
+                ((handler.getWidth() / 2) - 25), 30, true, Color.YELLOW, Assets.font28);
+        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
+                ((handler.getWidth() / 2) - 25), 55, true, Color.BLUE, Assets.font28);
     }
 
     public void postRender(Graphics g) {
