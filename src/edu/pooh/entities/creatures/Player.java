@@ -14,9 +14,7 @@ import edu.pooh.main.IHoldable;
 import edu.pooh.main.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
-import edu.pooh.tiles.BedTile;
-import edu.pooh.tiles.DirtNormalTile;
-import edu.pooh.tiles.Tile;
+import edu.pooh.tiles.*;
 
 import java.applet.AudioClip;
 import java.awt.*;
@@ -229,9 +227,10 @@ public class Player extends Creature {
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
 
         // !!!!! GAMESTATE SPECIFIC KEY ASSIGNMENTS !!!!!
-        if (StateManager.getCurrentState() == handler.getGame().getGameState() ||
-                StateManager.getCurrentState() == handler.getGame().getChickenCoopState() ||
-                StateManager.getCurrentState() == handler.getGame().getHomeState()) {
+
+        //if (StateManager.getCurrentState() == handler.getGame().getGameState() ||
+        //        StateManager.getCurrentState() == handler.getGame().getChickenCoopState() ||
+        //        StateManager.getCurrentState() == handler.getGame().getHomeState()) {
 
             // B BUTTON
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
@@ -286,9 +285,13 @@ public class Player extends Creature {
                             holding = true;
                             //////////////////////////////////////
                         }
-                    } else if (getTileCurrentlyFacing() instanceof BedTile) {
+                    } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {
                         //System.out.println("waahoo");
-                        ((BedTile)getTileCurrentlyFacing()).execute();
+                        if (getTileCurrentlyFacing() instanceof SignPostTile) {
+                            ((SignPostTile)getTileCurrentlyFacing()).execute();
+                        } else if (getTileCurrentlyFacing() instanceof BedTile) {
+                            ((BedTile) getTileCurrentlyFacing()).execute();
+                        }
                     } else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
 
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
@@ -298,7 +301,7 @@ public class Player extends Creature {
                     }
                 }
             }
-        }
+        //}
     }
 
     private boolean checkForTravelingFence() {
@@ -445,9 +448,9 @@ public class Player extends Creature {
         }
 
         // @@@@@@@@@@@@ LEAVE Player class's render(Graphics) EARLY IF NOT GAMESTATE @@@@@@@@@@@@@@
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
-            return;
-        }
+        //if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        //    return;
+        //}
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         // HUD (Head-Up-Display)

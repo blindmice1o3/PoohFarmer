@@ -189,7 +189,7 @@ public class World {
 
     }
 
-    private void renderTransferPoints(Graphics g) { //AND BEDTILE for HomeState
+    private void renderTransferPoints(Graphics g) { //AND BEDTILE's bounding box for HomeState
         g.setColor(Color.GREEN);
         if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
             g.fillRect((int)(transferPointGameToHome.x - handler.getGameCamera().getxOffset()),
@@ -211,9 +211,9 @@ public class World {
             g.fillRect((int)(transferPointHomeToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointHomeToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointHomeToGame.width, transferPointHomeToGame.height);
-            g.fillRect((int)((bedTileX * Tile.TILE_WIDTH) - handler.getGameCamera().getxOffset()),
-                    (int)((bedTileY * Tile.TILE_HEIGHT) - handler.getGameCamera().getyOffset()),
-                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+            //g.fillRect((int)((bedTileX * Tile.TILE_WIDTH) - handler.getGameCamera().getxOffset()),
+            //        (int)((bedTileY * Tile.TILE_HEIGHT) - handler.getGameCamera().getyOffset()),
+            //        Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (StateManager.getCurrentState() == handler.getGame().getCowBarnState()) {
             g.fillRect((int)(transferPointCowBarnToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCowBarnToGame.y - handler.getGameCamera().getyOffset()),
@@ -288,7 +288,8 @@ public class World {
                         } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
                             tilesViaRGB[xx][yy] = Tile.tiles[2];
                         } else if (red == 0 && green == 162 && blue == 232) {   //signPostNotTransparent
-                            tilesViaRGB[xx][yy] = Tile.tiles[3];
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.signPostNotTransparent,
+                                    "Generic sign post message.");
                         } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
                             for (int y = 0; y < 4; y++) {
                                 for (int x = 0; x < 5; x++) {
@@ -526,8 +527,9 @@ public class World {
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
                             );
                         } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent.
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(
-                                    Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
+                            tilesViaRGB[xx][yy] = new SignPostTile(
+                                    Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
+                                    "Generic sign post message."
                             );
                         }
                     }

@@ -5,7 +5,8 @@ import edu.pooh.main.TimeManager;
 
 import java.awt.image.BufferedImage;
 
-public class BedTile extends SolidGenericTile implements IInvokable {
+public class BedTile extends SolidGenericTile
+        implements IInvokable {
 
     public BedTile(BufferedImage texture) {
         super(texture);
