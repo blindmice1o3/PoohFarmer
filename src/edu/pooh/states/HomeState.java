@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
+import edu.pooh.main.TimeManager;
 import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
@@ -39,7 +40,12 @@ public class HomeState implements IState {
 
     @Override
     public void exit() {
+        if (TimeManager.getNewDay()) {
+            TimeManager.resetElapsedRealSeconds();
+            TimeManager.setClockRunningTrue();
 
+            TimeManager.setNewDayFalse();
+        }
     }
 
     @Override

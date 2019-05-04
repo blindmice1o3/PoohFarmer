@@ -13,10 +13,7 @@ import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.states.StateManager;
-import edu.pooh.tiles.DirtMountainTile;
-import edu.pooh.tiles.DirtNormalTile;
-import edu.pooh.tiles.SolidGenericTile;
-import edu.pooh.tiles.Tile;
+import edu.pooh.tiles.*;
 import edu.pooh.utils.Utils;
 
 import java.awt.*;
@@ -179,19 +176,20 @@ public class World {
             }
         }
 
+        // RENDER TRANSFER POINTS
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        renderTransferPoints(g);
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
         // RENDER ITEMS
         itemManager.render(g);
 
         // RENDER ENTITIES
         entityManager.render(g);
 
-        // RENDER TRANSFER POINTS
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        renderTransferPoints(g);
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     }
 
-    private void renderTransferPoints(Graphics g) {
+    private void renderTransferPoints(Graphics g) { //AND BEDTILE for HomeState
         g.setColor(Color.GREEN);
         if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
             g.fillRect((int)(transferPointGameToHome.x - handler.getGameCamera().getxOffset()),
@@ -213,6 +211,9 @@ public class World {
             g.fillRect((int)(transferPointHomeToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointHomeToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointHomeToGame.width, transferPointHomeToGame.height);
+            g.fillRect((int)((bedTileX * Tile.TILE_WIDTH) - handler.getGameCamera().getxOffset()),
+                    (int)((bedTileY * Tile.TILE_HEIGHT) - handler.getGameCamera().getyOffset()),
+                    Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         } else if (StateManager.getCurrentState() == handler.getGame().getCowBarnState()) {
             g.fillRect((int)(transferPointCowBarnToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCowBarnToGame.y - handler.getGameCamera().getyOffset()),
@@ -259,6 +260,8 @@ public class World {
         translateTileFromRGB(rgbArrayRelativeToMap);
     }
 
+    private int bedTileX;
+    private int bedTileY;
     private void translateTileFromRGB(int[][][] rgbArrayRelativeToMap) {
         int[] rgb;
         int red;
@@ -381,6 +384,12 @@ public class World {
                                     (yy * 60), 59, 60));
                             //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
+                        } else if (red == 255 && green == 255 && blue == 0) { //bed - BedTile.
+                            tilesViaRGB[xx][yy] = new BedTile(Assets.homeStateBackground2);
+                            bedTileX = xx;
+                            bedTileY = yy;
+                            tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
+                                    (yy * 60), 59, 60));
                         }
                     }
                     //////////////////////
