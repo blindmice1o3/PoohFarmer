@@ -11,6 +11,7 @@ import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.main.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.DirtNormalTile;
@@ -465,6 +466,8 @@ public class Player extends Creature {
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         Text.drawString(g, Integer.toString(getCannabisCollected()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
+        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds), ((handler.getWidth() / 2) - 25), 30,
+                true, Color.YELLOW, Assets.font28);
     }
 
     public void postRender(Graphics g) {

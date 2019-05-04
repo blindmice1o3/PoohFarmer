@@ -182,6 +182,7 @@ public class Game {
             // Check if our timer is greater than or equal to 1 second.
             // Visual representation to check how many times we're calling tick() and render() each second.
             if (tickTimer >= 1000000000) {
+                realLifeSecondTicker();
                 System.out.println("Tick: " + tickCounter + ". | Render: " + renderCounter + ".");
                 tickCounter = 0;  // Reset tickCounter back to 0.
                 renderCounter = 0;
@@ -191,6 +192,9 @@ public class Game {
             //Thread.sleep(timeLeft) later on.
 
         } // *** end of GAME-LOOP ***
+    }
+    private void realLifeSecondTicker() {
+        TimeManager.incrementElapsedRealSeconds();
     }
 
     private void tick() {
