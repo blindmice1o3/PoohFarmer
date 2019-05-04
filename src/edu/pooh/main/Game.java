@@ -109,7 +109,8 @@ public class Game {
 
                 gameLoop(); // @@@@ GAME LOOP @@@@
 
-                gameStop();
+                //gameStop();
+                //Player class's tick() method is now the one calling Game class's gameStop() method.
             }
         };
 

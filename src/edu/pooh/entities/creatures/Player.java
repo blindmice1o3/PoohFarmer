@@ -99,9 +99,45 @@ public class Player extends Creature {
     public void tick() {
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
         if (cannabisCollected == 3) {
-            StateManager.change( handler.getGame().getMenuState(), new Object[5] );
-            sfxCannabisCollected.play();
-            //handler.getGame().gameStop();
+            //StateManager.change( handler.getGame().getMenuState(), new Object[5] );
+
+            long timePrevious = System.nanoTime();
+            long timeNow = 0;
+            long timeElapsed = 0;
+
+            sfxBButtonPressed.play();
+            while (timeElapsed < 3000000000L) {
+                timeNow = System.nanoTime();
+
+                timeElapsed += timeNow - timePrevious;
+
+                timePrevious = timeNow;
+            }
+            timeElapsed = 0;
+
+            sfxBButtonPressed.play();
+            while (timeElapsed < 3000000000L) {
+                timeNow = System.nanoTime();
+
+                timeElapsed += timeNow - timePrevious;
+
+                timePrevious = timeNow;
+            }
+            timeElapsed = 0;
+
+            sfxBButtonPressed.play();
+            while (timeElapsed < 3000000000L) {
+                timeNow = System.nanoTime();
+
+                timeElapsed += timeNow - timePrevious;
+
+                timePrevious = timeNow;
+            }
+            timeElapsed = 0;
+
+
+            System.out.println("game stopping");
+            handler.getGame().gameStop();
         }
 
         // ANIMATIONS
