@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-// TODO: Implement IHoldable interface. Also, Player class's render() will have to sync with XDog class's being-held-images.
 public class XDog extends Creature {
 
     private Animation animUp;

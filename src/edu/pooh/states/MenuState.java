@@ -38,9 +38,10 @@ public class MenuState implements IState {
 
                 }
 
+                // @@@@@@@ having game object's gameState reference a different GameState instance??? @@@@@@@@
                 handler.getGame().setGameState( new GameState(handler) );
-                StateManager.setCurrentState( handler.getGame().getGameState() );
-                ///////////////////////////////////////////////////////////////////////////
+                StateManager.setCurrentState( handler.getGame().getGameState() ); //ALSO deprecated! Should be change().
+                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             }
         }));
     } // **** end MenuState(Handler) constructor ****

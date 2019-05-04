@@ -14,6 +14,11 @@ public class TimeManager {
         }
     }
 
+    /**
+     * Every second in real-life is a minute in-game time.
+     *
+     * @return String representation of in-game time (i.e. "02:37PM") based on elapsedRealSeconds.
+     */
     public static String translateRealSecondsToGameHoursMinutes() {
         StringBuilder returner = new StringBuilder();
 

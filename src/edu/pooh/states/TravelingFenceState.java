@@ -33,7 +33,9 @@ public class TravelingFenceState implements IState {
 
         SeedsWild tempSeedsWild;
         for (int i = 0; i < SeedsWild.SeedType.values().length; i++) {
+            // @@@@@@@@@@@ INSTANTIATION @@@@@@@@@@
             tempSeedsWild = new SeedsWild(handler);
+            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
             switch (i) {
                 case 0:
