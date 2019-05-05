@@ -23,12 +23,15 @@ public class TimeManager {
 
     public static void translateElapsedInGameDaysToGameYearsSeasonsMonthsDays() {
         int days = elapsedInGameDays;
-        int monthsInt = days / 30; // 30 days in 1 month. values: [0-11].
+        int monthsInt = days / 30; // 30 days in 1 month.
 
         gameDay = days % 30;   // The remaining days left-over, after converting days to months.
 
         ///////////////////////////////////
-        if (gameDay == 0) { gameDay = 30; }
+        if (gameDay == 0) {
+            gameDay = 30;
+            monthsInt = monthsInt - 1;
+        }
         ///////////////////////////////////
 
         gameMonth = convertMonthsIntToMonthString(monthsInt);
