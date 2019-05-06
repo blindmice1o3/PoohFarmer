@@ -6,7 +6,6 @@ import edu.pooh.items.Item;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
-import edu.pooh.main.TimeManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -50,7 +49,7 @@ public class Inventory {
     }
 
     public void tick() {
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)) {
             active = !active;
         }
         if (!active) {
@@ -77,7 +76,7 @@ public class Inventory {
             return;
         }
 
-        g.drawImage(Assets.inventoryScreen, invX, invY, invWidth, invHeight, null);
+        g.drawImage(Assets.inventoryBackground, invX, invY, invWidth, invHeight, null);
 
         int len = inventoryItems.size();
         if (len == 0) {

@@ -178,7 +178,7 @@ public class World {
 
         // RENDER TRANSFER POINTS
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        renderTransferPoints(g);
+        //renderTransferPoints(g);
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         // RENDER ITEMS

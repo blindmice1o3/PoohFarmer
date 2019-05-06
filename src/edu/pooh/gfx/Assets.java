@@ -16,7 +16,7 @@ public class Assets {
     public static BufferedImage[] startButtons;
 
     // INVENTORY
-    public static BufferedImage inventoryScreen;
+    public static BufferedImage inventoryBackground, dateDisplayerBackground;
 
     // SELF-CREATED TEXTURE
     public static BufferedImage waterFX;
@@ -103,7 +103,8 @@ public class Assets {
         // **************************************************************
         // |+|+|+|+|+|+|+| INVENTORY SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
         // **************************************************************
-        inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
+        inventoryBackground = ImageLoader.loadImage("/InventoryBackground.png");
+        dateDisplayerBackground = ImageLoader.loadImage("/DateDisplayerBackground.png");
 
         // ************************************************************
         // |+|+|+|+|+|+|+| SHOPPING SCREEN (BACKGROUND) |+|+|+|+|+|+|+|

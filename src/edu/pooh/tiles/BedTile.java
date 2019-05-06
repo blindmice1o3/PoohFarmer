@@ -1,7 +1,7 @@
 package edu.pooh.tiles;
 
 import edu.pooh.main.IInvokable;
-import edu.pooh.main.TimeManager;
+import edu.pooh.time.TimeManager;
 
 import java.awt.image.BufferedImage;
 

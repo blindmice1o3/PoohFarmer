@@ -11,7 +11,8 @@ import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
-import edu.pooh.main.TimeManager;
+import edu.pooh.time.DateDisplayer;
+import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.*;
@@ -22,11 +23,16 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
+    // TODO: Implement stamina feature.
 
     // CANNABIS COUNTER
     private int cannabisCollected;
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
+
+    // STAMINA TRACKER
+    private int staminaBase;
+    private int staminaCurrent;
 
     // ANIMATIONS
     private Animation animDown;
@@ -46,6 +52,9 @@ public class Player extends Creature {
     // INVENTORY
     private Inventory inventory;
 
+    // DATE DISPLAYER
+    private DateDisplayer dateDisplayer;
+
     // HOLDING (composed with IHoldable type)
     private IHoldable holdableObject;
     private Rectangle hr; // holding-rectangle
@@ -58,6 +67,13 @@ public class Player extends Creature {
     private int arSize = 20;
     private boolean attacking = false;
 
+    public void decreaseStaminaCurrent(int staminaUsage) {
+        staminaCurrent -= staminaUsage;
+    }
+
+    public void increaseStaminaCurrent(int staminaGained) {
+        staminaCurrent += staminaGained;
+    }
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -69,6 +85,10 @@ public class Player extends Creature {
 
         // CANNABIS COUNTER
         cannabisCollected = 0;
+
+        // STAMINA TRACKER
+        staminaBase = 100;
+        staminaCurrent = 100;
 
         // ANIMATIONS
         animDown = new Animation(60, Assets.playerDown);
@@ -82,6 +102,9 @@ public class Player extends Creature {
 
         // INVENTORY
         inventory = new Inventory(handler);
+
+        // DATE DISPLAYER
+        dateDisplayer = new DateDisplayer(handler);
 
         // HOLDING
         holdableObject = null;
@@ -332,6 +355,7 @@ public class Player extends Creature {
 
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                         inventory.getItem(inventory.getSelectedItem()).execute();
+                        decreaseStaminaCurrent(2);      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
 
                     }
@@ -471,10 +495,10 @@ public class Player extends Creature {
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
 
         // COLLISION BOX
-        g.setColor(Color.RED);
-        g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
-                (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
-                bounds.width, bounds.height);
+        //g.setColor(Color.RED);
+        //g.fillRect((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+        //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+        //        bounds.width, bounds.height);
 
         // MELEE ATTACK
         if (attacking) {
@@ -483,13 +507,27 @@ public class Player extends Creature {
                     (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
         }
 
-        // @@@@@@@@@@@@ LEAVE Player class's render(Graphics) EARLY IF NOT GAMESTATE @@@@@@@@@@@@@@
-        //if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
-        //    return;
-        //}
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
         // HUD (Head-Up-Display)
+        renderHUD(g);
+    }
+
+    public void postRender(Graphics g) {
+        inventory.render(g);
+        dateDisplayer.render(g);
+    }
+
+    public void renderHUD(Graphics g) {
+        g.setColor(Color.BLUE);
+        g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
+        Text.drawString(g, Integer.toString(getCannabisCollected()),
+                (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
+
+
+        Text.drawString(g, TimeManager.translateElapsedRealSecondsToGameHoursMinutes(),
+                (handler.getWidth() / 2), 30, true, Color.YELLOW, Assets.font28);
+        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
+                (handler.getWidth() / 2), 55, true, Color.BLUE, Assets.font28);
+
         g.setColor(Color.BLUE);
         g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
                 (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
@@ -506,18 +544,11 @@ public class Player extends Creature {
                     (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
                     25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
         }
-        g.setColor(Color.BLUE);
-        g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(getCannabisCollected()),
-                (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, TimeManager.translateElapsedRealSecondsToGameHoursMinutes(),
-                ((handler.getWidth() / 2) - 25), 30, true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
-                ((handler.getWidth() / 2) - 25), 55, true, Color.BLUE, Assets.font28);
-    }
 
-    public void postRender(Graphics g) {
-        inventory.render(g);
+        g.setColor(Color.BLUE);
+        g.fillRect(33, 81, 15, staminaBase + 4);
+        g.setColor(Color.YELLOW);
+        g.fillRect(35, 83 + (staminaBase - staminaCurrent), 11, staminaCurrent);
     }
 
     private BufferedImage getCurrentAnimationFrame() {

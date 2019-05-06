@@ -10,6 +10,8 @@ public class KeyManager implements KeyListener {
     public boolean up, down, left, right;
     // ATTACK
     public boolean aUp, aDown, aLeft, aRight;
+    // TIME DISPLAYER
+    public boolean dateDisplayerKey;
 
     public KeyManager() {
         keys = new boolean[256];
@@ -30,9 +32,9 @@ public class KeyManager implements KeyListener {
             }
         }
 
-        if (keyJustPressed(KeyEvent.VK_E)) {
-            System.out.println("E JUST PRESSED");
-        }
+        //if (keyJustPressed(KeyEvent.VK_E)) {
+        //    System.out.println("E JUST PRESSED");
+        //}
 
         up = keys[KeyEvent.VK_W];
         down = keys[KeyEvent.VK_S];
@@ -43,6 +45,8 @@ public class KeyManager implements KeyListener {
         aDown = keys[KeyEvent.VK_DOWN];
         aLeft = keys[KeyEvent.VK_LEFT];
         aRight = keys[KeyEvent.VK_RIGHT];
+
+        dateDisplayerKey = keys[KeyEvent.VK_SHIFT];
     }
 
     public boolean keyJustPressed(int keyCode) {

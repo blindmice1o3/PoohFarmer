@@ -2,7 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
-import edu.pooh.main.TimeManager;
+import edu.pooh.time.TimeManager;
 import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 

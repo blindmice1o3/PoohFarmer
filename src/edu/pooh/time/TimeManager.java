@@ -1,4 +1,4 @@
-package edu.pooh.main;
+package edu.pooh.time;
 
 public class TimeManager {
 

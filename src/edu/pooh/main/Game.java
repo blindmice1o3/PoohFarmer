@@ -6,12 +6,18 @@ import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.*;
+import edu.pooh.time.TimeManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game {
+    // TODO: Now that there's in-game time, functioning BedTile, and console output for year, season, month, day...watering
+    // reset the DirtNormalTile's texture to dried tilledDirt BufferedImage instead of watered. Tracking of Tile's state
+    // of being watered or dried should probably move from the HarvestEntity instances to the DirtNormalTile class.
+
+    // TODO: Serialiable (save/load feature).
 
     // CONSTANTS
     public static final int WIDTH_OF_FRAME = 800;
