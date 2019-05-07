@@ -1,0 +1,68 @@
+Game Boy GBC - Harvest Moon GBC - Crops and Items.png
+
+(Spring and Summer):
+grassSeeded:
+7, 60, 16, 16
+
+grassYoung:
+24, 60, 16, 16
+
+
+
+
+grassAdult:
+41, 60, 16, 16
+
+
+(Autumn):
+grassYoungAutumn:
+82, 60, 16, 16
+
+grassAdultAutumn:
+99, 60, 16, 16
+
+(Winter):
+grassSeededWinter:
+125, 60, 16, 16
+
+
+
+egg:
+178, 41, 16, 16
+
+milkSmall:
+178, 60, 16, 16
+
+
+milkMedium:
+195, 60, 16, 16
+
+
+milkLarge:
+212, 60, 16, 16
+
+
+powerBerry:
+178, 117, 16, 16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

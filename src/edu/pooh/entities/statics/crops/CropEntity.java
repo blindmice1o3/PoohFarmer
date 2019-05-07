@@ -40,12 +40,12 @@ public class CropEntity extends StaticEntity {
     public CropEntity(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        setCurrentImage(Assets.dirtSeedsDry);
+        setCurrentImage(Assets.dirtSeededDry);
         setDaysWatered(0);
         setWaterable(true);
         setHarvestable(false);
 
-        // NO COLLISION WHILE dirtSeedsDry. START COLLISION AT daysWatered == 3.
+        // NO COLLISION WHILE dirtSeededDry. START COLLISION AT daysWatered == 3.
         setBoundsWidth(0);
         setBoundsHeight(0);
     } // **** end CropEntity(Handler, float, float) constructor ****
@@ -65,10 +65,10 @@ public class CropEntity extends StaticEntity {
             case 1:
             case 2:
                 if (waterable) {
-                    setCurrentImage(Assets.dirtSeedsDry);
+                    setCurrentImage(Assets.dirtSeededDry);
                     break;
                 } else {
-                    setCurrentImage(Assets.dirtSeedsWatered);
+                    setCurrentImage(Assets.dirtSeededWatered);
                     break;
                 }
             case 3:

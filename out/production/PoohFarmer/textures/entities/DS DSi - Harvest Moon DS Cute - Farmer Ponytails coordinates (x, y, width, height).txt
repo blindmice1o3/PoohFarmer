@@ -57,3 +57,155 @@ walkingUp4:
 walkingUp5:
 147, 104, 19, 29
 
+
+
+holdingDown0:
+3, 169, 19, 30
+
+holdingDown1:
+34, 170, 19, 29
+
+holdingDown2:
+62, 170, 19, 29
+
+
+holdingLeft0:
+4, 206, 18, 30
+
+holdingLeft1:
+33, 208, 20, 28
+
+holdingLeft2:
+61, 209, 20, 27
+
+
+holdingUp0:
+2, 247, 21, 30
+
+holdingUp1:
+32, 251, 21, 28
+
+holdingUp2:
+60, 251, 21, 28
+
+
+
+takeDown0:
+96, 173, 21, 26
+
+takeDown1:
+126, 170, 19, 29
+
+takeDown2:
+155, 170, 19, 29
+
+
+takeLeft0:
+93, 207, 21, 29
+
+takeLeft1:
+126, 208, 19, 28
+
+takeLeft2:
+155, 208, 19, 28
+
+
+takeUp0:
+95, 250, 21, 27
+
+takeUp1:
+125, 248, 19, 29
+
+takeUp2:
+155, 248, 19, 29
+
+
+
+patBrow0:
+191, 170, 18, 29
+
+patBrow1:
+214, 169, 21, 30
+
+patBrow2:
+238, 169, 18, 30
+
+patBrow3:
+260, 169, 18, 30
+
+
+pantingSweating0:
+282, 170, 23, 30
+
+pantingSweating1:
+308, 170, 19, 30
+
+pantingSweating2:
+331, 174, 19, 26
+
+pantingSweating3:
+355, 173, 19, 27
+
+pantingSweating4:
+379, 177, 21, 23
+
+pantingSweating5:
+404, 176, 21, 24
+
+pantingSweating6:
+429, 175, 20, 26
+
+
+stumble0:
+190, 206, 20, 29
+
+stumble1:
+214, 206, 19, 29
+
+stumble2:
+238, 206, 19, 29
+
+stumble3:
+260, 208, 19, 27
+
+stumble4:
+283, 212, 21, 23
+
+stumble5:
+307, 212, 19, 23
+
+stumble6:
+330, 211, 20, 23
+
+stumble7:
+355, 212, 20, 23
+
+
+collapse0:
+380, 212, 24, 30
+
+collapse1:
+408, 212, 21, 31
+
+collapse2:
+435, 219, 18, 24
+
+collapse3:
+460, 226, 19, 17
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,7 +20,7 @@ public class SeedsWild extends Item {
     private SeedType seedType;
 
     public SeedsWild(Handler handler) {
-        super(Assets.dirtSeedsDry, "Wild Seeds", ID.SEEDSWILD);
+        super(Assets.dirtSeededDry, "Wild Seeds", ID.SEEDSWILD);
         setHandler(handler);
 
         seedType = SeedType.CANNABIS_WILD;

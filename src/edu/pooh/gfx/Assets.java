@@ -44,7 +44,7 @@ public class Assets {
 
     // ENTITIES (/CROPS)
     public static BufferedImage dirtTilledDry, dirtTilledWatered,
-            dirtSeedsDry, dirtSeedsWatered,
+            dirtSeededDry, dirtSeededWatered,
             secretGardenEmpty, secretGardenFlower,
             turnip0Whole, turnip0Fragmented, turnip1Dry, turnip1Watered, turnip2Dry, turnip2Watered,
             potato0Whole, potato0Fragmented, potato1Dry, potato1Watered, potato2Dry, potato2Watered,
@@ -52,6 +52,14 @@ public class Assets {
             tomato3Dry, tomato3Watered, tomato4Dry, tomato4Watered,
             corn0Whole, corn0Fragmented, corn1Dry, corn1Watered, corn2Dry, corn2Watered,
             corn3Dry, corn3Watered, corn4Dry, corn4Watered;
+
+    // ENTITIES (/GRASS and EGG and MILK and POWERBERRY)
+    public static BufferedImage grassSeeded, grassYoung, grassAdult,
+            grassYoungAutumn, grassAdultAutumn, grassSeededWinter,
+            egg, milkSmall, milkMedium, milkLarge, powerBerry;
+
+    // ITEMS (/TOOLS)
+    public static BufferedImage seedBag;
 
     // ENTITIES STANDING-STILL (/PLAYER)
     public static BufferedImage playerUpDefault, playerDownDefault, playerLeftDefault, playerRightDefault,
@@ -76,7 +84,13 @@ public class Assets {
             jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
 
     // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
-    public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp;
+    public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp,
+            mollyHoldingDown, mollyHoldingLeft, mollyHoldingRight, mollyHoldingUp,
+            mollyTakeDown, mollyTakeLeft, mollyTakeRight, mollyTakeUp,
+            mollyPatBrow, mollyPantingSweating, mollyStumble, mollyCollapse,
+            mollyEating, mollySeeds,
+            mollyRidingHorseDown, mollyRidingHorseLeft, mollyRidingHorseRight, mollyRidingHorseUp,
+            mollyMountingHorseDown, mollyMountingHorseLeft, mollyMountingHorseRight, mollyMountingHorseUp;
 
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
@@ -296,8 +310,8 @@ public class Assets {
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Crops.png"));
         dirtTilledDry = sheet.crop(32, 41, 16, 16);
         dirtTilledWatered = sheet.crop(50, 41, 16, 16);
-        dirtSeedsDry = sheet.crop(99, 41, 16, 16);
-        dirtSeedsWatered = sheet.crop(117, 41, 16, 16);
+        dirtSeededDry = sheet.crop(99, 41, 16, 16);
+        dirtSeededWatered = sheet.crop(117, 41, 16, 16);
         secretGardenEmpty = sheet.crop(171, 41, 16, 16);
         secretGardenFlower = sheet.crop(189, 41, 16, 16);
         turnip0Whole = sheet.crop(13, 171, 16, 16);
@@ -332,6 +346,33 @@ public class Assets {
         corn3Watered = sheet.crop(220, 171, 16, 16);
         corn4Dry = sheet.crop(202, 189, 16, 16);
         corn4Watered = sheet.crop(220, 189, 16, 16);
+
+        // *********************************************************************
+        // |+|+|+|+|+|+|+| GRASS and EGG and MILK and POWERBERRY |+|+|+|+|+|+|+|
+        // *********************************************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/Game Boy GBC - Harvest Moon GBC - Crops and Items.png"));
+        grassSeeded = sheet.crop(7, 60, 16, 16);
+        grassYoung = sheet.crop(24, 60, 16, 16);
+        grassAdult = sheet.crop(41, 60, 16, 16);
+        grassYoungAutumn = sheet.crop(82, 60, 16, 16);
+        grassAdultAutumn = sheet.crop(99, 60, 16, 16);
+        grassSeededWinter = sheet.crop(125, 60, 16, 16);
+
+        egg = sheet.crop(178, 41, 16, 16);
+
+        milkSmall = sheet.crop(178, 60, 16, 16);
+        milkMedium = sheet.crop(195, 60, 16, 16);
+        milkLarge = sheet.crop(212, 60, 16, 16);
+
+        powerBerry = sheet.crop(178, 117, 16, 16);
+
+        // ***************************************
+        // |+|+|+|+|+|+|+| SEEDBAG |+|+|+|+|+|+|+|
+        // ***************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/seedBag.png"));
+        seedBag = sheet.crop(0, 0, 32, 32);
 
         // **************************************************************
         // |+|+|+|+|+|+|+| PLAYER MOVEMENTS && HONEY POT |+|+|+|+|+|+|+|
@@ -691,6 +732,136 @@ public class Assets {
         mollyWalkingUp[3] = sheet.crop(88, 102, 19, 29);
         mollyWalkingUp[4] = sheet.crop(117, 104, 19, 29);
         mollyWalkingUp[5] = sheet.crop(147, 104, 19, 29);
+
+        mollyHoldingDown = new BufferedImage[3];
+        mollyHoldingDown[0] = sheet.crop(3, 169, 19, 30);
+        mollyHoldingDown[1] = sheet.crop(34, 170, 19, 29);
+        mollyHoldingDown[2] = sheet.crop(62, 170, 19, 29);
+
+        mollyHoldingLeft = new BufferedImage[3];
+        mollyHoldingLeft[0] = sheet.crop(4, 206, 18, 30);
+        mollyHoldingLeft[1] = sheet.crop(33, 208, 20, 28);
+        mollyHoldingLeft[2] = sheet.crop(61, 209, 20, 27);
+
+        mollyHoldingRight = new BufferedImage[3];
+        mollyHoldingRight[0] = flipHorizontally( sheet.crop(4, 206, 18, 30) );
+        mollyHoldingRight[1] = flipHorizontally( sheet.crop(33, 208, 20, 28) );
+        mollyHoldingRight[2] = flipHorizontally( sheet.crop(61, 209, 20, 27) );
+
+        mollyHoldingUp = new BufferedImage[3];
+        mollyHoldingUp[0] = sheet.crop(2, 247, 21, 30);
+        mollyHoldingUp[1] = sheet.crop(32, 251, 21, 28);
+        mollyHoldingUp[2] = sheet.crop(60, 251, 21, 28);
+
+        mollyTakeDown = new BufferedImage[3];
+        mollyTakeDown[0] = sheet.crop(96, 173, 21, 26);
+        mollyTakeDown[1] = sheet.crop(126, 170, 19, 29);
+        mollyTakeDown[2] = sheet.crop(155, 170, 19, 29);
+
+        mollyTakeLeft = new BufferedImage[3];
+        mollyTakeLeft[0] = sheet.crop(93, 207, 21, 29);
+        mollyTakeLeft[1] = sheet.crop(126, 208, 19, 28);
+        mollyTakeLeft[2] = sheet.crop(155, 208, 19, 28);
+
+        mollyTakeRight = new BufferedImage[3];
+        mollyTakeRight[0] = flipHorizontally( sheet.crop(93, 207, 21, 29) );
+        mollyTakeRight[1] = flipHorizontally( sheet.crop(126, 208, 19, 28) );
+        mollyTakeRight[2] = flipHorizontally( sheet.crop(155, 208, 19, 28) );
+
+        mollyTakeUp = new BufferedImage[3];
+        mollyTakeUp[0] = sheet.crop(95, 250, 21, 27);
+        mollyTakeUp[1] = sheet.crop(125, 248, 19, 29);
+        mollyTakeUp[2] = sheet.crop(155, 248, 19, 29);
+
+        mollyPatBrow = new BufferedImage[4];
+        mollyPatBrow[0] = sheet.crop(191, 170, 18, 29);
+        mollyPatBrow[1] = sheet.crop(214, 169, 21, 30);
+        mollyPatBrow[2] = sheet.crop(238, 169, 18, 30);
+        mollyPatBrow[3] = sheet.crop(260, 169, 18, 30);
+
+        mollyPantingSweating = new BufferedImage[7];
+        mollyPantingSweating[0] = sheet.crop(282, 170, 23, 30);
+        mollyPantingSweating[1] = sheet.crop(308, 170, 19, 30);
+        mollyPantingSweating[2] = sheet.crop(331, 174, 19, 26);
+        mollyPantingSweating[3] = sheet.crop(355, 173, 19, 27);
+        mollyPantingSweating[4] = sheet.crop(379, 177, 21, 23);
+        mollyPantingSweating[5] = sheet.crop(404, 176, 21, 24);
+        mollyPantingSweating[6] = sheet.crop(429, 175, 20, 26);
+
+        mollyStumble = new BufferedImage[8];
+        mollyStumble[0] = sheet.crop(190, 206, 20, 29);
+        mollyStumble[1] = sheet.crop(214, 206, 19, 29);
+        mollyStumble[2] = sheet.crop(238, 206, 19, 29);
+        mollyStumble[3] = sheet.crop(260, 208, 19, 27);
+        mollyStumble[4] = sheet.crop(283, 212, 21, 23);
+        mollyStumble[5] = sheet.crop(307, 212, 19, 23);
+        mollyStumble[6] = sheet.crop(330, 211, 20, 23);
+        mollyStumble[7] = sheet.crop(355, 212, 20, 23);
+
+        mollyCollapse = new BufferedImage[4];
+        mollyCollapse[0] = sheet.crop(380, 212, 24, 30);
+        mollyCollapse[1] = sheet.crop(408, 212, 21, 31);
+        mollyCollapse[2] = sheet.crop(435, 219, 18, 24);
+        mollyCollapse[3] = sheet.crop(460, 226, 19, 17);
+
+        mollyEating = new BufferedImage[2];
+        mollyEating[0] = sheet.crop(526, 101, 16, 30);
+        mollyEating[1] = sheet.crop(561, 101, 17, 30);
+
+
+        mollySeeds = new BufferedImage[3];
+        mollySeeds[0] = sheet.crop(347, 277, 22, 29);
+        mollySeeds[1] = sheet.crop(381, 275, 22, 31);
+        mollySeeds[2] = sheet.crop(415, 276, 22, 30);
+
+
+        mollyRidingHorseDown = new BufferedImage[6];
+        mollyRidingHorseDown[0] = sheet.crop(8, 315, 20, 40);
+        mollyRidingHorseDown[1] = sheet.crop(41, 316, 20, 39);
+        mollyRidingHorseDown[2] = sheet.crop(75, 316, 20, 39);
+        mollyRidingHorseDown[3] = sheet.crop(108, 318, 22, 37);
+        mollyRidingHorseDown[4] = sheet.crop(140, 317, 20, 38);
+        mollyRidingHorseDown[5] = sheet.crop(171, 319, 24, 38);
+
+        mollyRidingHorseLeft = new BufferedImage[6];
+        mollyRidingHorseLeft[0] = sheet.crop(3, 368, 32, 40);
+        mollyRidingHorseLeft[1] = sheet.crop(43, 368, 32, 39);
+        mollyRidingHorseLeft[2] = sheet.crop(85, 367, 31, 39);
+        mollyRidingHorseLeft[3] = sheet.crop(124, 368, 34, 38);
+        mollyRidingHorseLeft[4] = sheet.crop(163, 368, 34, 38);
+        mollyRidingHorseLeft[5] = sheet.crop(204, 370, 32, 36);
+
+        mollyRidingHorseRight = new BufferedImage[6];
+        mollyRidingHorseRight[0] = flipHorizontally( sheet.crop(3, 368, 32, 40) );
+        mollyRidingHorseRight[1] = flipHorizontally( sheet.crop(43, 368, 32, 39) );
+        mollyRidingHorseRight[2] = flipHorizontally( sheet.crop(85, 367, 31, 39) );
+        mollyRidingHorseRight[3] = flipHorizontally( sheet.crop(124, 368, 34, 38) );
+        mollyRidingHorseRight[4] = flipHorizontally( sheet.crop(163, 368, 34, 38) );
+        mollyRidingHorseRight[5] = flipHorizontally( sheet.crop(204, 370, 32, 36) );
+
+        mollyRidingHorseUp = new BufferedImage[6];
+        mollyRidingHorseUp[0] = sheet.crop(8, 419, 20, 42);
+        mollyRidingHorseUp[1] = sheet.crop(42, 420, 20, 41);
+        mollyRidingHorseUp[2] = sheet.crop(75, 419, 20, 41);
+        mollyRidingHorseUp[3] = sheet.crop(105, 421, 25, 40);
+        mollyRidingHorseUp[4] = sheet.crop(140, 420, 22, 40);
+        mollyRidingHorseUp[5] = sheet.crop(173, 418, 20, 41);
+
+        mollyMountingHorseDown = new BufferedImage[1];
+        mollyMountingHorseDown[0] = sheet.crop(500, 174, 21, 26);
+
+        mollyMountingHorseLeft = new BufferedImage[2];
+        mollyMountingHorseLeft[0] = flipHorizontally( sheet.crop(501, 213, 20, 28) );
+        mollyMountingHorseLeft[1] = flipHorizontally( sheet.crop(538, 208, 24, 31) );
+
+        mollyMountingHorseRight = new BufferedImage[2];
+        mollyMountingHorseRight[0] = sheet.crop(501, 213, 20, 28);
+        mollyMountingHorseRight[1] = sheet.crop(538, 208, 24, 31);
+
+        mollyMountingHorseUp = new BufferedImage[2];
+        mollyMountingHorseUp[0] = sheet.crop(504, 253, 16, 26);
+        mollyMountingHorseUp[1] = sheet.crop(540, 255, 20, 23);
+
 
 
         // ***********************************************************************************
