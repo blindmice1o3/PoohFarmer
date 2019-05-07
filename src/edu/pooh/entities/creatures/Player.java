@@ -23,7 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
-    // TODO: Implement stamina feature.
+    // TODO: Implement stamina feature (eating, sleeping/newDay, hot spring, power berry, tool usage).
 
     // CANNABIS COUNTER
     private int cannabisCollected;
@@ -68,11 +68,15 @@ public class Player extends Creature {
     private boolean attacking = false;
 
     public void decreaseStaminaCurrent(int staminaUsage) {
-        staminaCurrent -= staminaUsage;
+        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
     }
 
     public void increaseStaminaCurrent(int staminaGained) {
-        staminaCurrent += staminaGained;
+        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
+    }
+
+    public void resetStaminaCurrent() {
+        staminaCurrent = staminaBase;
     }
 
     public Player(Handler handler, float x, float y) {
@@ -121,6 +125,7 @@ public class Player extends Creature {
     @Override
     public void tick() {
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
+        // TODO: Move cannabisCollected lines of code into new method named checkWinningState().
         if (cannabisCollected == 3) {
             //StateManager.change( handler.getGame().getMenuState(), new Object[5] );
 
@@ -345,13 +350,14 @@ public class Player extends Creature {
                             //////////////////////////////////////
                         }
                     } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {
-                        //System.out.println("waahoo");
                         if (getTileCurrentlyFacing() instanceof SignPostTile) {
                             ((SignPostTile)getTileCurrentlyFacing()).execute();
                         } else if (getTileCurrentlyFacing() instanceof BedTile) {
-                            ((BedTile) getTileCurrentlyFacing()).execute();
+                            ((BedTile)getTileCurrentlyFacing()).execute();
+                        } else if (getTileCurrentlyFacing() instanceof HotSpringMountainTile) {
+                            ((HotSpringMountainTile)getTileCurrentlyFacing()).execute();
                         }
-                    } else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
+                    }  else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
 
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                         inventory.getItem(inventory.getSelectedItem()).execute();
@@ -512,22 +518,24 @@ public class Player extends Creature {
     }
 
     public void postRender(Graphics g) {
-        inventory.render(g);
-        dateDisplayer.render(g);
+        inventory.render(g);                // KeyEvent.VK_I
+        dateDisplayer.render(g);            // KeyEvent.VK_SHIFT
     }
 
     public void renderHUD(Graphics g) {
+        // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
         g.setColor(Color.BLUE);
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
         Text.drawString(g, Integer.toString(getCannabisCollected()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
-
+        // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)
         Text.drawString(g, TimeManager.translateElapsedRealSecondsToGameHoursMinutes(),
                 (handler.getWidth() / 2), 30, true, Color.YELLOW, Assets.font28);
         Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
                 (handler.getWidth() / 2), 55, true, Color.BLUE, Assets.font28);
 
+        // CURRENT SELECTED ITEM FROM INVENTORY (TOP-RIGHT CORNER)
         g.setColor(Color.BLUE);
         g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
                 (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
@@ -545,6 +553,7 @@ public class Player extends Creature {
                     25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
         }
 
+        // STAMINA TRACKER VISUAL (LEFT TOP-ISH OF SCREEN)
         g.setColor(Color.BLUE);
         g.fillRect(33, 81, 15, staminaBase + 4);
         g.setColor(Color.YELLOW);

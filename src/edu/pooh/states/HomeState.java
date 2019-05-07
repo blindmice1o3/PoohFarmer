@@ -48,6 +48,9 @@ public class HomeState implements IState {
             TimeManager.setClockRunningTrue();
             /////////////////////////////////////////
 
+            // RESET STAMINA
+            player.resetStaminaCurrent();
+
             /////////////////////////////
             TimeManager.setNewDayFalse();
             /////////////////////////////

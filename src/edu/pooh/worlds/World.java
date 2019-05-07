@@ -526,6 +526,19 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtMountainTile( xx, yy,
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
                             );
+                        } else if (red == 255 && green == 255 && blue == 0) {   //fence-like, execute - jump into hot spring.
+                            tilesViaRGB[xx][yy] = new HotSpringMountainTile( handler, xx, yy,
+                                    Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16,16)
+                            );
+                        } else if (red == 255 && green == 0 && blue == 255) {   //TODO: render after player sprite - hot spring.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(
+                                    Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
+                            ) {
+                              @Override
+                              public boolean isSolid() {
+                                  return false;
+                              }
+                            };
                         } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent.
                             tilesViaRGB[xx][yy] = new SignPostTile(
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
