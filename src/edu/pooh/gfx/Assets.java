@@ -63,7 +63,7 @@ public class Assets {
     // ENTITIES MOVING/ANIMATED (/HAWKER)
     public static BufferedImage[] hawkerUp, hawkerDown, hawkerLeft, hawkerRight;
 
-    // ENTITIES MOVING/ANIMATED (/KERO DOG)
+    // ENTITIES MOVING/ANIMATED (/KERO DOG, WOLF)
     public static BufferedImage[] xDogUp, xDogDown, xDogLeft, xDogRight, xDogLeftPee;
     public static BufferedImage[] wolfRight, wolfLeft;
 
@@ -74,6 +74,9 @@ public class Assets {
             horseUp, horseDown, horseLeft, horseRight,
             jackWalkingUp, jackWalkingDown, jackWalkingLeft, jackWalkingRight,
             jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
+
+    // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
+    public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp;
 
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
@@ -651,7 +654,43 @@ public class Assets {
 
 
 
+        // ************************************************************
+        // |+|+|+|+|+|+|+| ENTITY: MOLLY (playerFemale) |+|+|+|+|+|+|+|
+        // ************************************************************
 
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/DS DSi - Harvest Moon DS Cute - Farmer Ponytails.png"));
+
+        mollyWalkingDown = new BufferedImage[6];
+        mollyWalkingDown[0] = sheet.crop(5, 28, 19, 30);
+        mollyWalkingDown[1] = sheet.crop(34, 29, 18, 29);
+        mollyWalkingDown[2] = sheet.crop(62, 29, 18, 29);
+        mollyWalkingDown[3] = sheet.crop(89, 29, 19, 29);
+        mollyWalkingDown[4] = sheet.crop(116, 31, 19, 27);
+        mollyWalkingDown[5] = sheet.crop(146, 31, 19, 27);
+
+        mollyWalkingLeft = new BufferedImage[6];
+        mollyWalkingLeft[0] = sheet.crop(5, 64, 18, 30);
+        mollyWalkingLeft[1] = sheet.crop(34, 65, 19, 29);
+        mollyWalkingLeft[2] = sheet.crop(61, 65, 20, 29);
+        mollyWalkingLeft[3] = sheet.crop(89, 64, 18, 30);
+        mollyWalkingLeft[4] = sheet.crop(116, 67, 21, 27);
+        mollyWalkingLeft[5] = sheet.crop(146, 67, 21, 27);
+
+        mollyWalkingRight = new BufferedImage[6];
+        mollyWalkingRight[0] = flipHorizontally( sheet.crop(5, 64, 18, 30) );
+        mollyWalkingRight[1] = flipHorizontally( sheet.crop(34, 65, 19, 29) );
+        mollyWalkingRight[2] = flipHorizontally( sheet.crop(61, 65, 20, 29) );
+        mollyWalkingRight[3] = flipHorizontally( sheet.crop(89, 64, 18, 30) );
+        mollyWalkingRight[4] = flipHorizontally( sheet.crop(116, 67, 21, 27) );
+        mollyWalkingRight[5] = flipHorizontally( sheet.crop(146, 67, 21, 27) );
+
+        mollyWalkingUp = new BufferedImage[6];
+        mollyWalkingUp[0] = sheet.crop(4, 101, 19, 30);
+        mollyWalkingUp[1] = sheet.crop(33, 102, 18, 29);
+        mollyWalkingUp[2] = sheet.crop(60, 102, 18, 29);
+        mollyWalkingUp[3] = sheet.crop(88, 102, 19, 29);
+        mollyWalkingUp[4] = sheet.crop(117, 104, 19, 29);
+        mollyWalkingUp[5] = sheet.crop(147, 104, 19, 29);
 
 
         // ***********************************************************************************

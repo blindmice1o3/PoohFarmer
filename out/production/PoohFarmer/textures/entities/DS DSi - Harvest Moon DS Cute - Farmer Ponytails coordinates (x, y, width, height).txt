@@ -1,0 +1,59 @@
+DS DSi - Harvest Moon DS Cute - Farmer Ponytails.png
+
+Molly (playerFemale):
+walkingDown0:
+5, 28, 19, 30
+
+walkingDown1:
+34, 29, 18, 29
+
+walkingDown2:
+62, 29, 18, 29
+
+walkingDown3:
+89, 29, 19, 29
+
+walkingDown4:
+116, 31, 19, 27
+
+walkingDown5:
+146, 31, 19, 27
+
+
+walkingLeft0:
+5, 64, 18, 30
+
+walkingLeft1:
+34, 65, 19, 29
+
+walkingLeft2:
+61, 65, 20, 29
+
+walkingLeft3:
+89, 64, 18, 30
+
+walkingLeft4:
+116, 67, 21, 27
+
+walkingLeft5:
+146, 67, 21, 27
+
+
+walkingUp0:
+4, 101, 19, 30
+
+walkingUp1:
+33, 102, 18, 29
+
+walkingUp2:
+60, 102, 18, 29
+
+walkingUp3:
+88, 102, 19, 29
+
+walkingUp4:
+117, 104, 19, 29
+
+walkingUp5:
+147, 104, 19, 29
+
