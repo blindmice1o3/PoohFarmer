@@ -29,23 +29,48 @@ public abstract class Creature extends Entity {
         yMove = 0;
     } // **** end Creature(Handler, float, float, int, int) constructor ****
 
+    public Tile getTileCurrentlyStandingOn() {
+        int creatureCenterX = (int)(x + (width / 2));
+        int creatureCenterY = (int)(y + (height / 2));
+
+        return handler.getWorld().getTile( (creatureCenterX / Tile.TILE_WIDTH), (creatureCenterY / Tile.TILE_HEIGHT) );
+    }
+
+    public Tile[] getTiles3x3FromCenter(int x, int y) {
+        Tile[] tiles3x3 = new Tile[9];
+
+        tiles3x3[0] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) - 1),  ((y / Tile.TILE_HEIGHT) - 1) );
+        tiles3x3[1] = handler.getWorld().getTile( (x / Tile.TILE_WIDTH),        ((y / Tile.TILE_HEIGHT) - 1) );
+        tiles3x3[2] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) + 1),  ((y / Tile.TILE_HEIGHT) - 1) );
+
+        tiles3x3[3] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) - 1),  (y / Tile.TILE_HEIGHT) );
+        tiles3x3[4] = handler.getWorld().getTile( (x / Tile.TILE_WIDTH),        (y / Tile.TILE_HEIGHT) );
+        tiles3x3[5] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) + 1),  (y / Tile.TILE_HEIGHT) );
+
+        tiles3x3[6] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) - 1),  ((y / Tile.TILE_HEIGHT) + 1));
+        tiles3x3[7] = handler.getWorld().getTile( (x / Tile.TILE_WIDTH),        ((y / Tile.TILE_HEIGHT) + 1));
+        tiles3x3[8] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) + 1),  ((y / Tile.TILE_HEIGHT) + 1));
+
+        return tiles3x3;
+    }
+
     public Tile getTileCurrentlyFacing() {
-        int playerCenterX = (int)(x + (width / 2));
-        int playerCenterY = (int)(y + (height / 2));
+        int creatureCenterX = (int)(x + (width / 2));
+        int creatureCenterY = (int)(y + (height / 2));
 
         switch (currentDirection) {
             case DOWN:
-                return handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
-                        ((playerCenterY + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
+                return handler.getWorld().getTile( (creatureCenterX / Tile.TILE_WIDTH),
+                        ((creatureCenterY + Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
             case UP:
-                return handler.getWorld().getTile( (playerCenterX / Tile.TILE_WIDTH),
-                        ((playerCenterY - Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
+                return handler.getWorld().getTile( (creatureCenterX / Tile.TILE_WIDTH),
+                        ((creatureCenterY - Tile.TILE_HEIGHT) / Tile.TILE_HEIGHT) );
             case LEFT:
-                return handler.getWorld().getTile( ((playerCenterX - Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
-                        (playerCenterY / Tile.TILE_HEIGHT) );
+                return handler.getWorld().getTile( ((creatureCenterX - Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
+                        (creatureCenterY / Tile.TILE_HEIGHT) );
             case RIGHT:
-                return handler.getWorld().getTile( ((playerCenterX + Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
-                        (playerCenterY / Tile.TILE_HEIGHT) );
+                return handler.getWorld().getTile( ((creatureCenterX + Tile.TILE_WIDTH) / Tile.TILE_WIDTH),
+                        (creatureCenterY / Tile.TILE_HEIGHT) );
             default:
                 return null;
         }

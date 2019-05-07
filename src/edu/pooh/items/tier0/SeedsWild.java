@@ -29,48 +29,52 @@ public class SeedsWild extends Item {
 
     @Override
     public void execute() {
-        Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
+        int centerX = (int) (handler.getWorld().getEntityManager().getPlayer().getX() + (Tile.TILE_WIDTH / 2));
+        int centerY = (int) (handler.getWorld().getEntityManager().getPlayer().getY() + (Tile.TILE_HEIGHT / 2));
 
-        if (t != null) {
-            System.out.print("targeted-tile's id: " + t.getId());
+        Tile[] tiles3x3 = handler.getWorld().getEntityManager().getPlayer().getTiles3x3FromCenter(centerX, centerY);
 
-            // If there's a seed left and the tile is a dirtNormal.
-            if ((count > 0) && (t instanceof DirtNormalTile) &&
-                    (((DirtNormalTile) t).getDirtState() == DirtNormalTile.DirtState.TILLED &&
-                    ((DirtNormalTile) t).getStaticEntity() == null)) {
-                DirtNormalTile temp = (DirtNormalTile) t;
-                ///////////////////////////////////////////////////////////////////////////////////////////
+        for (Tile t : tiles3x3) {
+            if (t != null) {
+                // If there's a seed left and the tile is a dirtNormal that has DirtState.TILLED and is unoccupied.
+                if ((count > 0) && (t instanceof DirtNormalTile) &&
+                        (((DirtNormalTile)t).getDirtState() == DirtNormalTile.DirtState.TILLED &&
+                                ((DirtNormalTile)t).getStaticEntity() == null)) {
+                    DirtNormalTile temp = (DirtNormalTile)t;
 
-                temp.setStaticEntity(new CropEntity(handler, temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
-                switch (seedType) {
-                    case CANNABIS_WILD:
-                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
-                        break;
-                    case TURNIP:
-                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.TURNIP);
-                        break;
-                    case POTATO:
-                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
-                        break;
-                    case TOMATO:
-                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.TOMATO);
-                        break;
-                    case CORN:
-                        ((CropEntity) temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
-                        break;
-                    default:
-                        ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
-                        break;
+                    ///////////////////////////////////////////////////////////////////////////////////////////
+                    temp.setStaticEntity(new CropEntity(handler,
+                            temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
+
+                    switch (seedType) {
+                        case CANNABIS_WILD:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
+                            break;
+                        case TURNIP:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.TURNIP);
+                            break;
+                        case POTATO:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                            break;
+                        case TOMATO:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.TOMATO);
+                            break;
+                        case CORN:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
+                            break;
+                        default:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                            break;
+                    }
+
+                    handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
+                    /////////////////////////////////////////////////////////////////////////////////////////
                 }
-
-                ///////////////////////////////////////////////////////////////////////////////////////////
-                handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
-                handler.getWorld().getEntityManager().setToBeAdded(true);
-
-                count--;
             }
         }
 
+        handler.getWorld().getEntityManager().setToBeAdded(true);
+        count--;
         System.out.println("Executed SeedsWild.");
     }
 

@@ -194,7 +194,96 @@ collapse3:
 460, 226, 19, 17
 
 
+eating0:
+526, 101, 16, 30
 
+eating1:
+561, 101, 17, 30
+
+
+seeds0:
+347, 277, 22, 29
+
+seeds1:
+381, 275, 22, 31
+
+seeds2:
+415, 276, 22, 30
+
+
+ridingHorseDown0: 
+8, 315, 20, 40
+
+ridingHorseDown1:
+41, 316, 20, 39
+
+ridingHorseDown2: 
+75, 316, 20, 39
+
+ridingHorseDown3: 
+108, 318, 22, 37
+
+ridingHorseDown4: 
+140, 317, 20, 38
+
+ridingHorseDown5: 
+171, 319, 24, 38
+
+
+ridingHorseLeft0:
+3, 368, 32, 40
+
+ridingHorseLeft1:
+43, 368, 32, 39
+
+ridingHorseLeft2:
+85, 367, 31, 39
+
+ridingHorseLeft3:
+124, 368, 34, 38
+
+ridingHorseLeft4:
+163, 368, 34, 38
+
+ridingHorseLeft5:
+204, 370, 32, 36
+
+
+ridingHorseUp0:
+8, 419, 20, 42
+
+ridingHorseUp1:
+42, 420, 20, 41
+
+ridingHorseUp2:
+75, 419, 20, 41
+
+ridingHorseUp3:
+105, 421, 25, 40
+
+ridingHorseUp4:
+140, 420, 22, 40
+
+ridingHorseUp5:
+173, 418, 20, 41
+
+
+mountingHorseDown0:
+500, 174, 21, 26
+
+
+mountingHorseRight0:
+501, 213, 20, 28
+
+mountingHorseRight1:
+538, 208, 24, 31
+
+
+mountingHorseUp0:
+504, 253, 16, 26
+
+mountingHorseUp1:
+540, 255, 20, 23
 
 
 
