@@ -26,6 +26,8 @@ public class Horse extends Creature {
         animLeft = new Animation(400, Assets.horseLeft);
         animRight = new Animation(400, Assets.horseRight);
 
+        setSpeed(5);
+
         random = new Random();
     } // **** end Horse(Handler, float, float) constructor ****
 

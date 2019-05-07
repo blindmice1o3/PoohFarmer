@@ -272,6 +272,7 @@ public class Player extends Creature {
         }
     }
 
+    private int speedMax = 15;
     private void getInput() {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
@@ -280,6 +281,17 @@ public class Player extends Creature {
         // INVENTORY CHECK
         if (inventory.isActive()) {
             return;
+        }
+
+        // RUNNING
+        if (handler.getKeyManager().running) {  //KeyEvent.VK_CONTROL
+            if ((speed *= 2) <= speedMax) {
+                speed *= 2;
+            } else {
+                speed = speedMax;
+            }
+        } else {
+            speed = Creature.DEFAULT_SPEED;
         }
 
         // KEY INPUT to SET MOVEMENT
@@ -318,28 +330,27 @@ public class Player extends Creature {
 
                 // HOLDING CHECK
                 if (holding) {  // Already holding, can only drop the holdableObject.
-                    if (checkDropableTile()) {
-
-                        //if (holdableObject instanceof HarvestEntity) {
-                        //  if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        //      ((HarvestEntity)holdableObject).setTexture(((HarvestEntity) holdableObject).determineFragmentedTexture());
-                        //  }
-                        //}
-                        /////////////////////////////////////////////////
-                        holdableObject.dropped(getTileCurrentlyFacing());
-
-                        // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
-                        //if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-                        //((DirtNormalTile)getTileCurrentlyFacing()).checkRemoveFragmentedStaticEntity();
-                        //} else {
-
-                        //}
-
-                        setHoldableObject(null);
-                        holding = false;
-                        /////////////////////////////////////////////////
-
+                    // if CHEST tile... store in ArrayList<HarvestEntity> until 5pm.
+                    if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
+                        if (holdableObject instanceof HarvestEntity) {
+                            /////////////////////////////////////////////////////
+                            // TODO: SELLABLE INTERFACE, ArrayList<Sellable>.  //
+                            // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
+                            /////////////////////////////////////////////////////
+                            holdableObject.dropped(getTileCurrentlyFacing());
+                            setHoldableObject(null);
+                            holding = false;
+                        }
+                    } else {
+                        if (checkDropableTile()) {
+                            /////////////@@@@@@@@@@@@@@@@@@@@////////////////
+                            holdableObject.dropped(getTileCurrentlyFacing());
+                            setHoldableObject(null);
+                            holding = false;
+                            /////////////////////////////////////////////////
+                        }
                     }
+                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
                 } else {        // Not holding IHoldable.
                     if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
                         if (!holding) {
@@ -412,11 +423,9 @@ public class Player extends Creature {
     }
 
     private boolean checkDropableTile() {
-        // If DirtNormalTile or chest.
+        // If DirtNormalTile.
         if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
             return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
-        } else if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
-            return (holdableObject instanceof HarvestEntity);
         }
         // @@@@@@@@@@@@@
         else if (holdableObject instanceof Creature && !getTileCurrentlyFacing().isSolid()) {

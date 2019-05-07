@@ -26,6 +26,8 @@ public class Chicken extends Creature {
         animLeft = new Animation(400, Assets.chickenLeft);
         animRight = new Animation(400, Assets.chickenRight);
 
+        setSpeed(4);
+
         random = new Random();
     } // **** end Chicken(Handler, float, float) constructor ****
 

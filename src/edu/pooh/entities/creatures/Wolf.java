@@ -9,34 +9,28 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Cow extends Creature {
+public class Wolf extends Creature {
 
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
     private Animation animRight;
+    private Animation animLeft;
 
     private Random random;
 
-    public Cow(Handler handler, float x, float y) {
+    public Wolf(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.cowUp);
-        animDown = new Animation(400, Assets.cowDown);
-        animLeft = new Animation(400, Assets.cowLeft);
-        animRight = new Animation(400, Assets.cowRight);
+        animRight = new Animation(200, Assets.wolfRight);
+        animLeft = new Animation(200, Assets.wolfLeft);
 
-        setSpeed(2);
+        setSpeed(6);
 
         random = new Random();
-    } // **** end Cow(Handler, float, float) constructor ****
+    } // **** end Wolf(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
-        animUp.tick();
-        animDown.tick();
-        animLeft.tick();
         animRight.tick();
+        animLeft.tick();
 
         randomlyMove();
         move();
@@ -44,7 +38,7 @@ public class Cow extends Creature {
 
     private void randomlyMove() {
         if (random.nextInt(100) == 1) {
-            int moveDir = random.nextInt(5);
+            int moveDir = random.nextInt(2);
 
             switch (moveDir) {
                 case 0:
@@ -53,13 +47,7 @@ public class Cow extends Creature {
                 case 1:
                     xMove = 1;
                     break;
-                case 2:
-                    yMove = -1;
-                    break;
-                case 3:
-                    yMove = 1;
-                    break;
-                default:
+                default:    //should never end up here (no standing still/idle image).
                     xMove = 0;
                     yMove = 0;
                     break;
@@ -79,21 +67,19 @@ public class Cow extends Creature {
             return animLeft.getCurrentFrame();
         } else if (xMove > 0) {                         // Moving right.
             return animRight.getCurrentFrame();
-        } else if (yMove < 0) {                         // Moving up.
-            return animUp.getCurrentFrame();
-        } else if (yMove > 0) {                         // Moving down.
-            return animDown.getCurrentFrame();
-        } else {
-            return Assets.cowDown[0];
+        } else {        //should never end up here (no standing still/idle image).
+            return Assets.wolfRight[0];
         }
     }
 
     @Override
-    public void hurt(int amt) { return; }
+    public void hurt(int dmg) {
+        return;
+    }
 
     @Override
     public void die() {
         setActive(false);
     }
 
-} // **** end Cow class ****
+} // **** end Wolf class ****

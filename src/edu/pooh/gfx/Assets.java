@@ -1,6 +1,8 @@
 package edu.pooh.gfx;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -63,6 +65,7 @@ public class Assets {
 
     // ENTITIES MOVING/ANIMATED (/KERO DOG)
     public static BufferedImage[] xDogUp, xDogDown, xDogLeft, xDogRight, xDogLeftPee;
+    public static BufferedImage[] wolfRight, wolfLeft;
 
     // ENTITIES MOVING/ANIMATED (/DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNING)
     public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight,
@@ -481,14 +484,39 @@ public class Assets {
         xDogLeftPee[3] = sheet.crop(92, 33, 20, 14);
         xDogLeftPee[4] = sheet.crop(120, 32, 25, 15);
 
-        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog (right).png"));
+        xDogRight = new BufferedImage[5];
+        xDogRight[0] = flipHorizontally( sheet.crop(3, 3, 20, 13) );
+        xDogRight[1] = flipHorizontally( sheet.crop(30, 1, 25, 17) );
+        xDogRight[2] = flipHorizontally( sheet.crop(63, 3, 20, 13) );
+        xDogRight[3] = flipHorizontally( sheet.crop(93, 2, 20, 15) );
+        xDogRight[4] = flipHorizontally( sheet.crop(123, 0, 19, 20) );
 
+        /*
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog (right).png"));
         xDogRight = new BufferedImage[5];
         xDogRight[0] = sheet.crop(390, 3, 20, 13);
         xDogRight[1] = sheet.crop(358, 1, 25, 17);
         xDogRight[2] = sheet.crop(330, 3, 20, 13);
         xDogRight[3] = sheet.crop(300, 2, 20, 15);
         xDogRight[4] = sheet.crop(271, 0, 19, 20);
+        */
+
+
+        // *******************************************
+        // |+|+|+|+|+|+|+| ENTITY: WOLF |+|+|+|+|+|+|+|
+        // *******************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Small Animals.png"));
+        wolfRight = new BufferedImage[3];
+        wolfRight[0] = sheet.crop(0, 0, 23, 14);
+        wolfRight[1] = sheet.crop(29, 0, 23, 14);
+        wolfRight[2] = sheet.crop(60, 0, 23, 14);
+
+        wolfLeft = new BufferedImage[3];
+        wolfLeft[0] = flipHorizontally( sheet.crop(0, 0, 23, 14) );
+        wolfLeft[1] = flipHorizontally( sheet.crop(29, 0, 23, 14) );
+        wolfLeft[2] = flipHorizontally( sheet.crop(60, 0, 23, 14) );
+
 
         // ********************************************************************************************
         // |+|+|+|+|+|+|+| ENTITY: DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNNING |+|+|+|+|+|+|+|
@@ -682,6 +710,21 @@ public class Assets {
         entitiesCrossroadViaRGB = ImageLoader.loadImage("/worlds/CrossroadState entities (rgb).png");
         entitiesMountainViaRGB = ImageLoader.loadImage("/worlds/MountainState entities (rgb).png");
 
+    }
+
+    public static BufferedImage flipHorizontally(BufferedImage image) {
+        //BufferedImage returner = new BufferedImage(image.getWidth(null),
+        //        image.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        //Graphics gReturner = returner.getGraphics();
+        //gReturner.drawImage(image, 0, 0, null);
+        //gReturner.dispose();
+
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-image.getWidth(null), 0);
+
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+        return op.filter(image, null);
     }
 
 } // **** end Assets class ****

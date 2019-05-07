@@ -740,6 +740,9 @@ public class World {
                     } else if (red == 255 && green == 0 && blue == 255) {//Jack
                         Jack jack = new Jack(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(jack);
+                    } else if (red == 128 && green == 128 && blue == 128) {//Wolf
+                        Wolf wolf = new Wolf(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(wolf);
                     }
                 }
                 /////////////////////////////////////////////////

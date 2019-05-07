@@ -12,6 +12,8 @@ public class KeyManager implements KeyListener {
     public boolean aUp, aDown, aLeft, aRight;
     // TIME DISPLAYER
     public boolean dateDisplayerKey;
+    // RUNNING
+    public boolean running;
 
     public KeyManager() {
         keys = new boolean[256];
@@ -47,6 +49,7 @@ public class KeyManager implements KeyListener {
         aRight = keys[KeyEvent.VK_RIGHT];
 
         dateDisplayerKey = keys[KeyEvent.VK_SHIFT];
+        running = keys[KeyEvent.VK_CONTROL];
     }
 
     public boolean keyJustPressed(int keyCode) {
