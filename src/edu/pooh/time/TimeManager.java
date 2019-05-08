@@ -102,7 +102,7 @@ public class TimeManager {
     //determines: (1) AM or PM, (2) hours, and (3) minutes
     // of in-game elapsed time (stops at 6PM, resets when newDay is true).
     public static int elapsedRealSeconds = 0;
-
+    //TODO: pause (clockRunning = false) if indoors or if text window (dialog) is opened.
     public static void incrementElapsedRealSeconds() {
         // TODO: implement usages of SETTERS for clockRunning (e.g. setClockRunningFalse() and setClockRunningTrue()).
         if (clockRunning) {
