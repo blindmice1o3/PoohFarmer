@@ -2,6 +2,12 @@ package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.harvests.HarvestEntity;
+import edu.pooh.entities.statics.statics1x1.Bush;
+import edu.pooh.entities.statics.statics1x1.Rock;
+import edu.pooh.entities.statics.statics1x1.RockMountain;
+import edu.pooh.entities.statics.statics1x1.Wood;
+import edu.pooh.entities.statics.statics2x2.Boulder;
+import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
@@ -423,17 +429,41 @@ public class Player extends Creature {
     }
 
     private boolean checkDropableTile() {
+        Tile tempTileInFront = getTileCurrentlyFacing();
+
         // If DirtNormalTile.
-        if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
-            return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
+        if (tempTileInFront instanceof DirtNormalTile) {
+            if (((DirtNormalTile)tempTileInFront).getStaticEntity() != null) {
+                if ((((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof TreeStump) ||
+                        (((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof Boulder) ||
+                        (((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof Wood) ||
+                        (((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof Rock) ||
+                        (((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof Bush)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        // If DirtMountainTile.
+        else if (tempTileInFront instanceof DirtMountainTile) {
+            if (((DirtMountainTile)tempTileInFront).getStaticEntity() != null) {
+                if ((((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof TreeStump) ||
+                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Boulder) ||
+                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Wood) ||
+                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof RockMountain) ||
+                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Bush)) {
+                    return false;
+                }
+            }
+            return true;
         }
         // If poolWater Tile.
-        else if (getTileCurrentlyFacing().getId() >= 236 && getTileCurrentlyFacing().getId() <= 248) {
+        else if (tempTileInFront.getId() >= 236 && tempTileInFront.getId() <= 248) {
             return true;
         }
         // If holding a move-able Entity and the tile in front of player is NOT solid.
         // @@@@@@@@@@@@@
-        else if (holdableObject instanceof Creature && !getTileCurrentlyFacing().isSolid()) {
+        else if (holdableObject instanceof Creature && !tempTileInFront.isSolid()) {
             return true;
         }
         // @@@@@@@@@@@@@

@@ -1,9 +1,12 @@
 package edu.pooh.entities.statics.statics1x1;
 
 import edu.pooh.entities.statics.StaticEntity;
+import edu.pooh.entities.statics.statics2x2.Boulder;
+import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.tiles.DirtMountainTile;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
@@ -63,6 +66,7 @@ public class Rock extends StaticEntity
     @Override
     public void pickedUp() {
         Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
+
         for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
             for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 if (tempLevel[xx][yy] instanceof DirtNormalTile) {
@@ -78,27 +82,40 @@ public class Rock extends StaticEntity
     public void dropped(Tile t) {
         if (t instanceof DirtNormalTile) {  //DirtNormalTile
             DirtNormalTile tempTile = (DirtNormalTile)t;
-            x = tempTile.getX() * Tile.TILE_WIDTH;
-            y = tempTile.getY() * Tile.TILE_HEIGHT;
 
-            //If a rock is dropped on to a DirtNormalTile object, it changes its DirtState to NORMAL.
-            tempTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
-            tempTile.setTexture(Assets.dirtNormal);
+            //If a rock is dropped on to a DirtNormalTile object, it calls
+            // its staticEntity's die() method (unless it's in package statics2x2).
             if (tempTile.getStaticEntity() != null) {
                 tempTile.getStaticEntity().die();
             }
-            System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
-            tempTile.setStaticEntity(this);
-        } else {    //poolWater Tile
-            Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
 
-            for (int y = 0; y < handler.getWorld().getHeightInTiles(); y++) {
-                for (int x = 0; x < handler.getWorld().getWidthInTiles(); x++) {
-                    if (tempTiles[x][y].getId() >= 236 && tempTiles[x][y].getId() <= 248) {
-                        die();
-                        System.out.println("dropped rock into poolWater's (x, y): (" + this.x + ", " + this.y + ")");
-                    }
-                }
+            System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
+            x = tempTile.getX() * Tile.TILE_WIDTH;
+            y = tempTile.getY() * Tile.TILE_HEIGHT;
+            tempTile.setStaticEntity(this);
+
+            //If a rock is dropped on to a DirtNormalTile object, it changes its DirtState to NORMAL.
+            ////////////////////////////////////////////////////////
+            tempTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
+            tempTile.setTexture(Assets.dirtNormal);
+            /////////////////////////////////////////////////////////
+        }
+        else if (t instanceof DirtMountainTile) {   //DirtMountainTile
+            DirtMountainTile tempMountainTile = (DirtMountainTile)t;
+
+            if (tempMountainTile.getStaticEntity() != null) {
+                return;
+            }
+
+            System.out.println("dropped DirtMountainTile's (x, y): (" + x + ", " + y + ")");
+            x = tempMountainTile.getX() * Tile.TILE_WIDTH;
+            y = tempMountainTile.getY() * Tile.TILE_HEIGHT;
+            tempMountainTile.setStaticEntity(this);
+        }
+        else {    //poolWater Tile
+            if (t.getId() >= 236 && t.getId() <= 248) {
+                die();
+                System.out.println("dropped rock into poolWater's (x, y): (" + this.x + ", " + this.y + ")");
             }
         }
     }
