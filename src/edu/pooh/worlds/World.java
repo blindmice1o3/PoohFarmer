@@ -2,7 +2,6 @@ package edu.pooh.worlds;
 
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.*;
-import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.TreeStump;

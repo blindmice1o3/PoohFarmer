@@ -9,7 +9,7 @@ import java.awt.*;
 public class DirtNormalTile extends Tile {
 
     public enum DirtState {
-        NORMAL, TILLED;
+        NORMAL, TILLED, SEEDED;
     }
 
     private int x, y;

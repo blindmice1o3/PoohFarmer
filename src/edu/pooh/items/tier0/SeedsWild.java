@@ -63,10 +63,11 @@ public class SeedsWild extends Item {
                             ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
                             break;
                         default:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
                             break;
                     }
 
+                    temp.setDirtState(DirtNormalTile.DirtState.SEEDED);
                     handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
                     /////////////////////////////////////////////////////////////////////////////////////////
                 }

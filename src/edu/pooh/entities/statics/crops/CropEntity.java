@@ -317,9 +317,10 @@ public class CropEntity extends StaticEntity {
         }
         tempHarvestEntity.determineAndSetTexture();
 
-
-        handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
-        handler.getWorld().getEntityManager().setToBeAdded(true);
+        if (harvestable) {
+            handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
+            handler.getWorld().getEntityManager().setToBeAdded(true);
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
@@ -327,7 +328,7 @@ public class CropEntity extends StaticEntity {
         for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
             for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 if (tempLevel[xx][yy] instanceof DirtNormalTile) {
-                    tempDirtNormalTile = (DirtNormalTile)tempLevel[xx][yy];
+                    tempDirtNormalTile = (DirtNormalTile) tempLevel[xx][yy];
 
                     ////////////////////////////////////////////////////////////////////////////////////////////
                     if (tempDirtNormalTile.getStaticEntity() == this) {
@@ -336,7 +337,11 @@ public class CropEntity extends StaticEntity {
                         /////////////////
                         setActive(false);
                         /////////////////
-                        tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
+                        if (harvestable) {
+                            tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
+                        } else {
+                            tempDirtNormalTile.setStaticEntity(null);
+                        }
                     }
                     ////////////////////////////////////////////////////////////////////////////////////////////
                 }

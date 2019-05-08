@@ -29,7 +29,7 @@ MULTIPLE-TILE-BUILDINGS (rgb: 163, 7#, 164)
 195-219 - toolShed5x5 (rgb: 163, 79, 164)	25
 220-225 - stable2x3	(rgb: 163, 75, 164)	  	  6
 226-231 - building2x3 (rgb: 163, 74, 164)	  	  6
-232-235 - chest2x2	(rgb: 255, 242, 0)	  	  4
+232-235 - shippingBin2x2 (rgb: 255, 242, 0)  	  4
 236-239 - poolWater2x2 (rgb: 0, 0, 255)	  	  4
 240-248 - poolWater3x3 (rgb: 0, 0, 254) 	  	  9
 
@@ -47,8 +47,8 @@ idMultiTiles BEFORE stable2x3: 220
 idMultiTiles AFTER stable2x3: 226
 idMultiTiles BEFORE building2x3: 226
 idMultiTiles AFTER building2x3: 232
-idMultiTiles BEFORE chest2x2: 232
-idMultiTiles AFTER chest2x2: 236
+idMultiTiles BEFORE shippingBin2x2: 232
+idMultiTiles AFTER shippingBin2x2: 236
 idMultiTiles BEFORE poolWater2x2: 236
 idMultiTiles AFTER poolWater2x2: 240
 idMultiTiles BEFORE poolWater3x3: 240

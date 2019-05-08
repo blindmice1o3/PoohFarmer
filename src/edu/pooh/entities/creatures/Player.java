@@ -330,7 +330,7 @@ public class Player extends Creature {
 
                 // HOLDING CHECK
                 if (holding) {  // Already holding, can only drop the holdableObject.
-                    // if CHEST tile... store in ArrayList<HarvestEntity> until 5pm.
+                    // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
                     if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
                         if (holdableObject instanceof HarvestEntity) {
                             /////////////////////////////////////////////////////
@@ -427,6 +427,11 @@ public class Player extends Creature {
         if (getTileCurrentlyFacing() instanceof DirtNormalTile) {
             return (((DirtNormalTile)getTileCurrentlyFacing()).getStaticEntity() == null);
         }
+        // If poolWater Tile.
+        else if (getTileCurrentlyFacing().getId() >= 236 && getTileCurrentlyFacing().getId() <= 248) {
+            return true;
+        }
+        // If holding a move-able Entity and the tile in front of player is NOT solid.
         // @@@@@@@@@@@@@
         else if (holdableObject instanceof Creature && !getTileCurrentlyFacing().isSolid()) {
             return true;

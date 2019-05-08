@@ -28,10 +28,9 @@ public class Shovel extends Item {
 
             // If tile is dirtNormalTile AND dirtState is DirtState.NORMAL...
             if ((t instanceof DirtNormalTile) &&
-                    (((DirtNormalTile) t).getDirtState() == DirtNormalTile.DirtState.NORMAL)) {
+                    (((DirtNormalTile)t).getDirtState() == DirtNormalTile.DirtState.NORMAL)) {
                 DirtNormalTile temp = (DirtNormalTile)t;
 
-                //temp.setSeedable(true);
                 temp.setTexture(Assets.dirtTilledDry);
                 temp.setDirtState(DirtNormalTile.DirtState.TILLED);
             }

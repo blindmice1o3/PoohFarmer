@@ -76,21 +76,27 @@ public class Rock extends StaticEntity
 
     @Override
     public void dropped(Tile t) {
-        if (t instanceof DirtNormalTile) {
+        if (t instanceof DirtNormalTile) {  //DirtNormalTile
             DirtNormalTile tempTile = (DirtNormalTile)t;
             x = tempTile.getX() * Tile.TILE_WIDTH;
             y = tempTile.getY() * Tile.TILE_HEIGHT;
+
+            //If a rock is dropped on to a DirtNormalTile object, it changes its DirtState to NORMAL.
+            tempTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
+            tempTile.setTexture(Assets.dirtNormal);
+            if (tempTile.getStaticEntity() != null) {
+                tempTile.getStaticEntity().die();
+            }
             System.out.println("dropped DirtNormalTile's (x, y): (" + x + ", " + y + ")");
             tempTile.setStaticEntity(this);
-        } else {
+        } else {    //poolWater Tile
             Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
 
             for (int y = 0; y < handler.getWorld().getHeightInTiles(); y++) {
                 for (int x = 0; x < handler.getWorld().getWidthInTiles(); x++) {
-                    if (tempTiles[x][y].getId() == t.getId()) {
-                        this.x = x * Tile.TILE_WIDTH;
-                        this.y = y * Tile.TILE_HEIGHT;
-                        System.out.println("dropped Chest's (x, y): (" + this.x + ", " + this.y + ")");
+                    if (tempTiles[x][y].getId() >= 236 && tempTiles[x][y].getId() <= 248) {
+                        die();
+                        System.out.println("dropped rock into poolWater's (x, y): (" + this.x + ", " + this.y + ")");
                     }
                 }
             }
