@@ -24,12 +24,12 @@ public class Assets {
     public static BufferedImage waterFX;
 
     // SPANNING SINGLE-TILE (/TILES)
-    public static BufferedImage dirtNormal, /*dirtTilled, dirtSeed,*/ fence, dirtWalkway, signPostNotTransparent,
+    public static BufferedImage hay, egg, eggFragmented, fence, dirtWalkway, dirtNormal,
             signPostTransparent, berry, rockMountain, flowerYellow, flowerPurple;
 
     // SPANNING MULTIPLE-TILE (/TILES)
     public static BufferedImage[][] home5x4, cowBarn5x5, silos5x6, chickenCoop4x5, toolShed5x5,
-            stable2x3, building2x3, chest2x2, poolWater2x2, poolWater3x3;
+            stable2x3, building2x3, shippingBin2x2, poolWater2x2, poolWater3x3;
 
     // SINGLE (/ENTITIES)
     public static BufferedImage plantSproutling, plantJuvenille, plantAdult, plantFlowering2, honeyPot,
@@ -56,7 +56,7 @@ public class Assets {
     // ENTITIES (/GRASS and EGG and MILK and POWERBERRY)
     public static BufferedImage grassSeeded, grassYoung, grassAdult,
             grassYoungAutumn, grassAdultAutumn, grassSeededWinter,
-            egg, milkSmall, milkMedium, milkLarge, powerBerry;
+            /*egg,*/ milkSmall, milkMedium, milkLarge, powerBerry;
 
     // ITEMS (/TOOLS)
     public static BufferedImage seedBag;
@@ -150,15 +150,14 @@ public class Assets {
         // *****************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/tiles/harvest moon tile sprite sheet.png"));
+        hay = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
+                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
 
-        dirtNormal = sheet.crop(0 * WIDTH_IN_PIXEL, 0 * HEIGHT_IN_PIXEL,
+        egg = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        /*
-        dirtTilled = sheet.crop(0 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL,
+        eggFragmented = sheet.crop(0 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        dirtSeed = sheet.crop(0 * WIDTH_IN_PIXEL, 2 * HEIGHT_IN_PIXEL,
-                1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        */
+
         plantSproutling = sheet.crop(0 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         plantJuvenille = sheet.crop(0 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
@@ -174,13 +173,13 @@ public class Assets {
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         wood = sheet.crop(1 * WIDTH_IN_PIXEL, 3 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        signPostNotTransparent = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
+        signPostTransparent = sheet.crop(1 * WIDTH_IN_PIXEL, 4 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         fence = sheet.crop(1 * WIDTH_IN_PIXEL, 5 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         dirtWalkway = sheet.crop(0 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
-        signPostTransparent = sheet.crop(1 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
+        dirtNormal = sheet.crop(1 * WIDTH_IN_PIXEL, 6 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
         berry = sheet.crop(0 * WIDTH_IN_PIXEL, 18 * HEIGHT_IN_PIXEL,
                 1 * WIDTH_IN_PIXEL, 1* HEIGHT_IN_PIXEL);
@@ -247,10 +246,10 @@ public class Assets {
             }
         }
 
-        chest2x2 = new BufferedImage[2][2];
+        shippingBin2x2 = new BufferedImage[2][2];
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < 2; x++) {
-                chest2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
+                shippingBin2x2[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
                         (7 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
             }
         }
@@ -359,7 +358,7 @@ public class Assets {
         grassAdultAutumn = sheet.crop(99, 60, 16, 16);
         grassSeededWinter = sheet.crop(125, 60, 16, 16);
 
-        egg = sheet.crop(178, 41, 16, 16);
+        //egg = sheet.crop(178, 41, 16, 16);
 
         milkSmall = sheet.crop(178, 60, 16, 16);
         milkMedium = sheet.crop(195, 60, 16, 16);

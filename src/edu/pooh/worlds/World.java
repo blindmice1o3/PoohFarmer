@@ -287,9 +287,12 @@ public class World {
                             tilesViaRGB[xx][yy] = Tile.tiles[1];
                         } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
                             tilesViaRGB[xx][yy] = Tile.tiles[2];
-                        } else if (red == 0 && green == 162 && blue == 232) {   //signPostNotTransparent
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.signPostNotTransparent,
-                                    "Generic sign post message.");
+                        } else if (red == 0 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                                    "SignPost message (GameState) goes here.");
+                        }else if (red == 1 && green == 255 && blue == 255) {   //SignPostTile (dirtWalkway)
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtWalkway, xx, yy,
+                                    "ShippingBin message goes here.");
                         } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
                             for (int y = 0; y < 4; y++) {
                                 for (int x = 0; x < 5; x++) {
@@ -339,7 +342,7 @@ public class World {
                                 }
                             }
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[226];
-                        } else if (red == 255 && green == 242 && blue == 0) {   //chest2x2
+                        } else if (red == 255 && green == 242 && blue == 0) {   //shippingBin2x2
                             for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
@@ -542,7 +545,7 @@ public class World {
                         } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent.
                             tilesViaRGB[xx][yy] = new SignPostTile(
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
-                                    "Generic sign post message."
+                                    xx, yy, "SignPost message (MountainState) goes here."
                             );
                         }
                     }
@@ -708,7 +711,7 @@ public class World {
                     } else if (red == 0 && green == 0 & blue == 255) {  //XDog
                         XDog xDog = new XDog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(xDog);
-                    } else if (red == 0 && green == 255 && blue == 255) {   //TravelingFence
+                    } else if (red == 255 && green == 0 && blue == 255) {   //TravelingFence
                         TravelingFence travelingFence = new TravelingFence(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(travelingFence);
                     }

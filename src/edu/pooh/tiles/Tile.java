@@ -28,7 +28,7 @@ public class Tile {
         }
     };
     //not really a Tile? more of a StaticEntity?
-    public static Tile signPostTile = new Tile(Assets.signPostNotTransparent, 3);
+    public static Tile signPostTile = new Tile(Assets.signPostTransparent, 3);
 
 
     private static int idMultiTiles = 100;
@@ -142,14 +142,14 @@ public class Tile {
         }
         System.out.println("idMultiTiles AFTER building2x3: " + idMultiTiles);
 
-        System.out.println("idMultiTiles BEFORE chest2x2: " + idMultiTiles);
+        System.out.println("idMultiTiles BEFORE shippingBin2x2: " + idMultiTiles);
         for (int y = 0; y < 2; y ++) {
             for (int x = 0; x < 2; x++) {
-                new Tile(Assets.chest2x2[y][x], idMultiTiles);
+                new Tile(Assets.shippingBin2x2[y][x], idMultiTiles);
                 idMultiTiles++;
             }
         }
-        System.out.println("idMultiTiles AFTER chest2x2: " + idMultiTiles);
+        System.out.println("idMultiTiles AFTER shippingBin2x2: " + idMultiTiles);
 
         System.out.println("idMultiTiles BEFORE poolWater2x2: " + idMultiTiles);
         for (int y = 0; y < 2; y ++) {
