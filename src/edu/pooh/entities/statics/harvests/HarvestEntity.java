@@ -48,8 +48,10 @@ public class HarvestEntity extends StaticEntity
         shippingBin.addISellable(this);
 
         for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable);
+            System.out.println("Inside the shipping bin is: " + sellable.toString());
         }
+
+        handler.getWorld().getEntityManager().getPlayer().increaseCannabisCollected();
     }
 
     public void setTextureAndPrice() {
@@ -130,21 +132,6 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void die() {
-        /*
-        for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-            for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-                if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
-                    if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-
-                        fragmentedTimer(fragmentedTimeLimit);
-                        ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
-
-                    }
-                }
-            }
-        }
-        */
-
         setActive(false);
     }
 
@@ -179,36 +166,20 @@ public class HarvestEntity extends StaticEntity
     public void dropped(Tile t) {
         if (t instanceof DirtNormalTile) {
             DirtNormalTile tempTile = (DirtNormalTile) t;
+
             if (tempTile.getStaticEntity() == null) {
                 x = tempTile.getX() * Tile.TILE_WIDTH;
                 y = tempTile.getY() * Tile.TILE_HEIGHT;
 
-                setTexture(determineFragmentedTexture());
-
                 tempTile.setStaticEntity(this);
-
-                tempTile.checkRemoveFragmentedStaticEntity();
             }
-        } else {
-            Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
-//            Tile[][] tempTiles = handler.getWorld().getTiles();
-
-            for (int y = 0; y < handler.getWorld().getHeightInTiles(); y++) {
-                for (int x = 0; x < handler.getWorld().getWidthInTiles(); x++) {
-                    if (tempTiles[x][y].getId() == t.getId()) {
-                        this.x = x * Tile.TILE_WIDTH;
-                        this.y = y * Tile.TILE_HEIGHT;
-
-                        /////////////////////////////////////////////////////////////////////////////
-                        handler.getWorld().getEntityManager().getPlayer().increaseCannabisCollected();
-                        /////////////////////////////////////////////////////////////////////////////
-
-                        System.out.println("dropped Chest's (x, y): (" + this.x + ", " + this.y + ")");
-                        die();
-                    }
-                }
+        } else {    //poolWater Tile
+            if (t.getId() >= 236 && t.getId() <= 248) {
+                die();
+                System.out.println("dropped HarvestEntity into poolWater's (x, y): (" + this.x + ", " + this.y + ")");
             }
         }
+
     }
 
     // GETTERS & SETTERS

@@ -23,7 +23,6 @@ public class TravelingFenceState implements IState {
 
     public TravelingFenceState(Handler handler) {
         this.handler = handler;
-        args = new Object[10];
 
         initInStock();
     } // **** end TravelingFenceState(Handler) constructor ****
@@ -73,6 +72,8 @@ public class TravelingFenceState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        this.args = args;
+
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];
         }

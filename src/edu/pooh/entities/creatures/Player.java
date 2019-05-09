@@ -133,43 +133,8 @@ public class Player extends Creature {
     public void tick() {
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
         // TODO: Move cannabisCollected lines of code into new method named checkWinningState().
-        if (cannabisCollected == 3) {
-            //StateManager.change( handler.getGame().getMenuState(), new Object[5] );
-
-            long timePrevious = System.nanoTime();
-            long timeNow = 0;
-            long timeElapsed = 0;
-
+        if (cannabisCollected == 10) {
             sfxBButtonPressed.play();
-            while (timeElapsed < 3000000000L) {
-                timeNow = System.nanoTime();
-
-                timeElapsed += timeNow - timePrevious;
-
-                timePrevious = timeNow;
-            }
-            timeElapsed = 0;
-
-            sfxBButtonPressed.play();
-            while (timeElapsed < 3000000000L) {
-                timeNow = System.nanoTime();
-
-                timeElapsed += timeNow - timePrevious;
-
-                timePrevious = timeNow;
-            }
-            timeElapsed = 0;
-
-            sfxBButtonPressed.play();
-            while (timeElapsed < 3000000000L) {
-                timeNow = System.nanoTime();
-
-                timeElapsed += timeNow - timePrevious;
-
-                timePrevious = timeNow;
-            }
-            timeElapsed = 0;
-
 
             System.out.println("game stopping");
             handler.getGame().gameStop();
@@ -185,18 +150,10 @@ public class Player extends Creature {
         animDownRight.tick();
         animDownLeft.tick();
 
-
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //if (StateManager.getCurrentState() != handler.getGame().getGameState() &&
-        //        StateManager.getCurrentState() != handler.getGame().getMountainState()) {
-        //    return;
-        //}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // ATTACK
         if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
@@ -214,7 +171,6 @@ public class Player extends Creature {
 
     private void checkAttacks() {
         ////////////////////////////////////////////////////////////////////////////////////
-
         // Attack timer to check eligibility for new attack.
         attackTimer += System.currentTimeMillis() - lastAttackTimer;    // time elapsed
         lastAttackTimer = System.currentTimeMillis();
@@ -223,7 +179,6 @@ public class Player extends Creature {
         if (attackTimer < attackCooldown) {
             return;
         }
-
         ////////////////////////////////////////////////////////////////////////////////////
 
         // IF AT THIS LINE, targeted attackCooldown has been reached, ELIGIBLE TO ATTACK.
@@ -235,7 +190,6 @@ public class Player extends Creature {
         }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         // player's collision box (center square in color-penciled drawing/notes).
         cb = getCollisionBounds(0, 0);
         // Set the coordinates of the attack rectangle (attacking is one-direction-at-a-time])
@@ -258,7 +212,6 @@ public class Player extends Creature {
         } else {
             return; // if none of the attack keys are being called, don't continue on with the rest of this method.
         }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // RESET attackTimer.
@@ -279,7 +232,7 @@ public class Player extends Creature {
         }
     }
 
-    private int speedMax = 15;
+    private int speedMax = 10;
     private void getInput() {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
@@ -327,10 +280,15 @@ public class Player extends Creature {
                 // TRAVELINGFENCE CHECK
                 if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
                         checkForTravelingFence()) {
-                    System.out.println("FOUND: The Finn!");
                     // TODO: Implement TravelingFenceState.
+                    System.out.println("FOUND: The Finn!");
+
+                    Object[] args = new Object[10];
+                    args[0] = this;
+                    args[1] = (int)x;
+                    args[2] = (int)y;
                     /////////////////////////////////////////////////////////////////////
-                    StateManager.setCurrentState(handler.getGame().getTravelingFenceState());
+                    StateManager.change(handler.getGame().getTravelingFenceState(), args);
                     /////////////////////////////////////////////////////////////////////
                     return;
                 }
@@ -389,44 +347,7 @@ public class Player extends Creature {
     }
 
     private boolean checkForTravelingFence() {
-        int playerCenterX = (int)(x + (width / 2));
-        int playerCenterY = (int)(y + (height / 2));
-        TravelingFence tempTravelingFence = null;
-
-        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            if (e instanceof TravelingFence) {
-                tempTravelingFence = (TravelingFence)e;
-            }
-        }
-
-        if (tempTravelingFence != null) {
-            switch (currentDirection) {
-                case DOWN:
-                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
-                            playerCenterX, playerCenterY + Tile.TILE_HEIGHT)) {
-                        return true;
-                    }
-                case UP:
-                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
-                            playerCenterX, playerCenterY - Tile.TILE_HEIGHT)) {
-                        return true;
-                    }
-                case LEFT:
-                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
-                            playerCenterX - Tile.TILE_WIDTH, playerCenterY)) {
-                        return true;
-                    }
-                case RIGHT:
-                    if (tempTravelingFence.getCollisionBounds(0, 0).contains(
-                            playerCenterX + Tile.TILE_WIDTH, playerCenterY)) {
-                        return true;
-                    }
-                default:
-                    return false;
-            }
-        }
-
-        return false;
+        return (getEntityCurrentlyFacing() instanceof TravelingFence);
     }
 
     private boolean checkDropableTile() {

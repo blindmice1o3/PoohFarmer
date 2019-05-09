@@ -23,6 +23,8 @@ public class GameState implements IState {
                                     // NOW IT SETS the enum WorldType worldType for the world as well!!!!
 
         player = handler.getWorld().getEntityManager().getPlayer();
+        args[1] = player.getX();
+        args[2] = player.getY();
     } // **** end GameState(Handler) constructor ****
 
 
