@@ -35,17 +35,20 @@ public class SeedsWild extends Item {
         Tile[] tiles3x3 = handler.getWorld().getEntityManager().getPlayer().getTiles3x3FromCenter(centerX, centerY);
 
         for (Tile t : tiles3x3) {
+
             if (t != null) {
                 // If there's a seed left and the tile is a dirtNormal that has DirtState.TILLED and is unoccupied.
                 if ((count > 0) && (t instanceof DirtNormalTile) &&
+                        //////////////////////////////////////////////////////////////////////
                         (((DirtNormalTile)t).getDirtState() == DirtNormalTile.DirtState.TILLED &&
+                        //////////////////////////////////////////////////////////////////////
                                 ((DirtNormalTile)t).getStaticEntity() == null)) {
                     DirtNormalTile temp = (DirtNormalTile)t;
 
-                    ///////////////////////////////////////////////////////////////////////////////////////////
+                    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                     temp.setStaticEntity(new CropEntity(handler,
                             temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
-
+                    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                     switch (seedType) {
                         case CANNABIS_WILD:
                             ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
@@ -66,17 +69,19 @@ public class SeedsWild extends Item {
                             ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
                             break;
                     }
-
-                    temp.setDirtState(DirtNormalTile.DirtState.SEEDED);
                     handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
-                    /////////////////////////////////////////////////////////////////////////////////////////
+
+                    ///////////////////////////////////////////////////
+                    temp.setDirtState(DirtNormalTile.DirtState.SEEDED);
+                    temp.setTexture(Assets.dirtSeededDry);
+                    ///////////////////////////////////////////////////
                 }
             }
         }
 
         handler.getWorld().getEntityManager().setToBeAdded(true);
         count--;
-        System.out.println("Executed SeedsWild.");
+        System.out.println("SeedsWild.execute(), SeedsWild's count decremented.");
     }
 
     // GETTERS & SETTERS

@@ -1,5 +1,7 @@
 package edu.pooh.items.tier0;
 
+import edu.pooh.entities.statics.crops.CropEntity;
+import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
@@ -24,19 +26,25 @@ public class Shovel extends Item {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
         if (t != null) {
-            System.out.print("targeted-tile's id: " + t.getId());
+            System.out.print("Shovel.execute(), targeted-tile's id: " + t.getId());
 
-            // If tile is dirtNormalTile AND dirtState is DirtState.NORMAL...
-            if ((t instanceof DirtNormalTile) &&
-                    (((DirtNormalTile)t).getDirtState() == DirtNormalTile.DirtState.NORMAL)) {
-                DirtNormalTile temp = (DirtNormalTile)t;
+            if ((t instanceof DirtNormalTile)) {
+                DirtNormalTile temp = (DirtNormalTile) t;
 
-                temp.setTexture(Assets.dirtTilledDry);
+                // Shovel calls CropEntity's and HarvestEntity's die() method.
+                if (temp.getStaticEntity() != null) {
+                    if ((temp.getStaticEntity() instanceof CropEntity) || (temp.getStaticEntity() instanceof HarvestEntity)) {
+                        temp.getStaticEntity().die();
+                    }
+                }
+
+                // Does not matter if DirtNormalTile is NORMAL or SEEDED.
+                ///////////////////////////////////////////////////
                 temp.setDirtState(DirtNormalTile.DirtState.TILLED);
+                temp.setTexture(Assets.dirtTilledDry);
+                ///////////////////////////////////////////////////
             }
         }
-
-        System.out.println("Executed Shovel.");
     }
 
 } // **** end Shovel class ****

@@ -14,7 +14,7 @@ public class DirtNormalTile extends Tile {
 
     private int x, y;
     private DirtState dirtState;
-    //private boolean seedable;
+
     private StaticEntity staticEntity;
 
     public DirtNormalTile(int x, int y) {
@@ -23,9 +23,28 @@ public class DirtNormalTile extends Tile {
         this.y = y;
         dirtState = DirtState.NORMAL;
 
-        //seedable = false;
         staticEntity = null;
     } // **** end DirtNormalTile(int, int) constructor ****
+
+    public boolean checkFragmentedStaticEntity() {
+        // Check if fragmented HarvestEntity... if so, set it to inactive.
+        if (staticEntity instanceof HarvestEntity) {
+            if((((HarvestEntity)staticEntity).getTexture() == Assets.turnip0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.potato0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.tomato0Fragmented) ||
+                    (((HarvestEntity)staticEntity).getTexture() == Assets.corn0Fragmented)) {
+                return true;
+            } else { return false; }
+        } else {
+            return false;
+        }
+    }
+    public void checkRemoveFragmentedStaticEntity() {
+        if (checkFragmentedStaticEntity()) {
+            ((HarvestEntity)staticEntity).fragmentedTimer(HarvestEntity.FRAGMENTEDTIMELIMIT);
+            setStaticEntity(null);
+        }
+    }
 
     @Override
     public boolean isSolid() {
@@ -59,36 +78,8 @@ public class DirtNormalTile extends Tile {
         return y;
     }
 
-    //public boolean getSeedable() {
-    //    return seedable;
-    //}
-
-    //public void setSeedable(boolean seedable) {
-    //    this.seedable = seedable;
-    //}
-
     public StaticEntity getStaticEntity() {
         return staticEntity;
-    }
-
-    public boolean checkFragmentedStaticEntity() {
-        // Check if fragmented HarvestEntity... if so, set it to inactive.
-        if (staticEntity instanceof HarvestEntity) {
-            if((((HarvestEntity)staticEntity).getTexture() == Assets.turnip0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.potato0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.tomato0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.corn0Fragmented)) {
-                return true;
-            } else { return false; }
-        } else {
-            return false;
-        }
-    }
-    public void checkRemoveFragmentedStaticEntity() {
-        if (checkFragmentedStaticEntity()) {
-            ((HarvestEntity)staticEntity).fragmentedTimer(HarvestEntity.FRAGMENTEDTIMELIMIT);
-            setStaticEntity(null);
-        }
     }
 
     public void setStaticEntity(StaticEntity staticEntity) {

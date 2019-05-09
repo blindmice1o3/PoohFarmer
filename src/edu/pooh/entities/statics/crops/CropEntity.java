@@ -332,11 +332,16 @@ public class CropEntity extends StaticEntity {
 
                     ////////////////////////////////////////////////////////////////////////////////////////////
                     if (tempDirtNormalTile.getStaticEntity() == this) {
-                        tempDirtNormalTile.setTexture(Assets.dirtNormal);
+
+                        //////////////////////////////////////////////////////////////////
                         tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
+                        tempDirtNormalTile.setTexture(Assets.dirtNormal);
+                        //////////////////////////////////////////////////////////////////
+
                         /////////////////
                         setActive(false);
                         /////////////////
+
                         if (harvestable) {
                             tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
                         } else {
