@@ -2,19 +2,20 @@ package edu.pooh.time;
 
 public class TimeManager {
 
-    // TODO: clockRunning, currently, does NOT get changed to false anywhere.
     public static boolean clockRunning = true;
-
     public static boolean newDay = false;
+
+    /////////////////////
+    // TIME in ONE DAY //
+    /////////////////////
+    //determines: (1) AM or PM, (2) hours, and (3) minutes of in-game elapsed time
+    // (stops at 6PM, resets when newDay is true).
+    public static int elapsedRealSeconds = 0;
 
     ///////////////////////
     // TIME in ONE MONTH //
     ///////////////////////
     public static int elapsedInGameDays = 1;
-
-    public static void incrementElapsedInGameDays() {
-        elapsedInGameDays++;
-    }
 
     public static int gameYear = 0;
     public static String gameSeason = "Spring";
@@ -106,15 +107,7 @@ public class TimeManager {
                 "\ngameHoursMinutes: " +    TimeManager.translateElapsedRealSecondsToGameHoursMinutes() );
     }
 
-    /////////////////////
-    // TIME in ONE DAY //
-    /////////////////////
-    //determines: (1) AM or PM, (2) hours, and (3) minutes
-    // of in-game elapsed time (stops at 6PM, resets when newDay is true).
-    public static int elapsedRealSeconds = 0;
-    //TODO: pause (clockRunning = false) if indoors or if text window (dialog) is opened.
     public static void incrementElapsedRealSeconds() {
-        // TODO: implement usages of SETTERS for clockRunning (e.g. setClockRunningFalse() and setClockRunningTrue()).
         if (clockRunning && (elapsedRealSeconds + 1 <= 720)) {   //less than one game day (6am-6pm, 12hours).
             elapsedRealSeconds++;
         }
@@ -136,6 +129,10 @@ public class TimeManager {
         } else {
             elapsedRealSeconds = 720;
         }
+    }
+
+    public static void incrementElapsedInGameDays() {
+        elapsedInGameDays++;
     }
 
     /**

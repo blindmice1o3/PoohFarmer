@@ -1,4 +1,4 @@
-package edu.pooh.entities.statics.harvests;
+package edu.pooh.entities.statics.produce_yields;
 
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
@@ -16,11 +16,7 @@ public class HarvestEntity extends StaticEntity
         implements IHoldable, ISellable {
 
     public enum HarvestType {
-        CANNABIS_WILD,
-        TURNIP,
-        POTATO,
-        TOMATO,
-        CORN;
+        CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN;
     }
 
     private HarvestType harvestType;
@@ -43,15 +39,14 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void dropIntoShippingBin(ShippingBin shippingBin) {
-        setX(shippingBin.getX());
-        setY(shippingBin.getY());
+        setX(shippingBin.getX() + Tile.TILE_WIDTH);
+        setY(shippingBin.getY() + Tile.TILE_HEIGHT);
         shippingBin.addISellable(this);
 
         for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable.toString());
+            System.out.println("Inside the shipping bin is: " + sellable.toString() +
+                    " (" + sellable.getPrice() + ")");
         }
-
-        handler.getWorld().getEntityManager().getPlayer().increaseCannabisCollected();
     }
 
     public void setTextureAndPrice() {
@@ -104,7 +99,7 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override
@@ -179,7 +174,11 @@ public class HarvestEntity extends StaticEntity
                 System.out.println("dropped HarvestEntity into poolWater's (x, y): (" + this.x + ", " + this.y + ")");
             }
         }
+    }
 
+    @Override
+    public String toString() {
+        return "HarvestEntity object with its harvestType set to: " + harvestType + ".";
     }
 
     // GETTERS & SETTERS

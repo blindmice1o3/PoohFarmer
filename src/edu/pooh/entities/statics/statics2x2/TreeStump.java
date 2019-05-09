@@ -3,7 +3,7 @@ package edu.pooh.entities.statics.statics2x2;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.DirtMountainTile;
+import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
@@ -41,12 +41,12 @@ public class TreeStump extends StaticEntity {
                 ((DirtNormalTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
                 ((DirtNormalTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH)+1, (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
             }
-        } else if (handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT)) instanceof DirtMountainTile) {
-            if (((DirtMountainTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))).getStaticEntity() == this) {
-                ((DirtMountainTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))).setStaticEntity(null);
-                ((DirtMountainTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH)+1, (int)(y / Tile.TILE_HEIGHT))).setStaticEntity(null);
-                ((DirtMountainTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
-                ((DirtMountainTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH)+1, (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
+        } else if (handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT)) instanceof DirtNotFarmableTile) {
+            if (((DirtNotFarmableTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))).getStaticEntity() == this) {
+                ((DirtNotFarmableTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))).setStaticEntity(null);
+                ((DirtNotFarmableTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH)+1, (int)(y / Tile.TILE_HEIGHT))).setStaticEntity(null);
+                ((DirtNotFarmableTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
+                ((DirtNotFarmableTile) handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH)+1, (int)(y / Tile.TILE_HEIGHT)+1)).setStaticEntity(null);
             }
         }
 

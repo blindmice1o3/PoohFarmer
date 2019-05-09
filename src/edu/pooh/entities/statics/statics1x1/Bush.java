@@ -3,7 +3,7 @@ package edu.pooh.entities.statics.statics1x1;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.DirtMountainTile;
+import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
@@ -44,9 +44,9 @@ public class Bush extends StaticEntity {
                     if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                         ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
                     }
-                } else if (handler.getWorld().getTile(xx, yy) instanceof DirtMountainTile) {
-                    if (((DirtMountainTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
-                        ((DirtMountainTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                } else if (handler.getWorld().getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                    if (((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                        ((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
                     }
                 }
             }

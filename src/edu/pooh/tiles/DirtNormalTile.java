@@ -1,7 +1,7 @@
 package edu.pooh.tiles;
 
 import edu.pooh.entities.statics.StaticEntity;
-import edu.pooh.entities.statics.harvests.HarvestEntity;
+import edu.pooh.entities.statics.produce_yields.HarvestEntity;
 import edu.pooh.gfx.Assets;
 
 import java.awt.*;

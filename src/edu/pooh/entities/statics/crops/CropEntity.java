@@ -1,6 +1,6 @@
 package edu.pooh.entities.statics.crops;
 
-import edu.pooh.entities.statics.harvests.HarvestEntity;
+import edu.pooh.entities.statics.produce_yields.HarvestEntity;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
@@ -23,11 +23,7 @@ import java.awt.image.BufferedImage;
 public class CropEntity extends StaticEntity {
 
     public enum CropType {
-        CANNABIS_WILD,
-        TURNIP,
-        POTATO,
-        TOMATO,
-        CORN;
+        CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN;
     }
 
     private CropType cropType;

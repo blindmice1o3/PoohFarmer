@@ -1,5 +1,6 @@
-package edu.pooh.entities.creatures;
+package edu.pooh.entities.creatures.live_stocks;
 
+import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Chicken extends Creature {
+public class Cow extends Creature {
 
     private Animation animUp;
     private Animation animDown;
@@ -18,18 +19,18 @@ public class Chicken extends Creature {
 
     private Random random;
 
-    public Chicken(Handler handler, float x, float y) {
+    public Cow(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.chickenUp);
-        animDown = new Animation(400, Assets.chickenDown);
-        animLeft = new Animation(400, Assets.chickenLeft);
-        animRight = new Animation(400, Assets.chickenRight);
+        animUp = new Animation(400, Assets.cowUp);
+        animDown = new Animation(400, Assets.cowDown);
+        animLeft = new Animation(400, Assets.cowLeft);
+        animRight = new Animation(400, Assets.cowRight);
 
-        setSpeed(4);
+        setSpeed(2);
 
         random = new Random();
-    } // **** end Chicken(Handler, float, float) constructor ****
+    } // **** end Cow(Handler, float, float) constructor ****
 
     @Override
     public void tick() {
@@ -84,7 +85,7 @@ public class Chicken extends Creature {
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
         } else {
-            return Assets.chickenDown[0];
+            return Assets.cowDown[0];
         }
     }
 
@@ -96,4 +97,4 @@ public class Chicken extends Creature {
         setActive(false);
     }
 
-} // **** end Chicken class ****
+} // **** end Cow class ****

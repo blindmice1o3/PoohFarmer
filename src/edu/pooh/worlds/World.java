@@ -2,6 +2,8 @@ package edu.pooh.worlds;
 
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.*;
+import edu.pooh.entities.creatures.live_stocks.Chicken;
+import edu.pooh.entities.creatures.live_stocks.Cow;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
@@ -403,12 +405,7 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground) {
-                                @Override
-                                public boolean isSolid() {
-                                    return false;
-                                }
-                            };
+                            tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
@@ -440,12 +437,7 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground) {
-                                @Override
-                                public boolean isSolid() {
-                                    return false;
-                                }
-                            };
+                            tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 255 && green == 0 && blue == 0) {     //cowTroughVisual - solid, special.
@@ -526,7 +518,7 @@ public class World {
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
                             );
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
-                            tilesViaRGB[xx][yy] = new DirtMountainTile( xx, yy,
+                            tilesViaRGB[xx][yy] = new DirtNotFarmableTile( xx, yy,
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16)
                             );
                         } else if (red == 255 && green == 255 && blue == 0) {   //fence-like, execute - jump into hot spring.
@@ -781,26 +773,26 @@ public class World {
                         playerSpawnX = xx;
                         playerSpawnY = yy;
                     } else if (red == 0 && green == 255 && blue == 0) {    //Bush
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
                             tempTile.setStaticEntity(
                                     new Bush(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT))
                             );
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
-                    } else if (red == 0 && green == 0 && blue == 255) {    //Berry
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                    } else if (red == 0 && green == 0 && blue == 255) {    //WildBerries
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
                             tempTile.setStaticEntity(
-                                    new Berry(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT))
+                                    new WildBerries(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT))
                             );
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
                     } else if (red == 128 && green == 128 && blue == 128) {    //Rock
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
                             tempTile.setStaticEntity(
                                     new RockMountain(handler, (float) (xx * Tile.TILE_WIDTH), (float) (yy * Tile.TILE_HEIGHT))
                             );
@@ -808,8 +800,8 @@ public class World {
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
                     } else if (red == 0 && green == 255 && blue == 255) {    //Flower (flowerType: YELLOW)
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
                             tempTile.setStaticEntity(
                                     new Flower(handler, (float) (xx * Tile.TILE_WIDTH),
                                             (float) (yy * Tile.TILE_HEIGHT), Flower.FlowerType.YELLOW)
@@ -818,8 +810,8 @@ public class World {
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
                     } else if (red == 255 && green == 0 && blue == 255) {    //Flower (flowerType: PURPLE)
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
                             tempTile.setStaticEntity(
                                     new Flower(handler, (float) (xx * Tile.TILE_WIDTH),
                                             (float) (yy * Tile.TILE_HEIGHT), Flower.FlowerType.PURPLE)
@@ -828,8 +820,8 @@ public class World {
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
                     } else if (red == 255 && green == 255 && blue == 0) {    //TreeStump (2x2)
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
 
                             TreeStump treeStump = new TreeStump(handler, (float) (xx * Tile.TILE_WIDTH),
                                     (float) (yy * Tile.TILE_HEIGHT));
@@ -838,15 +830,15 @@ public class World {
                                     treeStump
                             );
 
-                            ((DirtMountainTile)getTile(xx+1, yy)).setStaticEntity(treeStump);
-                            ((DirtMountainTile)getTile(xx, yy+1)).setStaticEntity(treeStump);
-                            ((DirtMountainTile)getTile(xx+1, yy+1)).setStaticEntity(treeStump);
+                            ((DirtNotFarmableTile)getTile(xx+1, yy)).setStaticEntity(treeStump);
+                            ((DirtNotFarmableTile)getTile(xx, yy+1)).setStaticEntity(treeStump);
+                            ((DirtNotFarmableTile)getTile(xx+1, yy+1)).setStaticEntity(treeStump);
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
                     } else if (red == 0 && green == 0 && blue == 0) {    //Boulder (2x2)
-                        if (getTile(xx, yy) instanceof DirtMountainTile) {
-                            DirtMountainTile tempTile = (DirtMountainTile)getTile(xx, yy);
+                        if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                            DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);
 
                             Boulder boulder = new Boulder(handler, (float) (xx * Tile.TILE_WIDTH),
                                     (float) (yy * Tile.TILE_HEIGHT));
@@ -855,9 +847,9 @@ public class World {
                                     boulder
                             );
 
-                            ((DirtMountainTile)getTile(xx+1, yy)).setStaticEntity(boulder);
-                            ((DirtMountainTile)getTile(xx, yy+1)).setStaticEntity(boulder);
-                            ((DirtMountainTile)getTile(xx+1, yy+1)).setStaticEntity(boulder);
+                            ((DirtNotFarmableTile)getTile(xx+1, yy)).setStaticEntity(boulder);
+                            ((DirtNotFarmableTile)getTile(xx, yy+1)).setStaticEntity(boulder);
+                            ((DirtNotFarmableTile)getTile(xx+1, yy+1)).setStaticEntity(boulder);
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }

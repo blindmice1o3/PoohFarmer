@@ -1,12 +1,10 @@
 package edu.pooh.entities.statics.statics1x1;
 
 import edu.pooh.entities.statics.StaticEntity;
-import edu.pooh.entities.statics.statics2x2.Boulder;
-import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
-import edu.pooh.tiles.DirtMountainTile;
+import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
@@ -100,14 +98,14 @@ public class Rock extends StaticEntity
             tempTile.setTexture(Assets.dirtNormal);
             /////////////////////////////////////////////////////////
         }
-        else if (t instanceof DirtMountainTile) {   //DirtMountainTile
-            DirtMountainTile tempMountainTile = (DirtMountainTile)t;
+        else if (t instanceof DirtNotFarmableTile) {   //DirtNotFarmableTile
+            DirtNotFarmableTile tempMountainTile = (DirtNotFarmableTile)t;
 
             if (tempMountainTile.getStaticEntity() != null) {
                 return;
             }
 
-            System.out.println("dropped DirtMountainTile's (x, y): (" + x + ", " + y + ")");
+            System.out.println("dropped DirtNotFarmableTile's (x, y): (" + x + ", " + y + ")");
             x = tempMountainTile.getX() * Tile.TILE_WIDTH;
             y = tempMountainTile.getY() * Tile.TILE_HEIGHT;
             tempMountainTile.setStaticEntity(this);

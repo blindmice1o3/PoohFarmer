@@ -1,7 +1,7 @@
 package edu.pooh.items.tier0;
 
 import edu.pooh.entities.statics.crops.CropEntity;
-import edu.pooh.entities.statics.harvests.HarvestEntity;
+import edu.pooh.entities.statics.produce_yields.HarvestEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;

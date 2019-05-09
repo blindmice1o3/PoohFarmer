@@ -5,18 +5,18 @@ import edu.pooh.entities.statics.StaticEntity;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class DirtMountainTile extends Tile {
+public class DirtNotFarmableTile extends Tile {
 
     private int x, y;
     private StaticEntity staticEntity;
 
-    public DirtMountainTile(int x, int y, BufferedImage texture) {
+    public DirtNotFarmableTile(int x, int y, BufferedImage texture) {
         super(texture,98);
         this.x = x;
         this.y = y;
 
         staticEntity = null;
-    } // **** end DirtMountainTile(int, int) constructor ****
+    } // **** end DirtNotFarmableTile(int, int) constructor ****
 
     @Override
     public boolean isSolid() {
@@ -50,4 +50,4 @@ public class DirtMountainTile extends Tile {
         this.staticEntity = staticEntity;
     }
 
-} // **** end DirtMountainTile class ****
+} // **** end DirtNotFarmableTile class ****

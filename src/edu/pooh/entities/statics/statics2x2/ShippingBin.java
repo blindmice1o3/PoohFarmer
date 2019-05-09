@@ -1,7 +1,6 @@
 package edu.pooh.entities.statics.statics2x2;
 
 import edu.pooh.entities.statics.StaticEntity;
-import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.ISellable;

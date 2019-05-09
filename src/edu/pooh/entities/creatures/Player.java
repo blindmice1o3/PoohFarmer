@@ -1,10 +1,8 @@
 package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.entities.statics.statics1x1.Bush;
 import edu.pooh.entities.statics.statics1x1.Rock;
-import edu.pooh.entities.statics.statics1x1.RockMountain;
 import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
@@ -18,6 +16,7 @@ import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.main.ISellable;
 import edu.pooh.time.DateDisplayer;
 import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
@@ -395,12 +394,12 @@ public class Player extends Creature {
                 if (holding) {  // Already holding, can only drop the holdableObject.
                     // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
                     if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
-                        if (holdableObject instanceof HarvestEntity) {
+                        if (holdableObject instanceof ISellable) {
                             /////////////////////////////////////////////////////
                             // TODO: SELLABLE INTERFACE, ArrayList<Sellable>.  //
                             // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
                             /////////////////////////////////////////////////////
-                            ((HarvestEntity)holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());
+                            ((ISellable)holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());
                             setHoldableObject(null);
                             holding = false;
                         }
@@ -464,9 +463,9 @@ public class Player extends Creature {
             }
             return true;
         }
-        // If DirtMountainTile.
-        else if (tempTileInFront instanceof DirtMountainTile) {
-            return (((DirtMountainTile)tempTileInFront).getStaticEntity() == null);
+        // If DirtNotFarmableTile.
+        else if (tempTileInFront instanceof DirtNotFarmableTile) {
+            return (((DirtNotFarmableTile)tempTileInFront).getStaticEntity() == null);
         }
         // If poolWater Tile.
         else if (tempTileInFront.getId() >= 236 && tempTileInFront.getId() <= 248) {
