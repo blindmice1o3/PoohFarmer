@@ -4,6 +4,7 @@ import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.*;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.ItemManager;
@@ -341,14 +342,14 @@ public class World {
                                 }
                             }
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[226];
-                        } else if (red == 255 && green == 242 && blue == 0) {   //shippingBin2x2
+                        } /*else if (red == 255 && green == 242 && blue == 0) {   //shippingBin2x2
                             for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[232 + (y * 2) + x];
                                 }
                             }
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[232];
-                        } else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
+                        }*/ else if (red == 0 && green == 0 && blue == 255) {     //poolWater2x2
                             for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[236 + (y * 2) + x];
@@ -700,6 +701,9 @@ public class World {
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
+                    } else if (red == 255 && green == 255 && blue == 0) {   //ShippingBin
+                        ShippingBin shippingBin = new ShippingBin(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(shippingBin);
                     }
                     // CREATURE
                     else if (red == 255 && green == 0 && blue == 0) { //Player

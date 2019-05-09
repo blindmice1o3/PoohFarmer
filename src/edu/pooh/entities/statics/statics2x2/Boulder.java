@@ -12,7 +12,7 @@ import java.awt.*;
 public class Boulder extends StaticEntity {
 
     public Boulder(Handler handler, float x, float y) {
-        super(handler, x, y, 2*Tile.TILE_WIDTH, 2*Tile.TILE_HEIGHT);
+        super(handler, x, y, (2*Tile.TILE_WIDTH), (2*Tile.TILE_HEIGHT));
     } // **** end Boulder(Handler, float, float) constructor ****
 
     @Override

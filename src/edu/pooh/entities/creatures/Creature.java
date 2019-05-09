@@ -4,6 +4,8 @@ import edu.pooh.entities.Entity;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
+import java.awt.*;
+
 public abstract class Creature extends Entity {
 
     // CONSTANTS
@@ -52,6 +54,55 @@ public abstract class Creature extends Entity {
         tiles3x3[8] = handler.getWorld().getTile( ((x / Tile.TILE_WIDTH) + 1),  ((y / Tile.TILE_HEIGHT) + 1));
 
         return tiles3x3;
+    }
+
+    public Entity getEntityCurrentlyFacing() {
+        Entity tempEntityReturner = null;
+
+        int creatureCenterX = (int)(x + (width / 2));
+        int creatureCenterY = (int)(y + (height / 2));
+
+        Rectangle entityCollisionBox = new Rectangle();
+        switch (currentDirection) {
+            case DOWN:
+                entityCollisionBox.x = (creatureCenterX-(width/4));
+                entityCollisionBox.y = (creatureCenterY+(height/2));
+                entityCollisionBox.width = (width/2);
+                entityCollisionBox.height = Tile.TILE_HEIGHT;
+                break;
+            case UP:
+                entityCollisionBox.x = (creatureCenterX-(width/4));
+                entityCollisionBox.y = (creatureCenterY-(height/2)-Tile.TILE_HEIGHT);
+                entityCollisionBox.width = (width/2);
+                entityCollisionBox.height = Tile.TILE_HEIGHT;
+                break;
+            case LEFT:
+                entityCollisionBox.x = (creatureCenterX-(width/2)-Tile.TILE_WIDTH);
+                entityCollisionBox.y = (creatureCenterY-(width/4));
+                entityCollisionBox.width = Tile.TILE_WIDTH;
+                entityCollisionBox.height = (height/2);
+                break;
+            case RIGHT:
+                entityCollisionBox.x = (creatureCenterX+(width/2));
+                entityCollisionBox.y = (creatureCenterY-(height/4));
+                entityCollisionBox.width = Tile.TILE_WIDTH;
+                entityCollisionBox.height = (height/2);
+                break;
+            default:
+                break;
+        }
+
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+            if (e.equals(this)) {
+                continue;
+            }
+
+            if (entityCollisionBox.intersects(e.getCollisionBounds(0, 0))) {
+                tempEntityReturner = e;
+            }
+        }
+
+        return tempEntityReturner;
     }
 
     public Tile getTileCurrentlyFacing() {

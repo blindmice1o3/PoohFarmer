@@ -1,9 +1,11 @@
 package edu.pooh.entities.statics.harvests;
 
 import edu.pooh.entities.statics.StaticEntity;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.main.ISellable;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
@@ -11,7 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class HarvestEntity extends StaticEntity
-        implements IHoldable {
+        implements IHoldable, ISellable {
 
     public enum HarvestType {
         CANNABIS_WILD,
@@ -23,32 +25,59 @@ public class HarvestEntity extends StaticEntity
 
     private HarvestType harvestType;
     private BufferedImage texture;
+    private int price;
 
     public HarvestEntity(Handler handler, float x, float y) {
         super(handler, (int)(x + (Tile.TILE_WIDTH * 0.125)), (int)(y + (Tile.TILE_HEIGHT * 0.125)),
                 (int)(Tile.TILE_WIDTH * 0.75), (int)(Tile.TILE_HEIGHT * 0.75));
     }
 
-    public void determineAndSetTexture() {
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public void dropIntoShippingBin(ShippingBin shippingBin) {
+        setX(shippingBin.getX());
+        setY(shippingBin.getY());
+        shippingBin.addISellable(this);
+
+        for (ISellable sellable : shippingBin.getInventory()) {
+            System.out.println("Inside the shipping bin is: " + sellable);
+        }
+    }
+
+    public void setTextureAndPrice() {
         if (harvestType != null) {
             switch (harvestType) {
                 case CANNABIS_WILD:
                     setTexture(Assets.honeyPot);
+                    setPrice(80);
                     break;
                 case TURNIP:
                     setTexture(Assets.turnip0Whole);
+                    setPrice(60);
                     break;
                 case POTATO:
                     setTexture(Assets.potato0Whole);
+                    setPrice(80);
                     break;
                 case TOMATO:
                     setTexture(Assets.tomato0Whole);
+                    setPrice(100);
                     break;
                 case CORN:
                     setTexture(Assets.corn0Whole);
+                    setPrice(120);
                     break;
                 default:
                     setTexture(Assets.honeyPot);
+                    setPrice(80);
                     break;
             }
         }

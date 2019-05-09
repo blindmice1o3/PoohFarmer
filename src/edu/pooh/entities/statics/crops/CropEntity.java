@@ -315,7 +315,7 @@ public class CropEntity extends StaticEntity {
                 tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
                 break;
         }
-        tempHarvestEntity.determineAndSetTexture();
+        tempHarvestEntity.setTextureAndPrice();
 
         if (harvestable) {
             handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);

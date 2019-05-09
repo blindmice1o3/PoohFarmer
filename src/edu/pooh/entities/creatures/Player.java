@@ -7,6 +7,7 @@ import edu.pooh.entities.statics.statics1x1.Rock;
 import edu.pooh.entities.statics.statics1x1.RockMountain;
 import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.entities.statics.statics2x2.Boulder;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
@@ -337,13 +338,13 @@ public class Player extends Creature {
                 // HOLDING CHECK
                 if (holding) {  // Already holding, can only drop the holdableObject.
                     // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
-                    if (getTileCurrentlyFacing().getId() >= 232 && getTileCurrentlyFacing().getId() < 236) {
+                    if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
                         if (holdableObject instanceof HarvestEntity) {
                             /////////////////////////////////////////////////////
                             // TODO: SELLABLE INTERFACE, ArrayList<Sellable>.  //
                             // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
                             /////////////////////////////////////////////////////
-                            holdableObject.dropped(getTileCurrentlyFacing());
+                            ((HarvestEntity)holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());
                             setHoldableObject(null);
                             holding = false;
                         }

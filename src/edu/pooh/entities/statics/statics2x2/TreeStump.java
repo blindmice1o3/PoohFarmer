@@ -12,7 +12,7 @@ import java.awt.*;
 public class TreeStump extends StaticEntity {
 
     public TreeStump(Handler handler, float x, float y) {
-        super(handler, x, y, 2*Tile.TILE_WIDTH, 2*Tile.TILE_HEIGHT);
+        super(handler, x, y, (2*Tile.TILE_WIDTH), (2*Tile.TILE_HEIGHT));
     } // **** end TreeStump(Handler, float, float) constructor ****
 
     @Override
