@@ -37,9 +37,30 @@ public class Player extends Creature {
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
+    // CURRENCY COUNTER
+    private int currencyUnit;
+
+    public void increaseCurrencyUnit(int income) {
+        currencyUnit += income;
+    }
+
+    public int getCurrencyUnit() { return currencyUnit; }
+
     // STAMINA TRACKER
     private int staminaBase;
     private int staminaCurrent;
+
+    public void decreaseStaminaCurrent(int staminaUsage) {
+        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
+    }
+
+    public void increaseStaminaCurrent(int staminaGained) {
+        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
+    }
+
+    public void resetStaminaCurrent() {
+        staminaCurrent = staminaBase;
+    }
 
     // ANIMATIONS
     private Animation animDown;
@@ -61,6 +82,58 @@ public class Player extends Creature {
 
     // DATE DISPLAYER
     private DateDisplayer dateDisplayer;
+    private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
+
+    public void execute6pm() {
+
+        System.out.println("Player.execute6pm()");
+        executed6pm = true;
+    }
+
+    public void execute5pm() {
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+            if (e.equals(this)) { continue; }
+
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                System.out.println("FOUND ShippingBin object!");
+
+                increaseCurrencyUnit( ((ShippingBin)e).calculateTotal() );
+                ((ShippingBin)e).emptyShippingBin();
+                //////////////////////////////////////////////////////////
+                break;
+            } else {
+                System.out.println("COULD NOT FIND ShippingBin object!!!!");
+            }
+        }
+
+        System.out.println("Player.execute5pm()");
+        executed5pm = true;
+    }
+
+    public void execute3pm() {
+
+        System.out.println("Player.execute3pm()");
+        executed3pm = true;
+    }
+
+    public void execute12pm() {
+
+        System.out.println("Player.execute12pm()");
+        executed12pm = true;
+    }
+
+    public void execute9am() {
+
+        System.out.println("Player.execute9am()");
+        executed9am = true;
+    }
+
+    public void execute6am() {
+
+        System.out.println("Player.execute6am()");
+        executed6am = true;
+    }
 
     // HOLDING (composed with IHoldable type)
     private IHoldable holdableObject;
@@ -74,16 +147,13 @@ public class Player extends Creature {
     private int arSize = 20;
     private boolean attacking = false;
 
-    public void decreaseStaminaCurrent(int staminaUsage) {
-        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
-    }
-
-    public void increaseStaminaCurrent(int staminaGained) {
-        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
-    }
-
-    public void resetStaminaCurrent() {
-        staminaCurrent = staminaBase;
+    public void setAllTimeRelatedBooleansToFalse() {
+        executed6am = false;
+        executed9am = false;
+        executed12pm = false;
+        executed3pm = false;
+        executed5pm = false;
+        executed6pm = false;
     }
 
     public Player(Handler handler, float x, float y) {
@@ -96,6 +166,9 @@ public class Player extends Creature {
 
         // CANNABIS COUNTER
         cannabisCollected = 0;
+
+        // CURRENCY COUNTER
+        currencyUnit = 0;
 
         // STAMINA TRACKER
         staminaBase = 100;
@@ -116,6 +189,7 @@ public class Player extends Creature {
 
         // DATE DISPLAYER
         dateDisplayer = new DateDisplayer(handler);
+        setAllTimeRelatedBooleansToFalse();
 
         // HOLDING
         holdableObject = null;
@@ -129,6 +203,27 @@ public class Player extends Creature {
         ar.height = arSize;
     } // **** end Player(Handler, float, float) constructor ****
 
+    private void checkTimeRelatedActions() {
+        // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
+        if (TimeManager.elapsedRealSeconds >= 0 && TimeManager.elapsedRealSeconds < 180 && !executed6am) {
+            execute6am();
+        } else if (TimeManager.elapsedRealSeconds >= 180 && TimeManager.elapsedRealSeconds < 360 && !executed9am) {
+            execute9am();
+        } else if (TimeManager.elapsedRealSeconds >= 360 && TimeManager.elapsedRealSeconds < 540 && !executed12pm) {
+            execute12pm();
+        } else if (TimeManager.elapsedRealSeconds >= 540 && TimeManager.elapsedRealSeconds < 660 && !executed3pm) {
+            execute3pm();
+        }
+        // ****************** | 5pm | *********************
+        else if (TimeManager.elapsedRealSeconds >= 660 && TimeManager.elapsedRealSeconds < 720 && !executed5pm) {
+            execute5pm();
+        }
+        // ************************************************
+        else if (TimeManager.elapsedRealSeconds == 720 && !executed6pm) {
+            execute6pm();
+        }
+    }
+
     @Override
     public void tick() {
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
@@ -139,6 +234,9 @@ public class Player extends Creature {
             System.out.println("game stopping");
             handler.getGame().gameStop();
         }
+
+        // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
+        checkTimeRelatedActions();
 
         // ANIMATIONS
         animDown.tick();
@@ -483,7 +581,8 @@ public class Player extends Creature {
         // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
         g.setColor(Color.BLUE);
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(getCannabisCollected()),
+        Text.drawString(g, Integer.toString(getCurrencyUnit()),
+//      Text.drawString(g, Integer.toString(getCannabisCollected()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
         // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)

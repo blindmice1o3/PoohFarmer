@@ -50,6 +50,9 @@ public class HomeState implements IState {
             TimeManager.setClockRunningTrue();
             /////////////////////////////////////////
 
+            // RESET TIME-RELATED BOOLEANS
+            player.setAllTimeRelatedBooleansToFalse();
+
             // RESET STAMINA
             player.resetStaminaCurrent();
 
