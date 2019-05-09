@@ -368,16 +368,7 @@ public class Player extends Creature {
         }
         // If DirtMountainTile.
         else if (tempTileInFront instanceof DirtMountainTile) {
-            if (((DirtMountainTile)tempTileInFront).getStaticEntity() != null) {
-                if ((((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof TreeStump) ||
-                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Boulder) ||
-                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Wood) ||
-                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof RockMountain) ||
-                        (((DirtMountainTile)tempTileInFront).getStaticEntity() instanceof Bush)) {
-                    return false;
-                }
-            }
-            return true;
+            return (((DirtMountainTile)tempTileInFront).getStaticEntity() == null);
         }
         // If poolWater Tile.
         else if (tempTileInFront.getId() >= 236 && tempTileInFront.getId() <= 248) {

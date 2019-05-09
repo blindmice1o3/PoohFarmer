@@ -6,6 +6,7 @@ import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.main.Handler;
+import edu.pooh.time.TimeManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -72,6 +73,8 @@ public class TravelingFenceState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        TimeManager.setClockRunningFalse();
+
         this.args = args;
 
         if ((args[0] != null) && (args[0] instanceof Player)) {

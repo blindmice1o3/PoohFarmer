@@ -96,6 +96,16 @@ public class TimeManager {
         }
     }
 
+    public static void consoleOutputTimeInfo() {
+        System.out.println( "****************************************** " +
+                "\ngameYear: " +            TimeManager.gameYear +
+                "\ngameSeason: " +          TimeManager.gameSeason +
+                "\ngameMonth: " +           TimeManager.gameMonth +
+                "\ngameDay: " +             TimeManager.gameDay +
+                "\nelapsedInGameDays: " +   TimeManager.elapsedInGameDays +
+                "\ngameHoursMinutes: " +    TimeManager.translateElapsedRealSecondsToGameHoursMinutes() );
+    }
+
     /////////////////////
     // TIME in ONE DAY //
     /////////////////////
@@ -105,8 +115,26 @@ public class TimeManager {
     //TODO: pause (clockRunning = false) if indoors or if text window (dialog) is opened.
     public static void incrementElapsedRealSeconds() {
         // TODO: implement usages of SETTERS for clockRunning (e.g. setClockRunningFalse() and setClockRunningTrue()).
-        if (clockRunning) {
+        if (clockRunning && (elapsedRealSeconds + 1 <= 720)) {   //less than one game day (6am-6pm, 12hours).
             elapsedRealSeconds++;
+        }
+    }
+
+    /**
+     * In-game time is completely based on elapsedRealSeconds. In order to increase in-game time by 1 hour
+     * (or 60 in-game minutes, which is equivalent to 60 real-life seconds), the REAL-LIFE SECONDS VARIABLE
+     * elapsedRealSeconds IS MUTATED/WRITTEN-OVER!!!!!! The plan to implement usage of setClockRunningFalse()
+     * and setClockRunningTrue() methods will basically compromise the semantic of elapsedRealSeconds
+     * (and therefore its future credibility/reliability to be used as a 'total-time-played' data source),
+     * and since it's already compromised, I will mutate that variable here as well.
+     * //TODO: In the future, develop the timing system to include both an elapsedRealSeconds variable AND a separate
+     * //TODO: in-game time that uses the elapsedRealSeconds as an engine BUT NOT as direct-data.
+     */
+    public static void incrementElapsedRealSecondsBy60() {
+        if ((elapsedRealSeconds + 60 <= 720)) {
+            elapsedRealSeconds += 60;
+        } else {
+            elapsedRealSeconds = 720;
         }
     }
 
@@ -122,55 +150,35 @@ public class TimeManager {
         int hours = minutes / 60;   // 60 minutes in 1 hour.
         minutes = minutes % 60;     // The remaining minutes left-over, after converting minutes to hours.
 
-        // start day at 6AM in-game-time (0 seconds for elapsed-real-seconds-time).
-        if (hours + 6 >= 12) {               //game time is PM (morning started at 6AM)
-            // PM.
-            hours = hours + 6 - 12;
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            if (hours == 0) { hours = 12; }
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //have the start be relative to 6am instead of hour 0.
+        hours = hours + 6;
 
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            if (hours >= 6) { return "06:00PM"; }
-            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //converts from military-time-format to conventional-time-format while avoiding 12pm==0 bug.
+        if (elapsedRealSeconds >= 420) { //if 1pm (7hours passed since 6am)
+            hours = hours - 12;
+        }
 
-            // 2-digit hours.
-            if (hours / 10 > 0) {
-                if (minutes / 10 > 0) { // 2-digit hours, 2-digit minutes.
-                    returner.append(hours).append(":").append(minutes);
-                } else {                // 2-digit hours, 1-digit minutes.
-                    returner.append(hours).append(":0").append(minutes);
-                }
-            } else { // 1-digit hours.
-                if (minutes / 10 > 0) { // 1-digit hours, 2-digit minutes.
-                    returner.append("0").append(hours).append(":").append(minutes);
-                } else {                // 1-digit hours, 1-digit minutes.
-                    returner.append("0").append(hours).append(":0").append(minutes);
-                }
+        //formatting.
+        if (hours / 10 > 0) {   // 2-digit hours.
+            if (minutes / 10 > 0) {     // 2-digit hours, 2-digit minutes.
+                returner.append(hours).append(":").append(minutes);
+            } else {                    // 2-digit hours, 1-digit minutes.
+                returner.append(hours).append(":0").append(minutes);
             }
-
-            returner.append("PM");
-        } else {
-            // AM.
-            hours = hours + 6;              //game time is AM (morning started at 6AM)
-
-            // 2-digit hours.
-            if (hours / 10 > 0) {
-                if (minutes / 10 > 0) { // 2-digit hours, 2-digit minutes.
-                    returner.append(hours).append(":").append(minutes);
-                } else {                // 2-digit hours, 1-digit minutes.
-                    returner.append(hours).append(":0").append(minutes);
-                }
-            } else { // 1-digit hours.
-                if (minutes / 10 > 0) { // 1-digit hours, 2-digit minutes.
-                    returner.append("0").append(hours).append(":").append(minutes);
-                } else {                // 1-digit hours, 1-digit minutes.
-                    returner.append("0").append(hours).append(":0").append(minutes);
-                }
+        } else {                // 1-digit hours.
+            if (minutes / 10 > 0) {     // 1-digit hours, 2-digit minutes.
+                returner.append("0").append(hours).append(":").append(minutes);
+            } else {                    // 1-digit hours, 1-digit minutes.
+                returner.append("0").append(hours).append(":0").append(minutes);
             }
+        }
 
+        //determine AM/PM.
+        if (elapsedRealSeconds < 360) { //game time is AM.
             returner.append("AM");
+        } else {                        //game time is PM.
+            returner.append("PM");
         }
 
         return returner.toString();

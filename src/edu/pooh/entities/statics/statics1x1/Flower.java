@@ -93,10 +93,13 @@ public class Flower extends StaticEntity
     public void dropped(Tile t) {
         if (t instanceof DirtMountainTile) {
             DirtMountainTile tempTile = (DirtMountainTile)t;
-            x = tempTile.getX() * Tile.TILE_WIDTH;
-            y = tempTile.getY() * Tile.TILE_HEIGHT;
-            System.out.println("dropped DirtMountainTile's (x, y): (" + x + ", " + y + ")");
-            tempTile.setStaticEntity(this);
+
+            if (tempTile.getStaticEntity() == null) {
+                x = tempTile.getX() * Tile.TILE_WIDTH;
+                y = tempTile.getY() * Tile.TILE_HEIGHT;
+                System.out.println("dropped DirtMountainTile's (x, y): (" + x + ", " + y + ")");
+                tempTile.setStaticEntity(this);
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import edu.pooh.entities.statics.harvests.HarvestEntity;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
+import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -31,6 +32,8 @@ public class CrossroadState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        TimeManager.setClockRunningTrue();
+
         handler.setWorld(world);
         player = (Player)args[0];
 
@@ -47,7 +50,9 @@ public class CrossroadState implements IState {
 
     @Override
     public void exit() {
-
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        TimeManager.incrementElapsedRealSecondsBy60();
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     }
 
     @Override

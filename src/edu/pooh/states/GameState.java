@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
+import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
@@ -30,6 +31,8 @@ public class GameState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        TimeManager.setClockRunningTrue();
+
         handler.setWorld(world);
 
         this.args = args;

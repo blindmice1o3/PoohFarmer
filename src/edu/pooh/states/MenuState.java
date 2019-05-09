@@ -5,6 +5,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
+import edu.pooh.time.TimeManager;
 import edu.pooh.ui.IClickListener;
 import edu.pooh.ui.UIImageButton;
 import edu.pooh.ui.UIManager;
@@ -48,6 +49,8 @@ public class MenuState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        TimeManager.setClockRunningFalse();
+
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];
         }

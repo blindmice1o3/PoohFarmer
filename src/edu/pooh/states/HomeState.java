@@ -24,6 +24,8 @@ public class HomeState implements IState {
 
     @Override
     public void enter(Object[] args) {
+        TimeManager.setClockRunningFalse();
+
         handler.setWorld(world);
         player = (Player)args[0];
 
@@ -57,15 +59,6 @@ public class HomeState implements IState {
         }
 
         TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays();
-
-        System.out.println(
-                "gameYear: " + TimeManager.gameYear +
-                        "\ngameSeason: " + TimeManager.gameSeason +
-                        "\ngameMonth: " + TimeManager.gameMonth +
-                        "\ngameDay: " + TimeManager.gameDay +
-                        "\nelapsedInGameDays: " + TimeManager.elapsedInGameDays +
-                        "\ngameHoursMinutes: " + TimeManager.translateElapsedRealSecondsToGameHoursMinutes()
-        );
     }
 
     @Override

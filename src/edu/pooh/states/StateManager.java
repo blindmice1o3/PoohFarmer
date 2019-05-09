@@ -1,5 +1,7 @@
 package edu.pooh.states;
 
+import edu.pooh.time.TimeManager;
+
 public class StateManager {
 
     private static IState currentState = null;
@@ -8,6 +10,8 @@ public class StateManager {
         getCurrentState().exit();
         nextState.enter(args);
         setCurrentState(nextState);
+
+        TimeManager.consoleOutputTimeInfo();
     }
 
     public static void setCurrentState(IState IState) {
