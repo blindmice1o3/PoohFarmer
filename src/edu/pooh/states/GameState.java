@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
@@ -71,14 +72,69 @@ public class GameState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToHome()) ) {
+            ///////////////////////////////////////////////////
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((HomeState)handler.getGame().getHomeState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getHomeState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
+            ///////////////////////////////////////////////////
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getChickenCoopState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCowBarn()) ) {
+            ///////////////////////////////////////////////////
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getCowBarnState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToToolShed()) ) {
+            ///////////////////////////////////////////////////
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((ToolShedState)handler.getGame().getToolShedState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getToolShedState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCrossroad()) ) {
+            ///////////////////////////////////////////////////
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((CrossroadState)handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getCrossroadState(),args);
         }
     }

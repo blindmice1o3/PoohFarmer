@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -42,7 +43,15 @@ public class MountainState implements IState {
 
     @Override
     public void exit() {
+        if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+            Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
+            if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                ((CrossroadState) handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                        tempHoldableEntity
+                );
+            }
+        }
     }
 
     @Override
@@ -73,6 +82,10 @@ public class MountainState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    public World getWorld() {
+        return world;
     }
 
 } // **** end MountainState class ****

@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.time.TimeManager;
@@ -57,6 +58,18 @@ public class HomeState implements IState {
             TimeManager.setClockRunningTrue();
         }
 
+        ///////////////////////////////////////////////////
+        if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+            Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+            if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                        tempHoldableEntity
+                );
+            }
+        }
+        ///////////////////////////////////////////////////
+
         TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays();
     }
 
@@ -88,6 +101,10 @@ public class HomeState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    public World getWorld() {
+        return world;
     }
 
 } // **** end HomeState class ****

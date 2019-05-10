@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
@@ -73,11 +74,31 @@ public class CrossroadState implements IState {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCrossroadToGame()) ) {
             ///////////////////////////////////////////////////
             playerPreviousExit = PlayerPreviousExit.GAME_STATE;
+
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
             ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getGameState(), args);
         } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToMoutain()) ) {
             ///////////////////////////////////////////////////////
             playerPreviousExit = PlayerPreviousExit.MOUNTAIN_STATE;
+
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((MountainState)handler.getGame().getMountainState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
             ///////////////////////////////////////////////////////
             StateManager.change(handler.getGame().getMountainState(), args);
         }
@@ -92,6 +113,10 @@ public class CrossroadState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    public World getWorld() {
+        return world;
     }
 
 } // **** end CrossroadState class ****
