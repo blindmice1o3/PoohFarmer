@@ -21,6 +21,12 @@ public class ShippingBin extends StaticEntity {
 
     public void addISellable(ISellable sellable) {
         inventory.add(sellable);
+
+        for (ISellable tempSellable : inventory) {
+            System.out.println("Inside the shipping bin is: " + tempSellable.toString() +
+                    " (" + tempSellable.getPrice() + ")");
+        }
+
         System.out.println("ISellable added to shipping bin.");
     }
 
@@ -41,7 +47,7 @@ public class ShippingBin extends StaticEntity {
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override

@@ -16,11 +16,13 @@ public class Egg extends StaticEntity
         implements IHoldable, ISellable {
 
     private int price;
+    private boolean inShippingBin;
 
     public Egg(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
         price = 50;
+        inShippingBin = false;
     } // **** end Egg(Handler, float, float) constructor ****
 
     @Override
@@ -32,12 +34,8 @@ public class Egg extends StaticEntity
     public void dropIntoShippingBin(ShippingBin shippingBin) {
         setX(shippingBin.getX() + Tile.TILE_WIDTH);
         setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+        inShippingBin = true;
         shippingBin.addISellable(this);
-
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable.toString() +
-                    " (" + sellable.getPrice() + ")");
-        }
     }
 
     @Override
@@ -47,6 +45,10 @@ public class Egg extends StaticEntity
 
     @Override
     public void render(Graphics g) {
+        if (inShippingBin) {
+            return;
+        }
+
         g.drawImage(Assets.egg, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }

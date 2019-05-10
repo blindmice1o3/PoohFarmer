@@ -22,6 +22,7 @@ public class Milk extends StaticEntity
 
     private MilkSize milkSize;
     private int price;
+    private boolean inShippingBin;
     private BufferedImage texture;
 
     public Milk(Handler handler, float x, float y, MilkSize milkSize) {
@@ -29,6 +30,7 @@ public class Milk extends StaticEntity
 
         this.milkSize = milkSize;
         setPriceAndTextureByMilkSize();
+        inShippingBin = false;
     } // **** end Milk(Handler, float, float) constructor
 
     private void setPriceAndTextureByMilkSize() {
@@ -60,12 +62,8 @@ public class Milk extends StaticEntity
     public void dropIntoShippingBin(ShippingBin shippingBin) {
         setX(shippingBin.getX() + Tile.TILE_WIDTH);
         setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+        inShippingBin = true;
         shippingBin.addISellable(this);
-
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable.toString() +
-                    " (" + sellable.getPrice() + ")");
-        }
     }
 
     @Override
@@ -75,6 +73,10 @@ public class Milk extends StaticEntity
 
     @Override
     public void render(Graphics g) {
+        if (inShippingBin) {
+            return;
+        }
+
         g.drawImage(getTexture(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }

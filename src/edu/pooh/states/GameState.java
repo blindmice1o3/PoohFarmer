@@ -177,7 +177,6 @@ public class GameState implements IState {
 
                         ///////////////////////////
                         tempTile.setWatered(false);
-                        System.out.println("GameState.setAllDirtNormalTileWateredToFalse()");
                         ///////////////////////////
 
                         //DirtState.SEEDED

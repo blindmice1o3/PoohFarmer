@@ -16,11 +16,13 @@ public class WildBerries extends StaticEntity
         implements IHoldable, ISellable {
 
     private int price;
+    private boolean inShippingBin;
 
     public WildBerries(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
         price = 150;
+        inShippingBin = false;
     } // **** end WildBerries(Handler, float, float) constructor ****
 
     @Override
@@ -32,12 +34,8 @@ public class WildBerries extends StaticEntity
     public void dropIntoShippingBin(ShippingBin shippingBin) {
         setX(shippingBin.getX() + Tile.TILE_WIDTH);
         setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+        inShippingBin = true;
         shippingBin.addISellable(this);
-
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable.toString() +
-                    " (" + sellable.getPrice() + ")");
-        }
     }
 
     @Override
@@ -47,6 +45,10 @@ public class WildBerries extends StaticEntity
 
     @Override
     public void render(Graphics g) {
+        if (inShippingBin) {
+            return;
+        }
+
         g.drawImage(Assets.berry, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }

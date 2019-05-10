@@ -115,18 +115,31 @@ public class Dog extends Creature implements IHoldable {
 
     @Override
     public void dropped(Tile t) {
-        Tile[][] tempTiles = handler.getWorld().getTilesViaRGB();
-        for (int xx = 0; xx < tempTiles.length; xx++) {
-            for (int yy = 0; yy < tempTiles[xx].length; yy++) {
-                if (tempTiles[xx][yy] == t) {
-                    x = xx * Tile.TILE_WIDTH;
-                    y = yy * Tile.TILE_HEIGHT;
-
-                    System.out.println("dropped(Tile) method successfully called.");
-                }
-            }
+        switch (handler.getWorld().getEntityManager().getPlayer().getCurrentDirection()) {
+            case UP:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() - Tile.TILE_HEIGHT;
+                break;
+            case DOWN:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() + Tile.TILE_HEIGHT;
+                break;
+            case LEFT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() - Tile.TILE_WIDTH;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            case RIGHT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() + Tile.TILE_HEIGHT;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            default:
+                System.out.println("Dog.drop(Tile) switch construct's default option.");
+                break;
         }
 
+        if (!handler.getWorld().getEntityManager().getEntities().contains(this)) {
+            handler.getWorld().getEntityManager().addEntity(this);
+        }
 
         pickedUp = false;
     }

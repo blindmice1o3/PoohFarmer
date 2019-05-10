@@ -22,10 +22,13 @@ public class HarvestEntity extends StaticEntity
     private HarvestType harvestType;
     private BufferedImage texture;
     private int price;
+    private boolean inShippingBin;
 
     public HarvestEntity(Handler handler, float x, float y) {
         super(handler, (int)(x + (Tile.TILE_WIDTH * 0.125)), (int)(y + (Tile.TILE_HEIGHT * 0.125)),
                 (int)(Tile.TILE_WIDTH * 0.75), (int)(Tile.TILE_HEIGHT * 0.75));
+
+        inShippingBin = false;
     }
 
     public void setPrice(int price) {
@@ -41,12 +44,8 @@ public class HarvestEntity extends StaticEntity
     public void dropIntoShippingBin(ShippingBin shippingBin) {
         setX(shippingBin.getX() + Tile.TILE_WIDTH);
         setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+        inShippingBin = true;
         shippingBin.addISellable(this);
-
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println("Inside the shipping bin is: " + sellable.toString() +
-                    " (" + sellable.getPrice() + ")");
-        }
     }
 
     public void setTextureAndPrice() {
@@ -104,6 +103,10 @@ public class HarvestEntity extends StaticEntity
 
     @Override
     public void render(Graphics g) {
+        if (inShippingBin) {
+            return;
+        }
+
         g.drawImage(texture, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
     }
