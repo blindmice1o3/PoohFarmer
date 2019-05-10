@@ -10,16 +10,20 @@ import java.awt.*;
 
 public class CrossroadState implements IState {
 
+    public enum PlayerPreviousExit { GAME_STATE, MOUNTAIN_STATE, UNJOURNEYED_WEST_STATE; }
+
     private Handler handler;
     private World world;
 
     private Object[] args;
     private Player player;
+    private PlayerPreviousExit playerPreviousExit;
 
     public CrossroadState(Handler handler) {
         this.handler = handler;
-
         world = new World(handler, World.WorldType.CROSSROAD);
+
+        playerPreviousExit = PlayerPreviousExit.GAME_STATE;
     } // **** end CrossroadState(Handler) constructor ****
 
 
@@ -33,10 +37,14 @@ public class CrossroadState implements IState {
         this.args = args;
 
         /////////////////////////////////////////////////////////////////////////////////////
-        player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH,
-                world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
+        if (playerPreviousExit == PlayerPreviousExit.GAME_STATE) {
+            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH,
+                    world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
+        } else if (playerPreviousExit == PlayerPreviousExit.MOUNTAIN_STATE) {
+            player.setPosition(7 * Tile.TILE_WIDTH,
+                    1 * Tile.TILE_HEIGHT);
+        }
         /////////////////////////////////////////////////////////////////////////////////////
-
         world.getEntityManager().addEntity(player);
         world.getEntityManager().setPlayer(player);
     }
@@ -63,8 +71,14 @@ public class CrossroadState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCrossroadToGame()) ) {
+            ///////////////////////////////////////////////////
+            playerPreviousExit = PlayerPreviousExit.GAME_STATE;
+            ///////////////////////////////////////////////////
             StateManager.change(handler.getGame().getGameState(), args);
         } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToMoutain()) ) {
+            ///////////////////////////////////////////////////////
+            playerPreviousExit = PlayerPreviousExit.MOUNTAIN_STATE;
+            ///////////////////////////////////////////////////////
             StateManager.change(handler.getGame().getMountainState(), args);
         }
     }
