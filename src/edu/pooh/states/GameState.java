@@ -88,7 +88,7 @@ public class GameState implements IState {
         System.out.println("GameState.increaseCropEntityDaysWatered()");
 
         if (TimeManager.getNewDay()) {
-            Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
+            Tile[][] tempWorld = world.getTilesViaRGB();
 
             for (int x = 0; x < tempWorld.length; x++) {
                 for (int y = 0; y < tempWorld[x].length; y++) {
@@ -112,18 +112,17 @@ public class GameState implements IState {
 
     //TODO: watered and dried version of textures for CropEntity's turnip, potato, tomato, corn (maybe NOT: tile vs entity).
     public void setAllDirtNormalTileWateredToFalse() {
-        System.out.println("GameState.setAllDirtNormalTileWateredToFalse()");
-
         if (TimeManager.getNewDay()) {
-            Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
+            Tile[][] tempWorld = world.getTilesViaRGB();
 
-            for (Tile[] tArray : tempWorld) {
-                for (Tile t : tArray) {
-                    if (t instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile)t;
+            for (int x = 0; x < tempWorld.length; x++) {
+                for (int y = 0; y < tempWorld[x].length; y++) {
+                    if (tempWorld[x][y] instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)tempWorld[x][y];
 
                         ///////////////////////////
                         tempTile.setWatered(false);
+                        System.out.println("GameState.setAllDirtNormalTileWateredToFalse()");
                         ///////////////////////////
 
                         //DirtState.SEEDED

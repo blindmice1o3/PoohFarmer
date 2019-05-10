@@ -51,7 +51,9 @@ public class HomeState implements IState {
             ((GameState)handler.getGame().getGameState()).increaseCropEntityDaysWatered();
 
             // RESET ALL DirtNormalTile objects' boolean watered TO FALSE.
+            // @@@@@@@@@@@@
             ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
+            // @@@@@@@@@@@@
 
             // RESET TIME-RELATED BOOLEANS
             player.setAllTimeRelatedBooleansToFalse();

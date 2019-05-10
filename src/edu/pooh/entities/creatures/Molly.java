@@ -15,15 +15,7 @@ public class Molly extends Creature {
 
     private Map<String, Animation> animations;
     Animation[] animationsArray;
-/*
-    private Animation animWalkingUp, animWalkingDown, animWalkingLeft, animWalkingRight,
-    animHoldingUp, animHoldingDown, animHoldingLeft, animHoldingRight,
-    animTakeUp, animTakeDown, animTakeLeft, animTakeRight,
-    animPatBrow, animPantingSweating, animStumble, animCollapse,
-    animEating, animSeeds,
-    animRidingHorseUp, animRidingHorseDown, animRidingHorseLeft, animRidingHorseRight,
-    animMountingHorseUp, animMountingHorseDown, animMountingHorseLeft, animMountingHorseRight;
-*/
+
     private Random random;
     private int randomInt;
 
