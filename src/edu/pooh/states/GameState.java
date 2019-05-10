@@ -1,7 +1,12 @@
 package edu.pooh.states;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.statics.crops.CropEntity;
+import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.DirtNormalTile;
+import edu.pooh.tiles.Tile;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
@@ -58,10 +63,6 @@ public class GameState implements IState {
             return;
         }
 
-        // @@@@@@@@@@@@@@@
-        //StateManager.change(handler.getGame().getCrossroadState(), args);
-        // @@@@@@@@@@@@@@@
-
         /////////////
         world.tick();
         /////////////
@@ -80,6 +81,56 @@ public class GameState implements IState {
             StateManager.change(handler.getGame().getToolShedState(), args);
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCrossroad()) ) {
             StateManager.change(handler.getGame().getCrossroadState(),args);
+        }
+    }
+
+    public void increaseCropEntityDaysWatered() {
+        if (TimeManager.getNewDay()) {
+            Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
+
+            for (Tile[] tArray : tempWorld) {
+                for (Tile t : tArray) {
+                    if (t instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)t;
+                        if ( (tempTile.getStaticEntity() != null) &&
+                                (tempTile.getStaticEntity() instanceof CropEntity) &&
+                                (tempTile.isWatered()) ) {
+                            ///////////////////////////////////////////////////////////////
+                            ((CropEntity)tempTile.getStaticEntity()).increaseDaysWatered();
+                            ///////////////////////////////////////////////////////////////
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    //TODO: watered and dried version of textures for CropEntity's turnip, potato, tomato, corn (maybe NOT: tile vs entity).
+    public void setAllDirtNormalTileWateredToFalse() {
+        if (TimeManager.getNewDay()) {
+            Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
+
+            for (Tile[] tArray : tempWorld) {
+                for (Tile t : tArray) {
+                    if (t instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)t;
+
+                        ///////////////////////////
+                        tempTile.setWatered(false);
+                        ///////////////////////////
+
+                        //DirtState.SEEDED
+                        if (tempTile.getDirtState() == DirtNormalTile.DirtState.TILLED) {
+                            tempTile.setTexture(Assets.dirtTilledDry);
+                        }
+                        //DirtState.TILLED
+                        else if (tempTile.getDirtState() == DirtNormalTile.DirtState.SEEDED) {
+                            tempTile.setTexture(Assets.dirtSeededDry);
+                        }
+                    }
+                }
+            }
         }
     }
 

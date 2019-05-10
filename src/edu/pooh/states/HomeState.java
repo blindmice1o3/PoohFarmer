@@ -43,18 +43,26 @@ public class HomeState implements IState {
     @Override
     public void exit() {
         if (TimeManager.getNewDay()) {
-            TimeManager.incrementElapsedInGameDays();
-
-            //////// RESET TIME FOR NEW DAY /////////
-            TimeManager.resetElapsedRealSeconds();
-            TimeManager.setClockRunningTrue();
             /////////////////////////////////////////
+            TimeManager.incrementElapsedInGameDays();
+            /////////////////////////////////////////
+
+            // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
+            ((GameState)handler.getGame().getGameState()).increaseCropEntityDaysWatered();
+
+            // RESET ALL DirtNormalTile objects' boolean watered TO FALSE.
+            ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
 
             // RESET TIME-RELATED BOOLEANS
             player.setAllTimeRelatedBooleansToFalse();
 
             // RESET STAMINA
             player.resetStaminaCurrent();
+
+            //////// RESET TIME FOR NEW DAY /////////
+            TimeManager.resetElapsedRealSeconds();
+            TimeManager.setClockRunningTrue();
+            /////////////////////////////////////////
 
             /////////////////////////////
             TimeManager.setNewDayFalse();

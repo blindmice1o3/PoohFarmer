@@ -73,6 +73,7 @@ public class SeedsWild extends Item {
 
                     ///////////////////////////////////////////////////
                     temp.setDirtState(DirtNormalTile.DirtState.SEEDED);
+                    temp.setWatered(false);
                     temp.setTexture(Assets.dirtSeededDry);
                     ///////////////////////////////////////////////////
                 }

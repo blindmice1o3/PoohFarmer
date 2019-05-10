@@ -14,6 +14,7 @@ public class DirtNormalTile extends Tile {
 
     private int x, y;
     private DirtState dirtState;
+    private boolean watered;
 
     private StaticEntity staticEntity;
 
@@ -22,6 +23,7 @@ public class DirtNormalTile extends Tile {
         this.x = x;
         this.y = y;
         dirtState = DirtState.NORMAL;
+        watered = false;
 
         staticEntity = null;
     } // **** end DirtNormalTile(int, int) constructor ****
@@ -61,6 +63,14 @@ public class DirtNormalTile extends Tile {
     }
 
     // GETTERS & SETTERS
+
+    public boolean isWatered() {
+        return watered;
+    }
+
+    public void setWatered(boolean watered) {
+        this.watered = watered;
+    }
 
     public DirtState getDirtState() {
         return dirtState;

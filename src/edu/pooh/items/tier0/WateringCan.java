@@ -13,10 +13,13 @@ public class WateringCan extends Item {
 
     private static WateringCan uniqueInstance = new WateringCan();
 
-    private int countWater = 0;
+    private int countWater;
+    private int countWaterMax;
 
     private WateringCan() {
         super(Assets.wateringCan, "Watering Can", ID.WATERING_CAN);
+        countWater = 0;
+        countWaterMax = 20;
     } // **** end WateringCan() singleton-pattern constructor ****
 
     public static synchronized WateringCan getUniqueInstance(Handler handler) {
@@ -29,7 +32,12 @@ public class WateringCan extends Item {
     }
 
     public void increaseCountWater(int count) {
-        countWater += count;
+        //if increasing countWater by argument (count) surpasses countWaterMax, set countWater to countWaterMax.
+        if ((countWater + count) <= countWaterMax) {
+            countWater += count;
+        } else {
+            countWater = countWaterMax;
+        }
     }
 
     public void resetCountWater() { countWater = 0; }
@@ -40,47 +48,28 @@ public class WateringCan extends Item {
 
         if (t != null) {
             System.out.println("targeted-tile's id: " + t.getId());
-
             // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
-                increaseCountWater(18);
+                increaseCountWater(20);
             } else if (countWater > 0) {
-
+                //////////////
                 countWater--;
-
-                if (t instanceof DirtNormalTile && ((DirtNormalTile) t).getStaticEntity() != null) {
+                //////////////
+                //It's DirtNormalTile and is not watered.
+                if ( (t instanceof DirtNormalTile) && (!((DirtNormalTile)t).isWatered()) ) {
                     DirtNormalTile tempTile = (DirtNormalTile)t;
 
-                    if (tempTile.getStaticEntity() instanceof CropEntity) {
-                        CropEntity tempStaticEntity = (CropEntity) tempTile.getStaticEntity();
-                        System.out.println("Prior days watered: " + tempStaticEntity.getDaysWatered());
-
-                        if (tempStaticEntity.getWaterable()) {
-
-                            if (tempStaticEntity.getDaysWatered() == 2) {
-                                Rectangle tempCannabisWildRect = new Rectangle(
-                                        (int) tempStaticEntity.getX() * Tile.TILE_WIDTH,
-                                        (int) tempStaticEntity.getY() * Tile.TILE_HEIGHT,
-                                        tempStaticEntity.getWidth(), tempStaticEntity.getHeight());
-
-                                // PREVENT BUG OF player-stuck-due-to-entity-collision.
-                                if (handler.getWorld().getEntityManager().getPlayer().
-                                        getCollisionBounds(0, 0).
-                                        intersects(tempCannabisWildRect)) {
-                                    return;
-                                }
-                            }
-
-                            ////////////////////////////////////////////////////////////////////
-                            tempStaticEntity.increaseDaysWatered();
-                            ////////////////////////////////////////////////////////////////////
-                            //debugging    tempStaticEntity.setWaterable(false);
-                            //debugging    tempStaticEntity.setCurrentImage(Assets.waterFX);
-                            System.out.println("Current days watered: " + tempStaticEntity.getDaysWatered());
-                        }
+                    //DirtState.SEEDED
+                    if ((tempTile.getDirtState() == DirtNormalTile.DirtState.SEEDED)) {
+                        tempTile.setWatered(true);
+                        tempTile.setTexture(Assets.dirtSeededWatered);
+                    }
+                    //DirtState.TILLED
+                    else if ((tempTile.getDirtState() == DirtNormalTile.DirtState.TILLED)) {
+                        tempTile.setWatered(true);
+                        tempTile.setTexture(Assets.dirtTilledWatered);
                     }
                 }
-
             }
         }
 
