@@ -17,6 +17,7 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
+import edu.pooh.states.GameState;
 import edu.pooh.time.DateDisplayer;
 import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
@@ -73,7 +74,44 @@ public class Player extends Creature {
 
     // DATE DISPLAYER
     private DateDisplayer dateDisplayer;
-    private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
+    private boolean executedSleep, executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
+
+    public void executeSleep() {
+        TimeManager.setNewDayTrue();
+
+        if (!executed6am) {
+            execute6am();
+            executed6am = true;
+        }
+        if (!executed9am) {
+            execute9am();
+            executed9am = true;
+        }
+        if (!executed12pm) {
+            execute12pm();
+            executed12pm = true;
+        }
+        if (!executed3pm) {
+            execute3pm();
+            executed3pm = true;
+        }
+        ////////////////////////
+        if (!executed5pm) {
+            execute5pm();
+            executed5pm = true;
+        }
+        ////////////////////////
+        if (!executed6pm) {
+            execute6pm();
+            executed6pm = true;
+        }
+
+        setAllTimeRelatedBooleansToFalse();
+        resetStaminaCurrent();
+
+        System.out.println("Player.executeSleep()");
+        executedSleep = true;
+    }
 
     public void execute6pm() {
 
@@ -82,7 +120,7 @@ public class Player extends Creature {
     }
 
     public void execute5pm() {
-        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+        for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
             if (e.equals(this)) { continue; }
 
             if (e instanceof ShippingBin) {

@@ -391,7 +391,7 @@ public class World {
                             //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
                         } else if (red == 255 && green == 255 && blue == 0) { //bed - BedTile.
-                            tilesViaRGB[xx][yy] = new BedTile(Assets.homeStateBackground2);
+                            tilesViaRGB[xx][yy] = new BedTile(handler, Assets.homeStateBackground2);
                             bedTileX = xx;
                             bedTileY = yy;
                             tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),

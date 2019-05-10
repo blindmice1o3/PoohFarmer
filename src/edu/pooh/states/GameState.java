@@ -150,4 +150,8 @@ public class GameState implements IState {
         ////////////////
     }
 
+    public World getWorld() {
+        return world;
+    }
+
 } // **** end GameState class ****
