@@ -57,17 +57,20 @@ public class WateringCan extends Item {
                 //////////////
                 //It's DirtNormalTile and is not watered.
                 if ( (t instanceof DirtNormalTile) && (!((DirtNormalTile)t).isWatered()) ) {
-                    DirtNormalTile tempTile = (DirtNormalTile)t;
+                    System.out.println("targeted-tile is a DirtNormalTile with boolean watered set to false");
 
+                    DirtNormalTile tempTile = (DirtNormalTile)t;
                     //DirtState.SEEDED
                     if ((tempTile.getDirtState() == DirtNormalTile.DirtState.SEEDED)) {
                         tempTile.setWatered(true);
                         tempTile.setTexture(Assets.dirtSeededWatered);
+                        System.out.println("tile with DirtState.SEEDED has watered set to true");
                     }
                     //DirtState.TILLED
                     else if ((tempTile.getDirtState() == DirtNormalTile.DirtState.TILLED)) {
                         tempTile.setWatered(true);
                         tempTile.setTexture(Assets.dirtTilledWatered);
+                        System.out.println("tile with DirtState.TILLED has watered set to true");
                     }
                 }
             }

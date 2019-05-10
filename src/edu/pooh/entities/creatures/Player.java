@@ -58,6 +58,8 @@ public class Player extends Creature {
     }
 
     public void resetStaminaCurrent() {
+        System.out.println("Player.resetStaminaCurrent()");
+
         staminaCurrent = staminaBase;
     }
 
@@ -147,6 +149,8 @@ public class Player extends Creature {
     private boolean attacking = false;
 
     public void setAllTimeRelatedBooleansToFalse() {
+        System.out.println("Player.setAllTimeRelatedBooleansToFalse()");
+
         executed6am = false;
         executed9am = false;
         executed12pm = false;

@@ -85,6 +85,8 @@ public class GameState implements IState {
     }
 
     public void increaseCropEntityDaysWatered() {
+        System.out.println("GameState.increaseCropEntityDaysWatered()");
+
         if (TimeManager.getNewDay()) {
             Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
 
@@ -95,8 +97,10 @@ public class GameState implements IState {
                         if ( (tempTile.getStaticEntity() != null) &&
                                 (tempTile.getStaticEntity() instanceof CropEntity) &&
                                 (tempTile.isWatered()) ) {
+                            System.out.println("GameState.increaseCropEntityDaysWatered() successful.");
                             ///////////////////////////////////////////////////////////////
                             ((CropEntity)tempTile.getStaticEntity()).increaseDaysWatered();
+                            ((CropEntity)tempTile.getStaticEntity()).incrementLifeCycleByDaysWatered();
                             ///////////////////////////////////////////////////////////////
                         }
                     }
@@ -108,6 +112,8 @@ public class GameState implements IState {
 
     //TODO: watered and dried version of textures for CropEntity's turnip, potato, tomato, corn (maybe NOT: tile vs entity).
     public void setAllDirtNormalTileWateredToFalse() {
+        System.out.println("GameState.setAllDirtNormalTileWateredToFalse()");
+
         if (TimeManager.getNewDay()) {
             Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
 

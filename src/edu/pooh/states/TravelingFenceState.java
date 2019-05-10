@@ -20,7 +20,7 @@ public class TravelingFenceState implements IState {
     private Object[] args;
     private Player player;
 
-    private HashMap<Item, Float> inStock;
+    private HashMap<String, Integer> inStock;
 
     public TravelingFenceState(Handler handler) {
         this.handler = handler;
@@ -29,7 +29,7 @@ public class TravelingFenceState implements IState {
     } // **** end TravelingFenceState(Handler) constructor ****
 
     private void initInStock() {
-        inStock = new HashMap<Item, Float>();
+        inStock = new HashMap<String, Integer>();
 
         SeedsWild tempSeedsWild;
         for (int i = 0; i < SeedsWild.SeedType.values().length; i++) {
@@ -39,36 +39,35 @@ public class TravelingFenceState implements IState {
 
             switch (i) {
                 case 0:
-                    tempSeedsWild.setName("\"Special\" seeds");
+                    tempSeedsWild.setName("special seeds");
                     tempSeedsWild.setSeedType(SeedsWild.SeedType.CANNABIS_WILD);
-                    inStock.put(tempSeedsWild, 3.99f);
+                    inStock.put(tempSeedsWild.getName(), 500);
                     break;
                 case 1:
                     tempSeedsWild.setName("Turnip seeds");
                     tempSeedsWild.setSeedType(SeedsWild.SeedType.TURNIP);
-                    inStock.put(tempSeedsWild, 1.99f);
+                    inStock.put(tempSeedsWild.getName(), 200);
                     break;
                 case 2:
                     tempSeedsWild.setName("Potato seeds");
                     tempSeedsWild.setSeedType(SeedsWild.SeedType.POTATO);
-                    inStock.put(tempSeedsWild, 2.49f);
+                    inStock.put(tempSeedsWild.getName(), 200);
                     break;
                 case 3:
                     tempSeedsWild.setName("Tomato seeds");
                     tempSeedsWild.setSeedType(SeedsWild.SeedType.TOMATO);
-                    inStock.put(tempSeedsWild, 2.99f);
+                    inStock.put(tempSeedsWild.getName(), 300);
                     break;
                 case 4:
                     tempSeedsWild.setName("Corn seeds");
                     tempSeedsWild.setSeedType(SeedsWild.SeedType.CORN);
-                    inStock.put(tempSeedsWild, 3.49f);
+                    inStock.put(tempSeedsWild.getName(), 300);
                     break;
                 default:
                     break;
             }
-
         }
-
+        inStock.put("Grass seeds", 500);
     }
 
     @Override
@@ -90,10 +89,6 @@ public class TravelingFenceState implements IState {
     private boolean renderInStockList = false;
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
-            return;
-        }
-
         // VK_ESCAPE will set state to GameState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             StateManager.change(handler.getGame().getGameState(), args);
@@ -107,22 +102,14 @@ public class TravelingFenceState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getTravelingFenceState()) {
-            return;
-        }
-
         g.drawImage(Assets.shoppingScreen, 10, 10,
                 handler.getWidth()-20, handler.getHeight()-20, null);
 
         if (renderInStockList) {
             int y = 250;
-            for (Item i : inStock.keySet()) {
-                Text.drawString(g, "Name: " + i.getName()  + "      PRICE: \'only\' " + inStock.get(i), 50, y, false, Color.GRAY, Assets.font28);
+            for (String s : inStock.keySet()) {
+                Text.drawString(g, "Name: " + s  + "      PRICE: \'only\' " + inStock.get(s), 50, y, false, Color.GRAY, Assets.font28);
                 y += 25;
-                Text.drawString(g, "Id: " + i.getId(), 50, y, false, Color.GRAY, Assets.font28);
-                y += 25;
-                Text.drawString(g, "Count: " + i.getCount(),50, y, false, Color.GRAY, Assets.font28);
-                y += 50;
             }
         }
     }

@@ -23,6 +23,8 @@ public class TimeManager {
     public static int gameDay = 1;
 
     public static void translateElapsedInGameDaysToGameYearsSeasonsMonthsDays() {
+        System.out.println("TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays()");
+
         int days = elapsedInGameDays;
         int monthsInt = days / 30; // 30 days in 1 month.
 
@@ -132,6 +134,8 @@ public class TimeManager {
     }
 
     public static void incrementElapsedInGameDays() {
+        System.out.println("TimeManager.incrementElapsedInGameDays()");
+
         elapsedInGameDays++;
     }
 
@@ -182,10 +186,14 @@ public class TimeManager {
     }
 
     public static void resetElapsedRealSeconds() {
+        System.out.println("TimeManager.resetElapsedRealSeconds()");
+
         elapsedRealSeconds = 0;
     }
 
     public static void setClockRunningTrue() {
+        System.out.println("TimeManager.setClockRunningTrue()");
+
         clockRunning = true;
     }
 
@@ -202,6 +210,8 @@ public class TimeManager {
     }
 
     public static void setNewDayFalse() {
+        System.out.println("TimeManager.setNewDayFalse()");
+
         newDay = false;
     }
 

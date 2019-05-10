@@ -27,19 +27,17 @@ public class CropEntity extends StaticEntity {
     }
 
     private CropType cropType;
-    private int daysWatered;
 
-    private boolean waterable;
+    private int daysWatered;
     private boolean harvestable;
     private BufferedImage currentImage;
 
     public CropEntity(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        setCurrentImage(Assets.dirtSeededDry);
-        setDaysWatered(0);
-        setWaterable(true);
-        setHarvestable(false);
+        daysWatered = 0;
+        harvestable = false;
+        currentImage = Assets.dirtSeededDry;
 
         // NO COLLISION WHILE dirtSeededDry. START COLLISION AT daysWatered == 3.
         setBoundsWidth(0);
@@ -48,233 +46,145 @@ public class CropEntity extends StaticEntity {
 
     @Override
     public void tick() {
-        nextCropLifeCycle();
-
         if (harvestable) {
             die();
         }
     }
 
-    private void nextCropLifeCycle() {
-        switch (daysWatered) {
-            case 0:
-            case 1:
-            case 2:
-                if (waterable) {
-                    setCurrentImage(Assets.dirtSeededDry);
-                    break;
-                } else {
-                    setCurrentImage(Assets.dirtSeededWatered);
-                    break;
-                }
-            case 3:
-                //////////////////////////////////////
-                // START ENTITY COLLISION DETECTION //
-                //////////////////////////////////////
-                setBoundsWidth(width);
-                setBoundsHeight(height);
+    public void incrementLifeCycleByDaysWatered() {
+        System.out.println("CropEntity.incrementLifeCycleByDaysWatered()");
 
-                if (waterable) {                                    // UNWATERED (DRY) TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantSproutling);
-                            break;
-                        case TURNIP:
-                            setCurrentImage(Assets.turnip1Dry);
-                            break;
-                        case POTATO:
-                            setCurrentImage(Assets.potato1Dry);
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato1Dry);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn1Dry);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
-                } else {                                            // WATERED TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantSproutling);
-                            break;
-                        case TURNIP:
-                            setCurrentImage(Assets.turnip1Watered);
-                            break;
-                        case POTATO:
-                            setCurrentImage(Assets.potato1Watered);
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato1Watered);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn1Watered);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
+        switch (cropType) {
+            case CANNABIS_WILD:
+                if (daysWatered == 1) {
+                    // START ENTITY COLLISION DETECTION
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
+                    setCurrentImage(Assets.plantSproutling);
+                    break;
+                } else if (daysWatered == 2) {
+                    setCurrentImage(Assets.plantJuvenille);
+                    break;
+                } else if (daysWatered == 3) {
+                    setCurrentImage(Assets.plantAdult);
+                    break;
+                } else if (daysWatered == 4) {
+                    setCurrentImage(Assets.plantFlowering1);
+                    break;
+                } else if (daysWatered == 5) {
+                    setHarvestable(true);
+                    break;
                 }
+
                 break;
-            case 4:
-                if (waterable) {                                    // UNWATERED (DRY) TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantJuvenille);
-                            break;
-                        case TURNIP:
-                            setCurrentImage(Assets.turnip2Dry);
-                            break;
-                        case POTATO:
-                            setCurrentImage(Assets.potato2Dry);
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato2Dry);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn2Dry);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
-                } else {                                            // WATERED TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantJuvenille);
-                            break;
-                        case TURNIP:
-                            setCurrentImage(Assets.turnip2Watered);
-                            break;
-                        case POTATO:
-                            setCurrentImage(Assets.potato2Watered);
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato2Watered);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn2Watered);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
+            case TURNIP:
+                if (daysWatered == 1) {
+                    // START ENTITY COLLISION DETECTION
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
+                    setCurrentImage(Assets.turnip1Dry);
+                    break;
+                } else if (daysWatered == 2) {
+                    setCurrentImage(Assets.turnip2Dry);
+                    break;
+                } else if (daysWatered == 3) {
+                    setHarvestable(true);
+                    break;
                 }
+
                 break;
-            case 5:
-                if (waterable) {                                    // UNWATERED (DRY) TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantAdult);
-                            break;
-                        case TURNIP:
-                        case POTATO:
-                            setHarvestable(true);
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato3Dry);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn3Dry);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
-                } else {                                            // WATERED TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantAdult);
-                            break;
-                        case TURNIP:
-                        case POTATO:
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato3Watered);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn3Watered);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
+            case POTATO:
+                if (daysWatered == 1) {
+                    // START ENTITY COLLISION DETECTION
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
+                    setCurrentImage(Assets.potato1Dry);
+                    break;
+                } else if (daysWatered == 2) {
+                    break;
+                } else if (daysWatered == 3) {
+                    setCurrentImage(Assets.potato2Dry);
+                    break;
+                } else if (daysWatered == 4) {
+                    break;
+                } else if (daysWatered == 5) {
+                    setHarvestable(true);
+                    break;
                 }
+
                 break;
-            case 6:
-                if (waterable) {                                    // UNWATERED (DRY) TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantFlowering2);
-                            break;
-                        case TURNIP:
-                        case POTATO:
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato4Dry);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn4Dry);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
-                } else {                                            // WATERED TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setCurrentImage(Assets.plantFlowering2);
-                            break;
-                        case TURNIP:
-                        case POTATO:
-                            break;
-                        case TOMATO:
-                            setCurrentImage(Assets.tomato4Watered);
-                            break;
-                        case CORN:
-                            setCurrentImage(Assets.corn4Watered);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
+            case TOMATO:
+                if (daysWatered == 1) {
+                    // START ENTITY COLLISION DETECTION
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
+                    setCurrentImage(Assets.tomato1Dry);
+                    break;
+                } else if (daysWatered == 2) {
+                    break;
+                } else if (daysWatered == 3) {
+                    setCurrentImage(Assets.tomato2Dry);
+                    break;
+                } else if (daysWatered == 4) {
+                    break;
+                } else if (daysWatered == 5) {
+                    setCurrentImage(Assets.tomato3Dry);
+                    break;
+                } else if (daysWatered == 6) {
+                    break;
+                } else if (daysWatered == 7) {
+                    setCurrentImage(Assets.tomato4Dry);
+                    break;
+                } else if (daysWatered == 8) {
+                    break;
+                } else if (daysWatered == 9) {
+                    setHarvestable(true);
+                    break;
                 }
+
                 break;
-            case 7:
-                if (waterable) {                                    // UNWATERED (DRY) TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                            setHarvestable(true);
-                            break;
-                        case TURNIP:
-                        case POTATO:
-                            break;
-                        case TOMATO:
-                        case CORN:
-                            setHarvestable(true);
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
-                } else {                                            // WATERED TILE
-                    switch (cropType) {
-                        case CANNABIS_WILD:
-                        case TURNIP:
-                        case POTATO:
-                        case TOMATO:
-                        case CORN:
-                            break;
-                        default:
-                            setCurrentImage(Assets.waterFX);
-                            break;
-                    }
+            case CORN:
+                if (daysWatered == 1) {
+                    // START ENTITY COLLISION DETECTION
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
+                    setCurrentImage(Assets.corn1Dry);
+                    break;
+                } else if (daysWatered == 2) {
+                    break;
+                } else if (daysWatered == 3) {
+                    setCurrentImage(Assets.corn2Dry);
+                    break;
+                } else if (daysWatered == 4) {
+                    break;
+                } else if (daysWatered == 5) {
+                    break;
+                } else if (daysWatered == 6) {
+                    setCurrentImage(Assets.corn3Dry);
+                    break;
+                } else if (daysWatered == 7) {
+                    break;
+                } else if (daysWatered == 8) {
+                    break;
+                } else if (daysWatered == 9) {
+                    setCurrentImage(Assets.corn4Dry);
+                    break;
+                } else if (daysWatered == 10) {
+                    break;
+                } else if (daysWatered == 11) {
+                    break;
+                } else if (daysWatered == 12) {
+                    setHarvestable(true);
+                    break;
                 }
+
                 break;
             default:
-                setCurrentImage(Assets.waterFX);
                 break;
         }
     }
@@ -332,6 +242,7 @@ public class CropEntity extends StaticEntity {
                         //////////////////////////////////////////////////////////////////
                         tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
                         tempDirtNormalTile.setTexture(Assets.dirtNormal);
+                        tempDirtNormalTile.setWatered(false);
                         //////////////////////////////////////////////////////////////////
 
                         /////////////////
@@ -379,14 +290,6 @@ public class CropEntity extends StaticEntity {
 
     public void setCurrentImage(BufferedImage texture) {
         currentImage = texture;
-    }
-
-    public boolean getWaterable() {
-        return waterable;
-    }
-
-    public void setWaterable(boolean waterable) {
-        this.waterable = waterable;
     }
 
     public int getDaysWatered() {
