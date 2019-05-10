@@ -53,6 +53,7 @@ public class CropEntity extends StaticEntity {
 
     public void incrementLifeCycleByDaysWatered() {
         System.out.println("CropEntity.incrementLifeCycleByDaysWatered()");
+        System.out.println("daysWatered == " + daysWatered);
 
         switch (cropType) {
             case CANNABIS_WILD:

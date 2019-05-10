@@ -90,10 +90,10 @@ public class GameState implements IState {
         if (TimeManager.getNewDay()) {
             Tile[][] tempWorld = handler.getWorld().getTilesViaRGB();
 
-            for (Tile[] tArray : tempWorld) {
-                for (Tile t : tArray) {
-                    if (t instanceof DirtNormalTile) {
-                        DirtNormalTile tempTile = (DirtNormalTile)t;
+            for (int x = 0; x < tempWorld.length; x++) {
+                for (int y = 0; y < tempWorld[x].length; y++) {
+                    if (tempWorld[x][y] instanceof DirtNormalTile) {
+                        DirtNormalTile tempTile = (DirtNormalTile)tempWorld[x][y];
                         if ( (tempTile.getStaticEntity() != null) &&
                                 (tempTile.getStaticEntity() instanceof CropEntity) &&
                                 (tempTile.isWatered()) ) {
