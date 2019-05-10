@@ -56,7 +56,8 @@ public class WateringCan extends Item {
                 countWater--;
                 //////////////
                 //It's DirtNormalTile and is not watered.
-                if ( (t instanceof DirtNormalTile) && (!((DirtNormalTile)t).isWatered()) ) {
+                if ( t instanceof DirtNormalTile ) {
+                    System.out.println( "watered? " + ((DirtNormalTile)t).isWatered() );
                     System.out.println("targeted-tile is a DirtNormalTile with boolean watered set to false");
 
                     DirtNormalTile tempTile = (DirtNormalTile)t;

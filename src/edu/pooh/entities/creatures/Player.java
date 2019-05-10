@@ -27,51 +27,41 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Player extends Creature {
     // TODO: Implement stamina feature (eating, sleeping/newDay, hot spring, power berry, tool usage).
-
-    // CANNABIS COUNTER
-    private int cannabisCollected;
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
+    // CANNABIS COUNTER
+    private int cannabisCollected;
+
     // CURRENCY COUNTER
     private int currencyUnit;
-
     public void increaseCurrencyUnit(int income) {
         currencyUnit += income;
     }
-
     public int getCurrencyUnit() { return currencyUnit; }
 
     // STAMINA TRACKER
     private int staminaBase;
     private int staminaCurrent;
-
     public void decreaseStaminaCurrent(int staminaUsage) {
         staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
     }
-
     public void increaseStaminaCurrent(int staminaGained) {
         staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
     }
-
     public void resetStaminaCurrent() {
         System.out.println("Player.resetStaminaCurrent()");
-
         staminaCurrent = staminaBase;
     }
 
     // ANIMATIONS
-    private Animation animDown;
-    private Animation animUp;
-    private Animation animLeft;
-    private Animation animRight;
-    private Animation animUpRight;
-    private Animation animUpLeft;
-    private Animation animDownRight;
-    private Animation animDownLeft;
+    private Map<String, Animation> animations;
+    //private Animation animDown, animUp, animLeft, animRight, animUpRight, animUpLeft, animDownRight, animDownLeft;
 
     // ATTACK TIMER
     private long lastAttackTimer;
@@ -161,7 +151,6 @@ public class Player extends Creature {
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-
         bounds.x = 15;
         bounds.y = 20;
         bounds.width = 34;
@@ -178,14 +167,7 @@ public class Player extends Creature {
         staminaCurrent = 100;
 
         // ANIMATIONS
-        animDown = new Animation(60, Assets.playerDown);
-        animUp = new Animation(60, Assets.playerUp);
-        animLeft = new Animation(60, Assets.playerLeft);
-        animRight = new Animation(60, Assets.playerRight);
-        animUpRight = new Animation(60, Assets.playerUpRight);
-        animUpLeft = new Animation(60, Assets.playerUpLeft);
-        animDownRight = new Animation(60, Assets.playerDownRight);
-        animDownLeft = new Animation(60, Assets.playerDownLeft);
+        initAnimations();
 
         // INVENTORY
         inventory = new Inventory(handler);
@@ -205,6 +187,19 @@ public class Player extends Creature {
         ar.width = arSize;
         ar.height = arSize;
     } // **** end Player(Handler, float, float) constructor ****
+
+    private void initAnimations() {
+        animations = new HashMap<String, Animation>();
+
+        animations.put("animDown", new Animation(60, Assets.playerDown));
+        animations.put("animUp", new Animation(60, Assets.playerUp));
+        animations.put("animLeft", new Animation(60, Assets.playerLeft));
+        animations.put("animRight", new Animation(60, Assets.playerRight));
+        animations.put("animUpRight", new Animation(60, Assets.playerUpRight));
+        animations.put("animUpLeft", new Animation(60, Assets.playerUpLeft));
+        animations.put("animDownRight", new Animation(60, Assets.playerDownRight));
+        animations.put("animDownLeft", new Animation(60, Assets.playerDownLeft));
+    }
 
     private void checkTimeRelatedActions() {
         // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
@@ -227,29 +222,27 @@ public class Player extends Creature {
         }
     }
 
-    @Override
-    public void tick() {
-        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
-        // TODO: Move cannabisCollected lines of code into new method named checkWinningState().
-        if (cannabisCollected == 10) {
+    private void checkWinningConditions() {
+        if (cannabisCollected == 3000) {
             sfxBButtonPressed.play();
 
             System.out.println("game stopping");
             handler.getGame().gameStop();
         }
+    }
+
+    @Override
+    public void tick() {
+        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
+        checkWinningConditions();
 
         // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
         checkTimeRelatedActions();
 
         // ANIMATIONS
-        animDown.tick();
-        animUp.tick();
-        animLeft.tick();
-        animRight.tick();
-        animUpRight.tick();
-        animUpLeft.tick();
-        animDownRight.tick();
-        animDownLeft.tick();
+        for (Animation anim : animations.values()) {
+            anim.tick();
+        }
 
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
@@ -624,21 +617,21 @@ public class Player extends Creature {
 
         // ANIMATION MOVEMENTS
         if (yMove < 0 && xMove > 0) {                   // Moving up-right.
-            return animUpRight.getCurrentFrame();
+            return animations.get("animUpRight").getCurrentFrame();
         } else if (yMove < 0 && xMove < 0) {            // Moving up-left.
-            return animUpLeft.getCurrentFrame();
+            return animations.get("animUpLeft").getCurrentFrame();
         } else if (yMove > 0 && xMove > 0) {            // Moving down-right.
-            return animDownRight.getCurrentFrame();
+            return animations.get("animDownRight").getCurrentFrame();
         } else if (yMove > 0 && xMove < 0) {            // Moving down-left.
-            return animDownLeft.getCurrentFrame();
+            return animations.get("animDownLeft").getCurrentFrame();
         } else if (xMove < 0) {                         // Moving left.
-            return animLeft.getCurrentFrame();
+            return animations.get("animLeft").getCurrentFrame();
         } else if (xMove > 0) {                         // Moving right.
-            return animRight.getCurrentFrame();
+            return animations.get("animRight").getCurrentFrame();
         } else if (yMove < 0) {                         // Moving up.
-            return animUp.getCurrentFrame();
+            return animations.get("animUp").getCurrentFrame();
         } else if (yMove > 0) {                         // Moving down.
-            return animDown.getCurrentFrame();
+            return animations.get("animDown").getCurrentFrame();
         }
 
         // NON-ANIMATION for NO-INPUT DIRECTIONS
