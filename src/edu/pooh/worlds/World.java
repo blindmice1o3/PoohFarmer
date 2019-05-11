@@ -289,12 +289,18 @@ public class World {
                             tilesViaRGB[xx][yy] = Tile.tiles[1];
                         } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
                             tilesViaRGB[xx][yy] = Tile.tiles[2];
-                        } else if (red == 0 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
-                                    "SignPost message (GameState) goes here.");
-                        }else if (red == 1 && green == 255 && blue == 255) {   //SignPostTile (dirtWalkway)
+                        } else if (red == 0 && green == 255 && blue == 255) {   //SignPostTile (dirtWalkway)
                             tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtWalkway, xx, yy,
-                                    "ShippingBin message goes here.");
+                                    SignPostTile.SignPostType.SHIPPING_BIN);
+                        } else if (red == 1 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                                    SignPostTile.SignPostType.RESOURCE_FODDER);
+                        } else if (red == 2 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                                    SignPostTile.SignPostType.RESOURCE_WOOD);
+                        } else if (red == 3 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                                    SignPostTile.SignPostType.HORSE_STABLE);
                         } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
                             for (int y = 0; y < 4; y++) {
                                 for (int x = 0; x < 5; x++) {
@@ -408,8 +414,8 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
-                            //TODO: ChestTile chicken coop
+                        } else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
+                            //TODO: ShippingBinTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -445,8 +451,8 @@ public class World {
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 0) {     //chest - solid, special.
-                            //TODO: ChestTile cow barn
+                        } else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
+                            //TODO: ShippingBinTile cow barn
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -537,7 +543,7 @@ public class World {
                         } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent.
                             tilesViaRGB[xx][yy] = new SignPostTile(
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
-                                    xx, yy, "SignPost message (MountainState) goes here."
+                                    xx, yy, SignPostTile.SignPostType.MOUNTAIN_TODO
                             );
                         }
                     }

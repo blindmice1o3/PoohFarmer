@@ -11,6 +11,7 @@ import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
@@ -39,16 +40,6 @@ public class Player extends Creature {
     // CANNABIS COUNTER
     private int cannabisCollected;
 
-    // CURRENCY COUNTER
-    private int currencyUnit;
-    public void increaseCurrencyUnit(int income) {
-        currencyUnit += income;
-    }
-    public void decreaseCurrencyUnit(int expense) {
-        currencyUnit -= expense;
-    }
-    public int getCurrencyUnit() { return currencyUnit; }
-
     // STAMINA TRACKER
     private int staminaBase;
     private int staminaCurrent;
@@ -65,7 +56,6 @@ public class Player extends Creature {
 
     // ANIMATIONS
     private Map<String, Animation> animations;
-    //private Animation animDown, animUp, animLeft, animRight, animUpRight, animUpLeft, animDownRight, animDownLeft;
 
     // ATTACK TIMER
     private long lastAttackTimer;
@@ -130,7 +120,7 @@ public class Player extends Creature {
                 //////////////////////////////////////////////////////////
                 System.out.println("FOUND ShippingBin object!");
 
-                increaseCurrencyUnit( ((ShippingBin)e).calculateTotal() );
+                ResourceManager.increaseCurrencyUnitCount( ((ShippingBin)e).calculateTotal() );
                 ((ShippingBin)e).emptyShippingBin();
                 //////////////////////////////////////////////////////////
                 break;
@@ -199,9 +189,6 @@ public class Player extends Creature {
 
         // CANNABIS COUNTER
         cannabisCollected = 0;
-
-        // CURRENCY COUNTER
-        currencyUnit = 30000;
 
         // STAMINA TRACKER
         staminaBase = 100;
@@ -392,93 +379,104 @@ public class Player extends Creature {
         }
 
         // KEY INPUT to SET MOVEMENT
-        if (handler.getKeyManager().up) { yMove = -speed; }
-        if (handler.getKeyManager().down) { yMove = speed; }
-        if (handler.getKeyManager().left) { xMove = -speed; }
-        if (handler.getKeyManager().right) { xMove = speed; }
+        if (handler.getKeyManager().up) {
+            yMove = -speed;
+        }
+        if (handler.getKeyManager().down) {
+            yMove = speed;
+        }
+        if (handler.getKeyManager().left) {
+            xMove = -speed;
+        }
+        if (handler.getKeyManager().right) {
+            xMove = speed;
+        }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
 
-        // !!!!! GAMESTATE SPECIFIC KEY ASSIGNMENTS !!!!!
+        // KeyEvent.VK_ESCAPE
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
+                (getTileCurrentlyFacing() instanceof SignPostTile)) {
+            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
+        }
 
-        //if (StateManager.getCurrentState() == handler.getGame().getGameState() ||
-        //        StateManager.getCurrentState() == handler.getGame().getChickenCoopState() ||
-        //        StateManager.getCurrentState() == handler.getGame().getHomeState()) {
+        // B BUTTON
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
+            inventory.incrementSelectedItem();
+            sfxBButtonPressed.play();
+        }
 
-            // B BUTTON
-            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
-                inventory.incrementSelectedItem();
-                sfxBButtonPressed.play();
+        // A BUTTON
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+
+            // TRAVELINGFENCE CHECK
+            if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
+                    checkForTravelingFence()) {
+                System.out.println("FOUND: The Finn!");
+
+                Object[] args = new Object[10];
+                args[0] = this;
+                args[1] = (int) x;
+                args[2] = (int) y;
+                /////////////////////////////////////////////////////////////////////
+                StateManager.change(handler.getGame().getTravelingFenceState(), args);
+                /////////////////////////////////////////////////////////////////////
+                return;
+            }
+            // SIGNPOSTTILE CHECK
+            else if (getTileCurrentlyFacing() instanceof SignPostTile) {
+                ((SignPostTile)getTileCurrentlyFacing()).execute();
             }
 
-            // A BUTTON
-            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
-
-                // TRAVELINGFENCE CHECK
-                if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
-                        checkForTravelingFence()) {
-                    System.out.println("FOUND: The Finn!");
-
-                    Object[] args = new Object[10];
-                    args[0] = this;
-                    args[1] = (int)x;
-                    args[2] = (int)y;
-                    /////////////////////////////////////////////////////////////////////
-                    StateManager.change(handler.getGame().getTravelingFenceState(), args);
-                    /////////////////////////////////////////////////////////////////////
-                    return;
+            // HOLDING CHECK
+            if (holding) {  // Already holding, can only drop the holdableObject.
+                // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
+                if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
+                    if (holdableObject instanceof ISellable) {
+                        /////////////////////////////////////////////////////
+                        // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
+                        /////////////////////////////////////////////////////
+                        ((ISellable) holdableObject).dropIntoShippingBin((ShippingBin) getEntityCurrentlyFacing());
+                        setHoldableObject(null);
+                        holding = false;
+                    }
+                } else {
+                    if (checkDropableTile()) {
+                        /////////////@@@@@@@@@@@@@@@@@@@@////////////////
+                        holdableObject.dropped(getTileCurrentlyFacing());
+                        setHoldableObject(null);
+                        holding = false;
+                        /////////////////////////////////////////////////
+                    }
                 }
-
-                // HOLDING CHECK
-                if (holding) {  // Already holding, can only drop the holdableObject.
-                    // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
-                    if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
-                        if (holdableObject instanceof ISellable) {
-                            /////////////////////////////////////////////////////
-                            // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
-                            /////////////////////////////////////////////////////
-                            ((ISellable)holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());
-                            setHoldableObject(null);
-                            holding = false;
-                        }
-                    } else {
-                        if (checkDropableTile()) {
-                            /////////////@@@@@@@@@@@@@@@@@@@@////////////////
-                            holdableObject.dropped(getTileCurrentlyFacing());
-                            setHoldableObject(null);
-                            holding = false;
-                            /////////////////////////////////////////////////
-                        }
+                // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
+            } else {        // Not holding IHoldable.
+                if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
+                    if (!holding) {
+                        //////////////////////////////////////
+                        setHoldableObject(pickUpHoldable());
+                        holdableObject.pickedUp();
+                        holding = true;
+                        //////////////////////////////////////
                     }
-                    // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
-                } else {        // Not holding IHoldable.
-                    if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
-                        if (!holding) {
-                            //////////////////////////////////////
-                            setHoldableObject(pickUpHoldable());
-                            holdableObject.pickedUp();
-                            holding = true;
-                            //////////////////////////////////////
-                        }
-                    } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {
-                        if (getTileCurrentlyFacing() instanceof SignPostTile) {
-                            ((SignPostTile)getTileCurrentlyFacing()).execute();
-                        } else if (getTileCurrentlyFacing() instanceof BedTile) {
-                            ((BedTile)getTileCurrentlyFacing()).execute();
-                        } else if (getTileCurrentlyFacing() instanceof HotSpringMountainTile) {
-                            ((HotSpringMountainTile)getTileCurrentlyFacing()).execute();
-                        }
-                    }  else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
-
-                        // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
-                        inventory.getItem(inventory.getIndex()).execute();
-                        decreaseStaminaCurrent(2);      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                        // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
-
+                } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {
+                    if (getTileCurrentlyFacing() instanceof SignPostTile) {
+                        ((SignPostTile) getTileCurrentlyFacing()).execute();
+                    } else if (getTileCurrentlyFacing() instanceof BedTile) {
+                        ((BedTile) getTileCurrentlyFacing()).execute();
+                    } else if (getTileCurrentlyFacing() instanceof HotSpringMountainTile) {
+                        ((HotSpringMountainTile) getTileCurrentlyFacing()).execute();
                     }
+                } else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
+
+                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
+                    inventory.getItem(inventory.getIndex()).execute();
+                    decreaseStaminaCurrent(2);      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
+
                 }
             }
-        //}
+        }
     }
 
     private boolean checkForTravelingFence() {
@@ -618,8 +616,7 @@ public class Player extends Creature {
         // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
         g.setColor(Color.BLUE);
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(getCurrencyUnit()),
-//      Text.drawString(g, Integer.toString(getCannabisCollected()),
+        Text.drawString(g, Integer.toString(ResourceManager.getCurrencyUnitCount()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
         // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)

@@ -28,26 +28,6 @@ public class DirtNormalTile extends Tile {
         staticEntity = null;
     } // **** end DirtNormalTile(int, int) constructor ****
 
-    public boolean checkFragmentedStaticEntity() {
-        // Check if fragmented HarvestEntity... if so, set it to inactive.
-        if (staticEntity instanceof HarvestEntity) {
-            if((((HarvestEntity)staticEntity).getTexture() == Assets.turnip0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.potato0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.tomato0Fragmented) ||
-                    (((HarvestEntity)staticEntity).getTexture() == Assets.corn0Fragmented)) {
-                return true;
-            } else { return false; }
-        } else {
-            return false;
-        }
-    }
-    public void checkRemoveFragmentedStaticEntity() {
-        if (checkFragmentedStaticEntity()) {
-            ((HarvestEntity)staticEntity).fragmentedTimer(HarvestEntity.FRAGMENTEDTIMELIMIT);
-            setStaticEntity(null);
-        }
-    }
-
     @Override
     public boolean isSolid() {
         return false;

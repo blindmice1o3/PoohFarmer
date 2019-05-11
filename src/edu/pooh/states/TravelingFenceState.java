@@ -3,7 +3,9 @@ package edu.pooh.states;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.Scythe;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier1.GoldShovel;
 import edu.pooh.items.tier1.GoldSprinkler;
@@ -107,7 +109,7 @@ public class TravelingFenceState implements IState {
             }
 
             public boolean checkCanShopperAfford(int expense) {
-                return (player.getCurrencyUnit() >= expense);
+                return (ResourceManager.getCurrencyUnitCount() >= expense);
             }
 
             public void buyItemAtCurrentIndex() {
@@ -117,7 +119,7 @@ public class TravelingFenceState implements IState {
                 }
 
                 if ( checkCanShopperAfford( checkPrice(getItem(getIndex())) ) ) {
-                    player.decreaseCurrencyUnit( checkPrice(getItem(getIndex())) );
+                    ResourceManager.decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
                     player.getInventory().addItem(getItem(getIndex()));
                     removeItem(getIndex());
                 }
@@ -125,6 +127,7 @@ public class TravelingFenceState implements IState {
 
         };
 
+        inventory.addItem(Scythe.getUniqueInstance(handler));
         inventory.addItem(GoldShovel.getUniqueInstance(handler));
         inventory.addItem(GoldSprinkler.getUniqueInstance(handler));
         inventory.addItem(new SeedsWild(handler));
