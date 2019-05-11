@@ -150,13 +150,25 @@ public class GameState implements IState {
                     if (tempWorld[x][y] instanceof DirtNormalTile) {
                         DirtNormalTile tempTile = (DirtNormalTile)tempWorld[x][y];
                         if ( (tempTile.getStaticEntity() != null) &&
-                                (tempTile.getStaticEntity() instanceof CropEntity) &&
-                                (tempTile.isWatered()) ) {
-                            System.out.println("GameState.increaseCropEntityDaysWatered() successful.");
-                            ///////////////////////////////////////////////////////////////
-                            ((CropEntity)tempTile.getStaticEntity()).increaseDaysWatered();
-                            ((CropEntity)tempTile.getStaticEntity()).incrementLifeCycleByDaysWatered();
-                            ///////////////////////////////////////////////////////////////
+                                (tempTile.getStaticEntity() instanceof CropEntity) ) {
+                            // For grass, just increment daysWatered everyday (except during season == WINTER)
+                            // whether its tile was watered or unwatered the previous day.
+                            if (((CropEntity)tempTile.getStaticEntity()).getCropType() == CropEntity.CropType.GRASS) {
+                                System.out.println("GameState.increaseCropEntityDaysWatered() successful.");
+                                ///////////////////////////////////////////////////////////////
+                                ((CropEntity)tempTile.getStaticEntity()).increaseDaysWatered();
+                                ((CropEntity)tempTile.getStaticEntity()).incrementLifeCycleByDaysWatered();
+                                ///////////////////////////////////////////////////////////////
+                            }
+                            // All other CropEntity need to have been watered the previous day
+                            // to get its daysWatered incremented.
+                            else if (tempTile.isWatered()) {
+                                System.out.println("GameState.increaseCropEntityDaysWatered() successful.");
+                                ///////////////////////////////////////////////////////////////
+                                ((CropEntity)tempTile.getStaticEntity()).increaseDaysWatered();
+                                ((CropEntity)tempTile.getStaticEntity()).incrementLifeCycleByDaysWatered();
+                                ///////////////////////////////////////////////////////////////
+                            }
                         }
                     }
                 }

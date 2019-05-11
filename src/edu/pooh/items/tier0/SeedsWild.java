@@ -14,7 +14,8 @@ public class SeedsWild extends Item {
         TURNIP,
         POTATO,
         TOMATO,
-        CORN;
+        CORN,
+        GRASS;
     }
 
     private SeedType seedType;
@@ -64,6 +65,9 @@ public class SeedsWild extends Item {
                             break;
                         case CORN:
                             ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
+                            break;
+                        case GRASS:
+                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.GRASS);
                             break;
                         default:
                             ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);

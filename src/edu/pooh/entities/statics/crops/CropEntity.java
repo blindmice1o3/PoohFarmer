@@ -15,12 +15,13 @@ public class CropEntity extends StaticEntity {
 
     //TODO: Grass goes here.
     public enum CropType {
-        CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN;
+        CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN, GRASS;
     }
 
     private CropType cropType;
 
     private int daysWatered;
+    private boolean tangibleToScythe;
     private boolean harvestable;
     private BufferedImage currentImage;
 
@@ -29,6 +30,7 @@ public class CropEntity extends StaticEntity {
 
         daysWatered = 0;
         harvestable = false;
+        tangibleToScythe = false;
         currentImage = Assets.dirtSeededDry;
 
         // NO COLLISION WHILE dirtSeededDry. START COLLISION AT daysWatered == 3.
@@ -48,11 +50,38 @@ public class CropEntity extends StaticEntity {
         System.out.println("daysWatered == " + daysWatered);
 
         switch (cropType) {
+            case GRASS:
+                if (daysWatered == 1) {
+                    setCurrentImage(Assets.grassSeeded);
+                    break;
+                } else if (daysWatered == 2) {
+                    break;
+                } else if (daysWatered == 3) {
+                    break;
+                } else if (daysWatered == 4) {
+                    break;
+                } else if (daysWatered == 5) {
+                    setCurrentImage(Assets.grassYoung);
+                    break;
+                } else if (daysWatered == 6) {
+                    break;
+                } else if (daysWatered == 7) {
+                    break;
+                } else if (daysWatered == 8) {
+                    break;
+                } else if (daysWatered == 9) {
+                    setCurrentImage(Assets.grassAdult);
+                    setHarvestable(true);
+                    break;
+                }
+
+                break;
             case CANNABIS_WILD:
                 if (daysWatered == 1) {
                     // START ENTITY COLLISION DETECTION
                     setBoundsWidth(width);
                     setBoundsHeight(height);
+                    setTangibleToScythe(true);
 
                     setCurrentImage(Assets.plantSproutling);
                     break;
@@ -76,6 +105,7 @@ public class CropEntity extends StaticEntity {
                     // START ENTITY COLLISION DETECTION
                     setBoundsWidth(width);
                     setBoundsHeight(height);
+                    setTangibleToScythe(true);
 
                     setCurrentImage(Assets.turnip1Dry);
                     break;
@@ -93,6 +123,7 @@ public class CropEntity extends StaticEntity {
                     // START ENTITY COLLISION DETECTION
                     setBoundsWidth(width);
                     setBoundsHeight(height);
+                    setTangibleToScythe(true);
 
                     setCurrentImage(Assets.potato1Dry);
                     break;
@@ -114,6 +145,7 @@ public class CropEntity extends StaticEntity {
                     // START ENTITY COLLISION DETECTION
                     setBoundsWidth(width);
                     setBoundsHeight(height);
+                    setTangibleToScythe(true);
 
                     setCurrentImage(Assets.tomato1Dry);
                     break;
@@ -145,6 +177,7 @@ public class CropEntity extends StaticEntity {
                     // START ENTITY COLLISION DETECTION
                     setBoundsWidth(width);
                     setBoundsHeight(height);
+                    setTangibleToScythe(true);
 
                     setCurrentImage(Assets.corn1Dry);
                     break;
@@ -183,14 +216,6 @@ public class CropEntity extends StaticEntity {
     }
 
     @Override
-    public void render(Graphics g) {
-        g.drawImage(currentImage, (int)(x - handler.getGameCamera().getxOffset()),
-                (int)(y - handler.getGameCamera().getyOffset()), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
-        Text.drawString(g, "dayWatered: " + daysWatered, (int)(x - handler.getGameCamera().getxOffset()),
-                (int)(y - handler.getGameCamera().getyOffset()), false, Color.YELLOW, Assets.font28);
-    }
-
-    @Override
     public void die() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         HarvestEntity tempHarvestEntity = new HarvestEntity(handler, x, y);
@@ -210,6 +235,12 @@ public class CropEntity extends StaticEntity {
             case CORN:
                 tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CORN);
                 break;
+            case GRASS:
+                setTangibleToScythe(true);
+
+                // @@@@@
+                return;
+                //@@@@@@
             default:
                 tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
                 break;
@@ -255,6 +286,14 @@ public class CropEntity extends StaticEntity {
     }
 
     @Override
+    public void render(Graphics g) {
+        g.drawImage(currentImage, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+        Text.drawString(g, Integer.toString(daysWatered), (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font28);
+    }
+
+    @Override
     public void hurt(int amt) {
         return;
     }
@@ -269,13 +308,17 @@ public class CropEntity extends StaticEntity {
 
     public void setCropType(CropType cropType) { this.cropType = cropType; }
 
-    public boolean getHarvestable() {
+    public boolean isHarvestable() {
         return harvestable;
     }
 
     public void setHarvestable(boolean harvestable) {
         this.harvestable = harvestable;
     }
+
+    public boolean isTangibleToScythe() { return tangibleToScythe; }
+
+    public void setTangibleToScythe(boolean tangibleToScythe) { this.tangibleToScythe = tangibleToScythe; }
 
     public BufferedImage getCurrentImage() {
         return currentImage;

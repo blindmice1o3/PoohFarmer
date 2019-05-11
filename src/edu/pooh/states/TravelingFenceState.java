@@ -128,39 +128,14 @@ public class TravelingFenceState implements IState {
         inventory.addItem(GoldShovel.getUniqueInstance(handler));
         inventory.addItem(GoldSprinkler.getUniqueInstance(handler));
         inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(2) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(2)).setSeedType(SeedsWild.SeedType.CANNABIS_WILD);
-            ((SeedsWild)inventory.getItem(2)).setName("pure-breeding Cannabis indica seeds");
+        if (inventory.getItem(2) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(2)).setSeedType(SeedsWild.SeedType.TOMATO);
+            ((SeedsWild)inventory.getItem(2)).setName("Tomato seeds");
         }
         inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(3) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(3)).setSeedType(SeedsWild.SeedType.TURNIP);
-            ((SeedsWild)inventory.getItem(3)).setName("Turnip seeds");
-        }
-        inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(4) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(4)).setSeedType(SeedsWild.SeedType.POTATO);
-            ((SeedsWild)inventory.getItem(4)).setName("Potato seeds");
-        }
-        inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(5) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(5)).setSeedType(SeedsWild.SeedType.TOMATO);
-            ((SeedsWild)inventory.getItem(5)).setName("Tomato seeds");
-        }
-        inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(6) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(6)).setSeedType(SeedsWild.SeedType.CORN);
-            ((SeedsWild)inventory.getItem(6)).setName("Corn seeds");
-        }
-        inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(7) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(7)).setSeedType(SeedsWild.SeedType.CANNABIS_WILD);
-            ((SeedsWild)inventory.getItem(7)).setName("pure-breeding Cannabis indica seeds");
-        }
-        inventory.addItem(new SeedsWild(handler));
-        if(inventory.getItem(8) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(8)).setSeedType(SeedsWild.SeedType.CANNABIS_WILD);
-            ((SeedsWild)inventory.getItem(8)).setName("pure-breeding Cannabis sativa seeds");
+        if (inventory.getItem(3) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(3)).setSeedType(SeedsWild.SeedType.GRASS);
+            ((SeedsWild)inventory.getItem(3)).setName("Grass seeds");
         }
     }
 
@@ -174,7 +149,9 @@ public class TravelingFenceState implements IState {
         } else if ((item instanceof SeedsWild) && (((SeedsWild)item).getSeedType() == SeedsWild.SeedType.CORN)) {
             return 300;
         } else if ((item instanceof SeedsWild) && (((SeedsWild)item).getSeedType() == SeedsWild.SeedType.CANNABIS_WILD)) {
-            return 300;
+            return 350;
+        } else if ((item instanceof SeedsWild) && (((SeedsWild)item).getSeedType() == SeedsWild.SeedType.GRASS)) {
+            return 500;
         } else if (item instanceof GoldShovel) {
             return 500;
         } else if (item instanceof GoldSprinkler) {
