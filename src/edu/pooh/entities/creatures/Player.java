@@ -209,6 +209,8 @@ public class Player extends Creature {
 
         // INVENTORY
         inventory = new Inventory(handler);
+        inventory.addItem(WateringCan.getUniqueInstance(handler));
+        inventory.getItem(0).setPickedUp(true);
 
         // DATE DISPLAYER
         dateDisplayer = new DateDisplayer(handler);

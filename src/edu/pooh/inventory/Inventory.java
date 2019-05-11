@@ -33,9 +33,6 @@ public class Inventory {
     public Inventory(Handler handler) {
         this.handler = handler;
         inventoryItems = new ArrayList<Item>();
-
-        addItem(WateringCan.getUniqueInstance(handler));
-        inventoryItems.get(0).setPickedUp(true);
     } // **** end Inventory(Handler) constructor ****
 
     public void incrementSelectedItem() {
