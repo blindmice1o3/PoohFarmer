@@ -4,7 +4,6 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.SeedsWild;
-import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -28,7 +27,7 @@ public class Inventory {
 
     private int invCountX = 607, invCountY = 180;
 
-    private int selectedItem = 0;
+    private int index = 0;
 
     public Inventory(Handler handler) {
         this.handler = handler;
@@ -36,13 +35,13 @@ public class Inventory {
     } // **** end Inventory(Handler) constructor ****
 
     public void incrementSelectedItem() {
-        selectedItem++;
+        index++;
 
-        if (selectedItem >= inventoryItems.size()) {
-            selectedItem = 0;
+        if (index >= inventoryItems.size()) {
+            index = 0;
         }
 
-        System.out.println("selectedItem incremented.");
+        System.out.println("index incremented.");
     }
 
     public void tick() {
@@ -54,17 +53,17 @@ public class Inventory {
         }
 
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
-            selectedItem--;
+            index--;
         }
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
-            selectedItem++;
+            index++;
         }
 
-        if (selectedItem < 0) {
-            selectedItem = inventoryItems.size() - 1;
+        if (index < 0) {
+            index = inventoryItems.size() - 1;
         }
-        else if (selectedItem >= inventoryItems.size()) {
-            selectedItem = 0;
+        else if (index >= inventoryItems.size()) {
+            index = 0;
         }
     }
 
@@ -81,20 +80,20 @@ public class Inventory {
         }
 
         for (int i = -2; i < 3; i++) {
-            if (selectedItem + i < 0 || selectedItem + i >= len) {
+            if (index + i < 0 || index + i >= len) {
                 continue;
             }
 
             if (i == 0) {
-                Text.drawString(g, "> " + inventoryItems.get(selectedItem + i).getName() + " <", invListCenterX,
+                Text.drawString(g, "> " + inventoryItems.get(index + i).getName() + " <", invListCenterX,
                         invListCenterY + i * invListSpacing, true, Color.YELLOW, Assets.font28);
             } else {
-                Text.drawString(g, inventoryItems.get(selectedItem + i).getName(), invListCenterX,
+                Text.drawString(g, inventoryItems.get(index + i).getName(), invListCenterX,
                         invListCenterY + i * invListSpacing, true, Color.RED, Assets.font28);
             }
         }
 
-        Item item = inventoryItems.get(selectedItem);
+        Item item = inventoryItems.get(index);
         g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
         Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.YELLOW, Assets.font28);
     }
@@ -119,17 +118,25 @@ public class Inventory {
 
     // GETTERS & SETTERS
 
+    public ArrayList<Item> getInventoryItems() { return inventoryItems; }
+
     public Item getItem(int index) {
         return inventoryItems.get(index);
     }
 
-    public int getSelectedItem() {
-        return selectedItem;
+    public void removeItem(int index) { inventoryItems.remove(index); }
+
+    public int getIndex() {
+        return index;
     }
+
+    public void setIndex(int index) { this.index = index; }
 
     public boolean isActive() {
         return active;
     }
+
+    public void setActive(boolean active) { this.active = active; }
 
     public Handler getHandler() {
         return handler;

@@ -44,6 +44,9 @@ public class Player extends Creature {
     public void increaseCurrencyUnit(int income) {
         currencyUnit += income;
     }
+    public void decreaseCurrencyUnit(int expense) {
+        currencyUnit -= expense;
+    }
     public int getCurrencyUnit() { return currencyUnit; }
 
     // STAMINA TRACKER
@@ -198,7 +201,7 @@ public class Player extends Creature {
         cannabisCollected = 0;
 
         // CURRENCY COUNTER
-        currencyUnit = 0;
+        currencyUnit = 30000;
 
         // STAMINA TRACKER
         staminaBase = 100;
@@ -470,7 +473,7 @@ public class Player extends Creature {
                     }  else { // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
 
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
-                        inventory.getItem(inventory.getSelectedItem()).execute();
+                        inventory.getItem(inventory.getIndex()).execute();
                         decreaseStaminaCurrent(2);      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                         // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
 
@@ -631,16 +634,16 @@ public class Player extends Creature {
         g.setColor(Color.BLUE);
         g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
                 (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        g.drawImage( inventory.getItem(inventory.getSelectedItem()).getTexture(),
+        g.drawImage( inventory.getItem(inventory.getIndex()).getTexture(),
                 (Game.  WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
                 Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
-        if (inventory.getItem(inventory.getSelectedItem()).getId() == Item.ID.WATERING_CAN) {
-            WateringCan temp = (WateringCan)inventory.getItem(inventory.getSelectedItem());
+        if (inventory.getItem(inventory.getIndex()).getId() == Item.ID.WATERING_CAN) {
+            WateringCan temp = (WateringCan)inventory.getItem(inventory.getIndex());
             Text.drawString(g, Integer.toString(temp.getCountWater()),
                     (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
                     25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
         } else {
-            Text.drawString(g, Integer.toString(inventory.getItem(inventory.getSelectedItem()).getCount()),
+            Text.drawString(g, Integer.toString(inventory.getItem(inventory.getIndex()).getCount()),
                     (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
                     25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
         }
