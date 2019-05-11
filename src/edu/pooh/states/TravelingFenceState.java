@@ -112,6 +112,11 @@ public class TravelingFenceState implements IState {
             }
 
             public void buyItemAtCurrentIndex() {
+                if (getInventoryItems().size() == 0) {
+                    System.out.println("NOTHING TO BUY!");
+                    return;
+                }
+
                 if ( checkCanShopperAfford( checkPrice(getItem(getIndex())) ) ) {
                     player.decreaseCurrencyUnit( checkPrice(getItem(getIndex())) );
                     player.getInventory().addItem(getItem(getIndex()));

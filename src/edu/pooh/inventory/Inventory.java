@@ -124,8 +124,9 @@ public class Inventory {
         return inventoryItems.get(index);
     }
 
-    public void removeItem(int index) { inventoryItems.remove(index); }
-
+    public void removeItem(int index) {
+        inventoryItems.remove(index);
+    }
     public int getIndex() {
         return index;
     }
