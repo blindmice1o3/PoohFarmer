@@ -53,6 +53,9 @@ public class CropEntity extends StaticEntity {
             case GRASS:
                 if (daysWatered == 1) {
                     setCurrentImage(Assets.grassSeeded);
+                    setBoundsWidth(width);
+                    setBoundsHeight(height);
+
                     break;
                 } else if (daysWatered == 2) {
                     break;

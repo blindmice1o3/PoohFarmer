@@ -7,6 +7,8 @@ import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
 
+import java.awt.*;
+
 public class SeedsWild extends Item {
 
     public enum SeedType {
@@ -44,35 +46,39 @@ public class SeedsWild extends Item {
                         (((DirtNormalTile)t).getDirtState() == DirtNormalTile.DirtState.TILLED &&
                         //////////////////////////////////////////////////////////////////////
                                 ((DirtNormalTile)t).getStaticEntity() == null)) {
-                    DirtNormalTile temp = (DirtNormalTile)t;
+                    DirtNormalTile temp = (DirtNormalTile) t;
 
                     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                    temp.setStaticEntity(new CropEntity(handler,
-                            temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
+                    CropEntity.CropType tempCropType;
                     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                     switch (seedType) {
                         case CANNABIS_WILD:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
+                            tempCropType = CropEntity.CropType.CANNABIS_WILD;
                             break;
                         case TURNIP:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.TURNIP);
+                            tempCropType = CropEntity.CropType.TURNIP;
                             break;
                         case POTATO:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.POTATO);
+                            tempCropType = CropEntity.CropType.POTATO;
                             break;
                         case TOMATO:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.TOMATO);
+                            tempCropType = CropEntity.CropType.TOMATO;
                             break;
                         case CORN:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CORN);
+                            tempCropType = CropEntity.CropType.CORN;
                             break;
                         case GRASS:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.GRASS);
+                            tempCropType = CropEntity.CropType.GRASS;
                             break;
                         default:
-                            ((CropEntity)temp.getStaticEntity()).setCropType(CropEntity.CropType.CANNABIS_WILD);
+                            tempCropType = CropEntity.CropType.CANNABIS_WILD;
                             break;
                     }
+
+                    temp.setStaticEntity(new CropEntity(handler,
+                            temp.getX() * Tile.TILE_WIDTH, temp.getY() * Tile.TILE_HEIGHT));
+                    ((CropEntity)temp.getStaticEntity()).setCropType(tempCropType);
+
                     handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(temp.getStaticEntity());
 
                     ///////////////////////////////////////////////////

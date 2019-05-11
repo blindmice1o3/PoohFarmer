@@ -1,5 +1,6 @@
 package edu.pooh.entities;
 
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -45,7 +46,9 @@ public abstract class Entity {
 
     public boolean checkEntityCollision(float xOffset, float yOffset) {
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            if (e.equals(this) || e.equals(handler.getWorld().getEntityManager().getPlayer().getHoldableObject())) {
+            if ( (e.equals(this)) ||
+                    (e.equals(handler.getWorld().getEntityManager().getPlayer().getHoldableObject())) ||
+                    ((e instanceof CropEntity) && (((CropEntity)e).getCropType() == CropEntity.CropType.GRASS)) ) {
                 continue;
             }
 

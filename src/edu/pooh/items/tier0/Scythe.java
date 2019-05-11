@@ -4,6 +4,7 @@ import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.entities.statics.produce_yields.HarvestEntity;
 import edu.pooh.gfx.Assets;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
@@ -25,19 +26,20 @@ public class Scythe extends Item {
     @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
+        System.out.print("Scythe.execute(), targeted-entity: " + entity);
 
+        //                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         if ((entity instanceof CropEntity) && (((CropEntity)entity).isTangibleToScythe())) {
-            System.out.print("Scythe.execute(), targeted-entity: " + entity);
-
+        //                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             // Scythe sets grass's daysWatered to 0, currentImage to Assets.grassSeeded, harvestable to false,
             // and tangibleToScythe to false.
             if (((CropEntity) entity).getCropType() == CropEntity.CropType.GRASS) {
                 CropEntity tempGrass = (CropEntity) entity;
 
                 ///////////////////////////////////////////////////
-                //TODO: increment hay/feed/fodder.
+                ResourceManager.increaseFodderCount(1);
 
-                tempGrass.setDaysWatered(0);
+                tempGrass.setDaysWatered(1);
                 tempGrass.setCurrentImage(Assets.grassSeeded);
                 tempGrass.setHarvestable(false);
                 tempGrass.setTangibleToScythe(false);
