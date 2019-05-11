@@ -7,6 +7,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.items.tier0.Scythe;
 import edu.pooh.items.tier0.SeedsWild;
+import edu.pooh.items.tier0.Shovel;
 import edu.pooh.items.tier1.GoldShovel;
 import edu.pooh.items.tier1.GoldSprinkler;
 import edu.pooh.main.Handler;
@@ -131,14 +132,14 @@ public class TravelingFenceState implements IState {
         inventory.addItem(GoldShovel.getUniqueInstance(handler));
         inventory.addItem(GoldSprinkler.getUniqueInstance(handler));
         inventory.addItem(new SeedsWild(handler));
-        if (inventory.getItem(2) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(2)).setSeedType(SeedsWild.SeedType.TOMATO);
-            ((SeedsWild)inventory.getItem(2)).setName("Tomato seeds");
+        if (inventory.getItem(3) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(3)).setSeedType(SeedsWild.SeedType.TOMATO);
+            ((SeedsWild)inventory.getItem(3)).setName("Tomato seeds");
         }
         inventory.addItem(new SeedsWild(handler));
-        if (inventory.getItem(3) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(3)).setSeedType(SeedsWild.SeedType.GRASS);
-            ((SeedsWild)inventory.getItem(3)).setName("Grass seeds");
+        if (inventory.getItem(4) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(4)).setSeedType(SeedsWild.SeedType.GRASS);
+            ((SeedsWild)inventory.getItem(4)).setName("Grass seeds");
         }
     }
 
@@ -155,12 +156,14 @@ public class TravelingFenceState implements IState {
             return 350;
         } else if ((item instanceof SeedsWild) && (((SeedsWild)item).getSeedType() == SeedsWild.SeedType.GRASS)) {
             return 500;
+        } else if (item instanceof Scythe) {
+            return 200;
         } else if (item instanceof GoldShovel) {
             return 500;
         } else if (item instanceof GoldSprinkler) {
             return 1000;
         } else {
-            return 3000;
+            return 300000000;
         }
     }
 
