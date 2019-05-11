@@ -417,7 +417,6 @@ public class Player extends Creature {
                 // TRAVELINGFENCE CHECK
                 if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
                         checkForTravelingFence()) {
-                    // TODO: Implement TravelingFenceState.
                     System.out.println("FOUND: The Finn!");
 
                     Object[] args = new Object[10];
@@ -436,7 +435,6 @@ public class Player extends Creature {
                     if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
                         if (holdableObject instanceof ISellable) {
                             /////////////////////////////////////////////////////
-                            // TODO: SELLABLE INTERFACE, ArrayList<Sellable>.  //
                             // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
                             /////////////////////////////////////////////////////
                             ((ISellable)holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());

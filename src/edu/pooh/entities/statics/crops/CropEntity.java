@@ -11,17 +11,9 @@ import edu.pooh.tiles.Tile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * TODO: Move responsibility of tracking waterable from this singular concrete subclass of StaticEntity
- * to the abstract class named Tile. Set up an observer design-pattern between Tile class and StaticEntity
- * class. Inside the tile's setStaticEntity(StaticEntity) method, have the tile call its
- * registerObserver() method to add the newly composed StaticEntity object to the tile's list of Observer.
- * Add an instance variable to Tile class named boolean watered. Whenever the state of the tile's watered
- * variable is set to true, call tile's (Subject) notifyObservers() method, which traverse its collection
- * of Observer objects to call their update() method.
- */
 public class CropEntity extends StaticEntity {
 
+    //TODO: Grass goes here.
     public enum CropType {
         CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN;
     }

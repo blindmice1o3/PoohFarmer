@@ -13,7 +13,6 @@ import edu.pooh.time.TimeManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-// TODO: implement buy/sell functionality. Probably need UIManager for this IState.
 public class TravelingFenceState implements IState {
 
     private Handler handler;

@@ -123,7 +123,7 @@ public class TimeManager {
      * (and therefore its future credibility/reliability to be used as a 'total-time-played' data source),
      * and since it's already compromised, I will mutate that variable here as well.
      * //TODO: In the future, develop the timing system to include both an elapsedRealSeconds variable AND a separate
-     * //TODO: in-game time that uses the elapsedRealSeconds as an engine BUT NOT as direct-data.
+     * //in-game time that uses the elapsedRealSeconds as an engine BUT NOT as direct-data.
      */
     public static void incrementElapsedRealSecondsBy60() {
         if ((elapsedRealSeconds + 60 <= 720)) {
