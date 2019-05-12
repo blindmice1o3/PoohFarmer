@@ -17,7 +17,7 @@ public class HotSpringMountainTile extends SolidGenericTile
         this.handler = handler;
         this.x = x;
         this.y = y;
-    } // **** end HotSpringMountainTile(Handler, int, int BufferedImage) constructor ****
+    } // **** end HotSpringMountainTile(Handler, int, int, BufferedImage) constructor ****
 
     @Override
     public void execute() {

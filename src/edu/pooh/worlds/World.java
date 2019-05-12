@@ -414,7 +414,16 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
+                        } else if (red == 255 && green == 0 && blue == 0) { // FodderExecutorTile.
+                            tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 0 && blue == 255) { // FodderDisplayerTile.
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+                        else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
                             //TODO: ShippingBinTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
@@ -424,9 +433,9 @@ public class World {
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //chickenFeed - solid, special.
+                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
                             //TODO: ChickenFeedTile chicken coop
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.

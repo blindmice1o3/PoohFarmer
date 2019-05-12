@@ -23,7 +23,7 @@ public class Wood extends StaticEntity
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override

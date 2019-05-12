@@ -427,6 +427,10 @@ public class Player extends Creature {
             else if (getTileCurrentlyFacing() instanceof SignPostTile) {
                 ((SignPostTile)getTileCurrentlyFacing()).execute();
             }
+            // FODDERSTASHTILE CHECK
+            else if (getTileCurrentlyFacing() instanceof FodderStashTile) {
+                ((FodderStashTile)getTileCurrentlyFacing()).execute();
+            }
 
             // HOLDING CHECK
             if (holding) {  // Already holding, can only drop the holdableObject.
