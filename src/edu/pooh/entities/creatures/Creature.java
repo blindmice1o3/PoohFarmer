@@ -65,28 +65,28 @@ public abstract class Creature extends Entity {
         Rectangle entityCollisionBox = new Rectangle();
         switch (currentDirection) {
             case DOWN:
-                entityCollisionBox.x = (creatureCenterX-(width/4));
-                entityCollisionBox.y = (creatureCenterY+(height/2));
-                entityCollisionBox.width = (width/2);
-                entityCollisionBox.height = Tile.TILE_HEIGHT;
+                entityCollisionBox.x = (creatureCenterX-(Tile.TILE_WIDTH/4));
+                entityCollisionBox.y = (creatureCenterY+(Tile.TILE_HEIGHT/2)+((int)(0.3)*Tile.TILE_HEIGHT));
+                entityCollisionBox.width = (Tile.TILE_WIDTH/2);
+                entityCollisionBox.height = (Tile.TILE_HEIGHT/2);
                 break;
             case UP:
-                entityCollisionBox.x = (creatureCenterX-(width/4));
-                entityCollisionBox.y = (creatureCenterY-(height/2)-Tile.TILE_HEIGHT);
-                entityCollisionBox.width = (width/2);
-                entityCollisionBox.height = Tile.TILE_HEIGHT;
+                entityCollisionBox.x = (creatureCenterX-(Tile.TILE_WIDTH/4));
+                entityCollisionBox.y = (creatureCenterY-((int)(1.4)*Tile.TILE_HEIGHT));
+                entityCollisionBox.width = (Tile.TILE_WIDTH/2);
+                entityCollisionBox.height = (Tile.TILE_HEIGHT/2);
                 break;
             case LEFT:
-                entityCollisionBox.x = (creatureCenterX-(width/2)-Tile.TILE_WIDTH);
-                entityCollisionBox.y = (creatureCenterY-(width/4));
-                entityCollisionBox.width = Tile.TILE_WIDTH;
-                entityCollisionBox.height = (height/2);
+                entityCollisionBox.x = (creatureCenterX-((int)(1.4)*Tile.TILE_WIDTH));
+                entityCollisionBox.y = (creatureCenterY-(Tile.TILE_HEIGHT/4));
+                entityCollisionBox.width = (Tile.TILE_WIDTH/2);
+                entityCollisionBox.height = (Tile.TILE_HEIGHT/2);
                 break;
             case RIGHT:
-                entityCollisionBox.x = (creatureCenterX+(width/2));
-                entityCollisionBox.y = (creatureCenterY-(height/4));
-                entityCollisionBox.width = Tile.TILE_WIDTH;
-                entityCollisionBox.height = (height/2);
+                entityCollisionBox.x = (creatureCenterX+(Tile.TILE_WIDTH/2)+((int)(0.3)*Tile.TILE_WIDTH));
+                entityCollisionBox.y = (creatureCenterY-(Tile.TILE_HEIGHT/4));
+                entityCollisionBox.width = (Tile.TILE_WIDTH/2);
+                entityCollisionBox.height = (Tile.TILE_HEIGHT/2);
                 break;
             default:
                 break;

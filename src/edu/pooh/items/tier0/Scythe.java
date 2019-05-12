@@ -39,7 +39,7 @@ public class Scythe extends Item {
                 ///////////////////////////////////////////////////
                 ResourceManager.increaseFodderCount(1);
 
-                tempGrass.setDaysWatered(1);
+                tempGrass.setDaysWatered(0);
                 tempGrass.setCurrentImage(Assets.grassSeeded);
                 tempGrass.setHarvestable(false);
                 tempGrass.setTangibleToScythe(false);
