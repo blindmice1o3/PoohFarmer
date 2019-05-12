@@ -37,12 +37,7 @@ public class Scythe extends Item {
                 CropEntity tempGrass = (CropEntity) entity;
 
                 ///////////////////////////////////////////////////
-                ResourceManager.increaseFodderCount(1);
-
-                tempGrass.setDaysWatered(0);
-                tempGrass.setCurrentImage(Assets.grassSeeded);
-                tempGrass.setHarvestable(false);
-                tempGrass.setTangibleToScythe(false);
+                tempGrass.die();
                 ///////////////////////////////////////////////////
             } else {
                 //TODO: call special unimplemented version of the CropEntity's die() that removes it without dropping HarvestEntity.

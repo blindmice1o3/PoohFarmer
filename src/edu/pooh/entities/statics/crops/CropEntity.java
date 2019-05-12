@@ -4,6 +4,7 @@ import edu.pooh.entities.statics.produce_yields.HarvestEntity;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
@@ -74,7 +75,10 @@ public class CropEntity extends StaticEntity {
                     break;
                 } else if (daysWatered == 9) {
                     setCurrentImage(Assets.grassAdult);
-                    setHarvestable(true);
+                    // @@@@@
+                    setTangibleToScythe(true);
+                    // @@@@@
+
                     break;
                 }
 
@@ -239,7 +243,12 @@ public class CropEntity extends StaticEntity {
                 tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CORN);
                 break;
             case GRASS:
-                setTangibleToScythe(true);
+                ResourceManager.increaseFodderCount(1);
+
+                daysWatered = 0;
+                currentImage = Assets.grassSeeded;
+                harvestable = false;
+                tangibleToScythe = false;
 
                 // @@@@@
                 return;
