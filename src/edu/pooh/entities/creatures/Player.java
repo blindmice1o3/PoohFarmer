@@ -424,6 +424,14 @@ public class Player extends Creature {
             sfxBButtonPressed.play();
         }
 
+
+        //////////////////// @@@@@@@@@@@@@@ STOPPING LEGACY DIAGONAL MOVEMENT BUG @@@@@@@@@@@@@@ ////////////////////
+        if ((currentDirection == DirectionFacing.UPLEFT) || (currentDirection == DirectionFacing.UPRIGHT) ||
+                (currentDirection == DirectionFacing.DOWNLEFT) || (currentDirection == DirectionFacing.DOWNRIGHT)) {
+            return;
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
 
