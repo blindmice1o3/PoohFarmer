@@ -51,15 +51,17 @@ public class HomeState implements IState {
             ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
 
             /** Daily ChickenCoopState method calls. */
+            // INCREASE Chicken int daysInstantiated if IT'S LESS THAN 7 daysInstantiated.
+            ((ChickenCoopState)handler.getGame().getChickenCoopState()).increaseChickenDaysInstantiated();
+            // CHECK INCUBATOR
+            ((ChickenCoopState)handler.getGame().getChickenCoopState()).incrementDaysIncubating();
+            //TODO: chicken egg-laying state to chicken grumpy state.
+
             // Number of FodderDisplayerTile object whose activated is set to true.
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
             // (BE SURE TO RESET ALL TO FALSE)
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).setAllFodderDisplayerTileActivatedToFalse();
-            // CHECK INCUBATOR
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).incrementDaysIncubating();
-            // INCREASE Chicken int daysInstantiated if IT'S LESS THAN 7 daysInstantiated.
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).increaseChickenDaysInstantiated();
-            //TODO: chicken egg-laying state to chicken grumpy state.
+
 
 
 

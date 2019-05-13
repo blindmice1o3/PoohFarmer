@@ -137,11 +137,25 @@ public class ChickenCoopState implements IState {
         return fodderDisplayerTotal;
     }
 
+    private int getEggLayableChickenTotal() {
+        int numberOfEggLayableChicken = 0;
+
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if(e instanceof Chicken) {
+                Chicken tempChicken = (Chicken)e;
+                if (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_EGG_LAYING) {
+                    numberOfEggLayableChicken++;
+                }
+            }
+        }
+
+        return numberOfEggLayableChicken;
+    }
     public void instantiateEggBasedOnFodderDisplayerTile() {
         //TODO: Which is less, number of chicken (adult state and egg laying) or the number of feed?
-        //int numberOfEgg = Math.min(getFodderDisplayerTotal(), ResourceManager.getChickenCounter());
-
-        int numberOfEgg = getFodderDisplayerTotal();
+        int numberOfEgg = Math.min(getFodderDisplayerTotal(), getEggLayableChickenTotal());
+        System.out.println("FODDER-DISPLAYER-TOTAL: " + getFodderDisplayerTotal() +
+                "\nEGG-LAYABLE-CHICKEN-TOTAL: " + getEggLayableChickenTotal());
 
         // Instantiate Egg object and decrement fodderDisplayerTotal until it reaches 0.
         while (numberOfEgg > 0) {

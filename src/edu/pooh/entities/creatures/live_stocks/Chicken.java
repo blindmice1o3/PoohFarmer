@@ -8,58 +8,25 @@ import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Chicken extends Creature {
 
-    public enum ChickenState { CHICK, ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
+    public enum ChickenState { CHICK, JUVENILE_NON_EGG_LAYING, ADULT_EGG_LAYING,
+        ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
-    private Animation animRight;
-    private Animation animChickUp;
-    private Animation animChickDown;
-    private Animation animChickLeft;
-    private Animation animChickRight;
+    private Map<String, Animation> anim;
 
     private Random random;
     private int daysInstantiated;
     private ChickenState chickenState;
 
-    public void incrementChickenStateByDaysInstantiated() {
-        switch (daysInstantiated) {
-            case 0:
-            case 1:
-            case 2:
-                chickenState = ChickenState.CHICK;
-                break;
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                chickenState = ChickenState.ADULT_EGG_LAYING;
-                break;
-            default:
-                System.out.println("Chicken.incrementChickenStateByDaysInstanted() switch-construct's default statement.");
-                break;
-        }
-    }
-
     public Chicken(Handler handler, float x, float y, ChickenState chickenState) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.chickenUp);
-        animDown = new Animation(400, Assets.chickenDown);
-        animLeft = new Animation(400, Assets.chickenLeft);
-        animRight = new Animation(400, Assets.chickenRight);
-        animChickUp = new Animation(400, Assets.chickUp);
-        animChickDown = new Animation(400, Assets.chickDown);
-        animChickLeft = new Animation(400, Assets.chickLeft);
-        animChickRight = new Animation(400, Assets.chickRight);
+        initChickenAnimations();
 
         setSpeed(4);
 
@@ -68,16 +35,49 @@ public class Chicken extends Creature {
         this.chickenState = chickenState;
     } // **** end Chicken(Handler, float, float) constructor ****
 
+    public void initChickenAnimations() {
+        anim = new HashMap<String, Animation>();
+
+        anim.put("animChickenUp", new Animation(400, Assets.chickenUp));
+        anim.put("animChickenDown", new Animation(400, Assets.chickenDown));
+        anim.put("animChickenLeft", new Animation(400, Assets.chickenLeft));
+        anim.put("animChickenRight", new Animation(400, Assets.chickenRight));
+        anim.put("animChickUp", new Animation(400, Assets.chickUp));
+        anim.put("animChickDown", new Animation(400, Assets.chickDown));
+        anim.put("animChickLeft", new Animation(400, Assets.chickLeft));
+        anim.put("animChickRight", new Animation(400, Assets.chickRight));
+    }
+
+    public void incrementChickenStateByDaysInstantiated() {
+        switch (daysInstantiated) {
+            case 0:
+            case 1:
+            case 2:
+                chickenState = ChickenState.CHICK;
+                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() daysInstantiated == [0-2] ChickenState.CHICK.");
+                break;
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                chickenState = ChickenState.JUVENILE_NON_EGG_LAYING;
+                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() daysInstantiated == [3-9] ChickenState.JUVENILE_NON_EGG_LAYING.");
+                break;
+            default:
+                chickenState = ChickenState.ADULT_EGG_LAYING;
+                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() switch-construct's default statement ChickenState.ADULT_EGG_LAYING.");
+                break;
+        }
+    }
+
     @Override
     public void tick() {
-        animUp.tick();
-        animDown.tick();
-        animLeft.tick();
-        animRight.tick();
-        animChickUp.tick();
-        animChickDown.tick();
-        animChickLeft.tick();
-        animChickRight.tick();
+        for (Animation tempAnim : anim.values()) {
+            tempAnim.tick();
+        }
 
         randomlyMove();
         move();
@@ -117,21 +117,21 @@ public class Chicken extends Creature {
     private BufferedImage getCurrentAnimationFrame() {
         // ANIMATION MOVEMENTS
         if ((xMove < 0) && (chickenState != ChickenState.CHICK)) {                                // Moving left.
-            return animLeft.getCurrentFrame();
+            return anim.get("animChickenLeft").getCurrentFrame();
         } else if ((xMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving right.
-            return animRight.getCurrentFrame();
+            return anim.get("animChickenRight").getCurrentFrame();
         } else if ((yMove < 0) && (chickenState != ChickenState.CHICK)) {                         // Moving up.
-            return animUp.getCurrentFrame();
+            return anim.get("animChickenUp").getCurrentFrame();
         } else if ((yMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving down.
-            return animDown.getCurrentFrame();
+            return anim.get("animChickenDown").getCurrentFrame();
         } else if ((xMove < 0) && (chickenState == ChickenState.CHICK)) {
-            return animChickLeft.getCurrentFrame();
+            return anim.get("animChickLeft").getCurrentFrame();
         } else if ((xMove > 0) && (chickenState == ChickenState.CHICK)) {
-            return animChickRight.getCurrentFrame();
+            return anim.get("animChickRight").getCurrentFrame();
         } else if ((yMove < 0) && (chickenState == ChickenState.CHICK)) {
-            return animChickUp.getCurrentFrame();
+            return anim.get("animChickUp").getCurrentFrame();
         } else if ((yMove > 0) && (chickenState == ChickenState.CHICK)) {
-            return animChickDown.getCurrentFrame();
+            return anim.get("animChickDown").getCurrentFrame();
         } else if ((xMove == 0) && (yMove == 0) & (chickenState == ChickenState.CHICK)){
             return Assets.chickDown[0];
         } else {
