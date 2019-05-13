@@ -424,7 +424,7 @@ public class Player extends Creature {
             sfxBButtonPressed.play();
         }
 
-
+        //TODO: animation for Pooh using Thor's Hammer!
         //////////////////// @@@@@@@@@@@@@@ STOPPING LEGACY DIAGONAL MOVEMENT BUG @@@@@@@@@@@@@@ ////////////////////
         if ((currentDirection == DirectionFacing.UPLEFT) || (currentDirection == DirectionFacing.UPRIGHT) ||
                 (currentDirection == DirectionFacing.DOWNLEFT) || (currentDirection == DirectionFacing.DOWNRIGHT)) {
