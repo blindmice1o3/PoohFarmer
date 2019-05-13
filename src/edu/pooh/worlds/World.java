@@ -794,7 +794,8 @@ public class World {
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(cow);
                     } else if (red == 255 && green == 255 && blue == 0) { //Chicken
-                        Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
+                                Chicken.ChickenState.ADULT_EGG_LAYING);
                         entityManager.addEntity(chicken);
                     } else if (red == 0 && green == 255 && blue == 255) { //Horse
                         Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));

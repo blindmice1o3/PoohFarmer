@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Chicken extends Creature {
 
-    //TODO: enum state/lifecycle (chick, adultegglaying, adutcurrentynonegglaying)
+    public enum ChickenState { CHICK, ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
     private Animation animUp;
     private Animation animDown;
@@ -20,8 +20,32 @@ public class Chicken extends Creature {
     private Animation animRight;
 
     private Random random;
+    private int daysInstantiated;
+    private ChickenState chickenState;
 
-    public Chicken(Handler handler, float x, float y) {
+    public void incrementChickenStateByDaysInstantiated() {
+        switch (daysInstantiated) {
+            case 0:
+            case 1:
+            case 2:
+                chickenState = ChickenState.CHICK;
+                break;
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                chickenState = ChickenState.ADULT_EGG_LAYING;
+                break;
+            default:
+                System.out.println("Chicken.incrementChickenStateByDaysInstanted() switch-construct's default statement.");
+                break;
+        }
+    }
+
+    public Chicken(Handler handler, float x, float y, ChickenState chickenState) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
         animUp = new Animation(400, Assets.chickenUp);
@@ -32,6 +56,8 @@ public class Chicken extends Creature {
         setSpeed(4);
 
         random = new Random();
+        daysInstantiated = 0;
+        this.chickenState = chickenState;
     } // **** end Chicken(Handler, float, float) constructor ****
 
     @Override
@@ -97,6 +123,14 @@ public class Chicken extends Creature {
     @Override
     public void die() {
         setActive(false);
+    }
+
+    public void setChickenState(ChickenState chickenState) { this.chickenState = chickenState; }
+    public ChickenState getChickenState() { return chickenState; }
+
+    public int getDaysInstantiated() { return daysInstantiated; }
+    public void increaseDaysInstantiated() {
+        daysInstantiated++;
     }
 
 } // **** end Chicken class ****

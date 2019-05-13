@@ -3,13 +3,11 @@ package edu.pooh.states;
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.DirtNotFarmableTile;
-import edu.pooh.tiles.EggIncubatorTile;
-import edu.pooh.tiles.FodderDisplayerTile;
-import edu.pooh.tiles.Tile;
+import edu.pooh.tiles.*;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
@@ -35,10 +33,25 @@ public class ChickenCoopState implements IState {
         random = new Random();
     } // **** end ChickenCoopState(Handler) constructor ****
 
+    public void increaseChickenDaysInstantiated() {
+        if (TimeManager.getNewDay()) {
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ( (e instanceof Chicken) && (((Chicken)e).getDaysInstantiated() <= 9) ) {
+                    ////////////////////////////////////////
+                    ((Chicken)e).increaseDaysInstantiated();
+                    ((Chicken)e).incrementChickenStateByDaysInstantiated();
+                    ////////////////////////////////////////
+                    System.out.println("ChickenCoopState.increaseChickenDaysInstantiated()");
+                }
+            }
+        }
+    }
+
     public void incrementDaysIncubating() {
         Tile[][] tempWorld = world.getTilesViaRGB();
         int tempWorldWidthInTiles = tempWorld.length;
         int tempWorldHeightInTiles = tempWorld[0].length;
+        System.out.println("world tile width : " + tempWorldWidthInTiles + "\nworld tile height: " + tempWorldHeightInTiles);
 
         for (int y = 0; y < tempWorldHeightInTiles; y++) {
             for (int x = 0; x < tempWorldWidthInTiles; x++) {
@@ -52,25 +65,37 @@ public class ChickenCoopState implements IState {
                     if (tempEggIncubatorTile.getDaysIncubating() > 2) {
                         for (Entity e : getWorld().getEntityManager().getEntities()) {
                             if (e instanceof Egg) {
-                                if ((tempEggIncubatorTile.getX() == e.getX()) &&
-                                        (tempEggIncubatorTile.getY() == e.getY())) {
+                                if ((tempEggIncubatorTile.getX()*Tile.TILE_WIDTH == e.getX()) &&
+                                        (tempEggIncubatorTile.getY()*Tile.TILE_HEIGHT == e.getY())) {
                                     ((Egg)e).setActive(false);
+                                    System.out.println("Incubator's Egg object getting active set to false.");
                                 }
                             }
                         }
 
-                        int randX = random.nextInt(tempWorldWidthInTiles);
-                        int randY = random.nextInt(tempWorldHeightInTiles);
+                        int randX = 0;
+                        int randY = 0;
                         boolean tempBoolean = true;
 
                         while (tempBoolean) {
+                            randX = random.nextInt(tempWorldWidthInTiles);
+                            randY = random.nextInt(tempWorldHeightInTiles);
+                            System.out.println("Finding open tile to instantiate chick (x, y): (" +
+                                    randX + ", " + randY + ").");
                             if (getWorld().getTile(randX, randY) instanceof DirtNotFarmableTile) {
-                                DirtNotFarmableTile tempTile = (DirtNotFarmableTile) getWorld().getTile(randX, randY);
+                                DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getWorld().getTile(randX, randY);
+                                System.out.println("DirtNotFarmableTile found");
+
                                 Rectangle entityCollisionRect =
-                                        new Rectangle(randX * Tile.TILE_WIDTH, randY * Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                                        new Rectangle(randX*Tile.TILE_WIDTH, randY*Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+
+                                System.out.println("Testing staticEntity as null and no collision with entity...");
                                 if ((tempTile.getStaticEntity() == null) && (checkNoEntityCollision(entityCollisionRect))) {
                                     /////////////////////////////////////////////////////////////////////
-                                    Chicken tempChicken = new Chicken(handler, randX * Tile.TILE_WIDTH, randY * Tile.TILE_HEIGHT);
+                                    Chicken tempChicken = new Chicken(handler, randX*Tile.TILE_WIDTH,
+                                            randY*Tile.TILE_HEIGHT, Chicken.ChickenState.CHICK);
+                                    System.out.println("Instantiated chick.");
+
                                     //OVERRIDDEN addEntity() in World class's constructor for
                                     // special ChickenCoopState EntityManager.
                                     world.getEntityManager().addEntity(tempChicken);
