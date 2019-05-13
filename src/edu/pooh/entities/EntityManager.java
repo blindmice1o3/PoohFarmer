@@ -1,6 +1,7 @@
 package edu.pooh.entities;
 
 import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
@@ -72,7 +73,9 @@ public class EntityManager {
         // Sort the collection of Entity objects (ArrayList<Entity> entities) based on y-coordinate values.
         // Use a Comparator
         for (Entity e : entities) {
-            e.render(g);
+            if ( !(e instanceof Fodder) ) {
+                e.render(g);
+            }
         }
         player.postRender(g);
     }

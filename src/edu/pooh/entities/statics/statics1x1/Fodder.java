@@ -9,6 +9,7 @@ import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
+import java.util.Iterator;
 
 public class Fodder extends StaticEntity
         implements IHoldable {
@@ -24,10 +25,9 @@ public class Fodder extends StaticEntity
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.hay, (int)(x - handler.getGameCamera().getxOffset()),
-                (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(Assets.hay, (int) (x - handler.getGameCamera().getxOffset()),
+                (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
     }
-
     @Override
     public void hurt(int dmg) {
         return;
@@ -48,22 +48,32 @@ public class Fodder extends StaticEntity
 
     @Override
     public void pickedUp() {
+        System.out.println("Fodder.pickedUp() called but currently does nothing");
+
         return;
     }
 
     @Override
     public void dropped(Tile t) {
+        System.out.println("Fodder.dropped(Tile) being called");
+
         if (t instanceof FodderExecutorTile) {
+            System.out.println("Fodder.dropped(Tile) called on a FodderExecutorTile object");
+
             FodderExecutorTile tempFodderExecutorTile = (FodderExecutorTile)t;
             x = tempFodderExecutorTile.getX();
-            y = tempFodderExecutorTile.getY() + Tile.TILE_HEIGHT;
+            y = tempFodderExecutorTile.getY() - Tile.TILE_HEIGHT;
 
             if (handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))
                 instanceof FodderDisplayerTile) {
+                System.out.println("Fodder.dropped(Tile) method probably successful if we get here");
+
                 ((FodderDisplayerTile)handler.getWorld().getTile(
                         (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))
                 ).setActivated(true);
             }
+        } else {
+            die();
         }
     }
 

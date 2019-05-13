@@ -1,6 +1,8 @@
 package edu.pooh.tiles;
 
+import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.statics.statics1x1.Fodder;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IInvokable;
 
@@ -21,15 +23,22 @@ public class FodderStashTile extends SolidGenericTile implements IInvokable {
 
     @Override
     public void execute() {
-        if (handler.getWorld().getEntityManager().getPlayer().getHoldableObject() == null) {
+        System.out.println("FodderStashTile.execute() called by player's KeyEvent.VK_COMMA");
+        Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();
+
+        if (tempPlayer.getHoldableObject() == null) {
             ////////////////////////////////////////////////////////////////////
-            handler.getWorld().getEntityManager().getPlayer().setHoldableObject( new Fodder(handler, (float)x, (float)y) );
-            ////////////////////////////////////////////////////////////////////
+            System.out.println("Instantiating new Fodder object and setting it as player's holdableObject");
 
             handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(
-                    (Fodder)handler.getWorld().getEntityManager().getPlayer().getHoldableObject()
+                    new Fodder(handler, (x * Tile.TILE_WIDTH),(y * Tile.TILE_HEIGHT))
             );
             handler.getWorld().getEntityManager().setToBeAdded(true);
+
+            System.out.println("fodderCount BEFORE to FodderStashTie.execute(): " + ResourceManager.getFodderCount());
+            ResourceManager.decreaseFodderCount(1);
+            System.out.println("fodderCount AFTER to FodderStashTie.execute(): " + ResourceManager.getFodderCount());
+            ////////////////////////////////////////////////////////////////////
         }
     }
 

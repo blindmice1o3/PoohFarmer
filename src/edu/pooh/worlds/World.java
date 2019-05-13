@@ -434,7 +434,7 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
-                            //TODO: ChickenFeedTile chicken coop
+                            //TODO: FodderStashTile chicken coop
                             tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -738,6 +738,9 @@ public class World {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
+                    } else if (red == 255 && green == 1 && blue == 1) { //Fodder
+                        Fodder fodder = new Fodder(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(fodder);
                     } else if (red == 0 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);

@@ -2,6 +2,7 @@ package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.statics1x1.Bush;
+import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.entities.statics.statics1x1.Rock;
 import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.entities.statics.statics2x2.Boulder;
@@ -118,14 +119,17 @@ public class Player extends Creature {
 
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
-                System.out.println("FOUND ShippingBin object!");
+                int totalPriceFromShippingBin = ((ShippingBin)e).calculateTotal();
 
-                ResourceManager.increaseCurrencyUnitCount( ((ShippingBin)e).calculateTotal() );
+                System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
+                for (ISellable sellable : ((ShippingBin)e).getInventory()) {
+                    System.out.println(sellable.getPrice() + ": " + sellable);
+                }
+
+                ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
                 ((ShippingBin)e).emptyShippingBin();
                 //////////////////////////////////////////////////////////
                 break;
-            } else {
-                System.out.println("COULD NOT FIND ShippingBin object!!!!");
             }
         }
 
@@ -431,6 +435,10 @@ public class Player extends Creature {
             else if (getTileCurrentlyFacing() instanceof FodderStashTile) {
                 ((FodderStashTile)getTileCurrentlyFacing()).execute();
             }
+            // FODDEREXECUTORTILE CHECK
+            else if (getTileCurrentlyFacing() instanceof FodderExecutorTile) {
+                ((FodderExecutorTile)getTileCurrentlyFacing()).execute();
+            }
 
             // HOLDING CHECK
             if (holding) {  // Already holding, can only drop the holdableObject.
@@ -490,8 +498,12 @@ public class Player extends Creature {
     private boolean checkDropableTile() {
         Tile tempTileInFront = getTileCurrentlyFacing();
 
+        // If FodderExecutorTile.
+        if (tempTileInFront instanceof FodderExecutorTile) {
+            return true;
+        }
         // If DirtNormalTile.
-        if (tempTileInFront instanceof DirtNormalTile) {
+        else if (tempTileInFront instanceof DirtNormalTile) {
             if (((DirtNormalTile)tempTileInFront).getStaticEntity() != null) {
                 if ((((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof TreeStump) ||
                         (((DirtNormalTile)tempTileInFront).getStaticEntity() instanceof Boulder) ||
@@ -548,7 +560,7 @@ public class Player extends Creature {
         }
     }
 
-    private IHoldable pickUpHoldable() {
+    public IHoldable pickUpHoldable() {
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             // If the player, skip the rest of the code, move on to the next Entity in the entities ArrayList.
             if (e.equals(this)) { continue; }
@@ -614,6 +626,9 @@ public class Player extends Creature {
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
         dateDisplayer.render(g);            // KeyEvent.VK_SHIFT
+        if (holdableObject instanceof Fodder) {
+            ((Fodder) holdableObject).render(g);
+        }
     }
 
     public void renderHUD(Graphics g) {

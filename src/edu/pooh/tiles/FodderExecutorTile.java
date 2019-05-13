@@ -24,6 +24,7 @@ public class FodderExecutorTile extends SolidGenericTile
     public void execute() {
         if (handler.getWorld().getEntityManager().getPlayer().getHoldableObject() instanceof Fodder) {
             Tile tempFodderDisplayerTile = handler.getWorld().getTile(x, y-1);
+            System.out.println("Suppose to be FodderDisplayerTile: " + handler.getWorld().getTile(x, y-1));
 
             if (tempFodderDisplayerTile instanceof FodderDisplayerTile) {
                 ((FodderDisplayerTile)tempFodderDisplayerTile).setActivated(true);
