@@ -36,12 +36,13 @@ public class ChickenCoopState implements IState {
     public void increaseChickenDaysInstantiated() {
         if (TimeManager.getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
-                if ( (e instanceof Chicken) && (((Chicken)e).getDaysInstantiated() <= 9) ) {
+                if (e instanceof Chicken) {
                     ////////////////////////////////////////
                     ((Chicken)e).increaseDaysInstantiated();
                     ((Chicken)e).incrementChickenStateByDaysInstantiated();
                     ////////////////////////////////////////
-                    System.out.println("ChickenCoopState.increaseChickenDaysInstantiated()");
+                    System.out.println("ChickenCoopState.increaseChickenDaysInstantiated()... NOW AT: " +
+                            ((Chicken)e).getDaysInstantiated());
                 }
             }
         }

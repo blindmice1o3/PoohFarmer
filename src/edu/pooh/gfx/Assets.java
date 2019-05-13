@@ -82,6 +82,7 @@ public class Assets {
             horseUp, horseDown, horseLeft, horseRight,
             jackWalkingUp, jackWalkingDown, jackWalkingLeft, jackWalkingRight,
             jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
+    public static BufferedImage[] chickUp, chickDown, chickLeft, chickRight;
 
     // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
     public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp,
@@ -566,7 +567,6 @@ public class Assets {
         // ********************************************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Creatures.png"));
-
         dogUp = new BufferedImage[3];
         dogUp[0] = sheet.crop(6, 141, 13, 18);
         dogUp[1] = sheet.crop(30, 142, 13, 17);
@@ -694,12 +694,29 @@ public class Assets {
 
 
 
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Chicken.png"));
+        chickDown = new BufferedImage[2];
+        chickDown[0] = sheet.crop(270, 0, 16, 16);
+        chickDown[1] = sheet.crop(270, 30, 16, 16);
+
+        chickUp = new BufferedImage[2];
+        chickUp[0] = sheet.crop(300, 0, 12, 16);
+        chickUp[1] = sheet.crop(300, 30, 12, 16);
+
+        chickLeft = new BufferedImage[2];
+        chickLeft[0] = sheet.crop(240, 0, 16, 16);
+        chickLeft[1] = sheet.crop(240, 30, 16, 16);
+
+        chickRight = new BufferedImage[2];
+        chickRight[0] = flipHorizontally( sheet.crop(240, 0, 16, 16) );
+        chickRight[1] = flipHorizontally( sheet.crop(240, 30, 16, 16) );
+
+
         // ************************************************************
         // |+|+|+|+|+|+|+| ENTITY: MOLLY (playerFemale) |+|+|+|+|+|+|+|
         // ************************************************************
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/DS DSi - Harvest Moon DS Cute - Farmer Ponytails.png"));
-
         mollyWalkingDown = new BufferedImage[6];
         mollyWalkingDown[0] = sheet.crop(5, 28, 19, 30);
         mollyWalkingDown[1] = sheet.crop(34, 29, 18, 29);

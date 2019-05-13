@@ -18,6 +18,10 @@ public class Chicken extends Creature {
     private Animation animDown;
     private Animation animLeft;
     private Animation animRight;
+    private Animation animChickUp;
+    private Animation animChickDown;
+    private Animation animChickLeft;
+    private Animation animChickRight;
 
     private Random random;
     private int daysInstantiated;
@@ -52,6 +56,10 @@ public class Chicken extends Creature {
         animDown = new Animation(400, Assets.chickenDown);
         animLeft = new Animation(400, Assets.chickenLeft);
         animRight = new Animation(400, Assets.chickenRight);
+        animChickUp = new Animation(400, Assets.chickUp);
+        animChickDown = new Animation(400, Assets.chickDown);
+        animChickLeft = new Animation(400, Assets.chickLeft);
+        animChickRight = new Animation(400, Assets.chickRight);
 
         setSpeed(4);
 
@@ -66,6 +74,10 @@ public class Chicken extends Creature {
         animDown.tick();
         animLeft.tick();
         animRight.tick();
+        animChickUp.tick();
+        animChickDown.tick();
+        animChickLeft.tick();
+        animChickRight.tick();
 
         randomlyMove();
         move();
@@ -104,14 +116,24 @@ public class Chicken extends Creature {
 
     private BufferedImage getCurrentAnimationFrame() {
         // ANIMATION MOVEMENTS
-        if (xMove < 0) {                                // Moving left.
+        if ((xMove < 0) && (chickenState != ChickenState.CHICK)) {                                // Moving left.
             return animLeft.getCurrentFrame();
-        } else if (xMove > 0) {                         // Moving right.
+        } else if ((xMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving right.
             return animRight.getCurrentFrame();
-        } else if (yMove < 0) {                         // Moving up.
+        } else if ((yMove < 0) && (chickenState != ChickenState.CHICK)) {                         // Moving up.
             return animUp.getCurrentFrame();
-        } else if (yMove > 0) {                         // Moving down.
+        } else if ((yMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving down.
             return animDown.getCurrentFrame();
+        } else if ((xMove < 0) && (chickenState == ChickenState.CHICK)) {
+            return animChickLeft.getCurrentFrame();
+        } else if ((xMove > 0) && (chickenState == ChickenState.CHICK)) {
+            return animChickRight.getCurrentFrame();
+        } else if ((yMove < 0) && (chickenState == ChickenState.CHICK)) {
+            return animChickUp.getCurrentFrame();
+        } else if ((yMove > 0) && (chickenState == ChickenState.CHICK)) {
+            return animChickDown.getCurrentFrame();
+        } else if ((xMove == 0) && (yMove == 0) & (chickenState == ChickenState.CHICK)){
+            return Assets.chickDown[0];
         } else {
             return Assets.chickenDown[0];
         }
@@ -129,6 +151,7 @@ public class Chicken extends Creature {
     public ChickenState getChickenState() { return chickenState; }
 
     public int getDaysInstantiated() { return daysInstantiated; }
+    public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
     public void increaseDaysInstantiated() {
         daysInstantiated++;
     }

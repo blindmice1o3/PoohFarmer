@@ -425,8 +425,19 @@ public class World {
                     else if (worldType == WorldType.CHICKEN_COOP) {
                         if (red == 0 && green == 0 && blue == 0) {             //wall - default is solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
+                            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                            // set texture for all tiles except the bottom row (TO BLOCK CREATURES FROM GOING OFF-MAP)!
+                            if ( (yy != (heightInTiles-1)) ) {
+                                tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage(
+                                        (xx * 40), (yy * 40), 40, 40));
+                            }
+                            // set the bottom tile's texture to a black rectangle equivalent to the bottom half
+                            // of the last row of the image.
+                            else {
+                                tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage(
+                                        (1), (((heightInTiles-2) * 40) + 25), 40, 15 ));
+                            }
+                            // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
@@ -781,7 +792,7 @@ public class World {
                         }
 
                         if (tempShippingBin != null) {
-                            ((DirtNotFarmableTile) getTile(xx, yy)).setStaticEntity(tempShippingBin);
+                            ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
                         }
                     }
                     else if (red == 255 && green == 1 && blue == 1) { //Fodder
@@ -796,6 +807,7 @@ public class World {
                     } else if (red == 255 && green == 255 && blue == 0) { //Chicken
                         Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Chicken.ChickenState.ADULT_EGG_LAYING);
+                        chicken.setDaysInstantiated(9);
                         entityManager.addEntity(chicken);
                     } else if (red == 0 && green == 255 && blue == 255) { //Horse
                         Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
