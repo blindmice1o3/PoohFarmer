@@ -1,6 +1,7 @@
 package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
+import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics1x1.Bush;
 import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.entities.statics.statics1x1.Rock;
@@ -440,17 +441,24 @@ public class Player extends Creature {
                 /////////////////////////////////////////////////////////////////////
                 return;
             }
-            // SIGNPOSTTILE CHECK
+            // SIGN-POST-TILE CHECK
             else if (getTileCurrentlyFacing() instanceof SignPostTile) {
                 ((SignPostTile)getTileCurrentlyFacing()).execute();
             }
-            // FODDERSTASHTILE CHECK
+            // FODDER-STASH-TILE CHECK
             else if (getTileCurrentlyFacing() instanceof FodderStashTile) {
                 ((FodderStashTile)getTileCurrentlyFacing()).execute();
             }
-            // FODDEREXECUTORTILE CHECK
+            // FODDER-EXECUTOR-TILE CHECK
             else if (getTileCurrentlyFacing() instanceof FodderExecutorTile) {
                 ((FodderExecutorTile)getTileCurrentlyFacing()).execute();
+            }
+            // EGG-INCUBATOR-TILE CHECK
+            else if ((getTileCurrentlyFacing() instanceof EggIncubatorTile) && (holdableObject instanceof Egg)) {
+                ((EggIncubatorTile)getTileCurrentlyFacing()).execute();
+                holdableObject.dropped(getTileCurrentlyFacing());
+                setHoldableObject(null);
+                holding = false;
             }
 
             // HOLDING CHECK

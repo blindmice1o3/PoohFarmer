@@ -10,6 +10,7 @@ import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
@@ -55,7 +56,22 @@ public class World {
         this.handler = handler;
         this.worldType = worldType;
 
-        entityManager = new EntityManager(handler);
+        if (!(worldType == WorldType.CHICKEN_COOP)) {
+            entityManager = new EntityManager(handler);
+        } else {
+            entityManager = new EntityManager(handler) {
+              @Override
+              public void addEntity(Entity e) {
+                  super.addEntity(e);
+
+                  if (e instanceof Chicken) {
+                      System.out.println("Increasing ResourceManager's chickenCounter by 1 because of " +
+                              "ChickenCoopState's world's special overridden addEntity(Entity e) method.");
+                      ResourceManager.increaseChickenCounter(1);
+                  }
+              }
+            };
+        }
         itemManager = new ItemManager(handler);
 
         // ******************************************************************************************
@@ -430,18 +446,9 @@ public class World {
                                     (yy * 40), 40, 40));
                         }
 
-                        /*
-                        else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
-                            //TODO: ShippingBinTile chicken coop
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        }
-                        */
-
                         else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.
                             //TODO: ChickenIncubatorTile chicken coop
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy] = new EggIncubatorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }

@@ -8,6 +8,7 @@ import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.DirtNotFarmableTile;
+import edu.pooh.tiles.EggIncubatorTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -113,6 +114,9 @@ public class Egg extends StaticEntity
             ///////////////////////////////
             tempTile.setStaticEntity(this);
             ///////////////////////////////
+        } else if (t instanceof EggIncubatorTile) {
+            x = ((EggIncubatorTile)t).getX() * Tile.TILE_WIDTH;
+            y = ((EggIncubatorTile)t).getY() * Tile.TILE_HEIGHT;
         }
     }
 

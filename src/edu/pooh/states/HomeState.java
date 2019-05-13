@@ -55,6 +55,8 @@ public class HomeState implements IState {
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
             // (BE SURE TO RESET ALL TO FALSE)
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).setAllFodderDisplayerTileActivatedToFalse();
+            // CHECK INCUBATOR
+            ((ChickenCoopState)handler.getGame().getChickenCoopState()).incrementDaysIncubating();
 
             //////// RESET TIME FOR NEW DAY /////////
             TimeManager.incrementElapsedInGameDays();

@@ -2,16 +2,19 @@ package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNotFarmableTile;
+import edu.pooh.tiles.EggIncubatorTile;
 import edu.pooh.tiles.FodderDisplayerTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ChickenCoopState implements IState {
@@ -31,6 +34,59 @@ public class ChickenCoopState implements IState {
 
         random = new Random();
     } // **** end ChickenCoopState(Handler) constructor ****
+
+    public void incrementDaysIncubating() {
+        Tile[][] tempWorld = world.getTilesViaRGB();
+        int tempWorldWidthInTiles = tempWorld.length;
+        int tempWorldHeightInTiles = tempWorld[0].length;
+
+        for (int y = 0; y < tempWorldHeightInTiles; y++) {
+            for (int x = 0; x < tempWorldWidthInTiles; x++) {
+                if (tempWorld[x][y] instanceof EggIncubatorTile) {
+                    EggIncubatorTile tempEggIncubatorTile = (EggIncubatorTile)tempWorld[x][y];
+
+                    if (tempEggIncubatorTile.isIncubating()) {
+                        tempEggIncubatorTile.incrementDaysIncubating();
+                    }
+
+                    if (tempEggIncubatorTile.getDaysIncubating() > 2) {
+                        for (Entity e : getWorld().getEntityManager().getEntities()) {
+                            if (e instanceof Egg) {
+                                if ((tempEggIncubatorTile.getX() == e.getX()) &&
+                                        (tempEggIncubatorTile.getY() == e.getY())) {
+                                    ((Egg)e).setActive(false);
+                                }
+                            }
+                        }
+
+                        int randX = random.nextInt(tempWorldWidthInTiles);
+                        int randY = random.nextInt(tempWorldHeightInTiles);
+                        boolean tempBoolean = true;
+
+                        while (tempBoolean) {
+                            if (getWorld().getTile(randX, randY) instanceof DirtNotFarmableTile) {
+                                DirtNotFarmableTile tempTile = (DirtNotFarmableTile) getWorld().getTile(randX, randY);
+                                Rectangle entityCollisionRect =
+                                        new Rectangle(randX * Tile.TILE_WIDTH, randY * Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+                                if ((tempTile.getStaticEntity() == null) && (checkNoEntityCollision(entityCollisionRect))) {
+                                    /////////////////////////////////////////////////////////////////////
+                                    Chicken tempChicken = new Chicken(handler, randX * Tile.TILE_WIDTH, randY * Tile.TILE_HEIGHT);
+                                    //OVERRIDDEN addEntity() in World class's constructor for
+                                    // special ChickenCoopState EntityManager.
+                                    world.getEntityManager().addEntity(tempChicken);
+                                    tempBoolean = false;
+
+                                    tempEggIncubatorTile.setDaysIncubating(0);
+                                    tempEggIncubatorTile.setIncubating(false);
+                                    //////////////////////////////////////////////////////////////////////
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private boolean checkNoEntityCollision(Rectangle collisionRect) {
         for (Entity tempEntity : world.getEntityManager().getEntities()) {

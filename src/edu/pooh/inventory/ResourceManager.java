@@ -6,7 +6,7 @@ public class ResourceManager {
     public static int woodCount = 1000;
     public static int currencyUnitCount = 2000;
     public static int chickenCounter = 1;
-    public static int cowCounter = 0;
+    public static int cowCounter = 1;
 
     public static void increaseFodderCount(int numberOfUnits) {
         fodderCount += numberOfUnits;
