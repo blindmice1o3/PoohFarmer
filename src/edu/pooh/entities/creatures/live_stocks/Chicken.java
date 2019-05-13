@@ -12,6 +12,8 @@ import java.util.Random;
 
 public class Chicken extends Creature {
 
+    //TODO: enum state/lifecycle (chick, adultegglaying, adutcurrentynonegglaying)
+
     private Animation animUp;
     private Animation animDown;
     private Animation animLeft;

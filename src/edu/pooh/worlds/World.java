@@ -423,17 +423,35 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
+
                         else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
                             //TODO: ShippingBinTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
-                            //TODO: SignPostTile chicken coop
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
+                        }
+
+                        else if (red == 0 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
+                            //TODO: SignPostTile chicken coop SHIPPING_BIN
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.SHIPPING_BIN);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
+                        } else if (red == 1 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
+                            //TODO: SignPostTile chicken coop FODDER
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.RESOURCE_FODDER);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 2 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
+                            //TODO: SignPostTile chicken coop INCUBATOR
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.CHICKEN_COOP_INCUBATOR);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+
+                        else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
                             //TODO: FodderStashTile chicken coop
                             tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
