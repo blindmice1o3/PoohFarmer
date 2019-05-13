@@ -5,7 +5,7 @@ public class ResourceManager {
     public static int fodderCount = 3000;
     public static int woodCount = 1000;
     public static int currencyUnitCount = 2000;
-    public static int chickenCounter = 0;
+    public static int chickenCounter = 1;
     public static int cowCounter = 0;
 
     public static void increaseFodderCount(int numberOfUnits) {
@@ -32,7 +32,13 @@ public class ResourceManager {
         currencyUnitCount -= numberOfUnits;
     }
 
+    public static void increaseChickenCounter(int numberOfChicken) { chickenCounter += numberOfChicken; }
 
+    public static void decreaseChickenCounter(int numberOfChicken) { chickenCounter -= numberOfChicken; }
+
+    public static void increaseCowCounter(int numberOfCow) { cowCounter += numberOfCow; }
+
+    public static void decreaseCowCounter(int numberOfCow) { cowCounter -= numberOfCow; }
 
     public static int getFodderCount() {
         return fodderCount;

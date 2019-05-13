@@ -44,10 +44,17 @@ public class HomeState implements IState {
     @Override
     public void exit() {
         if (TimeManager.getNewDay()) {
+            /** Daily GameState method calls. */
             // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
             ((GameState)handler.getGame().getGameState()).increaseCropEntityDaysWatered();
             // RESET ALL DirtNormalTile objects' boolean watered TO FALSE.
             ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
+
+            /** Daily ChickenCoopState method calls. */
+            // Number of FodderDisplayerTile object whose activated is set to true.
+            ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
+            // (BE SURE TO RESET ALL TO FALSE)
+            ((ChickenCoopState)handler.getGame().getChickenCoopState()).setAllFodderDisplayerTileActivatedToFalse();
 
             //////// RESET TIME FOR NEW DAY /////////
             TimeManager.incrementElapsedInGameDays();
@@ -60,7 +67,7 @@ public class HomeState implements IState {
 
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
-            Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+            Entity tempHoldableEntity = (Entity)player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
                 ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(

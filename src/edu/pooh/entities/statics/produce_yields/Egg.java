@@ -18,12 +18,12 @@ public class Egg extends StaticEntity
     private int price;
     private boolean inShippingBin;
 
-    public Egg(Handler handler, float x, float y) {
-        super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+    public Egg(Handler handler, int x, int y) {
+        super(handler, (float)x, (float)y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
         price = 50;
         inShippingBin = false;
-    } // **** end Egg(Handler, float, float) constructor ****
+    } // **** end Egg(Handler, int, int) constructor ****
 
     @Override
     public int getPrice() {
