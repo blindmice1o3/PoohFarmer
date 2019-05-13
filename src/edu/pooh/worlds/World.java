@@ -1,5 +1,6 @@
 package edu.pooh.worlds;
 
+import edu.pooh.entities.Entity;
 import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.*;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
@@ -429,12 +430,15 @@ public class World {
                                     (yy * 40), 40, 40));
                         }
 
+                        /*
                         else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
                             //TODO: ShippingBinTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
+                        */
+
                         else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.
                             //TODO: ChickenIncubatorTile chicken coop
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.chickenCoopStateBackground);
@@ -461,8 +465,6 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
-
-
                     }
                     /////////////////////
                     else if (worldType == WorldType.COW_BARN) {
@@ -757,10 +759,28 @@ public class World {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
-                    } else if (red == 255 && green == 1 && blue == 1) { //Fodder
+                    } else if (red == 0 && green == 255 && blue == 0) {   //ShippingBin
+                        ShippingBin shippingBin = new ShippingBin(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity( shippingBin );
+
+                        entityManager.addEntity(shippingBin);
+                    } else if (red == 1 && green == 255 && blue == 0) { //ShippingBin (axillary)
+                        ShippingBin tempShippingBin = null;
+
+                        for (Entity e : entityManager.getEntities()) {
+                            if (e instanceof ShippingBin) {
+                                tempShippingBin = (ShippingBin)e;
+                            }
+                        }
+
+                        if (tempShippingBin != null) {
+                            ((DirtNotFarmableTile) getTile(xx, yy)).setStaticEntity(tempShippingBin);
+                        }
+                    }
+                    else if (red == 255 && green == 1 && blue == 1) { //Fodder
                         Fodder fodder = new Fodder(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(fodder);
-                    } else if (red == 0 && green == 255 && blue == 0) { //Dog
+                    } else if (red == 2 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);
                     } else if (red == 0 && green == 0 && blue == 255) { //Cow

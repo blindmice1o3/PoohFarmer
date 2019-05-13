@@ -19,6 +19,7 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
+import edu.pooh.states.ChickenCoopState;
 import edu.pooh.states.GameState;
 import edu.pooh.time.DateDisplayer;
 import edu.pooh.time.TimeManager;
@@ -113,23 +114,35 @@ public class Player extends Creature {
         executed6pm = true;
     }
 
-    public void execute5pm() {
-        for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
-            if (e.equals(this)) { continue; }
+    private void sellFromShippingBin(ShippingBin shippingBin) {
+        int totalPriceFromShippingBin = shippingBin.calculateTotal();
 
+        System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
+        for (ISellable sellable : shippingBin.getInventory()) {
+            System.out.println(sellable.getPrice() + ": " + sellable);
+        }
+
+        ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
+        shippingBin.emptyShippingBin();
+    }
+
+    public void execute5pm() {
+        // Collect ShippingBin - GameState
+        for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
-                int totalPriceFromShippingBin = ((ShippingBin)e).calculateTotal();
-
-                System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
-                for (ISellable sellable : ((ShippingBin)e).getInventory()) {
-                    System.out.println(sellable.getPrice() + ": " + sellable);
-                }
-
-                ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
-                ((ShippingBin)e).emptyShippingBin();
-                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
                 break;
+                //////////////////////////////////////////////////////////
+            }
+        }
+        // Collect ShippingBin - ChickenCoopState
+        for (Entity e : ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
+                break;
+                //////////////////////////////////////////////////////////
             }
         }
 
