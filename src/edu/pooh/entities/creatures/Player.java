@@ -12,6 +12,7 @@ import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.Axe;
 import edu.pooh.items.tier0.Hammer;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
@@ -374,6 +375,7 @@ public class Player extends Creature {
 
     private int speedMax = 10;
     private int hitBoulderCounter = 0;
+    private int hitTreeStumpCounter = 0;
     private void getInput() {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
@@ -399,18 +401,22 @@ public class Player extends Creature {
         if (handler.getKeyManager().up) {
             yMove = -speed;
             hitBoulderCounter = 0;
+            hitTreeStumpCounter = 0;
         }
         if (handler.getKeyManager().down) {
             yMove = speed;
             hitBoulderCounter = 0;
+            hitTreeStumpCounter = 0;
         }
         if (handler.getKeyManager().left) {
             xMove = -speed;
             hitBoulderCounter = 0;
+            hitTreeStumpCounter = 0;
         }
         if (handler.getKeyManager().right) {
             xMove = speed;
             hitBoulderCounter = 0;
+            hitTreeStumpCounter = 0;
         }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
@@ -452,6 +458,25 @@ public class Player extends Creature {
                     return;
                 } else if ((getEntityCurrentlyFacing() instanceof Rock) || (getEntityCurrentlyFacing() instanceof RockMountain)) {
                     ((Hammer)inventory.getItem(inventory.getIndex())).execute();
+                    decreaseStaminaCurrent(2);
+                    return;
+                }
+            }
+
+            // CHECK TREESTUMP AND AXE (6 consecutive hits without moving)
+            if (inventory.getItem(inventory.getIndex()) instanceof Axe) {
+                if (getEntityCurrentlyFacing() instanceof TreeStump) {
+                    hitTreeStumpCounter++;
+                    decreaseStaminaCurrent(2);
+
+                    if (hitTreeStumpCounter == 6) {
+                        ((Axe)inventory.getItem(inventory.getIndex())).execute();
+                        hitTreeStumpCounter = 0;
+                    }
+
+                    return;
+                } else if (getEntityCurrentlyFacing() instanceof Wood) {
+                    ((Axe)inventory.getItem(inventory.getIndex())).execute();
                     decreaseStaminaCurrent(2);
                     return;
                 }

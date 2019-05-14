@@ -30,20 +30,11 @@ public class Hammer extends Item {
         System.out.print("Hammer.execute(), targeted-entity: " + entity);
 
         if (entity instanceof Rock) {
-            Rock tempEntity = (Rock)entity;
-            /////////////////
-            tempEntity.die();
-            /////////////////
+            ((Rock)entity).die();
         } else if (entity instanceof RockMountain) {
-            RockMountain tempEntity = (RockMountain)entity;
-            /////////////////
-            tempEntity.die();
-            /////////////////
+            ((RockMountain)entity).die();
         } else if (entity instanceof Boulder) {
-            Boulder tempEntity = (Boulder)entity;
-            /////////////////
-            tempEntity.die();
-            /////////////////
+            ((Boulder)entity).die();
         }
     }
 

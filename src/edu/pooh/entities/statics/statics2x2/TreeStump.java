@@ -2,6 +2,7 @@ package edu.pooh.entities.statics.statics2x2;
 
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.DirtNormalTile;
@@ -50,6 +51,12 @@ public class TreeStump extends StaticEntity {
             }
         }
 
+        System.out.println("PREVIOUS ResourceManager woodCount: " + ResourceManager.getWoodCount());
+        ///////////////////////////////////////////////////
+        ResourceManager.increaseWoodCount(6);
+        System.out.println("ResourceManager's woodCount INCREASING BY 6");
+        ///////////////////////////////////////////////////
+        System.out.println("CURRENT ResourceManager woodCount: " + ResourceManager.getWoodCount());
         setActive(false);
     }
 
