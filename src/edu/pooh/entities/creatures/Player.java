@@ -373,17 +373,8 @@ public class Player extends Creature {
     }
 
     private int speedMax = 10;
-    private int boulderBasherCounter = 0;
+    private int hitBoulderCounter = 0;
     private void getInput() {
-        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) &&
-                (getEntityCurrentlyFacing() instanceof Boulder) &&
-                (inventory.getItem(inventory.getIndex()) instanceof Hammer)) {
-            boulderBasherCounter++;
-        } else {
-            boulderBasherCounter = 0;
-        }
-        System.out.println("boulderBasherCounter: " + boulderBasherCounter);
-
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
         yMove = 0;
@@ -395,7 +386,7 @@ public class Player extends Creature {
 
         // RUNNING
         if (handler.getKeyManager().running) {  //KeyEvent.VK_CONTROL
-            if ((speed *= 2) <= speedMax) {
+            if ((speed *= 2) < speedMax) {
                 speed *= 2;
             } else {
                 speed = speedMax;
@@ -407,15 +398,19 @@ public class Player extends Creature {
         // KEY INPUT to SET MOVEMENT
         if (handler.getKeyManager().up) {
             yMove = -speed;
+            hitBoulderCounter = 0;
         }
         if (handler.getKeyManager().down) {
             yMove = speed;
+            hitBoulderCounter = 0;
         }
         if (handler.getKeyManager().left) {
             xMove = -speed;
+            hitBoulderCounter = 0;
         }
         if (handler.getKeyManager().right) {
             xMove = speed;
+            hitBoulderCounter = 0;
         }
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
@@ -442,6 +437,25 @@ public class Player extends Creature {
 
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
+
+            // CHECK BOULDER AND HAMMER (6 consecutive hits without moving)
+            if (inventory.getItem(inventory.getIndex()) instanceof Hammer) {
+                if (getEntityCurrentlyFacing() instanceof Boulder) {
+                    hitBoulderCounter++;
+                    decreaseStaminaCurrent(2);
+
+                    if (hitBoulderCounter == 6) {
+                        ((Hammer)inventory.getItem(inventory.getIndex())).execute();
+                        hitBoulderCounter = 0;
+                    }
+
+                    return;
+                } else if ((getEntityCurrentlyFacing() instanceof Rock) || (getEntityCurrentlyFacing() instanceof RockMountain)) {
+                    ((Hammer)inventory.getItem(inventory.getIndex())).execute();
+                    decreaseStaminaCurrent(2);
+                    return;
+                }
+            }
 
             // TRAVELINGFENCE CHECK
             if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
@@ -502,15 +516,6 @@ public class Player extends Creature {
             } else {        // Not holding IHoldable.
                 if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
                     if (!holding) {
-                        //////////////////////////  if hammer equipped, don't pick up Rock or RockMountain instances.
-                        if ( (inventory.getItem(inventory.getIndex()) instanceof Hammer) &&
-                                ((getEntityCurrentlyFacing() instanceof Rock) || (getEntityCurrentlyFacing() instanceof RockMountain)) ) {
-                            ((Hammer)inventory.getItem(inventory.getIndex())).execute();
-                            decreaseStaminaCurrent(2);
-                            return;
-                        }
-                        ////////////////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
                         //////////////////////////////////////
                         setHoldableObject(pickUpHoldable());
                         holdableObject.pickedUp();
@@ -527,22 +532,10 @@ public class Player extends Creature {
                     }
                 } else {
                     // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
-
-                    if ((getEntityCurrentlyFacing() instanceof Boulder) &&
-                            (inventory.getItem(inventory.getIndex()) instanceof Hammer)) {
-                        if (boulderBasherCounter == 6) {
-                            inventory.getItem(inventory.getIndex()).execute();
-                            decreaseStaminaCurrent(2);
-                        } else {
-                            return;
-                        }
-                    }
-
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                     inventory.getItem(inventory.getIndex()).execute();
-                    decreaseStaminaCurrent(2);      // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    decreaseStaminaCurrent(2);
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
-
                 }
             }
         }
