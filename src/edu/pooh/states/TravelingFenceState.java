@@ -8,7 +8,6 @@ import edu.pooh.items.Item;
 import edu.pooh.items.tier0.Hammer;
 import edu.pooh.items.tier0.Scythe;
 import edu.pooh.items.tier0.SeedsWild;
-import edu.pooh.items.tier0.Shovel;
 import edu.pooh.items.tier1.GoldShovel;
 import edu.pooh.items.tier1.GoldSprinkler;
 import edu.pooh.main.Handler;

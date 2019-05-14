@@ -17,7 +17,7 @@ public class Boulder extends StaticEntity {
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override
