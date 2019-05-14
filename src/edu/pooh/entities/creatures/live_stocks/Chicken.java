@@ -15,6 +15,7 @@ import java.util.Random;
 public class Chicken extends Creature {
 
     public enum ChickenState { CHICK, JUVENILE_NON_EGG_LAYING, ADULT_EGG_LAYING,
+        JUVENILE_NON_EGG_LAYING_GRUMPY_1, JUVENILE_NON_EGG_LAYING_GRUMPY_2, JUVENILE_NON_EGG_LAYING_GRUMPY_3,
         ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
     private Map<String, Animation> anim;

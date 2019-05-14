@@ -151,11 +151,173 @@ public class ChickenCoopState implements IState {
 
         return numberOfEggLayableChicken;
     }
+    private int getNonEggLayableChickenTotal() {
+        int numberofNonEggLayableChicken = 0;
+
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if (e instanceof Chicken) {
+                Chicken tempChicken = (Chicken)e;
+                if ((tempChicken.getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING) ||
+                        (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3) ||
+                        (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2) ||
+                        (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_1)) {
+                    numberofNonEggLayableChicken++;
+                }
+            }
+        }
+
+        return numberofNonEggLayableChicken;
+    }
+    private void determineWhichChickenGoesHungry(int numberOfHungryChicken) {
+        while (numberOfHungryChicken > 0) {
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_2)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_1)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_1)) {
+                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ((e instanceof Chicken) &&
+                        (((Chicken) e).getChickenState() == Chicken.ChickenState.ADULT_EGG_LAYING)) {
+                    ((Chicken) e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+
+                    numberOfHungryChicken--;
+
+                    if (numberOfHungryChicken == 0) {
+                        return;
+                    }
+                }
+            }
+        }
+        //Maybe incorrect logic.
+        System.out.println("All hungry?");
+    }
+    private void decrementGrumpinessState() {
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if (e instanceof Chicken) {
+                Chicken tempChicken = (Chicken)e;
+                switch (tempChicken.getChickenState()) {
+                    case ADULT_GRUMPY_3:
+                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_2);
+                        break;
+                    case ADULT_GRUMPY_2:
+                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_1);
+                        break;
+                    case ADULT_GRUMPY_1:
+                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_EGG_LAYING);
+                        break;
+                    case JUVENILE_NON_EGG_LAYING_GRUMPY_3:
+                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_2);
+                        break;
+                    case JUVENILE_NON_EGG_LAYING_GRUMPY_2:
+                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_1);
+                        break;
+                    case JUVENILE_NON_EGG_LAYING_GRUMPY_1:
+                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING);
+                        break;
+                    default:
+                        System.out.println("ChickenCoopState.decrementGrumpinessState() switch-construct default statement.");
+                        break;
+                }
+            }
+        }
+    }
     public void instantiateEggBasedOnFodderDisplayerTile() {
         //TODO: Which is less, number of chicken (adult state and egg laying) or the number of feed?
         int numberOfEgg = Math.min(getFodderDisplayerTotal(), getEggLayableChickenTotal());
         System.out.println("FODDER-DISPLAYER-TOTAL: " + getFodderDisplayerTotal() +
                 "\nEGG-LAYABLE-CHICKEN-TOTAL: " + getEggLayableChickenTotal());
+
+        //!!!!!!!!!!!ChickenState.GRUMPY CONDITIONS!!!!!!!!!!
+        // we have adult/juvenile chicken going hungry (chick don't need to eat).
+        //TODO: BUG!!! first part... chicken going hungry good, but ones being fed aren't decrementingGrumpinessState.
+        int numberOfHungryChicken = (getEggLayableChickenTotal() + getNonEggLayableChickenTotal()) -
+                getFodderDisplayerTotal();
+        if (numberOfHungryChicken > 0) {
+            determineWhichChickenGoesHungry(numberOfHungryChicken);
+        } else {
+            decrementGrumpinessState();
+        }
 
         // Instantiate Egg object and decrement fodderDisplayerTotal until it reaches 0.
         while (numberOfEgg > 0) {
