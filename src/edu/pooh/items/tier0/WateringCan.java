@@ -44,21 +44,21 @@ public class WateringCan extends Item {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
         if (t != null) {
-            System.out.println("targeted-tile's id: " + t.getId());
+            System.out.println("WateringCan.execute(), targeted-tile: " + t.getId());
+            handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+            System.out.println("WateringCan.execute(), player's stamina decrease by 2");
+
             // If tile is poolWater, increase countWater by 18.
             if (t.getId() >= 236 && t.getId() <= 248) {
+                ////////////////////////
                 increaseCountWater(20);
+                ////////////////////////
             } else if (countWater > 0) {
                 //////////////
                 countWater--;
                 //////////////
                 //It's DirtNormalTile and is not watered.
                 if ( t instanceof DirtNormalTile ) {
-                    /////////////////////////////////////////////////////////////////////
-                    System.out.println( "watered? " + ((DirtNormalTile)t).isWatered() );
-                    /////////////////////////////////////////////////////////////////////
-                    System.out.println("targeted-tile is a DirtNormalTile with boolean watered set to false");
-
                     DirtNormalTile tempTile = (DirtNormalTile)t;
                     //DirtState.SEEDED
                     if ((tempTile.getDirtState() == DirtNormalTile.DirtState.SEEDED)) {
@@ -75,8 +75,6 @@ public class WateringCan extends Item {
                 }
             }
         }
-
-        System.out.println("Executed WateringCan.");
     }
 
 } // **** end WateringCan class ****

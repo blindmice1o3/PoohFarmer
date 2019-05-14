@@ -41,7 +41,7 @@ public class Inventory {
             index = 0;
         }
 
-        System.out.println("index incremented.");
+        System.out.println("Inventory.incrementSelectedItem() called... (aka index incremented)");
     }
 
     public void tick() {

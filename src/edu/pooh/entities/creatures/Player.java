@@ -449,6 +449,7 @@ public class Player extends Creature {
                 if (getEntityCurrentlyFacing() instanceof Boulder) {
                     hitBoulderCounter++;
                     decreaseStaminaCurrent(2);
+                    System.out.println("player's stamina decrease by 2");
 
                     if (hitBoulderCounter == 6) {
                         ((Hammer)inventory.getItem(inventory.getIndex())).execute();
@@ -458,7 +459,6 @@ public class Player extends Creature {
                     return;
                 } else if ((getEntityCurrentlyFacing() instanceof Rock) || (getEntityCurrentlyFacing() instanceof RockMountain)) {
                     ((Hammer)inventory.getItem(inventory.getIndex())).execute();
-                    decreaseStaminaCurrent(2);
                     return;
                 }
             }
@@ -468,6 +468,7 @@ public class Player extends Creature {
                 if (getEntityCurrentlyFacing() instanceof TreeStump) {
                     hitTreeStumpCounter++;
                     decreaseStaminaCurrent(2);
+                    System.out.println("player's stamina decrease by 2");
 
                     if (hitTreeStumpCounter == 6) {
                         ((Axe)inventory.getItem(inventory.getIndex())).execute();
@@ -477,7 +478,6 @@ public class Player extends Creature {
                     return;
                 } else if (getEntityCurrentlyFacing() instanceof Wood) {
                     ((Axe)inventory.getItem(inventory.getIndex())).execute();
-                    decreaseStaminaCurrent(2);
                     return;
                 }
             }
@@ -559,7 +559,6 @@ public class Player extends Creature {
                     // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                     inventory.getItem(inventory.getIndex()).execute();
-                    decreaseStaminaCurrent(2);
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                 }
             }
@@ -664,7 +663,7 @@ public class Player extends Creature {
                 // We have an Entity object that isn't the player, check if it intersects with the holding rectangle.
                 if (e.getCollisionBounds(0, 0).intersects(hr)) {
                     if (e instanceof IHoldable) {
-                        System.out.print("IHoldable object in front of player.");
+                        System.out.println("IHoldable object in front of player.");
                         return true;
                     }
                 }

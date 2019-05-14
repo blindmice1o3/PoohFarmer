@@ -23,7 +23,9 @@ public class Scythe extends Item {
     @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
-        System.out.print("Scythe.execute(), targeted-entity: " + entity);
+        System.out.println("Scythe.execute(), targeted-entity: " + entity);
+        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        System.out.println("Scythe.execute(), player's stamina decrease by 2");
 
         // CropEntity (except CropType.GRASS) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         if ((entity instanceof CropEntity) && (((CropEntity)entity).isTangibleToScythe())) {

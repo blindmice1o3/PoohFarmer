@@ -9,7 +9,6 @@ import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
-import java.util.Iterator;
 
 public class Fodder extends StaticEntity
         implements IHoldable {

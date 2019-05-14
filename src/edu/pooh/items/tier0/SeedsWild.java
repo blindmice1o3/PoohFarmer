@@ -92,7 +92,9 @@ public class SeedsWild extends Item {
 
         handler.getWorld().getEntityManager().setToBeAdded(true);
         count--;
-        System.out.println("SeedsWild.execute(), SeedsWild's count decremented.");
+        System.out.println("SeedsWild.execute(), SeedsWild's count decremented by 1");
+        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        System.out.println("SeedsWild.execute(), player's stamina decrease by 2");
     }
 
     // GETTERS & SETTERS
