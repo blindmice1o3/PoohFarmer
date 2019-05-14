@@ -24,7 +24,7 @@ public class Rock extends StaticEntity
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override
@@ -45,6 +45,10 @@ public class Rock extends StaticEntity
                 if (handler.getWorld().getTile(xx, yy) instanceof DirtNormalTile) {
                     if (((DirtNormalTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                         ((DirtNormalTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                    }
+                } else if (handler.getWorld().getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                    if (((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                        ((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
                     }
                 }
             }

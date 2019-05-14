@@ -2,10 +2,7 @@ package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.produce_yields.Egg;
-import edu.pooh.entities.statics.statics1x1.Bush;
-import edu.pooh.entities.statics.statics1x1.Fodder;
-import edu.pooh.entities.statics.statics1x1.Rock;
-import edu.pooh.entities.statics.statics1x1.Wood;
+import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
@@ -15,6 +12,7 @@ import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
+import edu.pooh.items.tier0.Hammer;
 import edu.pooh.items.tier0.WateringCan;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
@@ -493,6 +491,16 @@ public class Player extends Creature {
                 // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
             } else {        // Not holding IHoldable.
                 if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
+
+                    //////////////////////////  if hammer equipped, don't pick up Rock or RockMountain instances.
+                    if ( (inventory.getItem(inventory.getIndex()) instanceof Hammer) &&
+                            ((getEntityCurrentlyFacing() instanceof Rock) || (getEntityCurrentlyFacing() instanceof RockMountain)) ) {
+                        ((Hammer)inventory.getItem(inventory.getIndex())).execute();
+                        decreaseStaminaCurrent(2);
+                        return;
+                    }
+                    ////////////////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
                     if (!holding) {
                         //////////////////////////////////////
                         setHoldableObject(pickUpHoldable());

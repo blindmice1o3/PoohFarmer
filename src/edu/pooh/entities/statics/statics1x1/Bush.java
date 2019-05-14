@@ -22,7 +22,7 @@ public class Bush extends StaticEntity {
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override
@@ -53,7 +53,6 @@ public class Bush extends StaticEntity {
         }
 
         setActive(false);
-        //handler.getWorld().getItemManager().addItem(Item.shovelItem.createNew((int)x, (int)y));
     }
 
 } // **** end Bush class ****

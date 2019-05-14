@@ -18,7 +18,7 @@ public class RockMountain extends StaticEntity
 
     @Override
     public void tick() {
-
+        return;
     }
 
     @Override

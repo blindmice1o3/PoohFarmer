@@ -33,9 +33,17 @@ public class Shovel extends Item {
 
                 // Shovel calls CropEntity's and HarvestEntity's die() method.
                 if (temp.getStaticEntity() != null) {
-                    if ((temp.getStaticEntity() instanceof CropEntity) || (temp.getStaticEntity() instanceof HarvestEntity)) {
+                    if ( /* 1 */
+                            ((temp.getStaticEntity() instanceof CropEntity) &&
+                            (((CropEntity)temp.getStaticEntity()).getCropType() != CropEntity.CropType.GRASS))
+                                    ||
+                         /* 2 */
+                            (temp.getStaticEntity() instanceof HarvestEntity) ) {
                         temp.getStaticEntity().die();
+                        temp.setDirtState(DirtNormalTile.DirtState.TILLED);
+                        temp.setTexture(Assets.dirtTilledDry);
                     }
+                    return;
                 }
 
                 // Does not matter if DirtNormalTile is NORMAL or SEEDED.
