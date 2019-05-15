@@ -577,7 +577,7 @@ public class Player extends Creature {
         Tile tempTileInFront = getTileCurrentlyFacing();
 
         // If FodderExecutorTile.
-        if (tempTileInFront instanceof FodderExecutorTile) {
+        if ((tempTileInFront instanceof FodderExecutorTile) && (holdableObject instanceof Fodder)) {
             return true;
         }
         // If DirtNormalTile.

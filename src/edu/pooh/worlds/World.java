@@ -651,6 +651,10 @@ public class World {
                                                 if (((DirtNormalTile) handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
                                                     ((DirtNormalTile) handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
                                                 }
+                                            } else if (handler.getWorld().getTile(xx, yy) instanceof DirtNotFarmableTile) {
+                                                if (((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).getStaticEntity() == this) {
+                                                    ((DirtNotFarmableTile)handler.getWorld().getTile(xx, yy)).setStaticEntity(null);
+                                                }
                                             }
                                         }
                                     }

@@ -4,6 +4,7 @@ import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
+import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.Tile;
 
@@ -96,7 +97,16 @@ public class Flower extends StaticEntity
             if (tempTile.getStaticEntity() == null) {
                 x = tempTile.getX() * Tile.TILE_WIDTH;
                 y = tempTile.getY() * Tile.TILE_HEIGHT;
-                System.out.println("dropped DirtNotFarmableTile's (x, y): (" + x + ", " + y + ")");
+                System.out.println("dropped Flower onto DirtNotFarmableTile (x, y): (" + x + ", " + y + ")");
+                tempTile.setStaticEntity(this);
+            }
+        } else if (t instanceof DirtNormalTile) {
+            DirtNormalTile tempTile = (DirtNormalTile)t;
+
+            if (tempTile.getStaticEntity() == null) {
+                x = tempTile.getX() * Tile.TILE_WIDTH;
+                y = tempTile.getY() * Tile.TILE_HEIGHT;
+                System.out.println("dropped Flower onto DirtNormalTile (x, y): (" + x + ", " + y + ")");
                 tempTile.setStaticEntity(this);
             }
         }
