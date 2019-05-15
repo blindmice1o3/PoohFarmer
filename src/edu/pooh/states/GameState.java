@@ -177,7 +177,6 @@ public class GameState implements IState {
         }
     }
 
-    //TODO: watered and dried version of textures for CropEntity's turnip, potato, tomato, corn (maybe NOT: tile vs entity).
     public void setAllDirtNormalTileWateredToFalse() {
         if (TimeManager.getNewDay()) {
             Tile[][] tempWorld = world.getTilesViaRGB();

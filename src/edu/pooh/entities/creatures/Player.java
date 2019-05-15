@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Creature {
-    // TODO: Implement stamina feature (eating, sleeping/newDay, hot spring, power berry, tool usage).
+
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 

@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 
 public class CropEntity extends StaticEntity {
 
-    //TODO: Grass goes here.
     public enum CropType {
         CANNABIS_WILD, TURNIP, POTATO, TOMATO, CORN, GRASS;
     }
