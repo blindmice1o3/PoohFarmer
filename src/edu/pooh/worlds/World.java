@@ -366,8 +366,8 @@ public class World {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
                                 }
                             }
-                            tilesViaRGB[xx + 0][yy + 2] = new WoodStashTile(handler, xx, yy, Assets.building2x3[2][0]);
-                            tilesViaRGB[xx + 1][yy + 2] = new WoodStashTile(handler, xx, yy, Assets.building2x3[2][1]);
+                            tilesViaRGB[xx + 0][yy + 2] = new WoodStashTile(handler, xx+0, yy+2, Assets.building2x3[2][0]);
+                            tilesViaRGB[xx + 1][yy + 2] = new WoodStashTile(handler, xx+1, yy+2, Assets.building2x3[2][1]);
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[226];
                         } /*else if (red == 255 && green == 242 && blue == 0) {   //shippingBin2x2
                             for (int y = 0; y < 2; y++) {
@@ -796,10 +796,6 @@ public class World {
                         if (tempShippingBin != null) {
                             ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
                         }
-                    }
-                    else if (red == 255 && green == 1 && blue == 1) { //Fodder
-                        Fodder fodder = new Fodder(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(fodder);
                     } else if (red == 2 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);
