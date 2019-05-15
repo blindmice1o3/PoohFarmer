@@ -1,5 +1,6 @@
 package edu.pooh.items.tier0;
 
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
@@ -63,6 +64,14 @@ public class WateringCan extends Item {
                     //DirtState.SEEDED
                     if ((tempTile.getDirtState() == DirtNormalTile.DirtState.SEEDED)) {
                         tempTile.setWatered(true);
+
+                        if (tempTile.getStaticEntity() instanceof CropEntity) {
+                            CropEntity tempCropEntity = (CropEntity)tempTile.getStaticEntity();
+                            ///////////////////////////
+                            tempCropEntity.swapCurrentImageDryToWet();
+                            ///////////////////////////
+                        }
+
                         tempTile.setTexture(Assets.dirtSeededWatered);
                         System.out.println("tile with DirtState.SEEDED has watered set to true");
                     }
@@ -76,5 +85,7 @@ public class WateringCan extends Item {
             }
         }
     }
+
+
 
 } // **** end WateringCan class ****

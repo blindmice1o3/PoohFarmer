@@ -314,6 +314,108 @@ public class CropEntity extends StaticEntity {
         daysWatered++;
     }
 
+    public void swapCurrentImageDryToWet() {
+        //CropType.TURNIP
+        if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
+                setCurrentImage(Assets.dirtSeededWatered);
+            } else if ( getCurrentImage().equals(Assets.turnip1Dry) ) {
+                setCurrentImage(Assets.turnip1Watered);
+            } else if ( getCurrentImage().equals(Assets.turnip2Dry) ) {
+                setCurrentImage(Assets.turnip2Watered);
+            }
+        }
+        //CropType.POTATO
+        else if ( cropType.equals(CropEntity.CropType.POTATO) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
+                setCurrentImage(Assets.dirtSeededWatered);
+            } else if ( getCurrentImage().equals(Assets.potato1Dry) ) {
+                setCurrentImage(Assets.potato1Watered);
+            } else if ( getCurrentImage().equals(Assets.potato2Dry) ) {
+                setCurrentImage(Assets.potato2Watered);
+            }
+        }
+        //CropType.TOMATO
+        else if ( cropType.equals(CropEntity.CropType.TOMATO) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
+                setCurrentImage(Assets.dirtSeededWatered);
+            } else if ( getCurrentImage().equals(Assets.tomato1Dry) ) {
+                setCurrentImage(Assets.tomato1Watered);
+            } else if ( getCurrentImage().equals(Assets.tomato2Dry) ) {
+                setCurrentImage(Assets.tomato2Watered);
+            } else if ( getCurrentImage().equals(Assets.tomato3Dry) ) {
+                setCurrentImage(Assets.tomato3Watered);
+            } else if ( getCurrentImage().equals(Assets.tomato4Dry) ) {
+                setCurrentImage(Assets.tomato4Watered);
+            }
+        }
+        //CropType.CORN
+        else if ( cropType.equals(CropEntity.CropType.CORN) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
+                setCurrentImage(Assets.dirtSeededWatered);
+            } else if ( getCurrentImage().equals(Assets.corn1Dry) ) {
+                setCurrentImage(Assets.corn1Watered);
+            } else if ( getCurrentImage().equals(Assets.corn2Dry) ) {
+                setCurrentImage(Assets.corn2Watered);
+            } else if ( getCurrentImage().equals(Assets.corn3Dry) ) {
+                setCurrentImage(Assets.corn3Watered);
+            } else if ( getCurrentImage().equals(Assets.corn4Dry) ) {
+                setCurrentImage(Assets.corn4Watered);
+            }
+        }
+    }
+
+    public void swapCurrentImageWetToDry() {
+        //CropType.TURNIP
+        if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
+                setCurrentImage(Assets.dirtSeededDry);
+            } else if ( getCurrentImage().equals(Assets.turnip1Watered) ) {
+                setCurrentImage(Assets.turnip1Dry);
+            } else if ( getCurrentImage().equals(Assets.turnip2Watered) ) {
+                setCurrentImage(Assets.turnip2Dry);
+            }
+        }
+        //CropType.POTATO
+        else if ( cropType.equals(CropEntity.CropType.POTATO) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
+                setCurrentImage(Assets.dirtSeededDry);
+            } else if ( getCurrentImage().equals(Assets.potato1Watered) ) {
+                setCurrentImage(Assets.potato1Dry);
+            } else if ( getCurrentImage().equals(Assets.potato2Watered) ) {
+                setCurrentImage(Assets.potato2Dry);
+            }
+        }
+        //CropType.TOMATO
+        else if ( cropType.equals(CropEntity.CropType.TOMATO) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
+                setCurrentImage(Assets.dirtSeededDry);
+            } else if ( getCurrentImage().equals(Assets.tomato1Watered) ) {
+                setCurrentImage(Assets.tomato1Dry);
+            } else if ( getCurrentImage().equals(Assets.tomato2Watered) ) {
+                setCurrentImage(Assets.tomato2Dry);
+            } else if ( getCurrentImage().equals(Assets.tomato3Watered) ) {
+                setCurrentImage(Assets.tomato3Dry);
+            } else if ( getCurrentImage().equals(Assets.tomato4Watered) ) {
+                setCurrentImage(Assets.tomato4Dry);
+            }
+        }
+        //CropType.CORN
+        else if ( cropType.equals(CropEntity.CropType.CORN) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
+                setCurrentImage(Assets.dirtSeededDry);
+            } else if ( getCurrentImage().equals(Assets.corn1Watered) ) {
+                setCurrentImage(Assets.corn1Dry);
+            } else if ( getCurrentImage().equals(Assets.corn2Watered) ) {
+                setCurrentImage(Assets.corn2Dry);
+            } else if ( getCurrentImage().equals(Assets.corn3Watered) ) {
+                setCurrentImage(Assets.corn3Dry);
+            } else if ( getCurrentImage().equals(Assets.corn4Watered) ) {
+                setCurrentImage(Assets.corn4Dry);
+            }
+        }
+    }
+
     // GETTERS & SETTERS
 
     public CropType getCropType() { return cropType; }

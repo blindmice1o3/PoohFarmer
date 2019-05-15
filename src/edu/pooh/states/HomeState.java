@@ -2,6 +2,7 @@ package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.main.Handler;
 import edu.pooh.time.TimeManager;
 import edu.pooh.tiles.Tile;
@@ -47,6 +48,12 @@ public class HomeState implements IState {
             /** Daily GameState method calls. */
             // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
             ((GameState)handler.getGame().getGameState()).increaseCropEntityDaysWatered();
+            // SWAP CropEntity currentImage from wet-version to dry-version
+            for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
+                if (e instanceof CropEntity) {
+                    ((CropEntity)e).swapCurrentImageWetToDry();
+                }
+            }
             // RESET ALL DirtNormalTile objects' boolean watered TO FALSE.
             ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
 
