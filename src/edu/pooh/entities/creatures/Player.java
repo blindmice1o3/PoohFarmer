@@ -515,6 +515,10 @@ public class Player extends Creature {
                 setHoldableObject(null);
                 holding = false;
             }
+            // WOOD-STASH-TILE CHECK
+            else if (getTileCurrentlyFacing() instanceof WoodStashTile) {
+                ((WoodStashTile)getTileCurrentlyFacing()).execute();
+            }
 
             // HOLDING CHECK
             if (holding) {  // Already holding, can only drop the holdableObject.

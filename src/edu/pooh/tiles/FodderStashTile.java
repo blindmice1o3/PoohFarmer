@@ -8,7 +8,8 @@ import edu.pooh.main.IInvokable;
 
 import java.awt.image.BufferedImage;
 
-public class FodderStashTile extends SolidGenericTile implements IInvokable {
+public class FodderStashTile extends SolidGenericTile
+        implements IInvokable {
 
     private Handler handler;
     private int x, y;

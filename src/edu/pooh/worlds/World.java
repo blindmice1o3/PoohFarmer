@@ -361,11 +361,13 @@ public class World {
                             }
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[220];
                         } else if (red == 163 && green == 74 && blue == 164) {  //building2x3
-                            for (int y = 0; y < 3; y++) {
+                            for (int y = 0; y < 2; y++) {
                                 for (int x = 0; x < 2; x++) {
                                     tilesViaRGB[xx + x][yy + y] = Tile.tiles[226 + (y * 2) + x];
                                 }
                             }
+                            tilesViaRGB[xx + 0][yy + 2] = new WoodStashTile(handler, xx, yy, Assets.building2x3[2][0]);
+                            tilesViaRGB[xx + 1][yy + 2] = new WoodStashTile(handler, xx, yy, Assets.building2x3[2][1]);
                             //tilesGameViaRGB[xx][yy] = Tile.tiles[226];
                         } /*else if (red == 255 && green == 242 && blue == 0) {   //shippingBin2x2
                             for (int y = 0; y < 2; y++) {
