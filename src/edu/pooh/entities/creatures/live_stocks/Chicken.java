@@ -4,6 +4,7 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
+import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -12,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Chicken extends Creature {
+public class Chicken extends Creature
+        implements IHoldable {
 
     public enum ChickenState { CHICK, JUVENILE_NON_EGG_LAYING, ADULT_EGG_LAYING,
         JUVENILE_NON_EGG_LAYING_GRUMPY_1, JUVENILE_NON_EGG_LAYING_GRUMPY_2, JUVENILE_NON_EGG_LAYING_GRUMPY_3,
@@ -23,6 +25,7 @@ public class Chicken extends Creature {
     private Random random;
     private int daysInstantiated;
     private ChickenState chickenState;
+    private boolean pickedUp;
 
     public Chicken(Handler handler, float x, float y, ChickenState chickenState) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
@@ -34,9 +37,10 @@ public class Chicken extends Creature {
         random = new Random();
         daysInstantiated = 0;
         this.chickenState = chickenState;
+        pickedUp = false;
     } // **** end Chicken(Handler, float, float) constructor ****
 
-    public void initChickenAnimations() {
+    private void initChickenAnimations() {
         anim = new HashMap<String, Animation>();
 
         anim.put("animChickenUp", new Animation(400, Assets.chickenUp));
@@ -76,12 +80,14 @@ public class Chicken extends Creature {
 
     @Override
     public void tick() {
-        for (Animation tempAnim : anim.values()) {
-            tempAnim.tick();
-        }
+        if (!pickedUp) {
+            for (Animation tempAnim : anim.values()) {
+                tempAnim.tick();
+            }
 
-        randomlyMove();
-        move();
+            randomlyMove();
+            move();
+        }
     }
 
     private void randomlyMove() {
@@ -140,6 +146,15 @@ public class Chicken extends Creature {
         }
     }
 
+    public void setChickenState(ChickenState chickenState) { this.chickenState = chickenState; }
+    public ChickenState getChickenState() { return chickenState; }
+
+    public int getDaysInstantiated() { return daysInstantiated; }
+    public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
+    public void increaseDaysInstantiated() {
+        daysInstantiated++;
+    }
+
     @Override
     public void hurt(int amt) { return; }
 
@@ -148,13 +163,48 @@ public class Chicken extends Creature {
         setActive(false);
     }
 
-    public void setChickenState(ChickenState chickenState) { this.chickenState = chickenState; }
-    public ChickenState getChickenState() { return chickenState; }
+    // IHOLDABLE INTERFACE
 
-    public int getDaysInstantiated() { return daysInstantiated; }
-    public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
-    public void increaseDaysInstantiated() {
-        daysInstantiated++;
+    @Override
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public void pickedUp() {
+        pickedUp = true;
+    }
+
+    @Override
+    public void dropped(Tile t) {
+        switch (handler.getWorld().getEntityManager().getPlayer().getCurrentDirection()) {
+            case UP:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() - Tile.TILE_HEIGHT;
+                break;
+            case DOWN:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() + Tile.TILE_HEIGHT;
+                break;
+            case LEFT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() - Tile.TILE_WIDTH;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            case RIGHT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() + Tile.TILE_HEIGHT;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            default:
+                System.out.println("Chicken.drop(Tile) switch construct's default option.");
+                break;
+        }
+
+        if (!handler.getWorld().getEntityManager().getEntities().contains(this)) {
+            handler.getWorld().getEntityManager().addEntity(this);
+        }
+
+        pickedUp = false;
     }
 
 } // **** end Chicken class ****

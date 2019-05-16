@@ -8,10 +8,14 @@ import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-public class Dog extends Creature implements IHoldable {
+public class Dog extends Creature
+        implements IHoldable {
 
+    private Map<String, Animation> anim;
     private Animation animUp;
     private Animation animDown;
     private Animation animLeft;
@@ -24,22 +28,27 @@ public class Dog extends Creature implements IHoldable {
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
-        animUp = new Animation(400, Assets.dogUp);
-        animDown = new Animation(400, Assets.dogDown);
-        animLeft = new Animation(400, Assets.dogLeft);
-        animRight = new Animation(400, Assets.dogRight);
+        initDogAnimations();
 
         random = new Random();
         pickedUp = false;
     } // **** end Dog(Handler, float, float) constructor ****
 
+    private void initDogAnimations() {
+        anim = new HashMap<String, Animation>();
+
+        anim.put("animDogUp", new Animation(400, Assets.dogUp));
+        anim.put("animDogDown", new Animation(400, Assets.dogDown));
+        anim.put("animDogLeft", new Animation(400, Assets.dogLeft));
+        anim.put("animDogRight", new Animation(400, Assets.dogRight));
+    }
+
     @Override
     public void tick() {
         if (!pickedUp) {
-            animUp.tick();
-            animDown.tick();
-            animLeft.tick();
-            animRight.tick();
+            for (Animation tempAnim : anim.values()) {
+                tempAnim.tick();
+            }
 
             randomlyMove();
             move();
@@ -80,13 +89,13 @@ public class Dog extends Creature implements IHoldable {
     private BufferedImage getCurrentAnimationFrame() {
         // ANIMATION MOVEMENTS
         if (xMove < 0) {                                // Moving left.
-            return animLeft.getCurrentFrame();
+            return anim.get("animDogLeft").getCurrentFrame();
         } else if (xMove > 0) {                         // Moving right.
-            return animRight.getCurrentFrame();
+            return anim.get("animDogRight").getCurrentFrame();
         } else if (yMove < 0) {                         // Moving up.
-            return animUp.getCurrentFrame();
+            return anim.get("animDogUp").getCurrentFrame();
         } else if (yMove > 0) {                         // Moving down.
-            return animDown.getCurrentFrame();
+            return anim.get("animDogDown").getCurrentFrame();
         } else {
             return Assets.dogDown[0];
         }
