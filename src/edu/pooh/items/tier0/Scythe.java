@@ -27,20 +27,9 @@ public class Scythe extends Item {
         handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
         System.out.println("Scythe.execute(), player's stamina decrease by 2");
 
-        // CropEntity (except CropType.GRASS) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // CropEntity
         if ((entity instanceof CropEntity) && (((CropEntity)entity).isTangibleToScythe())) {
-        //                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            // Scythe sets grass's daysWatered to 0, currentImage to Assets.grassSeeded, harvestable to false,
-            // and tangibleToScythe to false.
-            if (((CropEntity)entity).getCropType() == CropEntity.CropType.GRASS) {
-                CropEntity tempGrass = (CropEntity) entity;
-
-                ////////////////////////////////////////////////////////////////////////////////////////////
-                tempGrass.die();    //Grass die() is different than setActive(false). LEAVE THIS LINE ALONE!
-                ////////////////////////////////////////////////////////////////////////////////////////////
-            } else {
-                //TODO: call special unimplemented version of the CropEntity's die() that removes it without dropping HarvestEntity.
-            }
+            ((CropEntity)entity).die();
         }
         // Bush
         else if (entity instanceof Bush) {

@@ -89,16 +89,16 @@ public class CropEntity extends StaticEntity {
                     setBoundsHeight(height);
                     setTangibleToScythe(true);
 
-                    setCurrentImage(Assets.plantSproutling);
+                    setCurrentImage(Assets.tomato1Dry);
                     break;
                 } else if (daysWatered == 2) {
-                    setCurrentImage(Assets.plantJuvenille);
+                    setCurrentImage(Assets.tomato2Dry);
                     break;
                 } else if (daysWatered == 3) {
-                    setCurrentImage(Assets.plantAdult);
+                    setCurrentImage(Assets.tomato3Dry);
                     break;
                 } else if (daysWatered == 4) {
-                    setCurrentImage(Assets.plantFlowering1);
+                    setCurrentImage(Assets.plantFlowering2);
                     break;
                 } else if (daysWatered == 5) {
                     setHarvestable(true);
@@ -223,74 +223,68 @@ public class CropEntity extends StaticEntity {
 
     @Override
     public void die() {
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        HarvestEntity tempHarvestEntity = new HarvestEntity(handler, x, y);
-        switch (cropType) {
-            case CANNABIS_WILD:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
-                break;
-            case TURNIP:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TURNIP);
-                break;
-            case POTATO:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.POTATO);
-                break;
-            case TOMATO:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TOMATO);
-                break;
-            case CORN:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CORN);
-                break;
-            case GRASS:
-                ResourceManager.increaseFodderCount(1);
+        if (cropType == cropType.GRASS) {
+            ResourceManager.increaseFodderCount(1);
 
-                daysWatered = 0;
-                currentImage = Assets.grassSeeded;
-                harvestable = false;
-                tangibleToScythe = false;
-
-                // @@@@@
-                return;
-                //@@@@@@
-            default:
-                tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
-                break;
+            daysWatered = 0;
+            currentImage = Assets.grassSeeded;
+            harvestable = false;
+            tangibleToScythe = false;
         }
-        tempHarvestEntity.setTextureAndPrice();
+        // @@@@@@@@@@@@@@@@@@@@@@ above: GRASS  |  below: CROPS @@@@@@@@@@@@@@@@@@@@@@
+        else {
+            HarvestEntity tempHarvestEntity = null;
+            if (harvestable) {
+                tempHarvestEntity = new HarvestEntity(handler, x, y);
+                switch (cropType) {
+                    case CANNABIS_WILD:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
+                        break;
+                    case TURNIP:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TURNIP);
+                        break;
+                    case POTATO:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.POTATO);
+                        break;
+                    case TOMATO:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.TOMATO);
+                        break;
+                    case CORN:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CORN);
+                        break;
+                    default:
+                        tempHarvestEntity.setHarvestType(HarvestEntity.HarvestType.CANNABIS_WILD);
+                        break;
+                }
+                tempHarvestEntity.setTextureAndPrice();
 
-        if (harvestable) {
-            handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
-            handler.getWorld().getEntityManager().setToBeAdded(true);
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(tempHarvestEntity);
+                handler.getWorld().getEntityManager().setToBeAdded(true);
+            }
 
-        Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
-        DirtNormalTile tempDirtNormalTile;
-        for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
-            for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
-                if (tempLevel[xx][yy] instanceof DirtNormalTile) {
-                    tempDirtNormalTile = (DirtNormalTile) tempLevel[xx][yy];
-
-                    ////////////////////////////////////////////////////////////////////////////////////////////
-                    if (tempDirtNormalTile.getStaticEntity() == this) {
-
+            Tile[][] tempLevel = handler.getWorld().getTilesViaRGB();
+            DirtNormalTile tempDirtNormalTile;
+            for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+                for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
+                    if (tempLevel[xx][yy] instanceof DirtNormalTile) {
+                        tempDirtNormalTile = (DirtNormalTile) tempLevel[xx][yy];
                         //////////////////////////////////////////////////////////////////
-                        tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
-                        tempDirtNormalTile.setTexture(Assets.dirtNormal);
-                        tempDirtNormalTile.setWatered(false);
-                        //////////////////////////////////////////////////////////////////
+                        if (tempDirtNormalTile.getStaticEntity() == this) {
+                            tempDirtNormalTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
+                            tempDirtNormalTile.setTexture(Assets.dirtNormal);
+                            tempDirtNormalTile.setWatered(false);
 
-                        /////////////////
-                        setActive(false);
-                        /////////////////
+                            /////////////////
+                            setActive(false);
+                            /////////////////
 
-                        if (harvestable) {
-                            tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
-                        } else {
-                            tempDirtNormalTile.setStaticEntity(null);
+                            if (harvestable) {
+                                tempDirtNormalTile.setStaticEntity(tempHarvestEntity);
+                            } else {
+                                tempDirtNormalTile.setStaticEntity(null);
+                            }
                         }
                     }
-                    ////////////////////////////////////////////////////////////////////////////////////////////
                 }
             }
         }
@@ -314,8 +308,22 @@ public class CropEntity extends StaticEntity {
     }
 
     public void swapCurrentImageDryToWet() {
+        //CropType.CANNABIS_WILD
+        if ( cropType.equals(CropType.CANNABIS_WILD) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
+                setCurrentImage(Assets.dirtSeededWatered);
+            } else if ( getCurrentImage().equals(Assets.tomato1Dry) ) {
+                setCurrentImage(Assets.tomato1Watered);
+            } else if ( getCurrentImage().equals(Assets.tomato2Dry) ) {
+                setCurrentImage(Assets.tomato2Watered);
+            } else if ( getCurrentImage().equals(Assets.tomato3Dry) ) {
+                setCurrentImage(Assets.tomato3Watered);
+            } else if ( getCurrentImage().equals(Assets.plantFlowering2) ) {
+                setCurrentImage(Assets.plantFlowering1);
+            }
+        }
         //CropType.TURNIP
-        if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
+        else if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
             if ( getCurrentImage().equals(Assets.dirtSeededDry) ) {
                 setCurrentImage(Assets.dirtSeededWatered);
             } else if ( getCurrentImage().equals(Assets.turnip1Dry) ) {
@@ -365,8 +373,22 @@ public class CropEntity extends StaticEntity {
     }
 
     public void swapCurrentImageWetToDry() {
+        //CropType.CANNABIS_WILD
+        if ( cropType.equals(CropType.CANNABIS_WILD) ) {
+            if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
+                setCurrentImage(Assets.dirtSeededDry);
+            } else if ( getCurrentImage().equals(Assets.tomato1Watered) ) {
+                setCurrentImage(Assets.tomato1Dry);
+            } else if ( getCurrentImage().equals(Assets.tomato2Watered) ) {
+                setCurrentImage(Assets.tomato2Dry);
+            } else if ( getCurrentImage().equals(Assets.tomato3Watered) ) {
+                setCurrentImage(Assets.tomato3Dry);
+            } else if ( getCurrentImage().equals(Assets.plantFlowering1) ) {
+                setCurrentImage(Assets.plantFlowering2);
+            }
+        }
         //CropType.TURNIP
-        if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
+        else if ( cropType.equals(CropEntity.CropType.TURNIP) ) {
             if ( getCurrentImage().equals(Assets.dirtSeededWatered) ) {
                 setCurrentImage(Assets.dirtSeededDry);
             } else if ( getCurrentImage().equals(Assets.turnip1Watered) ) {
