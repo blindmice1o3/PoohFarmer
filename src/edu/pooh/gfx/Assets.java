@@ -93,6 +93,12 @@ public class Assets {
             mollyRidingHorseDown, mollyRidingHorseLeft, mollyRidingHorseRight, mollyRidingHorseUp,
             mollyMountingHorseDown, mollyMountingHorseLeft, mollyMountingHorseRight, mollyMountingHorseUp;
 
+    // ENTITIES MOVING/ANIMATED (/PIKACHU)
+    public static BufferedImage[] pikachuWalkSW, pikachuWalkNW, pikachuWalkNE, pikachuWalkSE,
+            pikachuRunSW, pikachuRunNW, pikachuRunNE, pikachuRunSE,
+            pikachuAttackRegSW, pikachuAttackRegNW, pikachuAttackRegNE, pikachuAttackRegSE,
+            pikachuAttackSpecialSW, pikachuAttackSpecialNW, pikachuAttackSpecialNE, pikachuAttackSpecialSE;
+
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
 
@@ -879,6 +885,91 @@ public class Assets {
         mollyMountingHorseUp[1] = sheet.crop(540, 255, 20, 23);
 
 
+        // ***********************************************
+        // |+|+|+|+|+|+|+| ENTITY: PIAKCHU |+|+|+|+|+|+|+|
+        // ***********************************************
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/DS DSi - Pokemon Ranger 3 Guardian Signs - Pikachu & Raichu.png"));
+
+        pikachuWalkSW = new BufferedImage[3];
+        pikachuWalkSW[0] = sheet.crop(18, 26, 24, 22);
+        pikachuWalkSW[1] = sheet.crop(42, 26, 24, 22);
+        pikachuWalkSW[2] = sheet.crop(66, 26, 24, 22);
+
+        pikachuWalkNW = new BufferedImage[3];
+        pikachuWalkNW[0] = sheet.crop(16, 52, 24, 22);
+        pikachuWalkNW[1] = sheet.crop(40, 52, 24, 22);
+        pikachuWalkNW[2] = sheet.crop(64, 52, 24, 22);
+
+        pikachuWalkNE = new BufferedImage[3];
+        pikachuWalkNE[0] = sheet.crop(13, 77, 24, 22);
+        pikachuWalkNE[1] = sheet.crop(37, 77, 24, 22);
+        pikachuWalkNE[2] = sheet.crop(61, 77, 24, 22);
+
+        pikachuWalkSE = new BufferedImage[3];
+        pikachuWalkSE[0] = sheet.crop(13, 102, 24, 22);
+        pikachuWalkSE[1] = sheet.crop(37, 102, 24, 22);
+        pikachuWalkSE[2] = sheet.crop(61, 102, 24, 22);
+
+
+        pikachuRunSW = new BufferedImage[3];
+        pikachuRunSW[0] = sheet.crop(105, 10, 32, 32);
+        pikachuRunSW[1] = sheet.crop(137, 10, 32, 32);
+        pikachuRunSW[2] = sheet.crop(169, 10, 32, 32);
+
+        pikachuRunNW = new BufferedImage[3];
+        pikachuRunNW[0] = sheet.crop(105, 45, 32, 32);
+        pikachuRunNW[1] = sheet.crop(137, 45, 32, 32);
+        pikachuRunNW[2] = sheet.crop(169, 45, 32, 32);
+
+        pikachuRunNE = new BufferedImage[3];
+        pikachuRunNE[0] = sheet.crop(102, 76, 32, 32);
+        pikachuRunNE[1] = sheet.crop(134, 76, 32, 32);
+        pikachuRunNE[2] = sheet.crop(166, 76, 32, 32);
+
+        pikachuRunSE = new BufferedImage[3];
+        pikachuRunSE[0] = sheet.crop(102, 108, 32, 32);
+        pikachuRunSE[1] = sheet.crop(134, 108, 32, 32);
+        pikachuRunSE[2] = sheet.crop(166, 108, 32, 32);
+
+
+        pikachuAttackRegSW = new BufferedImage[3];
+        pikachuAttackRegSW[0] = sheet.crop(225, 9, 24, 32);
+        pikachuAttackRegSW[1] = sheet.crop(249, 9, 24, 32);
+
+        pikachuAttackRegNW = new BufferedImage[3];
+        pikachuAttackRegNW[0] = sheet.crop(225, 45, 24, 32);
+        pikachuAttackRegNW[1] = sheet.crop(249, 45, 24, 32);
+
+        pikachuAttackRegNE = new BufferedImage[3];
+        pikachuAttackRegNE[0] = sheet.crop(221, 78, 24, 32);
+        pikachuAttackRegNE[1] = sheet.crop(249, 77, 24, 32);
+
+        pikachuAttackRegSE = new BufferedImage[3];
+        pikachuAttackRegSE[0] = sheet.crop(223, 109, 24, 32);
+        pikachuAttackRegSE[1] = sheet.crop(251, 109, 24, 32);
+
+
+        pikachuAttackSpecialSW = new BufferedImage[3];
+        pikachuAttackSpecialSW[0] = sheet.crop(301, 11, 24, 32);
+        pikachuAttackSpecialSW[1] = sheet.crop(336, 10, 24, 32 );
+        pikachuAttackSpecialSW[2] = sheet.crop(369, 9, 24, 32);
+
+        pikachuAttackSpecialNW = new BufferedImage[3];
+        pikachuAttackSpecialNW[0] = sheet.crop(302, 47, 24, 30);
+        pikachuAttackSpecialNW[1] = sheet.crop(340, 47, 24, 30);
+        pikachuAttackSpecialNW[2] = sheet.crop(373, 47, 24, 30);
+
+        pikachuAttackSpecialNE = new BufferedImage[3];
+        pikachuAttackSpecialNE[0] = sheet.crop(301, 81, 24, 29);
+        pikachuAttackSpecialNE[1] = sheet.crop(330, 81, 24, 29);
+        pikachuAttackSpecialNE[2] = sheet.crop(363, 81, 24, 29);
+
+        pikachuAttackSpecialSE = new BufferedImage[3];
+        pikachuAttackSpecialSE[0] = sheet.crop(305, 114, 21, 32);
+        pikachuAttackSpecialSE[1] = sheet.crop(336, 114, 21, 32);
+        pikachuAttackSpecialSE[2] = sheet.crop(369, 114, 21, 32);
+
 
         // ***********************************************************************************
         // |+|+|+|+|+|+|+| ENTITY: TRAVELINGFENCE (name == The Finn) (HAWKER) |+|+|+|+|+|+|+|
@@ -905,9 +996,11 @@ public class Assets {
         hawkerRight[1] = sheet.crop(39, 102, 27, 25);
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
 
+
         // ************************************************************
         // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
+
         //homeStateBackground = ImageLoader.loadImage("/worlds/Game Boy GBC - Harvest Moon GBC - Home Background.png");
         homeStateBackground2 = ImageLoader.loadImage("/worlds/HomeState background2.png");
         chickenCoopStateBackground = ImageLoader.loadImage("/worlds/ChickenCoopState background.jpg");
@@ -916,6 +1009,7 @@ public class Assets {
         crossroadStateBackground = ImageLoader.loadImage("/worlds/CrossroadState background.png");
         mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (no entities).png");
         //mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (entities as tiles).png");
+
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|

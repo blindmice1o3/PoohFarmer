@@ -795,6 +795,9 @@ public class World {
                         if (tempShippingBin != null) {
                             ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
                         }
+                    } else if (red == 255 && green == 255 && blue == 1) { //Pikachu
+                        Pikachu pikachu = new Pikachu(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(pikachu);
                     } else if (red == 2 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);
@@ -855,6 +858,9 @@ public class World {
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
+                    } else if (red == 255 && green == 1 && blue == 1) { //Pikachu
+                        Pikachu pikachu = new Pikachu(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(pikachu);
                     } else if (red == 0 && green == 0 && blue == 255) {    //WildBerries
                         if (getTile(xx, yy) instanceof DirtNotFarmableTile) {
                             DirtNotFarmableTile tempTile = (DirtNotFarmableTile)getTile(xx, yy);

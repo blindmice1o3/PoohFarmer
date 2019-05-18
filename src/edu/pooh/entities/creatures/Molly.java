@@ -14,7 +14,7 @@ import java.util.Random;
 public class Molly extends Creature {
 
     private Map<String, Animation> animations;
-    Animation[] animationsArray;
+    private Animation[] animationsArray;
 
     private Random random;
     private int randomInt;
@@ -27,6 +27,8 @@ public class Molly extends Creature {
         //initialize animationsArray array.
         animationsArray = new Animation[animations.values().size()];
         animations.values().toArray(animationsArray);
+
+        setSpeed(5);
 
         random = new Random();
     } // **** end Molly(Handler, float, float) constructor ****
@@ -111,10 +113,6 @@ public class Molly extends Creature {
     }
 
     private BufferedImage getCurrentAnimationFrame() {
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
-
         // ANIMATION MOVEMENTS
         if (xMove < 0) {                                // Moving left.
             return animations.get("animWalkingLeft").getCurrentFrame();
@@ -124,7 +122,7 @@ public class Molly extends Creature {
             return animations.get("animWalkingUp").getCurrentFrame();
         } else if (yMove > 0) {                         // Moving down.
             return animations.get("animWalkingDown").getCurrentFrame();
-        } else {                                        //
+        } else {
             return animationsArray[randomInt].getCurrentFrame();
         }
     }
