@@ -3,6 +3,7 @@ package edu.pooh.entities.creatures;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
+import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -11,13 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Pikachu extends Creature {
+public class Pikachu extends Creature
+        implements IHoldable {
 
     private Map<String, Animation> animations;
     private Animation[] animationsArray;
 
     private Random random;
     private int randomInt;
+
+    private boolean pickedUp;
 
     public Pikachu(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
@@ -31,6 +35,7 @@ public class Pikachu extends Creature {
         setSpeed(5);
 
         random = new Random();
+        pickedUp = false;
     } // **** end Pikachu(Handler, float, float) constructor ****
 
     public void initAnimations() {
@@ -59,12 +64,14 @@ public class Pikachu extends Creature {
 
     @Override
     public void tick() {
-        for (Animation animation : animations.values()) {
-            animation.tick();
-        }
+        if (!pickedUp) {
+            for (Animation animation : animations.values()) {
+                animation.tick();
+            }
 
-        randomlyMove();
-        move();
+            randomlyMove();
+            move();
+        }
     }
 
     public void randomlyMove() {
@@ -122,6 +129,50 @@ public class Pikachu extends Creature {
     @Override
     public void die() {
         setActive(false);
+    }
+
+    // IHOLDABLE INTERFACE
+
+    @Override
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public void pickedUp() {
+        pickedUp = true;
+    }
+
+    @Override
+    public void dropped(Tile t) {
+        switch (handler.getWorld().getEntityManager().getPlayer().getCurrentDirection()) {
+            case UP:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() - Tile.TILE_HEIGHT;
+                break;
+            case DOWN:
+                x = handler.getWorld().getEntityManager().getPlayer().getX();
+                y = handler.getWorld().getEntityManager().getPlayer().getY() + Tile.TILE_HEIGHT;
+                break;
+            case LEFT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() - Tile.TILE_WIDTH;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            case RIGHT:
+                x = handler.getWorld().getEntityManager().getPlayer().getX() + Tile.TILE_HEIGHT;
+                y = handler.getWorld().getEntityManager().getPlayer().getY();
+                break;
+            default:
+                System.out.println("Pikachu.drop(Tile) switch construct's default option.");
+                break;
+        }
+
+        if (!handler.getWorld().getEntityManager().getEntities().contains(this)) {
+            handler.getWorld().getEntityManager().addEntity(this);
+        }
+
+        pickedUp = false;
     }
 
 } // **** end Pikachu class ****

@@ -16,12 +16,9 @@ public class Dog extends Creature
         implements IHoldable {
 
     private Map<String, Animation> anim;
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
-    private Animation animRight;
 
     private Random random;
+
     private boolean pickedUp;
 
     public Dog(Handler handler, float x, float y) {
@@ -29,6 +26,8 @@ public class Dog extends Creature
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
         initDogAnimations();
+
+        setSpeed(5);
 
         random = new Random();
         pickedUp = false;
