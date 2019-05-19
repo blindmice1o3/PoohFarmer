@@ -1,0 +1,23 @@
+PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Spike Traps.png
+31 total per line
+99, 17, 98, 76
+
+
+
+
+spikeTrap0
+1, 17, 98, 76
+
+spikeTrap1
+100, 17, 98, 76
+
+spikeTrap2
+199, 17, 98, 76
+
+
+...
+
+
+spikeTrap30
+2971, 17, 98, 76
+

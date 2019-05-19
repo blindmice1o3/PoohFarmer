@@ -42,6 +42,9 @@ public class Assets {
     public static BufferedImage deadCowBefore, deadCowAfter;
     public static BufferedImage[] deadCowExplosion;
 
+    // SPANNING MULTIPLE-TILE (DIABLO2-LOD)
+    public static BufferedImage[] spikeTrap;
+
     // ENTITIES MOVING/ANIMATED (GOLUM - DIABLO2-LOD)
     public static BufferedImage[] golumWalkDown, golumWalkDownLeft, golumWalkLeft, golumWalkUpLeft,
             golumWalkUp, golumWalkUpRight, golumWalkRight, golumWalkDownRight;
@@ -317,6 +320,16 @@ public class Assets {
         for (int i = 11; i < 22; i++) {
             deadCowExplosion[i] = sheet.crop(x, 455, 185, 209);
             x += 186;
+        }
+
+
+        // SPANNING MULTIPLE-TILE (DIABLO2-LOD)
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Spike Traps.png"));
+        spikeTrap = new BufferedImage[31];
+        x = 1;
+        for (int i = 0; i < 31; i++) {
+            spikeTrap[i] = sheet.crop(x, 17, 98, 76);
+            x += 99;
         }
 
 

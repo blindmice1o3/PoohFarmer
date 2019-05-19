@@ -757,6 +757,9 @@ public class World {
                     } else if (red == 0 && green == 255 && blue == 255) { //DeadCow
                         DeadCow deadCow = new DeadCow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(deadCow);
+                    } else if (red == 0 && green == 128 && blue == 128) { //SpikeTrap
+                        SpikeTrap spikeTrap = new SpikeTrap(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(spikeTrap);
                     }
                     // CREATURE
                     else if (red == 255 && green == 0 && blue == 0) { //Player
