@@ -444,6 +444,10 @@ public class Player extends Creature {
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
 
+            if (getEntityCurrentlyFacing() instanceof DeadCow) {
+                ((DeadCow)getEntityCurrentlyFacing()).setClicked(true);
+            }
+
             // CHECK BOULDER AND HAMMER (6 consecutive hits without moving)
             if (inventory.getItem(inventory.getIndex()) instanceof Hammer) {
                 if (getEntityCurrentlyFacing() instanceof Boulder) {

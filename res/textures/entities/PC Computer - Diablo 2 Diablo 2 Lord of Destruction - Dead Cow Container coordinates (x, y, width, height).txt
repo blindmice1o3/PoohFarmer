@@ -1,0 +1,78 @@
+PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Dead Cow Container.png
+
+deadCowBefore:
+1, 17, 185, 209
+
+
+
+
+deadCowExplosion0:
+1, 245, 185, 209
+
+deadCowExplosion1:
+187, 245, 185, 209
+
+deadCowExplosion2:
+373, 245, 185, 209
+
+deadCowExplosion3:
+559, 245, 185, 209
+
+deadCowExplosion4:
+745, 245, 185, 209
+
+deadCowExplosion5:
+931, 245, 185, 209
+
+deadCowExplosion6:
+1117, 245, 185, 209
+
+deadCowExplosion7:
+1303, 245, 185, 209
+
+deadCowExplosion8:
+1489, 245, 185, 209
+
+deadCowExplosion9:
+1675, 245, 185, 209
+
+deadCowExplosion10:
+1861, 245, 185, 209
+
+deadCowExplosion11:
+1, 455, 185, 209
+
+deadCowExplosion12:
+187, 455, 185, 209
+
+deadCowExplosion13:
+373, 455, 185, 209
+
+deadCowExplosion14:
+559, 455, 185, 209
+
+deadCowExplosion15:
+745, 455, 185, 209
+
+deadCowExplosion16:
+931, 455, 185, 209
+
+deadCowExplosion17:
+1117, 455, 185, 209
+
+deadCowExplosion18:
+1303, 455, 185, 209
+
+deadCowExplosion19:
+1489, 455, 185, 209
+
+deadCowExplosion20:
+1675, 455, 185, 209
+
+deadCowExplosion21:
+1861, 455, 185, 209
+
+
+
+deadCowAfter:
+1, 683, 185, 209

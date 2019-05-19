@@ -38,6 +38,10 @@ public class Assets {
     // SPANNING MULTIPLE-TILE (/ENTITIES)
     public static BufferedImage[][] boulder2x2, treeStump2x2;
 
+    // SPANNING MULTIPLE-TILE (DIABLO2-LOD)
+    public static BufferedImage deadCowBefore, deadCowAfter;
+    public static BufferedImage[] deadCowExplosion;
+
     // ITEMS (/TOOLS)
     public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
             goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
@@ -291,6 +295,22 @@ public class Assets {
                 poolWater3x3[y][x] = sheet.crop((0 + x) * WIDTH_IN_PIXEL,
                         (15 + y) * HEIGHT_IN_PIXEL, 1 * WIDTH_IN_PIXEL, 1 * HEIGHT_IN_PIXEL);
             }
+        }
+
+        // SPANNING MULTIPLE-TILE (DIABLO2-LOD)
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Dead Cow Container.png"));
+        deadCowBefore = sheet.crop(1, 17, 185, 209);
+        deadCowAfter = sheet.crop(1, 683, 185, 209);
+        deadCowExplosion = new BufferedImage[22];
+        int x = 1;
+        for (int i = 0; i < 11; i++) {
+            deadCowExplosion[i] = sheet.crop(x, 245, 185, 209);
+            x += 186;
+        }
+        x = 1;
+        for (int i = 0; i < 11; i++) {
+            deadCowExplosion[i] = sheet.crop(x, 455, 185, 209);
+            x += 186;
         }
 
         // ************************************************************
