@@ -308,7 +308,7 @@ public class Assets {
             x += 186;
         }
         x = 1;
-        for (int i = 0; i < 11; i++) {
+        for (int i = 11; i < 22; i++) {
             deadCowExplosion[i] = sheet.crop(x, 455, 185, 209);
             x += 186;
         }

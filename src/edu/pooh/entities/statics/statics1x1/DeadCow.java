@@ -16,7 +16,11 @@ public class DeadCow extends StaticEntity {
     private BufferedImage[] deadCowExplosion;
 
     public DeadCow(Handler handler, float x, float y) {
-        super(handler, x, y, (2*Tile.TILE_WIDTH), (2*Tile.TILE_HEIGHT));
+        super(handler, x, y, (3*Tile.TILE_WIDTH), (3*Tile.TILE_HEIGHT));
+        setBoundsX(30);
+        setBoundsY(90);
+        setBoundsWidth(130);
+        setBoundsHeight(80);
 
         clicked = false;
         initAnimations();
@@ -29,10 +33,14 @@ public class DeadCow extends StaticEntity {
     }
 
     private int explosionIndex = 0;
+    private int slowerDowner = 0;
     @Override
     public void tick() {
         if (clicked && (explosionIndex < 22)) {
-            explosionIndex++;
+            if (slowerDowner % 5 == 0) {
+                explosionIndex++;
+            }
+            slowerDowner++;
         }
     }
 
