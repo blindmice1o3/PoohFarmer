@@ -1,0 +1,210 @@
+PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Golem Earth.png
+64, 76, 63, 75
+
+
+walkDown0
+1, 1647, 63, 75
+
+walkDown1
+65, 1647, 63, 75
+
+walkDown2
+129, 1647, 63, 75
+
+walkDown3
+193, 1647, 63, 75
+
+walkDown4
+257, 1647, 63, 75
+
+walkDown5
+321, 1647, 63, 75
+
+walkDown6
+385, 1647, 63, 75
+
+walkDown7
+449, 1647, 63, 75
+
+
+
+walkDownLeft0
+1, 1723, 63, 75
+
+walkDownLeft1
+65, 1723, 63, 75
+
+walkDownLeft2
+129, 1723, 63, 75
+
+walkDownLeft3
+193, 1723, 63, 75
+
+walkDownLeft4
+257, 1723, 63, 75
+
+walkDownLeft5
+321, 1723, 63, 75
+
+walkDownLeft6
+385, 1723, 63, 75
+
+walkDownLeft7
+449, 1723, 63, 75
+
+
+
+walkLeft0
+1, 1799, 63, 75
+
+walkLeft1
+65, 1799, 63, 75
+
+walkLeft2
+129, 1799, 63, 75
+
+walkLeft3
+193, 1799, 63, 75
+
+walkLeft4
+257, 1799, 63, 75
+
+walkLeft5
+321, 1799, 63, 75
+
+walkLeft6
+385, 1799, 63, 75
+
+walkLeft7
+449, 1799, 63, 75
+
+
+
+walkUpLeft0
+1, 1875, 63, 75
+
+walkUpLeft1
+65, 1875, 63, 75
+
+walkUpLeft2
+129, 1875, 63, 75
+
+walkUpLeft3
+193, 1875, 63, 75
+
+walkUpLeft4
+257, 1875, 63, 75
+
+walkUpLeft5
+321, 1875, 63, 75
+
+walkUpLeft6
+385, 1875, 63, 75
+
+walkUpLeft7
+449, 1875, 63, 75
+
+
+
+walkUp0
+1, 1951, 63, 75
+
+walkUp1
+65, 1951, 63, 75
+
+walkUp2
+129, 1951, 63, 75
+
+walkUp3
+193, 1951, 63, 75
+
+walkUp4
+257, 1951, 63, 75
+
+walkUp5
+321, 1951, 63, 75
+
+walkUp6
+385, 1951, 63, 75
+
+walkUp7
+449, 1951, 63, 75
+
+
+
+walkUpRight0
+1, 2027, 63, 75
+
+walkUpRight1
+65, 2027, 63, 75
+
+walkUpRight2
+129, 2027, 63, 75
+
+walkUpRight3
+193, 2027, 63, 75
+
+walkUpRight4
+257, 2027, 63, 75
+
+walkUpRight5
+321, 2027, 63, 75
+
+walkUpRight6
+385, 2027, 63, 75
+
+walkUpRight7
+449, 2027, 63, 75
+
+
+
+walkRight0
+1, 2103, 63, 75
+
+walkRight1
+65, 2103, 63, 75
+
+walkRight2
+129, 2103, 63, 75
+
+walkRight3
+193, 2103, 63, 75
+
+walkRight4
+257, 2103, 63, 75
+
+walkRight5
+321, 2103, 63, 75
+
+walkRight6
+385, 2103, 63, 75
+
+walkRight7
+449, 2103, 63, 75
+
+
+
+walkDownRight0
+1, 2179, 63, 75
+
+walkDownRight1
+65, 2179, 63, 75
+
+walkDownRight2
+129, 2179, 63, 75
+
+walkDownRight3
+193, 2179, 63, 75
+
+walkDownRight4
+257, 2179, 63, 75
+
+walkDownRight5
+321, 2179, 63, 75
+
+walkDownRight6
+385, 2179, 63, 75
+
+walkDownRight7
+449, 2179, 63, 75
+

@@ -751,6 +751,9 @@ public class World {
                     } else if (red == 255 && green == 255 && blue == 0) {   //ShippingBin
                         ShippingBin shippingBin = new ShippingBin(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(shippingBin);
+                    } else if (red == 128 && green == 64 && blue == 0) { //Golum
+                        Golum golum = new Golum(handler, (xx *Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(golum);
                     } else if (red == 0 && green == 255 && blue == 255) { //DeadCow
                         DeadCow deadCow = new DeadCow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(deadCow);

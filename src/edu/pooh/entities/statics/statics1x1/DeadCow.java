@@ -1,7 +1,6 @@
 package edu.pooh.entities.statics.statics1x1;
 
 import edu.pooh.entities.statics.StaticEntity;
-import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;

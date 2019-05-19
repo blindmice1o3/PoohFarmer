@@ -42,6 +42,10 @@ public class Assets {
     public static BufferedImage deadCowBefore, deadCowAfter;
     public static BufferedImage[] deadCowExplosion;
 
+    // ENTITIES MOVING/ANIMATED (GOLUM - DIABLO2-LOD)
+    public static BufferedImage[] golumWalkDown, golumWalkDownLeft, golumWalkLeft, golumWalkUpLeft,
+            golumWalkUp, golumWalkUpRight, golumWalkRight, golumWalkDownRight;
+
     // ITEMS (/TOOLS)
     public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
             goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
@@ -297,10 +301,12 @@ public class Assets {
             }
         }
 
+
         // SPANNING MULTIPLE-TILE (DIABLO2-LOD)
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Dead Cow Container.png"));
         deadCowBefore = sheet.crop(1, 17, 185, 209);
         deadCowAfter = sheet.crop(1, 683, 185, 209);
+
         deadCowExplosion = new BufferedImage[22];
         int x = 1;
         for (int i = 0; i < 11; i++) {
@@ -312,6 +318,67 @@ public class Assets {
             deadCowExplosion[i] = sheet.crop(x, 455, 185, 209);
             x += 186;
         }
+
+
+        // ENTITIES MOVING/ANIMATED (GOLUM - DIABLO2-LOD)
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/PC Computer - Diablo 2 Diablo 2 Lord of Destruction - Golem Earth.png"));
+
+        golumWalkDown = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkDown[i] = sheet.crop(x, 1647, 63, 75);
+            x += 64;
+        }
+
+        golumWalkDownLeft = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkDownLeft[i] = sheet.crop(x, 1723, 63, 75);
+            x += 64;
+        }
+
+        golumWalkLeft = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkLeft[i] = sheet.crop(x, 1799, 63, 75);
+            x += 64;
+        }
+
+        golumWalkUpLeft = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkUpLeft[i] = sheet.crop(x, 1875, 63, 75);
+            x += 64;
+        }
+
+        golumWalkUp = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkUp[i] = sheet.crop(x, 1951, 63, 75);
+            x += 64;
+        }
+
+        golumWalkUpRight = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkUpRight[i] = sheet.crop(x, 2027, 63, 75);
+            x += 64;
+        }
+
+        golumWalkRight = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkRight[i] = sheet.crop(x, 2103, 63, 75);
+            x += 64;
+        }
+
+        golumWalkDownRight = new BufferedImage[8];
+        x = 1;
+        for (int i = 0; i < 8; i++) {
+            golumWalkDownRight[i] = sheet.crop(x, 2179, 63, 75);
+            x += 64;
+        }
+
 
         // ************************************************************
         // |+|+|+|+|+|+|+| ITEM: TOOLS (TIER0 && TIER1 |+|+|+|+|+|+|+|
