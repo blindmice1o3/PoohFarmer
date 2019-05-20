@@ -149,15 +149,15 @@ public class World {
                     (3 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
             transferPointCrossroadToTheWest = new Rectangle(0,
                     (5 * Tile.TILE_HEIGHT),
-                    (Tile.TILE_WIDTH / 2), (4 * Tile.TILE_HEIGHT));
+                    (Tile.TILE_WIDTH / 4), (4 * Tile.TILE_HEIGHT));
         } else if (worldType == WorldType.MOUNTAIN) {
             transferPointMountainToCrossroad = new Rectangle((19 * Tile.TILE_WIDTH),
                     ((45 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
                     (4 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.THE_WEST) {
-            transferPointTheWestToCrossroad = new Rectangle(((84 * Tile.TILE_WIDTH) + (Tile.TILE_WIDTH / 2)),
+            transferPointTheWestToCrossroad = new Rectangle(((37 * Tile.TILE_WIDTH) + ((3*Tile.TILE_WIDTH) / 4)),
                     (1 * Tile.TILE_HEIGHT),
-                    (Tile.TILE_WIDTH / 2), (3 * Tile.TILE_HEIGHT));
+                    (Tile.TILE_WIDTH / 4), (12 * Tile.TILE_HEIGHT));
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -623,8 +623,8 @@ public class World {
                     else if (worldType == WorldType.THE_WEST) {
                         if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 6),
-                                    (yy * 6), 6, 6));
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 50),
+                                    (yy * 50), 50, 50));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground) {
                                 @Override
@@ -632,8 +632,8 @@ public class World {
                                     return false;
                                 }
                             };
-                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 6),
-                                    (yy * 6), 6, 6));
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 50),
+                                    (yy * 50), 50, 50));
                         }
                     }
                 }
