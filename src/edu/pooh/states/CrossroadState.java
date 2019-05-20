@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class CrossroadState implements IState {
 
-    public enum PlayerPreviousExit { GAME_STATE, MOUNTAIN_STATE, UNJOURNEYED_WEST_STATE; }
+    public enum PlayerPreviousExit { GAME_STATE, MOUNTAIN_STATE, THE_WEST_STATE; }
 
     private Handler handler;
     private World world;
@@ -39,11 +39,14 @@ public class CrossroadState implements IState {
 
         /////////////////////////////////////////////////////////////////////////////////////
         if (playerPreviousExit == PlayerPreviousExit.GAME_STATE) {
-            player.setPosition(world.getPlayerSpawnX() * Tile.TILE_WIDTH,
-                    world.getPlayerSpawnY() * Tile.TILE_HEIGHT);
+            player.setPosition((world.getPlayerSpawnX() * Tile.TILE_WIDTH),
+                    (world.getPlayerSpawnY() * Tile.TILE_HEIGHT));
         } else if (playerPreviousExit == PlayerPreviousExit.MOUNTAIN_STATE) {
-            player.setPosition(7 * Tile.TILE_WIDTH,
-                    1 * Tile.TILE_HEIGHT);
+            player.setPosition((7 * Tile.TILE_WIDTH),
+                    (1 * Tile.TILE_HEIGHT));
+        } else if (playerPreviousExit == PlayerPreviousExit.THE_WEST_STATE) {
+            player.setPosition((Tile.TILE_WIDTH / 2),
+                    (7 * Tile.TILE_HEIGHT));
         }
         /////////////////////////////////////////////////////////////////////////////////////
         world.getEntityManager().addEntity(player);
@@ -101,6 +104,21 @@ public class CrossroadState implements IState {
             }
             ///////////////////////////////////////////////////////
             StateManager.change(handler.getGame().getMountainState(), args);
+        } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToTheWest()) ) {
+            ///////////////////////////////////////////////////////
+            playerPreviousExit = PlayerPreviousExit.THE_WEST_STATE;
+
+            if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
+                Entity tempHoldableEntity = (Entity) player.getHoldableObject();
+
+                if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
+                    ((TheWestState)handler.getGame().getTheWestState()).getWorld().getEntityManager().addEntity(
+                            tempHoldableEntity
+                    );
+                }
+            }
+            ///////////////////////////////////////////////////////
+            StateManager.change(handler.getGame().getTheWestState(), args);
         }
     }
 

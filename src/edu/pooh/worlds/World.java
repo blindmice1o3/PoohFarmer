@@ -27,7 +27,7 @@ import java.util.Random;
 public class World {
 
     public enum WorldType {
-        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN, MENU, TRAVELING_FENCE;
+        GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN, MENU, TRAVELING_FENCE, THE_WEST;
     }
 
     private Handler handler;
@@ -50,13 +50,14 @@ public class World {
     private Rectangle transferPointGameToHome, transferPointGameToCowBarn, transferPointGameToChickenCoop,
             transferPointGameToToolShed, transferPointGameToCrossroad, transferPointHomeToGame,
             transferPointChickenCoopToGame, transferPointCowBarnToGame, transferPointToolShedToGame,
-            transferPointCrossroadToGame, transferPointCrossroadToMountain, transferPointMountainToCrossroad;
+            transferPointCrossroadToGame, transferPointCrossroadToMountain, transferPointMountainToCrossroad,
+            transferPointCrossroadToTheWest, transferPointTheWestToCrossroad;
 
     public World(Handler handler, WorldType worldType) {
         this.handler = handler;
         this.worldType = worldType;
 
-        if (!(worldType == WorldType.CHICKEN_COOP)) {
+        if (worldType != WorldType.CHICKEN_COOP) {
             entityManager = new EntityManager(handler);
         } else {
             entityManager = new EntityManager(handler) {
@@ -67,7 +68,9 @@ public class World {
                   if (e instanceof Chicken) {
                       System.out.println("Increasing ResourceManager's chickenCounter by 1 because of " +
                               "ChickenCoopState's world's special overridden addEntity(Entity e) method.");
+                      //////////////////////////////////////////////////////////
                       ResourceManager.increaseChickenCounter(1);
+                      //////////////////////////////////////////////////////////
                   }
               }
             };
@@ -102,6 +105,9 @@ public class World {
         } else if (worldType == WorldType.MOUNTAIN) {
             loadTilesViaRGB(Assets.tilesMountainViaRGB);
             loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesMountainViaRGB);
+        } else if (worldType == WorldType.THE_WEST) {
+            loadTilesViaRGB(Assets.tilesTheWestViaRGB);
+            loadEntitiesPlacedNonRandomlyViaRGB(Assets.entitiesTheWestViaRGB);
         }
 
         // ****************************************************
@@ -119,30 +125,39 @@ public class World {
             transferPointGameToCrossroad = new Rectangle(-Tile.TILE_WIDTH, 23*Tile.TILE_HEIGHT,
                     Tile.TILE_WIDTH, 5*Tile.TILE_HEIGHT);
         } else if (worldType == WorldType.HOME) {
-            transferPointHomeToGame = new Rectangle(7 * Tile.TILE_WIDTH,
-                    (10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
-                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointHomeToGame = new Rectangle((7 * Tile.TILE_WIDTH),
+                    ((10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.CHICKEN_COOP) {
-            transferPointChickenCoopToGame = new Rectangle(7 * Tile.TILE_WIDTH,
-                    (13 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
-                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointChickenCoopToGame = new Rectangle((7 * Tile.TILE_WIDTH),
+                    ((13 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.COW_BARN) {
-            transferPointCowBarnToGame = new Rectangle(7 * Tile.TILE_WIDTH,
-                    (21 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
-                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointCowBarnToGame = new Rectangle((7 * Tile.TILE_WIDTH),
+                    ((21 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.TOOL_SHED) {
-            transferPointToolShedToGame = new Rectangle(5 * Tile.TILE_WIDTH,
-                    (10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
-                    2 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointToolShedToGame = new Rectangle((5 * Tile.TILE_WIDTH),
+                    ((10 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.CROSSROAD) {
-            transferPointCrossroadToGame = new Rectangle((15 * Tile.TILE_WIDTH) + (Tile.TILE_WIDTH / 2),
-                    5 * Tile.TILE_HEIGHT, (Tile.TILE_WIDTH / 2), 4 * Tile.TILE_HEIGHT);
-            transferPointCrossroadToMountain = new Rectangle(6 * Tile.TILE_WIDTH, 0,
-                    3 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointCrossroadToGame = new Rectangle(((15 * Tile.TILE_WIDTH) + (Tile.TILE_WIDTH / 2)),
+                    (5 * Tile.TILE_HEIGHT),
+                    (Tile.TILE_WIDTH / 2), (4 * Tile.TILE_HEIGHT));
+            transferPointCrossroadToMountain = new Rectangle((6 * Tile.TILE_WIDTH),
+                    0,
+                    (3 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
+            transferPointCrossroadToTheWest = new Rectangle(0,
+                    (5 * Tile.TILE_HEIGHT),
+                    (Tile.TILE_WIDTH / 2), (4 * Tile.TILE_HEIGHT));
         } else if (worldType == WorldType.MOUNTAIN) {
-            transferPointMountainToCrossroad = new Rectangle(19 * Tile.TILE_WIDTH,
-                    (45 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2),
-                    4 * Tile.TILE_WIDTH, (Tile.TILE_HEIGHT / 2));
+            transferPointMountainToCrossroad = new Rectangle((19 * Tile.TILE_WIDTH),
+                    ((45 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    (4 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
+        } else if (worldType == WorldType.THE_WEST) {
+            transferPointTheWestToCrossroad = new Rectangle(((84 * Tile.TILE_WIDTH) + (Tile.TILE_WIDTH / 2)),
+                    (1 * Tile.TILE_HEIGHT),
+                    (Tile.TILE_WIDTH / 2), (3 * Tile.TILE_HEIGHT));
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -164,6 +179,10 @@ public class World {
     public Rectangle getTransferPointCrossroadToGame() { return transferPointCrossroadToGame; }
 
     public Rectangle getTransferPointCrossroadToMoutain() { return transferPointCrossroadToMountain; }
+
+    public Rectangle getTransferPointCrossroadToTheWest() { return transferPointCrossroadToTheWest; }
+
+    public Rectangle getTransferPointTheWestToCrossroad() { return transferPointTheWestToCrossroad; }
 
     public Rectangle getTransferPointMountainToCrossroad() { return transferPointMountainToCrossroad; }
 
@@ -197,7 +216,8 @@ public class World {
 
         // RENDER TRANSFER POINTS
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //renderTransferPoints(g);
+        //TODO: BOOKMARK to toggle renderTransferPoints(Graphics).
+        renderTransferPoints(g);
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         // RENDER ITEMS
@@ -252,10 +272,17 @@ public class World {
             g.fillRect((int)(transferPointCrossroadToMountain.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCrossroadToMountain.y - handler.getGameCamera().getyOffset()),
                     transferPointCrossroadToMountain.width, transferPointCrossroadToMountain.height);
+            g.fillRect((int)(transferPointCrossroadToTheWest.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointCrossroadToTheWest.y - handler.getGameCamera().getyOffset()),
+                    transferPointCrossroadToTheWest.width, transferPointCrossroadToTheWest.height);
         } else if (StateManager.getCurrentState() == handler.getGame().getMountainState()) {
             g.fillRect((int)(transferPointMountainToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointMountainToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointMountainToCrossroad.width, transferPointMountainToCrossroad.height);
+        } else if (StateManager.getCurrentState() == handler.getGame().getTheWestState()) {
+            g.fillRect((int)(transferPointTheWestToCrossroad.x - handler.getGameCamera().getxOffset()),
+                    (int)(transferPointTheWestToCrossroad.y - handler.getGameCamera().getyOffset()),
+                    transferPointTheWestToCrossroad.width, transferPointTheWestToCrossroad.height);
         }
     }
 
@@ -590,6 +617,23 @@ public class World {
                                     Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
                                     xx, yy, SignPostTile.SignPostType.MOUNTAIN_TODO
                             );
+                        }
+                    }
+                    /////////////////////
+                    else if (worldType == WorldType.THE_WEST) {
+                        if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 6),
+                                    (yy * 6), 6, 6));
+                        } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground) {
+                                @Override
+                                public boolean isSolid() {
+                                    return false;
+                                }
+                            };
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 6),
+                                    (yy * 6), 6, 6));
                         }
                     }
                 }
@@ -942,6 +986,13 @@ public class World {
 
                             entityManager.addEntity(tempTile.getStaticEntity());
                         }
+                    }
+                }
+                /////////////////////////////////////////////////
+                else if (worldType == WorldType.THE_WEST) {
+                    if (red == 255 && green == 0 && blue == 0) {    //Player
+                        playerSpawnX = xx;
+                        playerSpawnY = yy;
                     }
                 }
             }

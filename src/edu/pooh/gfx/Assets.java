@@ -116,13 +116,13 @@ public class Assets {
     // STATE (HOMESTATE)
     //public static BufferedImage homeStateBackground;
     public static BufferedImage homeStateBackground2, chickenCoopStateBackground, cowBarnStateBackground,
-            toolShedStateBackground, crossroadStateBackground, mountainStateBackground;
+            toolShedStateBackground, crossroadStateBackground, mountainStateBackground, theWestStateBackground;
 
     // LOADING MAP BY RGB VALUES
     public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB, tilesCowBarnViaRGB,
-            tilesToolShedViaRGB, tilesCrossroadViaRGB, tilesMountainViaRGB;
+            tilesToolShedViaRGB, tilesCrossroadViaRGB, tilesMountainViaRGB, tilesTheWestViaRGB;
     public static BufferedImage entitiesGameViaRGB, entitiesHomeViaRGB, entitiesChickenCoopViaRGB, entitiesCowBarnViaRGB,
-            entitiesToolShedViaRGB, entitiesCrossroadViaRGB , entitiesMountainViaRGB;
+            entitiesToolShedViaRGB, entitiesCrossroadViaRGB , entitiesMountainViaRGB, entitiesTheWestViaRGB;
 
 
 
@@ -1109,7 +1109,9 @@ public class Assets {
         crossroadStateBackground = ImageLoader.loadImage("/worlds/CrossroadState background.png");
         mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (no entities).png");
         //mountainStateBackground = ImageLoader.loadImage("/worlds/MountainState background (entities as tiles).png");
-
+        // TheWestState does not use the entire image, it needs to be cropped.
+        sheet = new SpriteSheet(ImageLoader.loadImage("/worlds/PC Computer - Jazz Jackrabbit - Bonus Stage Backgrounds.png"));
+        theWestStateBackground = sheet.crop(16, 123, 511, 31);
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
@@ -1122,6 +1124,7 @@ public class Assets {
         tilesToolShedViaRGB = ImageLoader.loadImage("/worlds/ToolShedState tiles (rgb).png");
         tilesCrossroadViaRGB = ImageLoader.loadImage("/worlds/CrossroadState tiles (rgb).png");
         tilesMountainViaRGB = ImageLoader.loadImage("/worlds/MountainState tiles (rgb).png");
+        tilesTheWestViaRGB = ImageLoader.loadImage("/worlds/TheWestState tiles (rgb).png");
         entitiesGameViaRGB = ImageLoader.loadImage("/worlds/chapter1 entities (rgb).png");
         entitiesHomeViaRGB = ImageLoader.loadImage("/worlds/HomeState entities (rgb).png");
         entitiesChickenCoopViaRGB = ImageLoader.loadImage("/worlds/ChickenCoopState entities (rgb).png");
@@ -1129,6 +1132,7 @@ public class Assets {
         entitiesToolShedViaRGB = ImageLoader.loadImage("/worlds/ToolShedState entities (rgb).png");
         entitiesCrossroadViaRGB = ImageLoader.loadImage("/worlds/CrossroadState entities (rgb).png");
         entitiesMountainViaRGB = ImageLoader.loadImage("/worlds/MountainState entities (rgb).png");
+        entitiesTheWestViaRGB = ImageLoader.loadImage("/worlds/TheWestState entities (rgb).png");
 
     }
 

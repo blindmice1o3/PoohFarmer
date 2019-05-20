@@ -33,7 +33,7 @@ public class Game {
 
     // STATES
     private IState gameState, homeState, chickenCoopState, cowBarnState, toolShedState,
-            crossroadState, mountainState, menuState, travelingFenceState;
+            crossroadState, mountainState, theWestState, menuState, travelingFenceState;
 
     // INPUT
     private KeyManager keyManager;
@@ -65,6 +65,7 @@ public class Game {
         toolShedState = new ToolShedState(handler);
         crossroadState = new CrossroadState(handler);
         mountainState = new MountainState(handler);
+        theWestState = new TheWestState(handler);
         menuState = new MenuState(handler);
         travelingFenceState = new TravelingFenceState(handler);
         StateManager.setCurrentState( getGameState() );
@@ -268,6 +269,10 @@ public class Game {
     public IState getMountainState() { return mountainState; }
 
     public void setMountainState(IState mountainState) { this.mountainState = mountainState; }
+
+    public IState getTheWestState() { return theWestState; }
+
+    public void setTheWestState(IState theWestState) { this.theWestState = theWestState; }
 
     public IState getMenuState() {
         return menuState;

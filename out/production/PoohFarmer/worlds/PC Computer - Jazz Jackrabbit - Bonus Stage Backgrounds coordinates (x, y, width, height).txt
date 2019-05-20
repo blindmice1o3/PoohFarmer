@@ -1,0 +1,14 @@
+PC Computer - Jazz Jackrabbit - Bonus Stage Backgrounds.png
+
+cityScape:
+16, 123, 511, 31
+
+
+16, 123, 510, 30
+
+
+510 / 6 = 85
+30 / 6 = 5
+
+
+
