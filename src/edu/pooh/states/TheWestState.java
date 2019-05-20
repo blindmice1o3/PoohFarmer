@@ -60,6 +60,13 @@ public class TheWestState implements IState {
             return;
         }
 
+        player.setX(
+                (player.getX() - 1)
+        );
+        if (player.getX() == (400-(player.getWidth()/2))) {
+            player.setX((world.getWidthInTiles()*Tile.TILE_WIDTH) - (handler.getWidth()/2) - (player.getWidth()/2));
+        }
+
         ///////////////
         world.tick();
         ///////////////
