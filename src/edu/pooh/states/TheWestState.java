@@ -59,17 +59,22 @@ public class TheWestState implements IState {
     private boolean falling = false;
     private int initialJumpY = 0;
     private int maxJumpHeight = 100;
+    private int deltaY = 5;
     @Override
     public void tick() {
         if (StateManager.getCurrentState() != handler.getGame().getTheWestState()) {
             return;
         }
 
+        // Every tick(), move player left 1 pixel, loop back if reach left end of background image.
+        /////////////////////////////////
         player.setX( (player.getX()-1) );
-        if (player.getX() == (400-(player.getWidth()/2))) {
+        /////////////////////////////////
+        if (player.getX() == ((handler.getWidth()/2) - (player.getWidth()/2))) {
             player.setX((world.getWidthInTiles()*Tile.TILE_WIDTH) - (handler.getWidth()/2) - (player.getWidth()/2));
         }
 
+        // Check jumping.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
             jumping = true;
             initialJumpY = (int)player.getY();
@@ -79,13 +84,13 @@ public class TheWestState implements IState {
                 falling = true;
                 jumping = false;
             } else {
-                player.setY( (player.getY()-5) );
+                player.setY( (player.getY() - deltaY) );
             }
         } else if (falling) {
             if (player.getY() >= initialJumpY) {
                 falling = false;
             } else {
-                player.setY( (player.getY()+5) );
+                player.setY( (player.getY() + deltaY) );
             }
         }
 
