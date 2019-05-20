@@ -8,6 +8,7 @@ import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class TheWestState implements IState {
 
@@ -54,17 +55,38 @@ public class TheWestState implements IState {
         }
     }
 
+    private boolean jumping = false;
+    private boolean falling = false;
+    private int initialJumpY = 0;
+    private int maxJumpHeight = 100;
     @Override
     public void tick() {
         if (StateManager.getCurrentState() != handler.getGame().getTheWestState()) {
             return;
         }
 
-        player.setX(
-                (player.getX() - 1)
-        );
+        player.setX( (player.getX()-1) );
         if (player.getX() == (400-(player.getWidth()/2))) {
             player.setX((world.getWidthInTiles()*Tile.TILE_WIDTH) - (handler.getWidth()/2) - (player.getWidth()/2));
+        }
+
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
+            jumping = true;
+            initialJumpY = (int)player.getY();
+        }
+        if (jumping) {
+            if ((initialJumpY - player.getY()) >= maxJumpHeight) {
+                falling = true;
+                jumping = false;
+            } else {
+                player.setY( (player.getY()-5) );
+            }
+        } else if (falling) {
+            if (player.getY() >= initialJumpY) {
+                falling = false;
+            } else {
+                player.setY( (player.getY()+5) );
+            }
         }
 
         ///////////////
