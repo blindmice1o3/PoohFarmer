@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) entities (rgb).png" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) entities (rgb).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) tiles (rgb).png" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) tiles (rgb).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled).png" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) entities (rgb).png" afterPath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) entities (rgb).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) tiles (rgb).png" afterPath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled) tiles (rgb).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled).png" afterPath="$PROJECT_DIR$/res/worlds/PC Computer - Captain America Shield of Justice (Image88) (doubled).png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" afterPath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="World.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="1177" column="15" lean-forward="false" selection-start-line="1177" selection-start-column="15" selection-end-line="1177" selection-end-column="15" />
+            <state relative-caret-position="476">
+              <caret line="635" column="46" lean-forward="true" selection-start-line="635" selection-start-column="46" selection-end-line="635" selection-end-column="46" />
               <folding>
                 <element signature="e#73497#73498#0" expanded="true" />
                 <element signature="e#73532#73533#0" expanded="true" />
@@ -65,10 +73,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TheWestState.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TheWestState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="112">
               <caret line="71" column="41" lean-forward="false" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
               <folding />
             </state>
@@ -156,8 +164,8 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
       </list>
     </option>
   </component>
@@ -1038,19 +1046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="1177" column="15" lean-forward="false" selection-start-line="1177" selection-start-column="15" selection-end-line="1177" selection-end-column="15" />
-          <folding>
-            <element signature="e#73497#73498#0" expanded="true" />
-            <element signature="e#73532#73533#0" expanded="true" />
-            <element signature="e#74843#74844#0" expanded="true" />
-            <element signature="e#74878#74879#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1072,9 +1067,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state relative-caret-position="112">
           <caret line="71" column="41" lean-forward="false" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="635" column="46" lean-forward="true" selection-start-line="635" selection-start-column="46" selection-end-line="635" selection-end-column="46" />
+          <folding>
+            <element signature="e#73497#73498#0" expanded="true" />
+            <element signature="e#73532#73533#0" expanded="true" />
+            <element signature="e#74843#74844#0" expanded="true" />
+            <element signature="e#74878#74879#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
