@@ -68,7 +68,9 @@ public class TheWestState implements IState {
 
         // Every tick(), move player left 1 pixel, loop back if reach left end of background image.
         /////////////////////////////////
-        player.setX( (player.getX()-1) );
+        if (!world.getTile((int)((player.getX()/Tile.TILE_WIDTH))-1, (int)(player.getY()/Tile.TILE_HEIGHT)).isSolid()) {
+            player.setX((player.getX() - 1));
+        }
         /////////////////////////////////
         if (player.getX() == ((handler.getWidth()/2) - (player.getWidth()/2))) {
             player.setX((world.getWidthInTiles()*Tile.TILE_WIDTH) - (handler.getWidth()/2) - (player.getWidth()/2));

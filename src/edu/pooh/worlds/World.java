@@ -155,9 +155,9 @@ public class World {
                     ((45 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
                     (4 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.THE_WEST) {
-            transferPointTheWestToCrossroad = new Rectangle(((57 * Tile.TILE_WIDTH) + ((3*Tile.TILE_WIDTH) / 4)),
+            transferPointTheWestToCrossroad = new Rectangle(((28 * Tile.TILE_WIDTH) + ((3*Tile.TILE_WIDTH) / 4)),
                     (1 * Tile.TILE_HEIGHT),
-                    (Tile.TILE_WIDTH / 4), (18 * Tile.TILE_HEIGHT));
+                    (Tile.TILE_WIDTH / 4), (8 * Tile.TILE_HEIGHT));
         }
 
     } // **** end World(Handler, String) constructor ****
@@ -623,8 +623,8 @@ public class World {
                     else if (worldType == WorldType.THE_WEST) {
                         if (red == 0 && green == 0 && blue == 0) {              //wall - default is solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 32),
-                                    (yy * 32), 32, 32));
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 64),
+                                    (yy * 64), 64, 64));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.theWestStateBackground) {
                                 @Override
@@ -632,8 +632,8 @@ public class World {
                                     return false;
                                 }
                             };
-                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 32),
-                                    (yy * 32), 32, 32));
+                            tilesViaRGB[xx][yy].setTexture(Assets.theWestStateBackground.getSubimage((xx * 64),
+                                    (yy * 64), 64, 64));
                         }
                     }
                 }
