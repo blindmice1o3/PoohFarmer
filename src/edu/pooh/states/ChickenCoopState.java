@@ -95,6 +95,7 @@ public class ChickenCoopState implements IState {
                                     /////////////////////////////////////////////////////////////////////
                                     Chicken tempChicken = new Chicken(handler, randX*Tile.TILE_WIDTH,
                                             randY*Tile.TILE_HEIGHT, Chicken.ChickenState.CHICK);
+                                    tempChicken.setChickenState(Chicken.ChickenState.CHICK);
                                     System.out.println("Instantiated chick.");
 
                                     //OVERRIDDEN addEntity() in World class's constructor for
@@ -157,8 +158,7 @@ public class ChickenCoopState implements IState {
         for (Entity e : world.getEntityManager().getEntities()) {
             if (e instanceof Chicken) {
                 Chicken tempChicken = (Chicken)e;
-                if ((tempChicken.getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING) ||
-                        (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3) ||
+                if ((tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3) ||
                         (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2) ||
                         (tempChicken.getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_1)) {
                     numberofNonEggLayableChicken++;
@@ -182,56 +182,6 @@ public class ChickenCoopState implements IState {
                     }
                 }
             }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_2)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_1)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.JUVENILE_NON_EGG_LAYING)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-
             for (Entity e : world.getEntityManager().getEntities()) {
                 if ((e instanceof Chicken) &&
                         (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2)) {
@@ -285,15 +235,6 @@ public class ChickenCoopState implements IState {
                         break;
                     case ADULT_GRUMPY_1:
                         tempChicken.setChickenState(Chicken.ChickenState.ADULT_EGG_LAYING);
-                        break;
-                    case JUVENILE_NON_EGG_LAYING_GRUMPY_3:
-                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_2);
-                        break;
-                    case JUVENILE_NON_EGG_LAYING_GRUMPY_2:
-                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING_GRUMPY_1);
-                        break;
-                    case JUVENILE_NON_EGG_LAYING_GRUMPY_1:
-                        tempChicken.setChickenState(Chicken.ChickenState.JUVENILE_NON_EGG_LAYING);
                         break;
                     default:
                         System.out.println("ChickenCoopState.decrementGrumpinessState() switch-construct default statement.");

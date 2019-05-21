@@ -16,9 +16,7 @@ import java.util.Random;
 public class Chicken extends Creature
         implements IHoldable {
 
-    public enum ChickenState { CHICK, JUVENILE_NON_EGG_LAYING, ADULT_EGG_LAYING,
-        JUVENILE_NON_EGG_LAYING_GRUMPY_1, JUVENILE_NON_EGG_LAYING_GRUMPY_2, JUVENILE_NON_EGG_LAYING_GRUMPY_3,
-        ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
+    public enum ChickenState { CHICK, ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
     private Map<String, Animation> anim;
 
@@ -54,27 +52,9 @@ public class Chicken extends Creature
     }
 
     public void incrementChickenStateByDaysInstantiated() {
-        switch (daysInstantiated) {
-            case 0:
-            case 1:
-            case 2:
-                chickenState = ChickenState.CHICK;
-                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() daysInstantiated == [0-2] ChickenState.CHICK.");
-                break;
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                chickenState = ChickenState.JUVENILE_NON_EGG_LAYING;
-                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() daysInstantiated == [3-9] ChickenState.JUVENILE_NON_EGG_LAYING.");
-                break;
-            default:
-                chickenState = ChickenState.ADULT_EGG_LAYING;
-                System.out.println("Chicken.incrementChickenStateByDaysInstantiated() switch-construct's default statement ChickenState.ADULT_EGG_LAYING.");
-                break;
+        if (daysInstantiated == 6) {
+            chickenState = ChickenState.ADULT_EGG_LAYING;
+            System.out.println("Chicken.incrementChickenStateByDaysInstantiated()... set ChickenState.ADULT_EGG_LAYING.");
         }
     }
 
