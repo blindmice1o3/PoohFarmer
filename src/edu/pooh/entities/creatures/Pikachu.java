@@ -84,32 +84,10 @@ public class Pikachu extends Creature
         //@@@@@@@@@@@@@@@@@@@@@@@@
         if (following) {
             Player player = handler.getWorld().getEntityManager().getPlayer();
-            switch (player.currentDirection) {
-                case LEFT:
-                    setX(player.getX()+Tile.TILE_WIDTH);
-                    setY(player.getY());
-                    return;
-                case RIGHT:
-                    setX(player.getX()-Tile.TILE_WIDTH);
-                    setY(player.getY());
-                    return;
-                case UP:
-                    setY(player.getY()+Tile.TILE_HEIGHT);
-                    setX(player.getX());
-                    return;
-                case DOWN:
-                    setY(player.getY()-Tile.TILE_HEIGHT);
-                    setX(player.getX());
-                    return;
-                default:
-                    System.out.println("Pikachu.tick() switch construct's (related to: following) default statement.");
-                    return;
-            }
+            xMove = player.getPrevXMove();
+            yMove = player.getPrevYMove();
         }
         //@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
 
 
         if (!pickedUp) {
@@ -117,7 +95,9 @@ public class Pikachu extends Creature
                 animation.tick();
             }
 
-            randomlyMove();
+            if (!following) {
+                randomlyMove();
+            }
             move();
         }
     }

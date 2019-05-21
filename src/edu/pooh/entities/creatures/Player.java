@@ -278,6 +278,10 @@ public class Player extends Creature {
         }
     }
 
+    private float prevYMove = 0;
+    private float prevXMove = 0;
+    public float getPrevYMove() { return prevYMove; }
+    public float getPrevXMove() { return prevXMove; }
     @Override
     public void tick() {
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
@@ -291,10 +295,14 @@ public class Player extends Creature {
             anim.tick();
         }
 
+
         // MOVEMENT
+        prevYMove = yMove;
+        prevXMove = xMove;
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
+
 
         // ATTACK
         if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
@@ -397,6 +405,7 @@ public class Player extends Creature {
             speed = Creature.DEFAULT_SPEED;
         }
 
+//////////////////////////////////////////////
         // KEY INPUT to SET MOVEMENT
         if (handler.getKeyManager().up) {
             yMove = -speed;
@@ -418,6 +427,7 @@ public class Player extends Creature {
             hitBoulderCounter = 0;
             hitTreeStumpCounter = 0;
         }
+///////////////////////////////////////////////
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
 
