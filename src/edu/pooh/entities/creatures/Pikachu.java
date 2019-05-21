@@ -23,6 +23,14 @@ public class Pikachu extends Creature
 
     private boolean pickedUp;
 
+
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@
+    private boolean following;
+    //@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
     public Pikachu(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
@@ -36,6 +44,15 @@ public class Pikachu extends Creature
 
         random = new Random();
         pickedUp = false;
+
+
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@
+        following = false;
+        //@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
     } // **** end Pikachu(Handler, float, float) constructor ****
 
     public void initAnimations() {
@@ -64,6 +81,37 @@ public class Pikachu extends Creature
 
     @Override
     public void tick() {
+        //@@@@@@@@@@@@@@@@@@@@@@@@
+        if (following) {
+            Player player = handler.getWorld().getEntityManager().getPlayer();
+            switch (player.currentDirection) {
+                case LEFT:
+                    setX(player.getX()+Tile.TILE_WIDTH);
+                    setY(player.getY());
+                    return;
+                case RIGHT:
+                    setX(player.getX()-Tile.TILE_WIDTH);
+                    setY(player.getY());
+                    return;
+                case UP:
+                    setY(player.getY()+Tile.TILE_HEIGHT);
+                    setX(player.getX());
+                    return;
+                case DOWN:
+                    setY(player.getY()-Tile.TILE_HEIGHT);
+                    setX(player.getX());
+                    return;
+                default:
+                    System.out.println("Pikachu.tick() switch construct's (related to: following) default statement.");
+                    return;
+            }
+        }
+        //@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+
         if (!pickedUp) {
             for (Animation animation : animations.values()) {
                 animation.tick();
@@ -174,5 +222,10 @@ public class Pikachu extends Creature
 
         pickedUp = false;
     }
+
+    // GETTERS AND SETTERS
+
+    public boolean isFollowing() { return following; }
+    public void setFollowing(boolean following) { this.following = following; }
 
 } // **** end Pikachu class ****
