@@ -255,8 +255,13 @@ public class ChickenCoopState implements IState {
         int numberOfHungryChicken = (getEggLayableChickenTotal() + getNonEggLayableChickenTotal()) -
                 getFodderDisplayerTotal();
         if (numberOfHungryChicken > 0) {
+            //TODO: SEPARATE THESE TWO SITATIONS INTO INDEPENDENT CLAUSES.
+            //Situation2 (ALL CHICKEN HUNGRY) && Situation3 (SOME CHICKEN EAT, SOME CHICKEN HUNGRY)
             determineWhichChickenGoesHungry(numberOfHungryChicken);
-        } else {
+        }
+        //TODO: BAD ELSE CLAUSE. what about situation where some grumpy chicken received fodder, but other grumpy chicken didn't?
+        else {
+            //Situation1 (ALL CHICKEN EAT)
             decrementGrumpinessState();
         }
 

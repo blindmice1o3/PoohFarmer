@@ -61,14 +61,17 @@ public class HomeState implements IState {
             /** Daily ChickenCoopState method calls. */
             // Number of FodderDisplayerTile object whose activated is set to true.
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
-            // (BE SURE TO RESET ALL TO FALSE)
+
+            //TODO: chicken egg-laying state to chicken grumpy state.
+
+            // (BE SURE TO RESET ALL DISPLAY TILE TO FALSE)
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).setAllFodderDisplayerTileActivatedToFalse();
             // @@@@ DO EGG INSTANTIATION BEFORE INCREASING daysInstantiated (prevent bug [using extra fodder]) @@@@
             // INCREASE Chicken int daysInstantiated if IT'S LESS THAN 7 daysInstantiated.
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).increaseChickenDaysInstantiated();
             // CHECK INCUBATOR
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).incrementDaysIncubating();
-            //TODO: chicken egg-laying state to chicken grumpy state.
+
 
 
             //////// RESET TIME FOR NEW DAY /////////
