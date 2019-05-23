@@ -3,6 +3,7 @@ package edu.pooh.entities.creatures.live_stocks;
 import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
+import edu.pooh.gfx.Text;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
@@ -99,6 +100,8 @@ public class Chicken extends Creature
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        Text.drawString(g, daysInstantiated + ": " + chickenState, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font14);
     }
 
     private BufferedImage getCurrentAnimationFrame() {

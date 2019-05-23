@@ -848,32 +848,17 @@ public class World {
                         if (tempShippingBin != null) {
                             ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
                         }
-                    } else if (red == 255 && green == 255 && blue == 1) { //Pikachu
+                    } else if (red == 255 && green == 255 && blue == 0) { //Pikachu
                         Pikachu pikachu = new Pikachu(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(pikachu);
                     } else if (red == 2 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);
-                    } else if (red == 0 && green == 0 && blue == 255) { //Cow
-                        Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(cow);
-                    } else if (red == 255 && green == 255 && blue == 0) { //Chicken
+                    } else if (red == 0 && green == 0 && blue == 255) { //Chicken
                         Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Chicken.ChickenState.ADULT_EGG_LAYING);
                         chicken.setDaysInstantiated(10);
                         entityManager.addEntity(chicken);
-                    } else if (red == 0 && green == 255 && blue == 255) { //Horse
-                        Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(horse);
-                    } else if (red == 255 && green == 0 && blue == 255) { //Jack
-                        Jack jack = new Jack(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(jack);
-                    } else if (red == 128 && green == 128 && blue == 128) { //Wolf
-                        Wolf wolf = new Wolf(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(wolf);
-                    } else if (red == 33 && green == 33 && blue == 33) { //Molly
-                        Molly molly = new Molly(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
-                        entityManager.addEntity(molly);
                     }
                 }
                 /////////////////////////////////////////////////
@@ -881,6 +866,21 @@ public class World {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
+                    } else if (red == 0 && green == 0 && blue == 255) { //Cow
+                        Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(cow);
+                    } else if (red == 0 && green == 255 && blue == 255) { //Horse
+                        Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(horse);
+                    } else if (red == 128 && green == 128 && blue == 128) { //Wolf
+                        Wolf wolf = new Wolf(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(wolf);
+                    } else if (red == 255 && green == 0 && blue == 255) { //Jack
+                        Jack jack = new Jack(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(jack);
+                    } else if (red == 33 && green == 33 && blue == 33) { //Molly
+                        Molly molly = new Molly(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        entityManager.addEntity(molly);
                     }
                 }
                 /////////////////////////////////////////////////

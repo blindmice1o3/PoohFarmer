@@ -251,7 +251,7 @@ public class ChickenCoopState implements IState {
 
         //!!!!!!!!!!!ChickenState.GRUMPY CONDITIONS!!!!!!!!!!
         // we have adult/juvenile chicken going hungry (chick don't need to eat).
-        //TODO: BUG!!! first part... chicken going hungry good, but ones being fed aren't decrementingGrumpinessState.
+        //TODO: BUG!!! first part... chicken going hungry good (Situation2), but (Situation3) ones being fed aren't decrementingGrumpinessState.
         int numberOfHungryChicken = (getEggLayableChickenTotal() + getNonEggLayableChickenTotal()) -
                 getFodderDisplayerTotal();
         if (numberOfHungryChicken > 0) {
