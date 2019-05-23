@@ -5,8 +5,10 @@ import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.entities.statics.produce_yields.Egg;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
+import edu.pooh.main.ISellable;
 import edu.pooh.tiles.*;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
@@ -299,6 +301,24 @@ public class ChickenCoopState implements IState {
 
         world.getEntityManager().addEntity(player);
         world.getEntityManager().setPlayer(player);
+
+
+
+        //@@@@@@@@@@@@@@@@@@@@@
+        ShippingBin tempShippingBin = null;
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                tempShippingBin = (ShippingBin)e;
+            }
+        }
+        if (tempShippingBin != null) {
+            if (tempShippingBin.getInventory().size() != 0) {
+                for (ISellable tempSellable : tempShippingBin.getInventory()) {
+                    System.out.println(tempSellable);
+                }
+            }
+        }
+        //@@@@@@@@@@@@@@@@@@@@@
     }
 
     @Override

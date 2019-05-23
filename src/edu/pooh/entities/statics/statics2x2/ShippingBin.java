@@ -1,6 +1,11 @@
 package edu.pooh.entities.statics.statics2x2;
 
 import edu.pooh.entities.statics.StaticEntity;
+import edu.pooh.entities.statics.crops.CropEntity;
+import edu.pooh.entities.statics.produce_yields.Egg;
+import edu.pooh.entities.statics.produce_yields.HarvestEntity;
+import edu.pooh.entities.statics.produce_yields.Milk;
+import edu.pooh.entities.statics.produce_yields.WildBerries;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.main.ISellable;
@@ -31,6 +36,17 @@ public class ShippingBin extends StaticEntity {
     }
 
     public void emptyShippingBin() {
+        for (ISellable tempSellable : inventory) {
+            if (tempSellable instanceof HarvestEntity) {
+                ((HarvestEntity)tempSellable).setActive(false);
+            } else if (tempSellable instanceof Egg) {
+                ((Egg)tempSellable).setActive(false);
+            } else if (tempSellable instanceof Milk) {
+                ((Milk)tempSellable).setActive(false);
+            } else if (tempSellable instanceof WildBerries) {
+                ((WildBerries)tempSellable).setActive(false);
+            }
+        }
         inventory.clear();
     }
 

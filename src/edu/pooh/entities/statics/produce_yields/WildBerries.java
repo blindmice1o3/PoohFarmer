@@ -1,4 +1,4 @@
-package edu.pooh.entities.statics.statics1x1;
+package edu.pooh.entities.statics.produce_yields;
 
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
