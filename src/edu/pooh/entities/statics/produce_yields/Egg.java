@@ -10,6 +10,7 @@ import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.DirtNotFarmableTile;
 import edu.pooh.tiles.EggIncubatorTile;
 import edu.pooh.tiles.Tile;
+import edu.pooh.worlds.World;
 
 import java.awt.*;
 
@@ -33,10 +34,17 @@ public class Egg extends StaticEntity
 
     @Override
     public void dropIntoShippingBin(ShippingBin shippingBin) {
-        setX(shippingBin.getX() + Tile.TILE_WIDTH);
-        setY(shippingBin.getY() + Tile.TILE_HEIGHT);
-        inShippingBin = true;
-        shippingBin.addISellable(this);
+        if (handler.getWorld().getWorldType() == World.WorldType.GAME) {
+            setX(shippingBin.getX() + Tile.TILE_WIDTH);
+            setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+            inShippingBin = true;
+            shippingBin.addISellable(this);
+        } else if (handler.getWorld().getWorldType() == World.WorldType.CHICKEN_COOP) {
+            setX(shippingBin.getX());
+            setY(shippingBin.getY() + Tile.TILE_HEIGHT);
+            inShippingBin = true;
+            shippingBin.addISellable(this);
+        }
     }
 
     @Override

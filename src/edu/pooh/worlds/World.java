@@ -1176,6 +1176,8 @@ public class World {
 
     // GETTERS & SETTERS
 
+    public WorldType getWorldType() { return worldType; }
+
     public int getPlayerSpawnX() {
         return playerSpawnX;
     }
