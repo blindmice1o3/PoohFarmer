@@ -12,6 +12,7 @@ import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -169,100 +170,82 @@ public class ChickenCoopState implements IState {
         return numberofNonEggLayableChicken;
     }
     private void determineWhichChickenGoesHungry(int numberOfHungryChicken) {
-        while (numberOfHungryChicken > 0) {
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+        ArrayList<Chicken> chickenOrderedByGrumpiness = new ArrayList<Chicken>();
 
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_1)) {
-                    ((Chicken)e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
-            }
-            for (Entity e : world.getEntityManager().getEntities()) {
-                if ((e instanceof Chicken) &&
-                        (((Chicken) e).getChickenState() == Chicken.ChickenState.ADULT_EGG_LAYING)) {
-                    ((Chicken) e).setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
-
-                    numberOfHungryChicken--;
-
-                    if (numberOfHungryChicken == 0) {
-                        return;
-                    }
-                }
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if ((e instanceof Chicken) &&
+                    (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_3)) {
+                chickenOrderedByGrumpiness.add((Chicken)e);
             }
         }
-        //Maybe incorrect logic.
-        System.out.println("All hungry?");
-    }
-    private void decrementGrumpinessState() {
         for (Entity e : world.getEntityManager().getEntities()) {
-            if (e instanceof Chicken) {
-                Chicken tempChicken = (Chicken)e;
-                switch (tempChicken.getChickenState()) {
-                    case ADULT_GRUMPY_3:
-                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_2);
-                        break;
-                    case ADULT_GRUMPY_2:
-                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_1);
-                        break;
-                    case ADULT_GRUMPY_1:
-                        tempChicken.setChickenState(Chicken.ChickenState.ADULT_EGG_LAYING);
-                        break;
-                    default:
-                        System.out.println("ChickenCoopState.decrementGrumpinessState() switch-construct default statement.");
-                        break;
-                }
+            if ((e instanceof Chicken) &&
+                    (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_2)) {
+                chickenOrderedByGrumpiness.add((Chicken)e);
             }
+        }
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if ((e instanceof Chicken) &&
+                    (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_GRUMPY_1)) {
+                chickenOrderedByGrumpiness.add((Chicken)e);
+            }
+        }
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if ((e instanceof Chicken) &&
+                    (((Chicken)e).getChickenState() == Chicken.ChickenState.ADULT_EGG_LAYING)) {
+                chickenOrderedByGrumpiness.add((Chicken)e);
+            }
+        }
+
+        // Feeding the chicken at the end of the list (least grumpy first).
+        int numberOfFodder = getFodderDisplayerTotal();
+        while (numberOfFodder > 0) {
+            decrementGrumpinessState(chickenOrderedByGrumpiness.get(chickenOrderedByGrumpiness.size()-1));
+            chickenOrderedByGrumpiness.remove(chickenOrderedByGrumpiness.size()-1);
+
+            numberOfFodder--;
+        }
+
+        // The rest goes hungry.
+        for (Chicken chicken : chickenOrderedByGrumpiness) {
+            chicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_3);
+        }
+    }
+    private void decrementGrumpinessState(Chicken chicken) {
+        switch (chicken.getChickenState()) {
+            case ADULT_GRUMPY_3:
+                chicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_2);
+                break;
+            case ADULT_GRUMPY_2:
+                chicken.setChickenState(Chicken.ChickenState.ADULT_GRUMPY_1);
+                break;
+            case ADULT_GRUMPY_1:
+                chicken.setChickenState(Chicken.ChickenState.ADULT_EGG_LAYING);
+                break;
+            default:
+                System.out.println("ChickenCoopState.decrementGrumpinessState(Chicken) switch-construct default statement.");
+                break;
         }
     }
     public void instantiateEggBasedOnFodderDisplayerTile() {
-        //TODO: Which is less, number of chicken (adult state and egg laying) or the number of feed?
+        // Which is less, number of chicken (adult state and egg laying) or the number of feed?
         int numberOfEgg = Math.min(getFodderDisplayerTotal(), getEggLayableChickenTotal());
         System.out.println("FODDER-DISPLAYER-TOTAL: " + getFodderDisplayerTotal() +
                 "\nEGG-LAYABLE-CHICKEN-TOTAL: " + getEggLayableChickenTotal());
 
-        //!!!!!!!!!!!ChickenState.GRUMPY CONDITIONS!!!!!!!!!!
-        // we have adult/juvenile chicken going hungry (chick don't need to eat).
-        //TODO: BUG!!! first part... chicken going hungry good (Situation2), but (Situation3) ones being fed aren't decrementingGrumpinessState.
         int numberOfHungryChicken = (getEggLayableChickenTotal() + getNonEggLayableChickenTotal()) -
                 getFodderDisplayerTotal();
-        if (numberOfHungryChicken > 0) {
-            //TODO: SEPARATE THESE TWO SITATIONS INTO INDEPENDENT CLAUSES.
+
+        if (numberOfHungryChicken <= 0) {
+            //Situation1 (ALL CHICKEN EAT)
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if (e instanceof Chicken) {
+                    decrementGrumpinessState((Chicken)e);
+                }
+            }
+        } else {
             //Situation2 (ALL CHICKEN HUNGRY) && Situation3 (SOME CHICKEN EAT, SOME CHICKEN HUNGRY)
             determineWhichChickenGoesHungry(numberOfHungryChicken);
-        }
-        //TODO: BAD ELSE CLAUSE. what about situation where some grumpy chicken received fodder, but other grumpy chicken didn't?
-        else {
-            //Situation1 (ALL CHICKEN EAT)
-            decrementGrumpinessState();
         }
 
         // Instantiate Egg object and decrement fodderDisplayerTotal until it reaches 0.
