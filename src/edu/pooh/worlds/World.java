@@ -472,27 +472,7 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 0) { // FodderExecutorTile.
-                            tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 255) { // FodderDisplayerTile.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy, Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
-                            tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        }
-
-                        else if (red == 255 && green == 255 && blue == 0) {   //chickenIncubator - solid, special.
-                            tilesViaRGB[xx][yy] = new EggIncubatorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        }
-
-                        else if (red == 0 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
+                        } else if (red == 0 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
                             tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
                                     SignPostTile.SignPostType.SHIPPING_BIN);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
@@ -508,6 +488,26 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
+
+                        else if (red == 255 && green == 0 && blue == 0) {       //FodderExecutorTile.
+                            tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 0 && blue == 255) {   //FodderDisplayerTile.
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
+                            tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+
+                        else if (red == 255 && green == 255 && blue == 0) {     //EggIncubatorTile - solid, special.
+                            tilesViaRGB[xx][yy] = new EggIncubatorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
                     }
                     /////////////////////
                     else if (worldType == WorldType.COW_BARN) {
@@ -519,23 +519,8 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 0) {     //cowTroughVisual - solid, special.
-                            //TODO: CowTroughVisualTile cow barn
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
                         } else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
-                            //TODO: ShippingBinTile cow barn
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 0 && blue == 255) {     //cowFeed - solid, special.
-                            //TODO: CowFeedTile cow barn
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
-                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
-                                    (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 255) {   //cowTrough - solid, special.
-                            //TODO: CowTroughTile cow barn
+                            //TODO: ShippingBinTile cow barn                    //TODO: NOT TILE, STATIC_ENTITY.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -544,7 +529,26 @@ public class World {
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 255 && blue == 0) {   //cowIncubator - solid, special.
+                        }
+
+                        else if (red == 255 && green == 0 && blue == 255) {     //cowTrough - solid, special.
+                            //TODO: CowTroughTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 255 && green == 0 && blue == 0) {     //cowTroughVisual - solid, special.
+                            //TODO: CowTroughVisualTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 0 && green == 0 && blue == 255) {     //cowFeed - solid, special.
+                            //TODO: CowFeedTile cow barn
+                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        }
+
+                        else if (red == 255 && green == 255 && blue == 0) {     //cowIncubator - solid, special.
                             //TODO: CowIncubatorTile cow barn
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),

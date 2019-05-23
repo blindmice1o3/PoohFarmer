@@ -3,10 +3,8 @@ package edu.pooh.states;
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
-import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.main.ISellable;
 import edu.pooh.tiles.*;
@@ -15,7 +13,6 @@ import edu.pooh.worlds.World;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class ChickenCoopState implements IState {
