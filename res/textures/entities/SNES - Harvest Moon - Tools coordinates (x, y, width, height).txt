@@ -1,3 +1,6 @@
+SNES - Harvest Moon - Tools.png
+
+
 wateringCan
 6, 10, 16, 12
 
@@ -13,6 +16,7 @@ hammer
 axe
 71, 7, 13, 15
 
+
 goldSprinkler
 7, 26, 15, 12
 
@@ -27,4 +31,29 @@ goldAxe
 
 goldHammer
 70, 23, 16, 15
+
+
+cowMedicine
+7, 56, 15, 15
+
+cowMiraclePotion
+23, 56, 15, 15
+
+cowBell
+39, 55, 13, 16
+
+housePaint
+8, 72, 12, 15
+
+cowMilker
+22, 71, 16, 16
+
+cowBrush
+39, 74, 13, 13
+
+cowFoodStoreBought
+6, 88, 15, 15
+
+chickenFoodStoreBought
+22, 88, 15, 15
 

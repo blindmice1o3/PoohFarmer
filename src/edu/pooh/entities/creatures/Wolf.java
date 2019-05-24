@@ -18,6 +18,10 @@ public class Wolf extends Creature {
 
     public Wolf(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        setBoundsX(5);
+        setBoundsY(5);
+        setBoundsWidth(width-10);
+        setBoundsHeight(height-10);
 
         animRight = new Animation(200, Assets.wolfRight);
         animLeft = new Animation(200, Assets.wolfLeft);

@@ -22,10 +22,10 @@ public class Cow extends Creature {
     public Cow(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.cowUp);
-        animDown = new Animation(400, Assets.cowDown);
-        animLeft = new Animation(400, Assets.cowLeft);
-        animRight = new Animation(400, Assets.cowRight);
+        animUp = new Animation(400, Assets.cowYoungUp);
+        animDown = new Animation(400, Assets.cowYoungDown);
+        animLeft = new Animation(400, Assets.cowYoungLeft);
+        animRight = new Animation(400, Assets.cowYoungRight);
 
         setSpeed(2);
 
@@ -85,7 +85,7 @@ public class Cow extends Creature {
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
         } else {
-            return Assets.cowDown[0];
+            return Assets.cowYoungDown[0];
         }
     }
 

@@ -1,0 +1,59 @@
+SNES - Harvest Moon - Cow.png
+
+
+cowAdultUp0
+285, 158, 17, 27
+
+cowAdultUp1
+320, 158, 17, 27
+
+cowAdultUp2
+355, 159, 17, 26
+
+cowAdultDown0
+6, 160, 17, 23
+
+cowAdultDown1
+40, 160, 17, 23
+
+cowAdultDown2
+75, 160, 17, 23
+
+cowAdultLeft0
+0, 1, 27, 22
+
+cowAdultLeft1
+35, 1, 27, 21
+
+cowAdultLeft2
+70, 1, 27, 21
+
+
+
+cowPregnantUp0
+248, 238, 21, 28
+
+cowPregnantUp1
+283, 237, 21, 30
+
+cowPregnantUp2
+317, 237, 21, 30
+
+cowPregnantDown0
+178, 240, 21, 24
+
+cowPregnantDown1
+178, 279, 21, 25
+
+cowPregnantDown2
+178, 319, 21, 25
+
+cowPregnantLeft0
+0, 241, 27, 22
+
+cowPregnantLeft1
+35, 241, 27, 22
+
+cowPregnantLeft2
+70, 241, 27, 22
+

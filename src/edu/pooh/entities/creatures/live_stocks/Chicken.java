@@ -42,14 +42,14 @@ public class Chicken extends Creature
     private void initChickenAnimations() {
         anim = new HashMap<String, Animation>();
 
-        anim.put("animChickenUp", new Animation(400, Assets.chickenUp));
-        anim.put("animChickenDown", new Animation(400, Assets.chickenDown));
-        anim.put("animChickenLeft", new Animation(400, Assets.chickenLeft));
-        anim.put("animChickenRight", new Animation(400, Assets.chickenRight));
-        anim.put("animChickUp", new Animation(400, Assets.chickUp));
-        anim.put("animChickDown", new Animation(400, Assets.chickDown));
-        anim.put("animChickLeft", new Animation(400, Assets.chickLeft));
-        anim.put("animChickRight", new Animation(400, Assets.chickRight));
+        anim.put("animChickenUp", new Animation(400, Assets.chickenAdultUp));
+        anim.put("animChickenDown", new Animation(400, Assets.chickenAdultDown));
+        anim.put("animChickenLeft", new Animation(400, Assets.chickenAdultLeft));
+        anim.put("animChickenRight", new Animation(400, Assets.chickenAdultRight));
+        anim.put("animChickUp", new Animation(400, Assets.chickenYoungUp));
+        anim.put("animChickDown", new Animation(400, Assets.chickenYoungDown));
+        anim.put("animChickLeft", new Animation(400, Assets.chickenYoungLeft));
+        anim.put("animChickRight", new Animation(400, Assets.chickenYoungRight));
     }
 
     public void incrementChickenStateByDaysInstantiated() {
@@ -123,9 +123,9 @@ public class Chicken extends Creature
         } else if ((yMove > 0) && (chickenState == ChickenState.CHICK)) {
             return anim.get("animChickDown").getCurrentFrame();
         } else if ((xMove == 0) && (yMove == 0) & (chickenState == ChickenState.CHICK)){
-            return Assets.chickDown[0];
+            return Assets.chickenYoungDown[0];
         } else {
-            return Assets.chickenDown[0];
+            return Assets.chickenAdultDown[0];
         }
     }
 

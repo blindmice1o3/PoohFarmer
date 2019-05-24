@@ -21,10 +21,10 @@ public class Horse extends Creature {
     public Horse(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.horseUp);
-        animDown = new Animation(400, Assets.horseDown);
-        animLeft = new Animation(400, Assets.horseLeft);
-        animRight = new Animation(400, Assets.horseRight);
+        animUp = new Animation(400, Assets.horseYoungUp);
+        animDown = new Animation(400, Assets.horseYoungDown);
+        animLeft = new Animation(400, Assets.horseYoungLeft);
+        animRight = new Animation(400, Assets.horseYoungRight);
 
         setSpeed(5);
 
@@ -84,7 +84,7 @@ public class Horse extends Creature {
         } else if (yMove > 0) {                         // Moving down.
             return animDown.getCurrentFrame();
         } else {
-            return Assets.horseDown[0];
+            return Assets.horseYoungDown[0];
         }
     }
 

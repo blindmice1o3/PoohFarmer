@@ -51,7 +51,9 @@ public class Assets {
 
     // ITEMS (/TOOLS)
     public static BufferedImage wateringCan, scythe, shovel, hammer, axe,
-            goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer;
+            goldSprinkler, goldScythe, goldShovel, goldAxe, goldHammer,
+            cowMedicine, cowMiraclePotion, cowBell, housePaint,
+            cowMilker, cowBrush, cowFoodStoreBought, chickenFoodStoreBought;
 
     // ENTITIES (/CROPS)
     public static BufferedImage dirtTilledDry, dirtTilledWatered,
@@ -88,12 +90,14 @@ public class Assets {
 
     // ENTITIES MOVING/ANIMATED (/DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNING)
     public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight,
-            cowUp, cowDown, cowLeft, cowRight,
-            chickenUp, chickenDown, chickenLeft, chickenRight,
-            horseUp, horseDown, horseLeft, horseRight,
+            cowYoungUp, cowYoungDown, cowYoungLeft, cowYoungRight,
+            chickenAdultUp, chickenAdultDown, chickenAdultLeft, chickenAdultRight,
+            horseYoungUp, horseYoungDown, horseYoungLeft, horseYoungRight,
             jackWalkingUp, jackWalkingDown, jackWalkingLeft, jackWalkingRight,
             jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
-    public static BufferedImage[] chickUp, chickDown, chickLeft, chickRight;
+    public static BufferedImage[] chickenYoungUp, chickenYoungDown, chickenYoungLeft, chickenYoungRight;
+    public static BufferedImage[] cowAdultUp, cowAdultDown, cowAdultLeft, cowAdultRight,
+            cowPregnantUp, cowPregnantDown, cowPregnantLeft, cowPregnantRight;
 
     // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
     public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp,
@@ -409,6 +413,14 @@ public class Assets {
         goldShovel = sheet.crop(39, 22, 13, 16);
         goldAxe = sheet.crop(54, 22, 15, 16);
         goldHammer = sheet.crop(70, 23, 16, 15);
+        cowMedicine = sheet.crop(7, 56, 15, 15);
+        cowMiraclePotion = sheet.crop(23, 56, 15, 15);
+        cowBell = sheet.crop(39, 55, 13, 16);
+        housePaint = sheet.crop(8, 72, 12, 15);
+        cowMilker = sheet.crop(22, 71, 16, 16);
+        cowBrush = sheet.crop(39, 74, 13, 13);
+        cowFoodStoreBought = sheet.crop(6, 88, 15, 15);
+        chickenFoodStoreBought = sheet.crop(22, 88, 15, 15);
 
         // ****************************************************************
         // |+|+|+|+|+|+|+| DIRT and CROPS (DRY && WATERED) |+|+|+|+|+|+|+|
@@ -636,11 +648,11 @@ public class Assets {
         xDogLeftPee[4] = sheet.crop(120, 32, 25, 15);
 
         xDogRight = new BufferedImage[5];
-        xDogRight[0] = flipHorizontally( sheet.crop(3, 3, 20, 13) );
-        xDogRight[1] = flipHorizontally( sheet.crop(30, 1, 25, 17) );
-        xDogRight[2] = flipHorizontally( sheet.crop(63, 3, 20, 13) );
-        xDogRight[3] = flipHorizontally( sheet.crop(93, 2, 20, 15) );
-        xDogRight[4] = flipHorizontally( sheet.crop(123, 0, 19, 20) );
+        xDogRight[0] = flipHorizontally( xDogLeft[0] );
+        xDogRight[1] = flipHorizontally( xDogLeft[1] );
+        xDogRight[2] = flipHorizontally( xDogLeft[2] );
+        xDogRight[3] = flipHorizontally( xDogLeft[3] );
+        xDogRight[4] = flipHorizontally( xDogLeft[4] );
 
         /*
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Kero Dog (right).png"));
@@ -664,9 +676,9 @@ public class Assets {
         wolfRight[2] = sheet.crop(60, 0, 23, 14);
 
         wolfLeft = new BufferedImage[3];
-        wolfLeft[0] = flipHorizontally( sheet.crop(0, 0, 23, 14) );
-        wolfLeft[1] = flipHorizontally( sheet.crop(29, 0, 23, 14) );
-        wolfLeft[2] = flipHorizontally( sheet.crop(60, 0, 23, 14) );
+        wolfLeft[0] = flipHorizontally( wolfRight[0] );
+        wolfLeft[1] = flipHorizontally( wolfRight[1] );
+        wolfLeft[2] = flipHorizontally( wolfRight[2] );
 
 
         // ********************************************************************************************
@@ -695,67 +707,67 @@ public class Assets {
         dogRight[2] = sheet.crop(51, 178, 19, 13);
 
 
-        cowUp = new BufferedImage[3];
-        cowUp[0] = sheet.crop(77, 139, 15, 21);
-        cowUp[1] = sheet.crop(101, 139, 15, 21);
-        cowUp[2] = sheet.crop(125, 139, 15, 21);
+        cowYoungUp = new BufferedImage[3];
+        cowYoungUp[0] = sheet.crop(77, 139, 15, 21);
+        cowYoungUp[1] = sheet.crop(101, 139, 15, 21);
+        cowYoungUp[2] = sheet.crop(125, 139, 15, 21);
 
-        cowDown = new BufferedImage[3];
-        cowDown[0] = sheet.crop(77, 205, 15, 19);
-        cowDown[1] = sheet.crop(101, 205, 15, 19);
-        cowDown[2] = sheet.crop(125, 205, 15, 19);
+        cowYoungDown = new BufferedImage[3];
+        cowYoungDown[0] = sheet.crop(77, 205, 15, 19);
+        cowYoungDown[1] = sheet.crop(101, 205, 15, 19);
+        cowYoungDown[2] = sheet.crop(125, 205, 15, 19);
 
-        cowLeft = new BufferedImage[3];
-        cowLeft[0] = sheet.crop(74, 240, 21, 15);
-        cowLeft[1] = sheet.crop(98, 239, 21, 16);
-        cowLeft[2] = sheet.crop(122, 240, 21, 15);
+        cowYoungLeft = new BufferedImage[3];
+        cowYoungLeft[0] = sheet.crop(74, 240, 21, 15);
+        cowYoungLeft[1] = sheet.crop(98, 239, 21, 16);
+        cowYoungLeft[2] = sheet.crop(122, 240, 21, 15);
 
-        cowRight = new BufferedImage[3];
-        cowRight[0] = sheet.crop(74, 176, 21, 15);
-        cowRight[1] = sheet.crop(98, 175, 21, 16);
-        cowRight[2] = sheet.crop(122, 176, 21, 15);
-
-
-        chickenUp = new BufferedImage[3];
-        chickenUp[0] = sheet.crop(147, 144, 16, 16);
-        chickenUp[1] = sheet.crop(172, 145, 14, 15);
-        chickenUp[2] = sheet.crop(195, 144, 16, 16);
-
-        chickenDown = new BufferedImage[3];
-        chickenDown[0] = sheet.crop(147, 207, 16, 16);
-        chickenDown[1] = sheet.crop(171, 208, 16, 15);
-        chickenDown[2] = sheet.crop(195, 207, 16, 16);
-
-        chickenLeft = new BufferedImage[3];
-        chickenLeft[0] = sheet.crop(147, 239, 16, 16);
-        chickenLeft[1] = sheet.crop(171, 240, 16, 15);
-        chickenLeft[2] = sheet.crop(195, 239, 16, 16);
-
-        chickenRight = new BufferedImage[3];
-        chickenRight[0] = sheet.crop(147, 175, 16, 16);
-        chickenRight[1] = sheet.crop(171, 176, 16, 15);
-        chickenRight[2] = sheet.crop(195, 175, 16, 16);
+        cowYoungRight = new BufferedImage[3];
+        cowYoungRight[0] = sheet.crop(74, 176, 21, 15);
+        cowYoungRight[1] = sheet.crop(98, 175, 21, 16);
+        cowYoungRight[2] = sheet.crop(122, 176, 21, 15);
 
 
-        horseUp = new BufferedImage[3];
-        horseUp[0] = sheet.crop(222, 137, 12, 22);
-        horseUp[1] = sheet.crop(246, 137, 12, 22);
-        horseUp[2] = sheet.crop(270, 137, 12, 22);
+        chickenAdultUp = new BufferedImage[3];
+        chickenAdultUp[0] = sheet.crop(147, 144, 16, 16);
+        chickenAdultUp[1] = sheet.crop(172, 145, 14, 15);
+        chickenAdultUp[2] = sheet.crop(195, 144, 16, 16);
 
-        horseDown = new BufferedImage[3];
-        horseDown[0] = sheet.crop(222, 204, 12, 19);
-        horseDown[1] = sheet.crop(246, 204, 12, 19);
-        horseDown[2] = sheet.crop(270, 204, 12, 19);
+        chickenAdultDown = new BufferedImage[3];
+        chickenAdultDown[0] = sheet.crop(147, 207, 16, 16);
+        chickenAdultDown[1] = sheet.crop(171, 208, 16, 15);
+        chickenAdultDown[2] = sheet.crop(195, 207, 16, 16);
 
-        horseLeft = new BufferedImage[3];
-        horseLeft[0] = sheet.crop(216, 237, 24, 18);
-        horseLeft[1] = sheet.crop(240, 235, 24, 20);
-        horseLeft[2] = sheet.crop(264, 237, 24, 18);
+        chickenAdultLeft = new BufferedImage[3];
+        chickenAdultLeft[0] = sheet.crop(147, 239, 16, 16);
+        chickenAdultLeft[1] = sheet.crop(171, 240, 16, 15);
+        chickenAdultLeft[2] = sheet.crop(195, 239, 16, 16);
 
-        horseRight = new BufferedImage[3];
-        horseRight[0] = sheet.crop(216, 173, 24, 18);
-        horseRight[1] = sheet.crop(240, 171, 24, 20);
-        horseRight[2] = sheet.crop(264, 173, 24, 18);
+        chickenAdultRight = new BufferedImage[3];
+        chickenAdultRight[0] = sheet.crop(147, 175, 16, 16);
+        chickenAdultRight[1] = sheet.crop(171, 176, 16, 15);
+        chickenAdultRight[2] = sheet.crop(195, 175, 16, 16);
+
+
+        horseYoungUp = new BufferedImage[3];
+        horseYoungUp[0] = sheet.crop(222, 137, 12, 22);
+        horseYoungUp[1] = sheet.crop(246, 137, 12, 22);
+        horseYoungUp[2] = sheet.crop(270, 137, 12, 22);
+
+        horseYoungDown = new BufferedImage[3];
+        horseYoungDown[0] = sheet.crop(222, 204, 12, 19);
+        horseYoungDown[1] = sheet.crop(246, 204, 12, 19);
+        horseYoungDown[2] = sheet.crop(270, 204, 12, 19);
+
+        horseYoungLeft = new BufferedImage[3];
+        horseYoungLeft[0] = sheet.crop(216, 237, 24, 18);
+        horseYoungLeft[1] = sheet.crop(240, 235, 24, 20);
+        horseYoungLeft[2] = sheet.crop(264, 237, 24, 18);
+
+        horseYoungRight = new BufferedImage[3];
+        horseYoungRight[0] = sheet.crop(216, 173, 24, 18);
+        horseYoungRight[1] = sheet.crop(240, 171, 24, 20);
+        horseYoungRight[2] = sheet.crop(264, 173, 24, 18);
 
 
         jackWalkingUp = new BufferedImage[3];
@@ -802,21 +814,63 @@ public class Assets {
 
 
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Chicken.png"));
-        chickDown = new BufferedImage[2];
-        chickDown[0] = sheet.crop(270, 0, 16, 16);
-        chickDown[1] = sheet.crop(270, 30, 16, 16);
+        chickenYoungDown = new BufferedImage[2];
+        chickenYoungDown[0] = sheet.crop(270, 0, 16, 16);
+        chickenYoungDown[1] = sheet.crop(270, 30, 16, 16);
 
-        chickUp = new BufferedImage[2];
-        chickUp[0] = sheet.crop(300, 0, 12, 16);
-        chickUp[1] = sheet.crop(300, 30, 12, 16);
+        chickenYoungUp = new BufferedImage[2];
+        chickenYoungUp[0] = sheet.crop(300, 0, 12, 16);
+        chickenYoungUp[1] = sheet.crop(300, 30, 12, 16);
 
-        chickLeft = new BufferedImage[2];
-        chickLeft[0] = sheet.crop(240, 0, 16, 16);
-        chickLeft[1] = sheet.crop(240, 30, 16, 16);
+        chickenYoungLeft = new BufferedImage[2];
+        chickenYoungLeft[0] = sheet.crop(240, 0, 16, 16);
+        chickenYoungLeft[1] = sheet.crop(240, 30, 16, 16);
 
-        chickRight = new BufferedImage[2];
-        chickRight[0] = flipHorizontally( sheet.crop(240, 0, 16, 16) );
-        chickRight[1] = flipHorizontally( sheet.crop(240, 30, 16, 16) );
+        chickenYoungRight = new BufferedImage[2];
+        chickenYoungRight[0] = flipHorizontally( chickenYoungLeft[0] );
+        chickenYoungRight[1] = flipHorizontally( chickenYoungLeft[1] );
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
+        cowAdultDown = new BufferedImage[3];
+        cowAdultDown[0] = sheet.crop(6, 160, 17, 23);
+        cowAdultDown[1] = sheet.crop(40, 160, 17, 23);
+        cowAdultDown[2] = sheet.crop(75, 160, 17, 23);
+
+        cowAdultUp = new BufferedImage[3];
+        cowAdultUp[0] = sheet.crop(285, 158, 17, 27);
+        cowAdultUp[1] = sheet.crop(320, 158, 17, 27);
+        cowAdultUp[2] = sheet.crop(355, 159, 17, 26);
+
+        cowAdultLeft = new BufferedImage[3];
+        cowAdultLeft[0] = sheet.crop(0, 1, 27, 22);
+        cowAdultLeft[1] = sheet.crop(35, 1, 27, 21);
+        cowAdultLeft[2] = sheet.crop(70, 1, 27, 21);
+
+        cowAdultRight = new BufferedImage[3];
+        cowAdultRight[0] = flipHorizontally( cowAdultLeft[0] );
+        cowAdultRight[1] = flipHorizontally( cowAdultLeft[1] );
+        cowAdultRight[2] = flipHorizontally( cowAdultLeft[2] );
+
+
+        cowPregnantDown = new BufferedImage[3];
+        cowPregnantDown[0] = sheet.crop(178, 240, 21, 24);
+        cowPregnantDown[1] = sheet.crop(178, 279, 21, 25);
+        cowPregnantDown[2] = sheet.crop(178, 319, 21, 25);
+
+        cowPregnantUp = new BufferedImage[3];
+        cowPregnantUp[0] = sheet.crop(248, 238, 21, 28);
+        cowPregnantUp[1] = sheet.crop(283, 237, 21, 30);
+        cowPregnantUp[2] = sheet.crop(317, 237, 21, 30);
+
+        cowPregnantLeft = new BufferedImage[3];
+        cowPregnantLeft[0] = sheet.crop(0, 241, 27, 22);
+        cowPregnantLeft[1] = sheet.crop(35, 241, 27, 22);
+        cowPregnantLeft[2] = sheet.crop(70, 241, 27, 22);
+
+        cowPregnantRight = new BufferedImage[3];
+        cowPregnantRight[0] = flipHorizontally( cowPregnantLeft[0] );
+        cowPregnantRight[1] = flipHorizontally( cowPregnantLeft[1] );
+        cowPregnantRight[2] = flipHorizontally( cowPregnantLeft[2] );
 
 
         // ************************************************************
@@ -841,12 +895,12 @@ public class Assets {
         mollyWalkingLeft[5] = sheet.crop(146, 67, 21, 27);
 
         mollyWalkingRight = new BufferedImage[6];
-        mollyWalkingRight[0] = flipHorizontally( sheet.crop(5, 64, 18, 30) );
-        mollyWalkingRight[1] = flipHorizontally( sheet.crop(34, 65, 19, 29) );
-        mollyWalkingRight[2] = flipHorizontally( sheet.crop(61, 65, 20, 29) );
-        mollyWalkingRight[3] = flipHorizontally( sheet.crop(89, 64, 18, 30) );
-        mollyWalkingRight[4] = flipHorizontally( sheet.crop(116, 67, 21, 27) );
-        mollyWalkingRight[5] = flipHorizontally( sheet.crop(146, 67, 21, 27) );
+        mollyWalkingRight[0] = flipHorizontally( mollyWalkingLeft[0] );
+        mollyWalkingRight[1] = flipHorizontally( mollyWalkingLeft[1] );
+        mollyWalkingRight[2] = flipHorizontally( mollyWalkingLeft[2] );
+        mollyWalkingRight[3] = flipHorizontally( mollyWalkingLeft[3] );
+        mollyWalkingRight[4] = flipHorizontally( mollyWalkingLeft[4] );
+        mollyWalkingRight[5] = flipHorizontally( mollyWalkingLeft[5] );
 
         mollyWalkingUp = new BufferedImage[6];
         mollyWalkingUp[0] = sheet.crop(4, 101, 19, 30);
@@ -867,9 +921,9 @@ public class Assets {
         mollyHoldingLeft[2] = sheet.crop(61, 209, 20, 27);
 
         mollyHoldingRight = new BufferedImage[3];
-        mollyHoldingRight[0] = flipHorizontally( sheet.crop(4, 206, 18, 30) );
-        mollyHoldingRight[1] = flipHorizontally( sheet.crop(33, 208, 20, 28) );
-        mollyHoldingRight[2] = flipHorizontally( sheet.crop(61, 209, 20, 27) );
+        mollyHoldingRight[0] = flipHorizontally( mollyHoldingLeft[0] );
+        mollyHoldingRight[1] = flipHorizontally( mollyHoldingLeft[1] );
+        mollyHoldingRight[2] = flipHorizontally( mollyHoldingLeft[2] );
 
         mollyHoldingUp = new BufferedImage[3];
         mollyHoldingUp[0] = sheet.crop(2, 247, 21, 30);
@@ -887,9 +941,9 @@ public class Assets {
         mollyTakeLeft[2] = sheet.crop(155, 208, 19, 28);
 
         mollyTakeRight = new BufferedImage[3];
-        mollyTakeRight[0] = flipHorizontally( sheet.crop(93, 207, 21, 29) );
-        mollyTakeRight[1] = flipHorizontally( sheet.crop(126, 208, 19, 28) );
-        mollyTakeRight[2] = flipHorizontally( sheet.crop(155, 208, 19, 28) );
+        mollyTakeRight[0] = flipHorizontally( mollyTakeLeft[0] );
+        mollyTakeRight[1] = flipHorizontally( mollyTakeLeft[1] );
+        mollyTakeRight[2] = flipHorizontally( mollyTakeLeft[2] );
 
         mollyTakeUp = new BufferedImage[3];
         mollyTakeUp[0] = sheet.crop(95, 250, 21, 27);
@@ -955,12 +1009,12 @@ public class Assets {
         mollyRidingHorseLeft[5] = sheet.crop(204, 370, 32, 36);
 
         mollyRidingHorseRight = new BufferedImage[6];
-        mollyRidingHorseRight[0] = flipHorizontally( sheet.crop(3, 368, 32, 40) );
-        mollyRidingHorseRight[1] = flipHorizontally( sheet.crop(43, 368, 32, 39) );
-        mollyRidingHorseRight[2] = flipHorizontally( sheet.crop(85, 367, 31, 39) );
-        mollyRidingHorseRight[3] = flipHorizontally( sheet.crop(124, 368, 34, 38) );
-        mollyRidingHorseRight[4] = flipHorizontally( sheet.crop(163, 368, 34, 38) );
-        mollyRidingHorseRight[5] = flipHorizontally( sheet.crop(204, 370, 32, 36) );
+        mollyRidingHorseRight[0] = flipHorizontally( mollyRidingHorseLeft[0] );
+        mollyRidingHorseRight[1] = flipHorizontally( mollyRidingHorseLeft[1] );
+        mollyRidingHorseRight[2] = flipHorizontally( mollyRidingHorseLeft[2] );
+        mollyRidingHorseRight[3] = flipHorizontally( mollyRidingHorseLeft[3] );
+        mollyRidingHorseRight[4] = flipHorizontally( mollyRidingHorseLeft[4] );
+        mollyRidingHorseRight[5] = flipHorizontally( mollyRidingHorseLeft[5] );
 
         mollyRidingHorseUp = new BufferedImage[6];
         mollyRidingHorseUp[0] = sheet.crop(8, 419, 20, 42);
@@ -973,13 +1027,13 @@ public class Assets {
         mollyMountingHorseDown = new BufferedImage[1];
         mollyMountingHorseDown[0] = sheet.crop(500, 174, 21, 26);
 
-        mollyMountingHorseLeft = new BufferedImage[2];
-        mollyMountingHorseLeft[0] = flipHorizontally( sheet.crop(501, 213, 20, 28) );
-        mollyMountingHorseLeft[1] = flipHorizontally( sheet.crop(538, 208, 24, 31) );
-
         mollyMountingHorseRight = new BufferedImage[2];
         mollyMountingHorseRight[0] = sheet.crop(501, 213, 20, 28);
         mollyMountingHorseRight[1] = sheet.crop(538, 208, 24, 31);
+
+        mollyMountingHorseLeft = new BufferedImage[2];
+        mollyMountingHorseLeft[0] = flipHorizontally( mollyMountingHorseRight[0] );
+        mollyMountingHorseLeft[1] = flipHorizontally( mollyMountingHorseRight[1] );
 
         mollyMountingHorseUp = new BufferedImage[2];
         mollyMountingHorseUp[0] = sheet.crop(504, 253, 16, 26);
