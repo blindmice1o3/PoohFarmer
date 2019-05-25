@@ -20,10 +20,6 @@ public class SpikeTrap extends StaticEntity {
         setBoundsY(0);
         setBoundsWidth(0);
         setBoundsHeight(0);
-        //setBoundsX(0);
-        //setBoundsY(35);
-        //setBoundsWidth(width);
-        //setBoundsHeight(height-35);
 
         walkableCollisionBounds = new Rectangle((int)x, (int)y+35, width, height-35);
         activate = false;

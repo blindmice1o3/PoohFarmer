@@ -66,7 +66,8 @@ public class Milk extends StaticEntity
             setY(shippingBin.getY() + Tile.TILE_HEIGHT);
             inShippingBin = true;
             shippingBin.addISellable(this);
-        } else if (handler.getWorld().getWorldType() == World.WorldType.CHICKEN_COOP) {
+        } else if ((handler.getWorld().getWorldType() == World.WorldType.CHICKEN_COOP) ||
+                (handler.getWorld().getWorldType() == World.WorldType.COW_BARN)) {
             setX(shippingBin.getX());
             setY(shippingBin.getY() + Tile.TILE_HEIGHT);
             inShippingBin = true;

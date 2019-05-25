@@ -12,7 +12,7 @@ public class SignPostTile extends SolidGenericTile
         implements IInvokable {
 
     public enum SignPostType { SHIPPING_BIN, RESOURCE_FODDER, RESOURCE_WOOD, HORSE_STABLE, MOUNTAIN_TODO,
-        CHICKEN_COOP_INCUBATOR; }
+        CHICKEN_COOP_INCUBATOR, COW_BARN_INCUBATOR; }
 
     private int x, y;
     private boolean executing;
@@ -54,7 +54,9 @@ public class SignPostTile extends SolidGenericTile
             case HORSE_STABLE:
                 return "HorseStable tile is nothing more than a textured collision box with its isSolid() set to true.";
             case CHICKEN_COOP_INCUBATOR:
-                return "ChickenIncubator tie is in progress.";
+                return "ChickenIncubator tile: 3 days for Egg to hatch into Chicken whose ChickenState is CHICK.";
+            case COW_BARN_INCUBATOR:
+                return "CowIncubator tile is in progress.";
             default:
                 return "Could not determine SignPostTile's message.";
         }

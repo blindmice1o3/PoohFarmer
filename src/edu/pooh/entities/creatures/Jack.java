@@ -25,6 +25,10 @@ public class Jack extends Creature {
 
     public Jack(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        setBoundsX(1);
+        setBoundsY(1);
+        setBoundsWidth(62);
+        setBoundsHeight(62);
 
         animWalkingUp = new Animation(400, Assets.jackWalkingUp);
         animWalkingDown = new Animation(400, Assets.jackWalkingDown);

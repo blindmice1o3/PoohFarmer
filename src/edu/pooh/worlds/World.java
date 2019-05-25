@@ -134,7 +134,7 @@ public class World {
                     ((13 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
                     (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.COW_BARN) {
-            transferPointCowBarnToGame = new Rectangle((8 * Tile.TILE_WIDTH),
+            transferPointCowBarnToGame = new Rectangle((7 * Tile.TILE_WIDTH),
                     ((22 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
                     (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.TOOL_SHED) {
@@ -519,14 +519,19 @@ public class World {
                             tilesViaRGB[xx][yy] = new DirtNotFarmableTile(xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 0) {     //shippingBin - solid, special.
-                            //TODO: ShippingBinTile cow barn                    //TODO: NOT TILE, STATIC_ENTITY.
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                        } else if (red == 0 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.SHIPPING_BIN);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent - solid, special.
-                            //TODO: SignPostTile cow barn
-                            tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
+                        } else if (red == 1 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.RESOURCE_FODDER);
+                            tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
+                                    (yy * 40), 40, 40));
+                        } else if (red == 2 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
+                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                                    SignPostTile.SignPostType.COW_BARN_INCUBATOR);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
@@ -541,7 +546,7 @@ public class World {
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 0 && blue == 255) {     //cowFeed - solid, special.
+                        } else if (red == 0 && green == 255 && blue == 255) {     //cowFeed - solid, special.
                             //TODO: CowFeedTile cow barn
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
@@ -871,6 +876,23 @@ public class World {
                     if (red == 255 && green == 0 && blue == 0) {    //Player
                         playerSpawnX = xx;
                         playerSpawnY = yy;
+                    } else if (red == 0 && green == 255 && blue == 0) {   //ShippingBin
+                        ShippingBin shippingBin = new ShippingBin(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
+                        ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity( shippingBin );
+
+                        entityManager.addEntity(shippingBin);
+                    } else if (red == 1 && green == 255 && blue == 0) { //ShippingBin (axillary)
+                        ShippingBin tempShippingBin = null;
+
+                        for (Entity e : entityManager.getEntities()) {
+                            if (e instanceof ShippingBin) {
+                                tempShippingBin = (ShippingBin)e;
+                            }
+                        }
+
+                        if (tempShippingBin != null) {
+                            ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
+                        }
                     } else if (red == 0 && green == 0 && blue == 255) { //Cow
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(cow);

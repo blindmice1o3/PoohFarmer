@@ -20,6 +20,7 @@ import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
 import edu.pooh.states.ChickenCoopState;
+import edu.pooh.states.CowBarnState;
 import edu.pooh.states.GameState;
 import edu.pooh.time.DateDisplayer;
 import edu.pooh.time.TimeManager;
@@ -138,6 +139,15 @@ public class Player extends Creature {
         }
         // Collect ShippingBin - ChickenCoopState
         for (Entity e : ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
+                break;
+                //////////////////////////////////////////////////////////
+            }
+        }
+        // Collect ShippingBin - CowBarnState
+        for (Entity e : ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().getEntities()) {
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
                 sellFromShippingBin( (ShippingBin)e );
@@ -553,7 +563,7 @@ public class Player extends Creature {
                         /////////////////////////////////////////////////////
                         // TODO: HORSE SADDLE BAG - MOVEABLE SHIPPING BIN. //
                         /////////////////////////////////////////////////////
-                        ((ISellable) holdableObject).dropIntoShippingBin((ShippingBin) getEntityCurrentlyFacing());
+                        ((ISellable) holdableObject).dropIntoShippingBin((ShippingBin)getEntityCurrentlyFacing());
                         setHoldableObject(null);
                         holding = false;
                     }
