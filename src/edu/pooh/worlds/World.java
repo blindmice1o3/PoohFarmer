@@ -135,7 +135,7 @@ public class World {
                     (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.COW_BARN) {
             transferPointCowBarnToGame = new Rectangle((8 * Tile.TILE_WIDTH),
-                    ((21 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
+                    ((22 * Tile.TILE_HEIGHT) + (Tile.TILE_HEIGHT / 2)),
                     (2 * Tile.TILE_WIDTH), (Tile.TILE_HEIGHT / 2));
         } else if (worldType == WorldType.TOOL_SHED) {
             transferPointToolShedToGame = new Rectangle((5 * Tile.TILE_WIDTH),
