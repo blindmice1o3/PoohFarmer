@@ -7,6 +7,7 @@ import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.FodderDisplayerTile;
 import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.Tile;
+import edu.pooh.worlds.World;
 
 import java.awt.*;
 
@@ -61,15 +62,40 @@ public class Fodder extends StaticEntity
 
             FodderExecutorTile tempFodderExecutorTile = (FodderExecutorTile)t;
             x = tempFodderExecutorTile.getX();
-            y = tempFodderExecutorTile.getY() - Tile.TILE_HEIGHT;
+            y = tempFodderExecutorTile.getY();
 
-            if (handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))
-                instanceof FodderDisplayerTile) {
-                System.out.println("Fodder.dropped(Tile) method probably successful if we get here");
+            if (handler.getWorld().getWorldType() == World.WorldType.CHICKEN_COOP) {
+                ////////////////////////////////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                if (handler.getWorld().getTile((int)(x / Tile.TILE_WIDTH), (int)((y / Tile.TILE_HEIGHT) - 1))
+                ////////////////////////////////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        instanceof FodderDisplayerTile) {
+                    System.out.println("Fodder.dropped(Tile) method probably successful if we get here");
 
-                ((FodderDisplayerTile)handler.getWorld().getTile(
-                        (int)(x / Tile.TILE_WIDTH), (int)(y / Tile.TILE_HEIGHT))
-                ).setActivated(true);
+                    ((FodderDisplayerTile)handler.getWorld().getTile(
+                            (int)(x / Tile.TILE_WIDTH), (int)((y / Tile.TILE_HEIGHT) - 1))
+                    ).setActivated(true);
+                }
+            } else if (handler.getWorld().getWorldType() == World.WorldType.COW_BARN) {
+                ////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                if ((handler.getWorld().getTile((int)((x / Tile.TILE_WIDTH) - 1), (int)(y / Tile.TILE_HEIGHT))
+                ////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        instanceof FodderDisplayerTile)) {
+                    System.out.println("Fodder.dropped(Tile) method probably successful if we get here");
+
+                    ((FodderDisplayerTile)handler.getWorld().getTile(
+                            (int)((x / Tile.TILE_WIDTH) - 1), (int)(y / Tile.TILE_HEIGHT))
+                    ).setActivated(true);
+                }
+                /////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                else if ((handler.getWorld().getTile((int)((x / Tile.TILE_WIDTH) + 1), (int)(y / Tile.TILE_HEIGHT))
+                /////////////////////////////////////////@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        instanceof FodderDisplayerTile)) {
+                    System.out.println("Fodder.dropped(Tile) method probably successful if we get here");
+
+                    ((FodderDisplayerTile)handler.getWorld().getTile(
+                            (int)((x / Tile.TILE_WIDTH) + 1), (int)(y / Tile.TILE_HEIGHT))
+                    ).setActivated(true);
+                }
             }
         } else {
             die();

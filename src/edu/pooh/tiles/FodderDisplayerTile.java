@@ -10,7 +10,7 @@ public class FodderDisplayerTile extends SolidGenericTile {
 
     private Handler handler;
     private int x, y;
-    private boolean activated;
+    protected boolean activated;
 
     public FodderDisplayerTile(Handler handler, int x, int y, BufferedImage texture) {
         super(texture);
