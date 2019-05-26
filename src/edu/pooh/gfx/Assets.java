@@ -831,6 +831,94 @@ public class Assets {
         chickenYoungRight[0] = flipHorizontally( chickenYoungLeft[0] );
         chickenYoungRight[1] = flipHorizontally( chickenYoungLeft[1] );
 
+
+
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
+        cowAdultDown = new BufferedImage[3];
+        cowAdultDown[0] = sheet.crop(6, 160, 17, 23);
+        cowAdultDown[1] = sheet.crop(40, 160, 17, 23);
+        cowAdultDown[2] = sheet.crop(75, 160, 17, 23);
+
+        cowAdultUp = new BufferedImage[3];
+        cowAdultUp[0] = sheet.crop(285, 158, 17, 27);
+        cowAdultUp[1] = sheet.crop(320, 158, 17, 27);
+        cowAdultUp[2] = sheet.crop(355, 159, 17, 27);
+
+        cowAdultLeft = new BufferedImage[3];
+        cowAdultLeft[0] = sheet.crop(0, 1, 27, 22);
+        cowAdultLeft[1] = sheet.crop(35, 1, 27, 22);
+        cowAdultLeft[2] = sheet.crop(70, 1, 27, 22);
+
+        cowAdultRight = new BufferedImage[3];
+        cowAdultRight[0] = flipHorizontally( cowAdultLeft[0] );
+        cowAdultRight[1] = flipHorizontally( cowAdultLeft[1] );
+        cowAdultRight[2] = flipHorizontally( cowAdultLeft[2] );
+
+
+        cowPregnantDown = new BufferedImage[3];
+        cowPregnantDown[0] = sheet.crop(178, 240, 21, 25);
+        cowPregnantDown[1] = sheet.crop(178, 279, 21, 25);
+        cowPregnantDown[2] = sheet.crop(178, 319, 21, 25);
+
+        cowPregnantUp = new BufferedImage[3];
+        cowPregnantUp[0] = sheet.crop(248, 237, 21, 30);
+        cowPregnantUp[1] = sheet.crop(283, 237, 21, 30);
+        cowPregnantUp[2] = sheet.crop(317, 237, 21, 30);
+
+        cowPregnantLeft = new BufferedImage[3];
+        cowPregnantLeft[0] = sheet.crop(0, 241, 27, 22);
+        cowPregnantLeft[1] = sheet.crop(35, 241, 27, 22);
+        cowPregnantLeft[2] = sheet.crop(70, 241, 27, 22);
+
+        cowPregnantRight = new BufferedImage[3];
+        cowPregnantRight[0] = flipHorizontally( cowPregnantLeft[0] );
+        cowPregnantRight[1] = flipHorizontally( cowPregnantLeft[1] );
+        cowPregnantRight[2] = flipHorizontally( cowPregnantLeft[2] );
+
+
+        cowCalfDown = new BufferedImage[3];
+        cowCalfDown[0] = sheet.crop(6, 604, 17, 23);
+        cowCalfDown[1] = sheet.crop(41, 604, 17, 23);
+        cowCalfDown[2] = sheet.crop(76, 604, 17, 23);
+
+        cowCalfUp = new BufferedImage[3];
+        cowCalfUp[0] = sheet.crop(216, 600, 17, 27);
+        cowCalfUp[1] = sheet.crop(251, 600, 17, 27);
+        cowCalfUp[2] = sheet.crop(286, 600, 17, 27);
+
+        cowCalfLeft = new BufferedImage[3];
+        cowCalfLeft[0] = sheet.crop(3, 504, 27, 22);
+        cowCalfLeft[1] = sheet.crop(38, 504, 27, 22);
+        cowCalfLeft[2] = sheet.crop(73, 504, 27, 22);
+
+        cowCalfRight = new BufferedImage[3];
+        cowCalfRight[0] = flipHorizontally( cowCalfLeft[0] );
+        cowCalfRight[1] = flipHorizontally( cowCalfLeft[1] );
+        cowCalfRight[2] = flipHorizontally( cowCalfLeft[2] );
+
+
+        cowBabyDown = new BufferedImage[3];
+        cowBabyDown[0] = sheet.crop(7, 468, 17, 23);
+        cowBabyDown[1] = sheet.crop(42, 468, 17, 23);
+        cowBabyDown[2] = sheet.crop(77, 468, 17, 23);
+
+        cowBabyUp = new BufferedImage[3];
+        cowBabyUp[0] = sheet.crop(217, 468, 17, 27);
+        cowBabyUp[1] = sheet.crop(252, 468, 17, 27);
+        cowBabyUp[2] = sheet.crop(287, 468, 17, 27);
+
+        cowBabyLeft = new BufferedImage[3];
+        cowBabyLeft[0] = sheet.crop(5, 400, 27, 22);
+        cowBabyLeft[1] = sheet.crop(39, 400, 27, 22);
+        cowBabyLeft[2] = sheet.crop(75, 400, 27, 22);
+
+        cowBabyRight = new BufferedImage[3];
+        cowBabyRight[0] = flipHorizontally( cowBabyLeft[0] );
+        cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
+        cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
+
+        /*
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
         cowAdultDown = new BufferedImage[3];
         cowAdultDown[0] = sheet.crop(6, 160, 17, 23);
@@ -914,7 +1002,7 @@ public class Assets {
         cowBabyRight[0] = flipHorizontally( cowBabyLeft[0] );
         cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
         cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
-
+        */
 
         // ************************************************************
         // |+|+|+|+|+|+|+| ENTITY: MOLLY (playerFemale) |+|+|+|+|+|+|+|
