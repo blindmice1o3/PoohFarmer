@@ -57,3 +57,60 @@ cowPregnantLeft1
 cowPregnantLeft2
 70, 241, 27, 22
 
+
+
+cowBabyUp0
+217, 468, 13, 18
+
+cowBabyUp1
+252, 468, 13, 17
+
+cowBabyUp2
+287, 468, 13, 17
+
+cowBabyDown0
+7, 468, 13, 17
+
+cowBabyDown1
+42, 468, 13, 17
+
+cowBabyDown2
+77, 468, 13, 17
+
+cowBabyLeft0
+5, 400, 18, 14
+
+cowBabyLeft1
+39, 400, 19, 13
+
+cowBabyLeft2
+75, 400, 18, 14
+
+
+
+cowCalfUp0
+216, 606, 15, 21
+
+cowCalfUp1
+251, 606, 15, 21
+
+cowCalfUp2
+286, 606, 15, 21
+
+cowCalfDown0
+6, 607, 15, 19
+
+cowCalfDown1
+41, 607, 15, 19
+
+cowCalfDown2
+76, 607, 15, 19
+
+cowCalfLeft0
+3, 504, 21, 16
+
+cowCalfLeft1
+38, 504, 21, 15
+
+cowCalfLeft2
+73, 504, 21, 15

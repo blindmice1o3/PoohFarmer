@@ -2,14 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics1x1/Fodder.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics1x1/Fodder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderDisplayerTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderDisplayerTile.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderExecutorTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderExecutorTile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$10.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$5.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$6.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$7.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$8.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$9.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$9.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Fodder.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Fodder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderExecutorTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderExecutorTile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Cow coordinates (CowState-ADULT, PREGNANT) (x, y, width, height).txt" afterPath="$PROJECT_DIR$/res/textures/entities/SNES - Harvest Moon - Cow coordinates (CowState-ADULT, PREGNANT) (x, y, width, height).txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" afterPath="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" afterPath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,55 +35,9 @@
       <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="553" column="0" lean-forward="false" selection-start-line="553" selection-start-column="0" selection-end-line="553" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="888" column="0" lean-forward="true" selection-start-line="888" selection-start-column="0" selection-end-line="888" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FodderDisplayerTile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FodderExecutorTile.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/FodderExecutorTile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="55" column="93" lean-forward="false" selection-start-line="55" selection-start-column="93" selection-end-line="55" selection-end-column="93" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="481" column="9" lean-forward="true" selection-start-line="481" selection-start-column="9" selection-end-line="481" selection-end-column="9" />
-              <folding>
-                <element signature="method#decreaseStaminaCurrent#0;class#Player#0" expanded="false" />
-                <element signature="method#increaseStaminaCurrent#0;class#Player#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Fodder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Fodder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="80" column="50" lean-forward="false" selection-start-line="80" selection-start-column="50" selection-end-line="80" selection-end-column="50" />
-              <folding>
-                <element signature="e#940#941#0" expanded="true" />
-                <element signature="e#962#963#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -84,8 +45,8 @@
       <file leaf-file-name="Assets.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="855" column="53" lean-forward="false" selection-start-line="855" selection-start-column="53" selection-end-line="855" selection-end-column="53" />
+            <state relative-caret-position="187">
+              <caret line="817" column="8" lean-forward="false" selection-start-line="817" selection-start-column="8" selection-end-line="817" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -95,17 +56,17 @@
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chicken.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Chicken.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="374">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -143,7 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/inventory/ResourceManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/EggIncubatorTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/RockMountain.java" />
@@ -175,11 +135,9 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Pikachu.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/ShippingBin.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Wolf.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Molly.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Jack.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/produce_yields/WildBerries.java" />
@@ -193,6 +151,9 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Fodder.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/SolidGenericTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/FodderExecutorTile.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
       </list>
     </option>
@@ -932,22 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="855" column="53" lean-forward="false" selection-start-line="855" selection-start-column="53" selection-end-line="855" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -960,14 +905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1093,18 +1030,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="553" column="0" lean-forward="false" selection-start-line="553" selection-start-column="0" selection-end-line="553" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/FodderExecutorTile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="55" column="93" lean-forward="false" selection-start-line="55" selection-start-column="93" selection-end-line="55" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="817" column="8" lean-forward="false" selection-start-line="817" selection-start-column="8" selection-end-line="817" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="888" column="0" lean-forward="true" selection-start-line="888" selection-start-column="0" selection-end-line="888" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Chicken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
         </state>
       </provider>

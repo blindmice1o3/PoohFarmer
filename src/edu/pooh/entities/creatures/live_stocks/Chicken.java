@@ -106,6 +106,7 @@ public class Chicken extends Creature
 
     private BufferedImage getCurrentAnimationFrame() {
         // ANIMATION MOVEMENTS
+            // ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3
         if ((xMove < 0) && (chickenState != ChickenState.CHICK)) {                                // Moving left.
             return anim.get("animChickenLeft").getCurrentFrame();
         } else if ((xMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving right.
@@ -114,7 +115,9 @@ public class Chicken extends Creature
             return anim.get("animChickenUp").getCurrentFrame();
         } else if ((yMove > 0) && (chickenState != ChickenState.CHICK)) {                         // Moving down.
             return anim.get("animChickenDown").getCurrentFrame();
-        } else if ((xMove < 0) && (chickenState == ChickenState.CHICK)) {
+        }
+            // CHICK
+        else if ((xMove < 0) && (chickenState == ChickenState.CHICK)) {
             return anim.get("animChickLeft").getCurrentFrame();
         } else if ((xMove > 0) && (chickenState == ChickenState.CHICK)) {
             return anim.get("animChickRight").getCurrentFrame();
@@ -122,9 +125,13 @@ public class Chicken extends Creature
             return anim.get("animChickUp").getCurrentFrame();
         } else if ((yMove > 0) && (chickenState == ChickenState.CHICK)) {
             return anim.get("animChickDown").getCurrentFrame();
-        } else if ((xMove == 0) && (yMove == 0) & (chickenState == ChickenState.CHICK)){
+        }
+            // NON-MOVING CHICK
+        else if ((xMove == 0) && (yMove == 0) & (chickenState == ChickenState.CHICK)){
             return Assets.chickenYoungDown[0];
-        } else {
+        }
+            // NON-MOVING ADULT
+        else {
             return Assets.chickenAdultDown[0];
         }
     }

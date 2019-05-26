@@ -550,7 +550,8 @@ public class World {
                                     (yy * 40), 40, 40));
                         }
 
-                        else if (red == 255 && green == 255 && blue == 0) {     //cowIncubatorTile - solid, special.
+                        //cowIncubatorTile - !!!UNIQUE!!!
+                        else if (red == 255 && green == 255 && blue == 0) {
                             tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -860,7 +861,7 @@ public class World {
                     } else if (red == 2 && green == 255 && blue == 0) { //Dog
                         Dog dog = new Dog(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(dog);
-                    } else if (red == 0 && green == 0 && blue == 255) { //Chicken
+                    } else if (red == 0 && green == 0 && blue == 255) { //Chicken (ChickenState.ADULT_EGG_LAYING)
                         Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Chicken.ChickenState.ADULT_EGG_LAYING);
                         chicken.setDaysInstantiated(10);
@@ -889,7 +890,7 @@ public class World {
                         if (tempShippingBin != null) {
                             ((DirtNotFarmableTile)getTile(xx, yy)).setStaticEntity(tempShippingBin);
                         }
-                    } else if (red == 0 && green == 0 && blue == 255) { //Cow
+                    } else if (red == 0 && green == 0 && blue == 255) { //Cow (CowState.ADULT)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
                         entityManager.addEntity(cow);
                     } else if (red == 0 && green == 255 && blue == 255) { //Horse

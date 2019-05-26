@@ -88,16 +88,17 @@ public class Assets {
     public static BufferedImage[] xDogUp, xDogDown, xDogLeft, xDogRight, xDogLeftPee;
     public static BufferedImage[] wolfRight, wolfLeft;
 
-    // ENTITIES MOVING/ANIMATED (/DOG, COW, CHICKEN, HORSE, JACK_WALKING, JACK_RUNING)
+    // ENTITIES MOVING/ANIMATED (/DOG, CHICKEN, HORSE, JACK_WALKING, JACK_RUNING)
     public static BufferedImage[] dogUp, dogDown, dogLeft, dogRight,
-            cowYoungUp, cowYoungDown, cowYoungLeft, cowYoungRight,
             chickenAdultUp, chickenAdultDown, chickenAdultLeft, chickenAdultRight,
             horseYoungUp, horseYoungDown, horseYoungLeft, horseYoungRight,
             jackWalkingUp, jackWalkingDown, jackWalkingLeft, jackWalkingRight,
             jackRunningUp, jackRunningDown, jackRunningLeft, jackRunningRight;
     public static BufferedImage[] chickenYoungUp, chickenYoungDown, chickenYoungLeft, chickenYoungRight;
     public static BufferedImage[] cowAdultUp, cowAdultDown, cowAdultLeft, cowAdultRight,
-            cowPregnantUp, cowPregnantDown, cowPregnantLeft, cowPregnantRight;
+            cowPregnantUp, cowPregnantDown, cowPregnantLeft, cowPregnantRight,
+            cowCalfUp, cowCalfDown, cowCalfLeft, cowCalfRight,
+            cowBabyUp, cowBabyDown, cowBabyLeft, cowBabyRight;
 
     // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
     public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp,
@@ -706,7 +707,7 @@ public class Assets {
         dogRight[1] = sheet.crop(27, 178, 19, 13);
         dogRight[2] = sheet.crop(51, 178, 19, 13);
 
-
+        /*
         cowYoungUp = new BufferedImage[3];
         cowYoungUp[0] = sheet.crop(77, 139, 15, 21);
         cowYoungUp[1] = sheet.crop(101, 139, 15, 21);
@@ -726,7 +727,7 @@ public class Assets {
         cowYoungRight[0] = sheet.crop(74, 176, 21, 15);
         cowYoungRight[1] = sheet.crop(98, 175, 21, 16);
         cowYoungRight[2] = sheet.crop(122, 176, 21, 15);
-
+        */
 
         chickenAdultUp = new BufferedImage[3];
         chickenAdultUp[0] = sheet.crop(147, 144, 16, 16);
@@ -871,6 +872,48 @@ public class Assets {
         cowPregnantRight[0] = flipHorizontally( cowPregnantLeft[0] );
         cowPregnantRight[1] = flipHorizontally( cowPregnantLeft[1] );
         cowPregnantRight[2] = flipHorizontally( cowPregnantLeft[2] );
+
+
+        cowCalfDown = new BufferedImage[3];
+        cowCalfDown[0] = sheet.crop(6, 607, 15, 19);
+        cowCalfDown[1] = sheet.crop(41, 607, 15, 19);
+        cowCalfDown[2] = sheet.crop(76, 607, 15, 19);
+
+        cowCalfUp = new BufferedImage[3];
+        cowCalfUp[0] = sheet.crop(216, 606, 15, 21);
+        cowCalfUp[1] = sheet.crop(251, 606, 15, 21);
+        cowCalfUp[2] = sheet.crop(286, 606, 15, 21);
+
+        cowCalfLeft = new BufferedImage[3];
+        cowCalfLeft[0] = sheet.crop(3, 504, 21, 16);
+        cowCalfLeft[1] = sheet.crop(38, 504, 21, 15);
+        cowCalfLeft[2] = sheet.crop(73, 504, 21, 15);
+
+        cowCalfRight = new BufferedImage[3];
+        cowCalfRight[0] = flipHorizontally( cowCalfLeft[0] );
+        cowCalfRight[1] = flipHorizontally( cowCalfLeft[1] );
+        cowCalfRight[2] = flipHorizontally( cowCalfLeft[2] );
+
+
+        cowBabyDown = new BufferedImage[3];
+        cowBabyDown[0] = sheet.crop(7, 468, 13, 17);
+        cowBabyDown[1] = sheet.crop(42, 468, 13, 17);
+        cowBabyDown[2] = sheet.crop(77, 468, 13, 17);
+
+        cowBabyUp = new BufferedImage[3];
+        cowBabyUp[0] = sheet.crop(217, 468, 13, 18);
+        cowBabyUp[1] = sheet.crop(252, 468, 13, 17);
+        cowBabyUp[2] = sheet.crop(287, 468, 13, 17);
+
+        cowBabyLeft = new BufferedImage[3];
+        cowBabyLeft[0] = sheet.crop(5, 400, 18, 14);
+        cowBabyLeft[1] = sheet.crop(39, 400, 19, 13);
+        cowBabyLeft[2] = sheet.crop(75, 400, 18, 14);
+
+        cowBabyRight = new BufferedImage[3];
+        cowBabyRight[0] = flipHorizontally( cowBabyLeft[0] );
+        cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
+        cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
 
 
         // ************************************************************
