@@ -15,12 +15,15 @@ import java.util.Random;
 
 public class Cow extends Creature {
 
-    public enum CowState { BABY, CALF, ADULT, PREGNANT; }
+    public enum CowState { BABY, CALF, ADULT_1, ADULT_2, ADULT_3, PREGNANT; }
+    public enum CowHealth { HEALTHY, CRANKY, SICK; }
 
     private Map<String, Animation> anim;
 
     private int daysInstantiated;
+    private int affectionScore;
     private CowState cowState;
+    private CowHealth cowHealth;
 
     private Random random;
 
@@ -31,7 +34,9 @@ public class Cow extends Creature {
         initCowAnimations();
 
         daysInstantiated = 0;
+        affectionScore = 0;
         this.cowState = cowState;
+        cowHealth = CowHealth.HEALTHY;
 
         random = new Random();
     } // **** end Cow(Handler, float, float, cowState) constructor ****
@@ -64,17 +69,29 @@ public class Cow extends Creature {
         daysInstantiated++;
     }
 
+    public void increaseAffectionScore(int increasedAffection) {
+        affectionScore += increasedAffection;
+    }
+
     public void incrementCowStateByDaysInstantiated() {
         if (cowState != CowState.PREGNANT) {
-            if (daysInstantiated == 0) {
-                cowState = CowState.BABY;
-                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.BABY.");
+            if (daysInstantiated >= 35) {
+                if (affectionScore >= 192) {
+                    cowState = CowState.ADULT_3;
+                    System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.ADULT_3.");
+                } else if ((affectionScore >= 96) && (affectionScore < 192)) {
+                    cowState = CowState.ADULT_2;
+                    System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.ADULT_2.");
+                } else {
+                    cowState = CowState.ADULT_1;
+                    System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.ADULT_1.");
+                }
             } else if (daysInstantiated == 14) {
                 cowState = CowState.CALF;
                 System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.CALF.");
-            } else if (daysInstantiated == 35) {
-                cowState = CowState.ADULT;
-                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.ADULT.");
+            } else if (daysInstantiated == 0) {
+                cowState = CowState.BABY;
+                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.BABY.");
             }
         }
     }
@@ -145,13 +162,17 @@ public class Cow extends Creature {
             return anim.get("animCowCalfDown").getCurrentFrame();
         }
             // ADULT
-        else if ((xMove < 0) && (cowState == CowState.ADULT)) {
+        else if ( (xMove < 0) &&
+                ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3)) ) {
             return anim.get("animCowAdultLeft").getCurrentFrame();
-        } else if ((xMove > 0) && (cowState == CowState.ADULT)) {
+        } else if ((xMove > 0) &&
+                ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3)) ) {
             return anim.get("animCowAdultRight").getCurrentFrame();
-        } else if ((yMove < 0) && (cowState == CowState.ADULT)) {
+        } else if ((yMove < 0) &&
+                ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3)) ) {
             return anim.get("animCowAdultUp").getCurrentFrame();
-        } else if ((yMove > 0) && (cowState == CowState.ADULT)) {
+        } else if ((yMove > 0) &&
+                ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3)) ) {
             return anim.get("animCowAdultDown").getCurrentFrame();
         }
             // PREGNANT

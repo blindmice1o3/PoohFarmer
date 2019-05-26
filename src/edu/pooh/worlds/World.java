@@ -904,7 +904,7 @@ public class World {
                         entityManager.addEntity(cow);
                     } else if (red == 2 && green == 0 && blue == 255) { //Cow (CowState.ADULT)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
-                                Cow.CowState.ADULT);
+                                Cow.CowState.ADULT_1);
                         cow.setDaysInstantiated(35);
                         entityManager.addEntity(cow);
                     } else if (red == 3 && green == 0 && blue == 255) { //Cow (CowState.PREGNANT)

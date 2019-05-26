@@ -918,6 +918,8 @@ public class Assets {
         cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
         cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
 
+
+
         /*
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
         cowAdultDown = new BufferedImage[3];
@@ -1003,6 +1005,7 @@ public class Assets {
         cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
         cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
         */
+
 
         // ************************************************************
         // |+|+|+|+|+|+|+| ENTITY: MOLLY (playerFemale) |+|+|+|+|+|+|+|
