@@ -21,23 +21,24 @@ public class Chicken extends Creature
 
     private Map<String, Animation> anim;
 
-    private Random random;
     private int daysInstantiated;
     private ChickenState chickenState;
+
+    private Random random;
     private boolean pickedUp;
 
     public Chicken(Handler handler, float x, float y, ChickenState chickenState) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        setSpeed(4);
 
         initChickenAnimations();
 
-        setSpeed(4);
-
-        random = new Random();
         daysInstantiated = 0;
         this.chickenState = chickenState;
+
+        random = new Random();
         pickedUp = false;
-    } // **** end Chicken(Handler, float, float) constructor ****
+    } // **** end Chicken(Handler, float, float, ChickenState) constructor ****
 
     private void initChickenAnimations() {
         anim = new HashMap<String, Animation>();
@@ -52,8 +53,12 @@ public class Chicken extends Creature
         anim.put("animChickRight", new Animation(400, Assets.chickenYoungRight));
     }
 
+    public void increaseDaysInstantiated() {
+        daysInstantiated++;
+    }
+
     public void incrementChickenStateByDaysInstantiated() {
-        if (daysInstantiated == 6) {
+        if (daysInstantiated == 7) {
             chickenState = ChickenState.ADULT_EGG_LAYING;
             System.out.println("Chicken.incrementChickenStateByDaysInstantiated()... set ChickenState.ADULT_EGG_LAYING.");
         }
@@ -136,14 +141,13 @@ public class Chicken extends Creature
         }
     }
 
-    public void setChickenState(ChickenState chickenState) { this.chickenState = chickenState; }
     public ChickenState getChickenState() { return chickenState; }
 
+    public void setChickenState(ChickenState chickenState) { this.chickenState = chickenState; }
+
     public int getDaysInstantiated() { return daysInstantiated; }
+
     public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
-    public void increaseDaysInstantiated() {
-        daysInstantiated++;
-    }
 
     @Override
     public void hurt(int amt) { return; }

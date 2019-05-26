@@ -63,7 +63,7 @@ public class ChickenCoopState implements IState {
                         tempEggIncubatorTile.incrementDaysIncubating();
                     }
 
-                    if (tempEggIncubatorTile.getDaysIncubating() > 2) {
+                    if (tempEggIncubatorTile.getDaysIncubating() == 3) {
                         for (Entity e : getWorld().getEntityManager().getEntities()) {
                             if (e instanceof Egg) {
                                 if ((tempEggIncubatorTile.getX()*Tile.TILE_WIDTH == e.getX()) &&

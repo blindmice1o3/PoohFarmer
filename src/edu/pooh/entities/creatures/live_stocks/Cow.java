@@ -3,6 +3,7 @@ package edu.pooh.entities.creatures.live_stocks;
 import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
+import edu.pooh.gfx.Text;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
@@ -18,19 +19,22 @@ public class Cow extends Creature {
 
     private Map<String, Animation> anim;
 
-    private Random random;
+    private int daysInstantiated;
     private CowState cowState;
 
-    public Cow(Handler handler, float x, float y) {
+    private Random random;
+
+    public Cow(Handler handler, float x, float y, CowState cowState) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        setSpeed(2);
 
         initCowAnimations();
 
-        setSpeed(2);
+        daysInstantiated = 0;
+        this.cowState = cowState;
 
         random = new Random();
-        cowState = CowState.ADULT;
-    } // **** end Cow(Handler, float, float) constructor ****
+    } // **** end Cow(Handler, float, float, cowState) constructor ****
 
     private void initCowAnimations() {
         anim = new HashMap<String, Animation>();
@@ -54,6 +58,25 @@ public class Cow extends Creature {
         anim.put("animCowPregnantDown", new Animation(400, Assets.cowPregnantDown));
         anim.put("animCowPregnantLeft", new Animation(400, Assets.cowPregnantLeft));
         anim.put("animCowPregnantRight", new Animation(400, Assets.cowPregnantRight));
+    }
+
+    public void increaseDaysInstantiated() {
+        daysInstantiated++;
+    }
+
+    public void incrementCowStateByDaysInstantiated() {
+        if (cowState != CowState.PREGNANT) {
+            if (daysInstantiated == 0) {
+                cowState = CowState.BABY;
+                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.BABY.");
+            } else if (daysInstantiated == 14) {
+                cowState = CowState.CALF;
+                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.CALF.");
+            } else if (daysInstantiated == 35) {
+                cowState = CowState.ADULT;
+                System.out.println("Cow.incrementCowStateByDaysInstantiated()... set CowState.ADULT.");
+            }
+        }
     }
 
     @Override
@@ -95,6 +118,8 @@ public class Cow extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        Text.drawString(g, daysInstantiated + ": " + cowState, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font14);
     }
 
     private BufferedImage getCurrentAnimationFrame() {
@@ -164,5 +189,11 @@ public class Cow extends Creature {
     public void die() {
         setActive(false);
     }
+
+    // GETTERS AND SETTERS
+
+    public int getDaysInstantiated() { return daysInstantiated; }
+
+    public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
 
 } // **** end Cow class ****
