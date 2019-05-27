@@ -896,21 +896,37 @@ public class World {
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.BABY);
                         cow.setDaysInstantiated(0);
+                        cow.setAffectionScore(0);
                         entityManager.addEntity(cow);
                     } else if (red == 1 && green == 0 && blue == 255) { //Cow (CowState.CALF)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.CALF);
                         cow.setDaysInstantiated(14);
+                        cow.setAffectionScore(0);
                         entityManager.addEntity(cow);
-                    } else if (red == 2 && green == 0 && blue == 255) { //Cow (CowState.ADULT)
+                    } else if (red == 2 && green == 0 && blue == 255) { //Cow (CowState.ADULT_1)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.ADULT_1);
                         cow.setDaysInstantiated(35);
+                        cow.setAffectionScore(0);
+                        entityManager.addEntity(cow);
+                    } else if (red == 2 && green == 1 && blue == 255) { //Cow (CowState.ADULT_2)
+                        Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
+                                Cow.CowState.ADULT_2);
+                        cow.setDaysInstantiated(35);
+                        cow.setAffectionScore(96);
+                        entityManager.addEntity(cow);
+                    } else if (red == 2 && green == 2 && blue == 255) { //Cow (CowState.ADULT_3)
+                        Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
+                                Cow.CowState.ADULT_3);
+                        cow.setDaysInstantiated(35);
+                        cow.setAffectionScore(192);
                         entityManager.addEntity(cow);
                     } else if (red == 3 && green == 0 && blue == 255) { //Cow (CowState.PREGNANT)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.PREGNANT);
                         cow.setDaysInstantiated(35);
+                        cow.setAffectionScore(0);
                         entityManager.addEntity(cow);
                     }
                     //////////////////////////////////////////////////////////////////////////////////

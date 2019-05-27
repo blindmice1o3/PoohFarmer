@@ -139,6 +139,14 @@ public class Cow extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        if (!milked) {
+            Text.drawString(g, "milked: " + milked, (int)(x - handler.getGameCamera().getxOffset()),
+                    (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.YELLOW, Assets.font14);
+        } else {
+            Text.drawString(g, "milked: " + milked, (int)(x - handler.getGameCamera().getxOffset()),
+                    (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.RED, Assets.font14);
+        }
+
         Text.drawString(g, "affectionScore: " + affectionScore, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset() - 20), false, Color.BLUE, Assets.font14);
 
@@ -239,5 +247,11 @@ public class Cow extends Creature {
     public boolean isMilked() { return milked; }
 
     public void setMilked(boolean milked) { this.milked = milked; }
+
+    public int getAffectionScore() { return affectionScore; }
+
+    public void setAffectionScore(int affectionScore) { this.affectionScore = affectionScore; }
+
+    public CowState getCowState() { return cowState; }
 
 } // **** end Cow class ****
