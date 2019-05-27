@@ -22,6 +22,8 @@ public class Cow extends Creature {
 
     private int daysInstantiated;
     private int affectionScore;
+    private boolean brushed;
+    private boolean milked;
     private CowState cowState;
     private CowHealth cowHealth;
 
@@ -35,6 +37,8 @@ public class Cow extends Creature {
 
         daysInstantiated = 0;
         affectionScore = 0;
+        brushed = false;
+        milked = false;
         this.cowState = cowState;
         cowHealth = CowHealth.HEALTHY;
 
@@ -135,6 +139,10 @@ public class Cow extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        Text.drawString(g, "affectionScore: " + affectionScore, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset() - 20), false, Color.BLUE, Assets.font14);
+        Text.drawString(g, "brushed: " + brushed, (int)(x - handler.getGameCamera().getxOffset()),
+                (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
         Text.drawString(g, daysInstantiated + ": " + cowState, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font14);
     }
@@ -216,5 +224,13 @@ public class Cow extends Creature {
     public int getDaysInstantiated() { return daysInstantiated; }
 
     public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
+
+    public boolean isBrushed() { return brushed; }
+
+    public void setBrushed(boolean brushed) { this.brushed = brushed; }
+
+    public boolean isMilked() { return milked; }
+
+    public void setMilked(boolean milked) { this.milked = milked; }
 
 } // **** end Cow class ****

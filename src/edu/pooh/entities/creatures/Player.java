@@ -439,9 +439,18 @@ public class Player extends Creature {
         }
 ///////////////////////////////////////////////
 
-        ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
+        //////////////////// @@@@@@@@@@@@@@ STOPPING LEGACY DIAGONAL MOVEMENT BUG @@@@@@@@@@@@@@ ////////////////////
+        if ((currentDirection == DirectionFacing.UPLEFT) || (currentDirection == DirectionFacing.UPRIGHT) ||
+                (currentDirection == DirectionFacing.DOWNLEFT) || (currentDirection == DirectionFacing.DOWNRIGHT)) {
+            return;
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // KeyEvent.VK_ESCAPE
+
+
+
+        ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
+        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
                 (getTileCurrentlyFacing() instanceof SignPostTile)) {
             ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
@@ -453,9 +462,7 @@ public class Player extends Creature {
             sfxBButtonPressed.play();
         }
 
-
-
-        //@@@@@@@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@  //PIKACHU follow
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD) &&
                 (getEntityCurrentlyFacing() instanceof Pikachu)) {
             ((Pikachu)getEntityCurrentlyFacing()).setFollowing(true);
@@ -463,18 +470,13 @@ public class Player extends Creature {
         //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-
         //TODO: animation for Pooh using Thor's Hammer!
-        //////////////////// @@@@@@@@@@@@@@ STOPPING LEGACY DIAGONAL MOVEMENT BUG @@@@@@@@@@@@@@ ////////////////////
-        if ((currentDirection == DirectionFacing.UPLEFT) || (currentDirection == DirectionFacing.UPRIGHT) ||
-                (currentDirection == DirectionFacing.DOWNLEFT) || (currentDirection == DirectionFacing.DOWNRIGHT)) {
-            return;
-        }
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
 
+            //DEADCOW explosion
             if (getEntityCurrentlyFacing() instanceof DeadCow) {
                 ((DeadCow)getEntityCurrentlyFacing()).setClicked(true);
             }

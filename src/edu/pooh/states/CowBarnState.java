@@ -39,6 +39,16 @@ public class CowBarnState implements IState {
         }
     }
 
+    public void setAllCowBrushedAndMilkedToFalse() {
+        for (Entity e : world.getEntityManager().getEntities()) {
+            if (e instanceof Cow) {
+                ((Cow)e).setBrushed(false);
+                ((Cow)e).setMilked(false);
+            }
+        }
+        System.out.println("CowBarnState.setAllCowBrushedAndMilkedToFalse()...");
+    }
+
     @Override
     public void enter(Object[] args) {
         TimeManager.setClockRunningFalse();

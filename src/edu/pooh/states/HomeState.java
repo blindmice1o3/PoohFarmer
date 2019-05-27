@@ -98,6 +98,7 @@ public class HomeState implements IState {
 
             /* DEVELOP Brush and Milker [Item/Tool's concrete subclasses] */
             //brushed and talkedTo (probably boolean) should also be RESET.
+            ((CowBarnState)handler.getGame().getCowBarnState()).setAllCowBrushedAndMilkedToFalse();
 
 
 
