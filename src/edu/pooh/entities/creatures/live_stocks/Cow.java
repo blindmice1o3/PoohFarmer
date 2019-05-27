@@ -141,8 +141,15 @@ public class Cow extends Creature {
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
         Text.drawString(g, "affectionScore: " + affectionScore, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset() - 20), false, Color.BLUE, Assets.font14);
-        Text.drawString(g, "brushed: " + brushed, (int)(x - handler.getGameCamera().getxOffset()),
-                (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
+
+        if (!brushed) {
+            Text.drawString(g, "brushed: " + brushed, (int) (x - handler.getGameCamera().getxOffset()),
+                    (int) (y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
+        } else {
+            Text.drawString(g, "brushed: " + brushed, (int) (x - handler.getGameCamera().getxOffset()),
+                    (int) (y - handler.getGameCamera().getyOffset() - 10), false, Color.RED, Assets.font14);
+        }
+
         Text.drawString(g, daysInstantiated + ": " + cowState, (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font14);
     }
