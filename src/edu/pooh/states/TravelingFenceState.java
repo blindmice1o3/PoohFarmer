@@ -5,10 +5,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
-import edu.pooh.items.tier0.Axe;
-import edu.pooh.items.tier0.Hammer;
-import edu.pooh.items.tier0.Scythe;
-import edu.pooh.items.tier0.SeedsWild;
+import edu.pooh.items.tier0.*;
 import edu.pooh.items.tier1.GoldShovel;
 import edu.pooh.items.tier1.GoldSprinkler;
 import edu.pooh.main.Handler;
@@ -129,20 +126,22 @@ public class TravelingFenceState implements IState {
 
         };
 
+        inventory.addItem(CowMilker.getUniqueInstance(handler));
+        inventory.addItem(CowBrush.getUniqueInstance(handler));
         inventory.addItem(Axe.getUniqueInstance(handler));
         inventory.addItem(Hammer.getUniqueInstance(handler));
         inventory.addItem(Scythe.getUniqueInstance(handler));
         inventory.addItem(GoldShovel.getUniqueInstance(handler));
         inventory.addItem(GoldSprinkler.getUniqueInstance(handler));
         inventory.addItem(new SeedsWild(handler));
-        if (inventory.getItem(5) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(5)).setSeedType(SeedsWild.SeedType.TOMATO);
-            ((SeedsWild)inventory.getItem(5)).setName("Tomato seeds");
+        if (inventory.getItem(7) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(7)).setSeedType(SeedsWild.SeedType.TOMATO);
+            ((SeedsWild)inventory.getItem(7)).setName("Tomato seeds");
         }
         inventory.addItem(new SeedsWild(handler));
-        if (inventory.getItem(6) instanceof SeedsWild) {
-            ((SeedsWild)inventory.getItem(6)).setSeedType(SeedsWild.SeedType.GRASS);
-            ((SeedsWild)inventory.getItem(6)).setName("Grass seeds");
+        if (inventory.getItem(8) instanceof SeedsWild) {
+            ((SeedsWild)inventory.getItem(8)).setSeedType(SeedsWild.SeedType.GRASS);
+            ((SeedsWild)inventory.getItem(8)).setName("Grass seeds");
         }
     }
 
@@ -169,6 +168,10 @@ public class TravelingFenceState implements IState {
             return 500;
         } else if (item instanceof GoldSprinkler) {
             return 1000;
+        } else if (item instanceof CowBrush) {
+            return 150;
+        } else if (item instanceof CowMilker) {
+            return 350;
         } else {
             return 300000000;
         }

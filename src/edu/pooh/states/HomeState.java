@@ -60,6 +60,8 @@ public class HomeState implements IState {
 
 
             /** Daily ChickenCoopState method calls. */
+            //Egg INSTANTIATION is handled by ChickenCoopState, this is different for Milk.
+            //TODO: WHAT ABOUT CHICKEN THAT HAVE BEEN BROUGHT AND LEFT TO HomeState ?????
             // @@@@ DO EGG INSTANTIATION BEFORE INCREASING daysInstantiated (prevent bug [using extra fodder]) @@@@
             // MISSED FEEDING: chicken egg-laying state to chicken grumpy state.
             ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
@@ -73,6 +75,9 @@ public class HomeState implements IState {
 
 
             /** Daily CowBarnState method calls. */
+            //Milk INSTANTIATION should be handle by individual Cow (ADULT_1, ADULT_2, ADULT_3) instances,
+            //WHEN THE PLAYER uses Milker on that particular Cow instance.
+
             /* feeding system [Map data structure to associate each instance of FodderDisplayTile w corresponding Cow instance] */
             //CHECK FodderDisplayTile... determine which ADULT/PREGNANT cows were fed... increment/decrement affectionScore.
             //CLEAR FodderDisplayTile.

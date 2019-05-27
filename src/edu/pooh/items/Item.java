@@ -23,7 +23,9 @@ public abstract class Item implements IInvokable {
         GOLD_SHOVEL,
         GOLD_SCYTHE,
         GOLD_HAMMER,
-        GOLD_AXE;
+        GOLD_AXE,
+        COW_MILKER,
+        COW_BRUSH;
     }
 
     // CLASS
