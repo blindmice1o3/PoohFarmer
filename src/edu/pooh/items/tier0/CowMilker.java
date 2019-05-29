@@ -33,11 +33,13 @@ public class CowMilker extends Item {
 
         //EntityCurrentlyFacing is a cow
         if (entity instanceof Cow) {
-            Cow tempCow = (Cow) entity;
-            //(ADULT!!!!!!!!!!) that is NOT milked, AND player is not holding anything.
-            if ( ((tempCow.getCowState() == Cow.CowState.ADULT_1) || (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
-                    (tempCow.getCowState() == Cow.CowState.ADULT_3)) &&
-                (!((Cow)entity).isMilked()) && (tempPlayer.getHoldableObject() == null)) {
+            Cow tempCow = (Cow)entity;
+            //(ADULT!!!!!HEALTHY!!!!!) that is NOT milked, AND player is not holding anything.
+            if ( (tempCow.getCowHealth() == Cow.CowHealth.HEALTHY) &&
+                    ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
+                            (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
+                            (tempCow.getCowState() == Cow.CowState.ADULT_3)) &&
+                    (!((Cow)entity).isMilked()) && (tempPlayer.getHoldableObject() == null)) {
 
                 Milk.MilkSize tempMilkSize = null;
 
@@ -62,7 +64,7 @@ public class CowMilker extends Item {
                 tempPlayer.setHolding(true);
 
 
-                ((Cow) entity).setMilked(true);
+                ((Cow)entity).setMilked(true);
             }
         }
     }

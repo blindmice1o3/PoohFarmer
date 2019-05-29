@@ -17,6 +17,7 @@ import edu.pooh.items.tier0.SeedsWild;
 import edu.pooh.items.tier0.Shovel;
 import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
+import edu.pooh.states.CowBarnState;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.*;
 import edu.pooh.utils.Utils;
@@ -493,11 +494,16 @@ public class World {
                             tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 255) {   //FodderDisplayerTile.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                        }
+                        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        else if (red == 255 && blue == 255) {   //FodderDisplayerTile.
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                                    Assets.chickenCoopStateBackground, green);  //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
+                        }
+                        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
                             tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -540,11 +546,19 @@ public class World {
                             tilesViaRGB[xx][yy] = new FodderExecutorTile(handler, xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 255 && green == 0 && blue == 0) {     //FodderDisplayerTile.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy, Assets.cowBarnStateBackground);
+                        }
+                        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        ///////////////////////////////////@@@@@@@@@@@@@@@ //green<=12 BECAUSE THERE IS A POSSIBLE
+                        else if (red == 255 && blue == 0 && (green <= 12)) {     //FodderDisplayerTile.
+                        ///////////////////////////////////@@@@@@@@@@@@@@@ //rgb-COMBINATION w red==255, green==255, blue==0.
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                                    Assets.cowBarnStateBackground, green); //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
-                        } else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
+                            System.out.println("FodderDisplayerTile's green value: " + green);
+                        }
+                        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                        else if (red == 0 && green == 255 && blue == 255) {   //FodderStashTile - solid, special.
                             tilesViaRGB[xx][yy] = new FodderStashTile(handler, xx, yy, Assets.cowBarnStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));

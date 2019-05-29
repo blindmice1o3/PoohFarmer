@@ -142,7 +142,7 @@ public class Milk extends StaticEntity
             tempTile.setStaticEntity(this);
             ///////////////////////////////
         } else if (t instanceof DirtNormalTile) {
-            DirtNormalTile tempTile = (DirtNormalTile) t;
+            DirtNormalTile tempTile = (DirtNormalTile)t;
 
             x = tempTile.getX() * Tile.TILE_WIDTH;
             y = tempTile.getY() * Tile.TILE_HEIGHT;

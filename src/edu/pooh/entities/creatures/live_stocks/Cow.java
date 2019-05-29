@@ -5,6 +5,7 @@ import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.main.Handler;
+import edu.pooh.states.CowBarnState;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -77,6 +78,8 @@ public class Cow extends Creature {
         affectionScore += increasedAffection;
     }
 
+    public void decreaseAffectionScore(int decreasedAffection) { affectionScore -= decreasedAffection; }
+
     public void incrementCowStateByDaysInstantiated() {
         if (cowState != CowState.PREGNANT) {
             if (daysInstantiated >= 35) {
@@ -139,6 +142,14 @@ public class Cow extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        if (cowHealth == CowHealth.HEALTHY) {
+            Text.drawString(g, "cowHealth: " + cowHealth, (int) (x - handler.getGameCamera().getxOffset()),
+                    (int) (y - handler.getGameCamera().getyOffset() - 40), false, Color.GREEN, Assets.font14);
+        } else {
+            Text.drawString(g, "cowHealth: " + cowHealth, (int)(x - handler.getGameCamera().getxOffset()),
+                    (int)(y - handler.getGameCamera().getyOffset() - 40), false, Color.RED, Assets.font14);
+        }
+
         if (!milked) {
             Text.drawString(g, "milked: " + milked, (int)(x - handler.getGameCamera().getxOffset()),
                     (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.YELLOW, Assets.font14);
@@ -253,5 +264,11 @@ public class Cow extends Creature {
     public void setAffectionScore(int affectionScore) { this.affectionScore = affectionScore; }
 
     public CowState getCowState() { return cowState; }
+
+    public CowHealth getCowHealth() { return cowHealth; }
+
+    public void setCowHealth(CowHealth cowHealth) { this.cowHealth = cowHealth; }
+
+    public Random getRandom() { return random; }
 
 } // **** end Cow class ****

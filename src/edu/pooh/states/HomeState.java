@@ -81,7 +81,7 @@ public class HomeState implements IState {
             /* feeding system [Map data structure to associate each instance of FodderDisplayTile w corresponding Cow instance] */
             //CHECK FodderDisplayTile... determine which ADULT/PREGNANT cows were fed... increment/decrement affectionScore.
             //CLEAR FodderDisplayTile.
-
+            ((CowBarnState)handler.getGame().getCowBarnState()).determineWhichCowWasFed();
 
 
             /* DEVELOP Aging system */
@@ -99,6 +99,7 @@ public class HomeState implements IState {
             /* DEVELOP Brush and Milker [Item/Tool's concrete subclasses] */
             //brushed and talkedTo (probably boolean) should also be RESET.
             ((CowBarnState)handler.getGame().getCowBarnState()).setAllCowBrushedAndMilkedToFalse();
+            ((CowBarnState)handler.getGame().getCowBarnState()).setAllFodderDisplayerTileActivatedToFalse();
 
 
 

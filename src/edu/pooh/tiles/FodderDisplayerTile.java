@@ -12,13 +12,17 @@ public class FodderDisplayerTile extends SolidGenericTile {
     private int x, y;
     protected boolean activated;
 
-    public FodderDisplayerTile(Handler handler, int x, int y, BufferedImage texture) {
+    private int index;
+
+    public FodderDisplayerTile(Handler handler, int x, int y, BufferedImage texture, int index) {
         super(texture);
 
         this.handler = handler;
         this.x = x;
         this.y = y;
         activated = false;
+
+        this.index = index;
     } // **** end FodderDisplayerTile(BufferedImage) constructor ****
 
     @Override
@@ -30,6 +34,8 @@ public class FodderDisplayerTile extends SolidGenericTile {
         }
     }
 
+    // GETTERS AND SETTERS
+
     public boolean isActivated() {
         return activated;
     }
@@ -37,5 +43,7 @@ public class FodderDisplayerTile extends SolidGenericTile {
     public void setActivated(boolean activated) {
         this.activated = activated;
     }
+
+    public int getIndex() { return index; }
 
 } // **** end FodderDisplayerTile class ****
