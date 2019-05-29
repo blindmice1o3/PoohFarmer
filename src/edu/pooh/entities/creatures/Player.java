@@ -37,6 +37,10 @@ import java.util.Map;
 
 public class Player extends Creature {
 
+    public enum SanityLevel { SANE, FRAGMENTING, FRAGMENTED, INSANE, GUANO; }
+
+    private SanityLevel sanityLevel;
+
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
@@ -214,6 +218,8 @@ public class Player extends Creature {
         bounds.width = 34;
         bounds.height = 44;
 
+        sanityLevel = SanityLevel.SANE;
+
         // CANNABIS COUNTER
         cannabisCollected = 0;
 
@@ -288,12 +294,28 @@ public class Player extends Creature {
         }
     }
 
+    public void updateSanityLevel(int staminaCurrent) {
+        if (staminaCurrent >= 70) {
+            sanityLevel = SanityLevel.SANE;
+        } else if ((staminaCurrent >= 50) && (staminaCurrent < 70)) {
+            sanityLevel = SanityLevel.FRAGMENTING;
+        } else if ((staminaCurrent >= 30) && (staminaCurrent < 50)) {
+            sanityLevel = SanityLevel.FRAGMENTED;
+        } else if ((staminaCurrent >= 1) && (staminaCurrent < 30)) {
+            sanityLevel = SanityLevel.INSANE;
+        } else {
+            sanityLevel = SanityLevel.GUANO;
+        }
+    }
+
     private float prevYMove = 0;
     private float prevXMove = 0;
     public float getPrevYMove() { return prevYMove; }
     public float getPrevXMove() { return prevXMove; }
     @Override
     public void tick() {
+        updateSanityLevel(staminaCurrent);
+
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
         checkWinningConditions();
 
@@ -741,8 +763,9 @@ public class Player extends Creature {
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
         dateDisplayer.render(g);            // KeyEvent.VK_SHIFT
+
         if (holdableObject instanceof Fodder) {
-            ((Fodder) holdableObject).render(g);
+            ((Fodder)holdableObject).render(g);
         }
     }
 
@@ -782,6 +805,25 @@ public class Player extends Creature {
         g.fillRect(33, 81, 15, staminaBase + 4);
         g.setColor(Color.YELLOW);
         g.fillRect(35, 83 + (staminaBase - staminaCurrent), 11, staminaCurrent);
+
+        // SANITY LEVEL
+        if (sanityLevel == SanityLevel.SANE) {
+            Text.drawString(g, "sanityLevel: " + sanityLevel,
+                    (int)(x - handler.getGameCamera().getxOffset() - 34),
+                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.GREEN, Assets.font14);
+        } else if ( (sanityLevel == SanityLevel.FRAGMENTING) || (sanityLevel == SanityLevel.FRAGMENTED) ) {
+            Text.drawString(g, "sanityLevel: " + sanityLevel,
+                    (int)(x - handler.getGameCamera().getxOffset() - 34),
+                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
+        } else if (sanityLevel == SanityLevel.INSANE) {
+            Text.drawString(g, "sanityLevel: " + sanityLevel,
+                    (int)(x - handler.getGameCamera().getxOffset() - 34),
+                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.RED, Assets.font14);
+        } else if (sanityLevel == SanityLevel.GUANO) {
+            Text.drawString(g, "sanityLevel: " + sanityLevel,
+                    (int)(x - handler.getGameCamera().getxOffset() - 34),
+                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.BLACK, Assets.font14);
+        }
     }
 
     private BufferedImage getCurrentAnimationFrame() {
