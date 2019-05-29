@@ -5,6 +5,8 @@ import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.live_stocks.Cow;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.FodderDisplayerTile;
+import edu.pooh.tiles.FodderExecutorTile;
+import edu.pooh.tiles.SolidGenericTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
@@ -20,6 +22,8 @@ public class CowBarnState implements IState {
 
     private int cowPopulation;
     private FodderDisplayerTile[] fodderDisplayerTileArray;
+    private FodderExecutorTile fodderToCowIncubator;
+    private Map<FodderExecutorTile, Cow> fodderToCowIncubatorHashMap;
     private Map<FodderDisplayerTile, Cow> fodderToCowHashMap;
 
     private Object[] args;
@@ -32,6 +36,7 @@ public class CowBarnState implements IState {
 
         cowPopulation = 0;
         initFodderDisplayerTile();
+        fodderToCowIncubatorHashMap = new HashMap<FodderExecutorTile, Cow>();
         fodderToCowHashMap = new HashMap<FodderDisplayerTile, Cow>();
 
 
@@ -45,8 +50,36 @@ public class CowBarnState implements IState {
         //@@@@@@@@@@@@@
     } // **** end CowBarnState(Handler) constructor ****
 
-    public void determineWhichCowWasFed() {
-        for (int i = 0; i < cowPopulation; i++) {
+    public void initFodderDisplayerTile() {
+        fodderDisplayerTileArray = new FodderDisplayerTile[12];
+
+        for (int yy = 0; yy < world.getHeightInTiles(); yy++) {
+            for (int xx = 0; xx < world.getWidthInTiles(); xx++) {
+                if (world.getTile(xx, yy) instanceof FodderDisplayerTile) {
+                    FodderDisplayerTile tempFodderDisplayerTile = (FodderDisplayerTile)world.getTile(xx, yy);
+                    fodderDisplayerTileArray[ tempFodderDisplayerTile.getIndex() ] = tempFodderDisplayerTile;
+                } else if ( (world.getTile(xx, yy) instanceof FodderExecutorTile) &&
+                        (world.getTile((xx-1), yy) instanceof SolidGenericTile) ) {
+                    FodderExecutorTile tempFodderExecutorTile = (FodderExecutorTile)world.getTile(xx, yy);
+                    fodderToCowIncubator = tempFodderExecutorTile;
+                }
+            }
+        }
+    }
+
+    public void assignCowToFodderDisplayerTile(Cow cow) {
+        ////////////////////////////////////////////////////////////////
+        if (cow.getFodderDisplayerTileArrayIndex() != 12) {
+            fodderToCowHashMap.put(fodderDisplayerTileArray[cow.getFodderDisplayerTileArrayIndex()], cow);
+            System.out.println("Index for fodderDisplayTile array: " + cow.getFodderDisplayerTileArrayIndex() +
+                    " (for cow: " + cow + ").");
+        } else {
+            fodderToCowIncubatorHashMap.put(fodderToCowIncubator, cow);
+        }
+        ////////////////////////////////////////////////////////////////
+    }
+    public void determineWhichCowNotFedFodder() {
+        for (int i = 0; i < 12; i++) {
             if (fodderToCowHashMap.get(fodderDisplayerTileArray[i]) != null) {
                 Cow tempCow = fodderToCowHashMap.get(fodderDisplayerTileArray[i]);
 
@@ -54,21 +87,26 @@ public class CowBarnState implements IState {
                 if ( !(fodderDisplayerTileArray[i].isActivated()) &&
                         ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
                                 (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
-                                (tempCow.getCowState() == Cow.CowState.ADULT_3) ||
-                                (tempCow.getCowState() == Cow.CowState.PREGNANT)) ) {
+                                (tempCow.getCowState() == Cow.CowState.ADULT_3)) ) {
 
                     tempCow.decreaseAffectionScore(8);
 
                     //50% chance of getting sick if adult, non-pregnant isn't fed.
-                    //PREGNANT does not get sick, but does lose affectionScore.
-                    if ( ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
-                            (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
-                            (tempCow.getCowState() == Cow.CowState.ADULT_3)) ) {
-                        if (tempCow.getRandom().nextInt(100) < 50) {   // [0-100), excludes 100
-                            tempCow.setCowHealth(Cow.CowHealth.SICK);
-                        }
+                    //decrease affectionScore by 20 if becomes SICK (by 30 if becomes CRANKY)
+                    if (tempCow.getRandom().nextInt(100) < 50) {   // [0-100), excludes 100
+                        tempCow.setCowHealth(Cow.CowHealth.SICK);
+                        tempCow.decreaseAffectionScore(20);
                     }
                 }
+            }
+        }
+
+        if (fodderToCowIncubatorHashMap.get(fodderToCowIncubator) != null) {
+            Cow tempCow = fodderToCowIncubatorHashMap.get(fodderToCowIncubator);
+
+            if ( !(fodderToCowIncubator.isSpecialActive()) && (tempCow.getCowState() == Cow.CowState.PREGNANT) ) {
+                //PREGNANT does not get sick, but does lose affectionScore.
+                tempCow.decreaseAffectionScore(8);
             }
         }
     }
@@ -79,34 +117,11 @@ public class CowBarnState implements IState {
                 tempFodderDisplayerTile.setActivated(false);
             }
         }
-    }
 
-    public void assignCowToFodderDisplayerTile(Cow cow) {
-        if (cowPopulation < 12) {
-            cowPopulation++;
-            System.out.println("cowPopulation value to use as index for fodderDisplayTile array: " + cowPopulation);
-
-            ////////////////////////////////////////////////////////////////
-            fodderToCowHashMap.put(fodderDisplayerTileArray[cowPopulation], cow);
-            ////////////////////////////////////////////////////////////////
-        } else {
-            System.out.println("HOLY GUACAMOLE there's an issue, cowPopulation would be too large!!!");
+        if (fodderToCowIncubator.isSpecialActive()) {
+            fodderToCowIncubator.setSpecialActive(false);
         }
     }
-
-    public void initFodderDisplayerTile() {
-        fodderDisplayerTileArray = new FodderDisplayerTile[12];
-
-        for (int yy = 0; yy < world.getHeightInTiles(); yy++) {
-            for (int xx = 0; xx < world.getWidthInTiles(); xx++) {
-                if (world.getTile(xx, yy) instanceof FodderDisplayerTile) {
-                    FodderDisplayerTile tempFodderDisplayerTile = (FodderDisplayerTile)world.getTile(xx, yy);
-                    fodderDisplayerTileArray[ tempFodderDisplayerTile.getIndex()-1 ] = tempFodderDisplayerTile;
-                }
-            }
-        }
-    }
-
 
     public void incrementCowPopulation() {
         cowPopulation++;

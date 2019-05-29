@@ -69,5 +69,7 @@ public class FodderExecutorTile extends SolidGenericTile
 
     public int getX() { return x; }
     public int getY() { return y; }
+    public boolean isSpecialActive() { return specialActive; }
+    public void setSpecialActive(boolean specialActive) { this.specialActive = specialActive; }
 
 } // **** end FodderExecutorTile class ****

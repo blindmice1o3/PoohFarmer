@@ -21,21 +21,24 @@ public class Cow extends Creature {
 
     private Map<String, Animation> anim;
 
+    private int fodderDisplayerTileArrayIndex;
     private int daysInstantiated;
     private int affectionScore;
-    private boolean brushed;
-    private boolean milked;
     private CowState cowState;
     private CowHealth cowHealth;
 
+    private boolean brushed;
+    private boolean milked;
+
     private Random random;
 
-    public Cow(Handler handler, float x, float y, CowState cowState) {
+    public Cow(Handler handler, float x, float y, CowState cowState, int fodderDisplayerTileArrayIndex) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         setSpeed(2);
 
         initCowAnimations();
 
+        this.fodderDisplayerTileArrayIndex = fodderDisplayerTileArrayIndex;
         daysInstantiated = 0;
         affectionScore = 0;
         brushed = false;
@@ -270,5 +273,7 @@ public class Cow extends Creature {
     public void setCowHealth(CowHealth cowHealth) { this.cowHealth = cowHealth; }
 
     public Random getRandom() { return random; }
+
+    public int getFodderDisplayerTileArrayIndex() { return fodderDisplayerTileArrayIndex; }
 
 } // **** end Cow class ****

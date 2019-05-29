@@ -168,7 +168,7 @@ public class ChickenCoopState implements IState {
 
         return numberofNonEggLayableChicken;
     }
-    private void determineWhichChickenGoesHungry(int numberOfHungryChicken) {
+    private void determineWhichChickenNotFedFodder(int numberOfHungryChicken) {
         ArrayList<Chicken> chickenOrderedByGrumpiness = new ArrayList<Chicken>();
 
         for (Entity e : world.getEntityManager().getEntities()) {
@@ -244,7 +244,7 @@ public class ChickenCoopState implements IState {
             }
         } else {
             //Situation2 (ALL CHICKEN HUNGRY) && Situation3 (SOME CHICKEN EAT, SOME CHICKEN HUNGRY)
-            determineWhichChickenGoesHungry(numberOfHungryChicken);
+            determineWhichChickenNotFedFodder(numberOfHungryChicken);
         }
 
         // Instantiate Egg object and decrement fodderDisplayerTotal until it reaches 0.

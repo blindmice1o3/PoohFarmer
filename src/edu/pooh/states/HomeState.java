@@ -75,30 +75,25 @@ public class HomeState implements IState {
 
 
             /** Daily CowBarnState method calls. */
-            //Milk INSTANTIATION should be handle by individual Cow (ADULT_1, ADULT_2, ADULT_3) instances,
-            //WHEN THE PLAYER uses Milker on that particular Cow instance.
-
             /* feeding system [Map data structure to associate each instance of FodderDisplayTile w corresponding Cow instance] */
             //CHECK FodderDisplayTile... determine which ADULT/PREGNANT cows were fed... increment/decrement affectionScore.
-            //CLEAR FodderDisplayTile.
-            ((CowBarnState)handler.getGame().getCowBarnState()).determineWhichCowWasFed();
-
+            ((CowBarnState)handler.getGame().getCowBarnState()).determineWhichCowNotFedFodder();
 
             /* DEVELOP Aging system */
-            // INCREASE daysInstantiated for ALL Cow instances.
+            //INCREASE daysInstantiated for ALL Cow instances.
+            //Based on updated affectionScore, determine/update each cow's cowState.
             ((CowBarnState)handler.getGame().getCowBarnState()).increaseCowDaysInstantiated();
-
 
             /* DEVELOP Birthing/Pregnancy/Incubating system */
             //PREGNANT cow update. Birthing check (instantiate BABY with dayInstantiated = 0).
             // (MAY NEED TO FORCE PLAYER to name this new cow when entering CowBarnState).
 
-            //Based on updated affectionScore, determine/update each cow's cowState.
-            //CHECK CowHealth. SET WHETHER EACH COW IS milkable or not.
+
 
             /* DEVELOP Brush and Milker [Item/Tool's concrete subclasses] */
             //brushed and talkedTo (probably boolean) should also be RESET.
             ((CowBarnState)handler.getGame().getCowBarnState()).setAllCowBrushedAndMilkedToFalse();
+            //CLEAR FodderDisplayTile.
             ((CowBarnState)handler.getGame().getCowBarnState()).setAllFodderDisplayerTileActivatedToFalse();
 
 
