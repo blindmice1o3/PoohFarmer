@@ -20,7 +20,6 @@ public class CowBarnState implements IState {
     private Handler handler;
     private World world;
 
-    private int cowPopulation;
     private FodderDisplayerTile[] fodderDisplayerTileArray;
     private FodderExecutorTile fodderToCowIncubator;
     private Map<FodderExecutorTile, Cow> fodderToCowIncubatorHashMap;
@@ -34,7 +33,6 @@ public class CowBarnState implements IState {
 
         world = new World(handler, World.WorldType.COW_BARN);
 
-        cowPopulation = 0;
         initFodderDisplayerTile();
         fodderToCowIncubatorHashMap = new HashMap<FodderExecutorTile, Cow>();
         fodderToCowHashMap = new HashMap<FodderDisplayerTile, Cow>();
@@ -122,11 +120,6 @@ public class CowBarnState implements IState {
             fodderToCowIncubator.setSpecialActive(false);
         }
     }
-
-    public void incrementCowPopulation() {
-        cowPopulation++;
-    }
-    public int getCowPopulation() { return cowPopulation; }
 
     public void increaseCowDaysInstantiated() {
         if (TimeManager.getNewDay()) {

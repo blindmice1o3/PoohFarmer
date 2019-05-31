@@ -4,6 +4,7 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
@@ -38,6 +39,11 @@ public class Chicken extends Creature
 
         random = new Random();
         pickedUp = false;
+
+        ////////////////////////////////////////////////////////////////////////
+        System.out.println("Increasing ResourceManager's chickenCounter by 1");
+        ResourceManager.increaseChickenCounter(1);
+        ////////////////////////////////////////////////////////////////////////
     } // **** end Chicken(Handler, float, float, ChickenState) constructor ****
 
     private void initChickenAnimations() {

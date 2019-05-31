@@ -4,6 +4,7 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.states.CowBarnState;
 import edu.pooh.tiles.Tile;
@@ -47,6 +48,11 @@ public class Cow extends Creature {
         cowHealth = CowHealth.HEALTHY;
 
         random = new Random();
+
+        ////////////////////////////////////////////////////////////////////////
+        System.out.println("Increasing ResourceManager's cowCounter by 1");
+        ResourceManager.increaseCowCounter(1);
+        ////////////////////////////////////////////////////////////////////////
     } // **** end Cow(Handler, float, float, cowState) constructor ****
 
     private void initCowAnimations() {

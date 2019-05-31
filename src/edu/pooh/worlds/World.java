@@ -59,24 +59,7 @@ public class World {
         this.handler = handler;
         this.worldType = worldType;
 
-        if (worldType != WorldType.CHICKEN_COOP) {
-            entityManager = new EntityManager(handler);
-        } else {
-            entityManager = new EntityManager(handler) {
-              @Override
-              public void addEntity(Entity e) {
-                  super.addEntity(e);
-
-                  if (e instanceof Chicken) {
-                      System.out.println("Increasing ResourceManager's chickenCounter by 1 because of " +
-                              "ChickenCoopState's world's special overridden addEntity(Entity e) method.");
-                      //////////////////////////////////////////////////////////
-                      ResourceManager.increaseChickenCounter(1);
-                      //////////////////////////////////////////////////////////
-                  }
-              }
-            };
-        }
+        entityManager = new EntityManager(handler);
         itemManager = new ItemManager(handler);
 
         // ******************************************************************************************

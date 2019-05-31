@@ -22,7 +22,7 @@ import edu.pooh.main.ISellable;
 import edu.pooh.states.ChickenCoopState;
 import edu.pooh.states.CowBarnState;
 import edu.pooh.states.GameState;
-import edu.pooh.time.DateDisplayer;
+import edu.pooh.gfx.DisplayerCalendarAndResourceManager;
 import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
@@ -72,8 +72,8 @@ public class Player extends Creature {
     // INVENTORY
     private Inventory inventory;
 
-    // DATE DISPLAYER
-    private DateDisplayer dateDisplayer;
+    // DISPLAYER CALENDAR AND RESOURCE_MANAGER
+    private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
     private boolean executedSleep, executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
 
     public void executeSleep() {
@@ -235,8 +235,8 @@ public class Player extends Creature {
         inventory.addItem(WateringCan.getUniqueInstance(handler));
         inventory.getItem(0).setPickedUp(true);
 
-        // DATE DISPLAYER
-        dateDisplayer = new DateDisplayer(handler);
+        // DISPLAYER CALENDAR AND RESOURCE_MANAGER
+        displayerCalendarAndResourceManager = new DisplayerCalendarAndResourceManager(handler);
         setAllTimeRelatedBooleansToFalse();
 
         // HOLDING
@@ -314,6 +314,7 @@ public class Player extends Creature {
     public float getPrevXMove() { return prevXMove; }
     @Override
     public void tick() {
+        // SANITY LEVEL
         updateSanityLevel(staminaCurrent);
 
         // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
@@ -762,7 +763,7 @@ public class Player extends Creature {
 
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
-        dateDisplayer.render(g);            // KeyEvent.VK_SHIFT
+        displayerCalendarAndResourceManager.render(g);            // KeyEvent.VK_SHIFT
 
         if (holdableObject instanceof Fodder) {
             ((Fodder)holdableObject).render(g);
