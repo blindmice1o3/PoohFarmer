@@ -1,4 +1,4 @@
-package edu.pooh.items.tier0;
+package edu.pooh.items.crops.tier0;
 
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
@@ -6,8 +6,6 @@ import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
-
-import java.awt.*;
 
 public class SeedsWild extends Item {
 

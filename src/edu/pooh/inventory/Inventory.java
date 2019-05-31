@@ -3,7 +3,7 @@ package edu.pooh.inventory;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.items.Item;
-import edu.pooh.items.tier0.SeedsWild;
+import edu.pooh.items.crops.tier0.SeedsWild;
 import edu.pooh.main.Handler;
 
 import java.awt.*;

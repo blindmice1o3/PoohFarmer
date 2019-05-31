@@ -1,4 +1,4 @@
-package edu.pooh.items.tier0;
+package edu.pooh.items.live_stocks;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.live_stocks.Cow;

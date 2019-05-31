@@ -1,15 +1,12 @@
-package edu.pooh.items.tier0;
+package edu.pooh.items.crops.tier0;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.statics1x1.Rock;
 import edu.pooh.entities.statics.statics1x1.RockMountain;
 import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.gfx.Assets;
-import edu.pooh.input.KeyManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
-
-import java.awt.event.KeyEvent;
 
 public class Hammer extends Item {
 

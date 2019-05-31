@@ -1,4 +1,4 @@
-package edu.pooh.items.tier1;
+package edu.pooh.items.crops.tier1;
 
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;

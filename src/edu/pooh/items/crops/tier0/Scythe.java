@@ -1,4 +1,4 @@
-package edu.pooh.items.tier0;
+package edu.pooh.items.crops.tier0;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.statics.crops.CropEntity;
