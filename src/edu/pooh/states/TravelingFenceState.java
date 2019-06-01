@@ -75,6 +75,7 @@ public class TravelingFenceState implements IState {
         inventory = new Inventory(handler) {
             @Override
             public void addItem(Item item) {
+                System.out.println("TravelingFenceState's special-Inventory's addItem(Item) method.");
                 getInventoryItems().add(item);
             }
             @Override

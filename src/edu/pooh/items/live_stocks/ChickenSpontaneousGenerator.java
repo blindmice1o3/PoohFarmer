@@ -47,6 +47,7 @@ public class ChickenSpontaneousGenerator extends Item {
                             }
                         }
                         System.out.println("Chicken Spontaneous Generator used and returned to TravelingFenceState's inventory.");
+                        return; //BUG: when tile's texture is DirtWalkway... it's static? not an instance of the class?
                     }
                 }
             }

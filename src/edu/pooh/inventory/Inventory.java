@@ -101,6 +101,8 @@ public class Inventory {
     // INVENTORY METHODS
 
     public void addItem(Item item) {
+        System.out.println("Inventory (regular) class's addItem(Item) method.");
+
         // If we already have it in the inventory, just increase the count variable.
         for (Item i : inventoryItems) {
             if ( (i.getId() == item.getId()) && (item.getId() == Item.ID.SEEDSWILD) ) {
@@ -116,17 +118,18 @@ public class Inventory {
         inventoryItems.add(item);
     }
 
-    // GETTERS & SETTERS
-
-    public ArrayList<Item> getInventoryItems() { return inventoryItems; }
+    public void removeItem(int index) {
+        inventoryItems.remove(index);
+    }
 
     public Item getItem(int index) {
         return inventoryItems.get(index);
     }
 
-    public void removeItem(int index) {
-        inventoryItems.remove(index);
-    }
+    // GETTERS & SETTERS
+
+    public ArrayList<Item> getInventoryItems() { return inventoryItems; }
+
     public int getIndex() {
         return index;
     }
