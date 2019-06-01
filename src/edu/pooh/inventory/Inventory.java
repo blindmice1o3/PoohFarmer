@@ -44,6 +44,16 @@ public class Inventory {
         System.out.println("Inventory.incrementSelectedItem() called... (aka index incremented)");
     }
 
+    public void decrementSelectedItem() {
+        index--;
+
+        if (index < 0) {
+            index = inventoryItems.size() - 1;
+        }
+
+        System.out.println("Inventory.decrementSelectedItem() called... (aka index decremented)");
+    }
+
     public void tick() {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)) {
             active = !active;
