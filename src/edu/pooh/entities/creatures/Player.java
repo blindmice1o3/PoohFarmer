@@ -611,7 +611,7 @@ public class Player extends Creature {
                         holding = true;
                         //////////////////////////////////////
                     }
-                } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {
+                } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {  //PREVENT ChickenSpontaneousGenerator.execute() in HOME and TOOL_SHED and CROSSROAD.
                     if (getTileCurrentlyFacing() instanceof SignPostTile) {
                         ((SignPostTile) getTileCurrentlyFacing()).execute();
                     } else if (getTileCurrentlyFacing() instanceof BedTile) {

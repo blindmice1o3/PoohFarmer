@@ -14,7 +14,7 @@ public class ChickenSpontaneousGenerator extends Item {
 
     private ChickenSpontaneousGenerator() {
         super(Assets.chickenAdultDown[0], "Chicken Spontaneous Generator", ID.CHICKEN_SPONTANEOUS_GENERATOR);
-    }
+    } // **** end ChickenSpontaneousGenerator() singleton-pattern constructor ****
 
     public static synchronized ChickenSpontaneousGenerator getUniqueInstance(Handler handler) {
         uniqueInstance.setHandler(handler);
@@ -24,11 +24,22 @@ public class ChickenSpontaneousGenerator extends Item {
     @Override
     public void execute() {
         Player player = handler.getWorld().getEntityManager().getPlayer();
+
+        System.out.println("ChickenSpontaneousGenerator: BEFORE checking tile and entity in front of player.");
+
         if ( (!player.getTileCurrentlyFacing().isSolid()) && (player.getEntityCurrentlyFacing() == null) ) {
+
+            System.out.println("ChickenSpontaneousGenerator: AFTER checking tile and entity in front of player.");
 
             for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
+
+                    System.out.println("ChickenSpontaneousGenerator: nested-for loops BEFORE if found tile facing.");
+
                     if (handler.getWorld().getTile(xx, yy) == player.getTileCurrentlyFacing()) {
+
+                        System.out.println("ChickenSpontaneousGenerator: nested-for loops AFTER if found tile facing.");
+
                         Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Chicken.ChickenState.ADULT_EGG_LAYING);
                         chicken.setDaysInstantiated(7);

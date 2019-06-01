@@ -1,13 +1,20 @@
 package edu.pooh.items.live_stocks;
 
+import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
-
-import java.awt.image.BufferedImage;
+import edu.pooh.main.Handler;
 
 public class CowSpontaneousGenerator extends Item {
 
-    public CowSpontaneousGenerator(BufferedImage texture, String name, ID id) {
-        super(texture, name, id);
+    private static CowSpontaneousGenerator uniqueInstance =  new CowSpontaneousGenerator();
+
+    private CowSpontaneousGenerator() {
+        super(Assets.cowAdultDown[0], "Cow Spontaneous Generator", ID.COW_SPONTANEOUS_GENERATOR);
+    } // **** end CowSpontaneousGenerator() singleton-pattern constructor ****
+
+    public CowSpontaneousGenerator getUniqueInstance(Handler handler) {
+        uniqueInstance.setHandler(handler);
+        return uniqueInstance;
     }
 
     @Override
