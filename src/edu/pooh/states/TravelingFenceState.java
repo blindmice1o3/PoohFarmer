@@ -120,20 +120,16 @@ public class TravelingFenceState implements IState {
                 if ( checkCanShopperAfford( checkPrice(getItem(getIndex())) ) ) {
                     ResourceManager.decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
                     player.getInventory().addItem(getItem(getIndex()));
+                    removeItem(getIndex());
 
-                    int tempIndex = getIndex();
-                    setIndex(0);
-
-                    removeItem(tempIndex);
-
-                    /*
                     // If index has been moved outside of bound, set it as one of the edge cases (min or max).
                     if (getIndex() < 0) {
                         setIndex( (getInventoryItems().size() - 1) );
                     } else if (getIndex() >= getInventoryItems().size()) {
                         setIndex(0);
                     }
-                    */
+                } else {
+                    System.out.println("CAN'T AFFORD, probably not enough currencyUnitCount in ResourceManager class.");
                 }
             }
 
@@ -156,7 +152,7 @@ public class TravelingFenceState implements IState {
             ((SeedsWild)inventory.getItem(8)).setSeedType(SeedsWild.SeedType.GRASS);
             ((SeedsWild)inventory.getItem(8)).setName("Grass seeds");
         }
-        //inventory.addItem(ChickenSpontaneousGenerator.getUniqueInstance(handler));
+        inventory.addItem(ChickenSpontaneousGenerator.getUniqueInstance(handler));
     }
 
     private int checkPrice(Item item) {
