@@ -276,6 +276,8 @@ public class Cow extends Creature {
 
     public CowState getCowState() { return cowState; }
 
+    public void setCowState(CowState cowState) { this.cowState = cowState; }
+
     public CowHealth getCowHealth() { return cowHealth; }
 
     public void setCowHealth(CowHealth cowHealth) { this.cowHealth = cowHealth; }

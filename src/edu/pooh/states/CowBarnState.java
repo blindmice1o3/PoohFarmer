@@ -25,6 +25,10 @@ public class CowBarnState implements IState {
     private Map<FodderExecutorTile, Cow> fodderToCowIncubatorHashMap;
     private Map<FodderDisplayerTile, Cow> fodderToCowHashMap;
 
+    private int originalStallIndexOfPregnant = 12;
+    public int getOriginalStallIndexOfPregnant() { return originalStallIndexOfPregnant; }
+    public void setOriginalStallIndexOfPregnant(int originalStallIndexOfPregnant) { this.originalStallIndexOfPregnant = originalStallIndexOfPregnant; }
+
     private Object[] args;
     private Player player;
 
@@ -63,6 +67,11 @@ public class CowBarnState implements IState {
                 }
             }
         }
+    }
+
+    public void unassignCowFromFodderDisplayerTile(Cow cow) {
+        fodderToCowHashMap.remove(fodderDisplayerTileArray[cow.getFodderDisplayerTileArrayIndex()]);
+        System.out.println("Unassigning " + cow + " from this stall index: " + cow.getFodderDisplayerTileArrayIndex());
     }
 
     public void assignCowToFodderDisplayerTile(Cow cow) {
