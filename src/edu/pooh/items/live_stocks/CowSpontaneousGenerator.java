@@ -35,6 +35,7 @@ public class CowSpontaneousGenerator extends Item {
 
                     if (handler.getWorld().getTile(xx, yy) == player.getTileCurrentlyFacing()) {
                         ///////////////////////////////////////////////////////////////////////////////////////
+                        //Could be cow population of 0 (player's first cow), which should be assigned stall index 0.
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT), Cow.CowState.CALF,
                                 ResourceManager.getCowCounter());
                         cow.setDaysInstantiated(14);
@@ -59,4 +60,5 @@ public class CowSpontaneousGenerator extends Item {
             }
         }
     }
+
 } // **** end CowSpontaneousGenerator class ****
