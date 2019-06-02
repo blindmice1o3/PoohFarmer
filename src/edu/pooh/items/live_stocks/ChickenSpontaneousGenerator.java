@@ -41,7 +41,7 @@ public class ChickenSpontaneousGenerator extends Item {
 
                         // Chicken instantiated and added, return ChickenSpontaneousGenerator singleton-instance to shop.
                         ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
-                        player.getInventory().incrementSelectedItem();
+                        player.getInventory().decrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof ChickenSpontaneousGenerator) {
                                 player.getInventory().removeItem(x);

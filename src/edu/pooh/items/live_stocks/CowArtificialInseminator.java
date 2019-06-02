@@ -61,7 +61,7 @@ public class CowArtificialInseminator extends Item {
 
                     // Cow impregnanted, return CowArtificialInseminator singleton-instance to shop.
                     ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
-                    tempPlayer.getInventory().incrementSelectedItem();
+                    tempPlayer.getInventory().decrementSelectedItem();
                     for (int x = 0; x < tempPlayer.getInventory().getInventoryItems().size(); x++) {
                         if (tempPlayer.getInventory().getItem(x) instanceof CowArtificialInseminator) {
                             tempPlayer.getInventory().removeItem(x);

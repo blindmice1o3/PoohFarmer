@@ -104,7 +104,7 @@ public class CowBarnState implements IState {
                         tempCow.setCowHealth(Cow.CowHealth.SICK);
                         tempCow.decreaseAffectionScore(20);
                     //@@@}
-                 }
+                }
             }
         }
 
