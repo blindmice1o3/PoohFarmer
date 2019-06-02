@@ -45,6 +45,7 @@ public class ChickenSpontaneousGenerator extends Item {
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof ChickenSpontaneousGenerator) {
                                 player.getInventory().removeItem(x);
+                                break;
                             }
                         }
                         System.out.println("ChickenSpontaneousGenerator used and returned to TravelingFenceState's inventory.");

@@ -7,6 +7,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.states.CowBarnState;
+import edu.pooh.states.TravelingFenceState;
 
 public class CowArtificialInseminator extends Item {
 
@@ -56,6 +57,18 @@ public class CowArtificialInseminator extends Item {
                     //TODO: MUST remember to setOriginalStallIndexOfPregnant(12) AFTER BIRTHING!!!!!!
                     //TODO: In CowBarnState class, develop method for checking BIRTHING.
                     //TODO: AFTER BIRTHING, remove PREGNANT cow's association with cow incubator feeding stall.
+
+
+                    // Cow impregnanted, return CowArtificialInseminator singleton-instance to shop.
+                    ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
+                    tempPlayer.getInventory().incrementSelectedItem();
+                    for (int x = 0; x < tempPlayer.getInventory().getInventoryItems().size(); x++) {
+                        if (tempPlayer.getInventory().getItem(x) instanceof CowArtificialInseminator) {
+                            tempPlayer.getInventory().removeItem(x);
+                            break;
+                        }
+                    }
+                    System.out.println("CowArtificialInseminator used and returned to TravelingFenceState's inventory.");
                 }
             }
         }

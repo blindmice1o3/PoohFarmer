@@ -5,13 +5,10 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
-import edu.pooh.items.live_stocks.ChickenSpontaneousGenerator;
-import edu.pooh.items.live_stocks.CowBrush;
-import edu.pooh.items.live_stocks.CowMilker;
+import edu.pooh.items.live_stocks.*;
 import edu.pooh.items.crops.tier0.*;
 import edu.pooh.items.crops.tier1.GoldShovel;
 import edu.pooh.items.crops.tier1.GoldSprinkler;
-import edu.pooh.items.live_stocks.CowSpontaneousGenerator;
 import edu.pooh.main.Handler;
 import edu.pooh.time.TimeManager;
 
@@ -155,6 +152,7 @@ public class TravelingFenceState implements IState {
         }
         inventory.addItem(ChickenSpontaneousGenerator.getUniqueInstance(handler));
         inventory.addItem(CowSpontaneousGenerator.getUniqueInstance(handler));
+        inventory.addItem(CowArtificialInseminator.getUniqueInstance(handler));
     }
 
     private int checkPrice(Item item) {
@@ -188,6 +186,8 @@ public class TravelingFenceState implements IState {
             return 1000;
         } else if (item instanceof CowSpontaneousGenerator) {
             return 5000;
+        } else if (item instanceof CowArtificialInseminator) {
+            return 4000;
         } else {
             return 300000000;
         }

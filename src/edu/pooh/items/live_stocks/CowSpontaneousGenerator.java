@@ -46,11 +46,12 @@ public class CowSpontaneousGenerator extends Item {
                         ///////////////////////////////////////////////////////////////////////////////////////
 
                         // Cow instantiated and added, return CowSpontaneousGenerator singleton-instance to shop.
-                        ((TravelingFenceState) handler.getGame().getTravelingFenceState()).getInventory().addItem(getUniqueInstance(handler));
+                        ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
                         player.getInventory().incrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof CowSpontaneousGenerator) {
                                 player.getInventory().removeItem(x);
+                                break;
                             }
                         }
                         System.out.println("CowSpontaneousGenerator used and returned to TravelingFenceState's inventory.");

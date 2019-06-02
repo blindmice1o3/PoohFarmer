@@ -917,13 +917,16 @@ public class World {
                         cow.setDaysInstantiated(35);
                         cow.setAffectionScore(192);
                         entityManager.addEntity(cow);
-                    } else if (red == 3 && green == 12 && blue == 255) { //Cow (CowState.PREGNANT)
+                    }
+                    /*
+                    else if (red == 3 && green == 12 && blue == 255) { //Cow (CowState.PREGNANT)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.PREGNANT, green);
                         cow.setDaysInstantiated(35);
                         cow.setAffectionScore(0);
                         entityManager.addEntity(cow);
                     }
+                    */
                     //////////////////////////////////////////////////////////////////////////////////
                     else if (red == 0 && green == 255 && blue == 255) { //Horse
                         Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
