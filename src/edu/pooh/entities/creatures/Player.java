@@ -579,9 +579,17 @@ public class Player extends Creature {
             else if (getTileCurrentlyFacing() instanceof WoodStashTile) {
                 ((WoodStashTile)getTileCurrentlyFacing()).execute();
             }
+            // BED-TILE CHECK
+            else if (getTileCurrentlyFacing() instanceof BedTile) {
+                ((BedTile)getTileCurrentlyFacing()).execute();
+            }
+            // HOT-SPRING-MOUNTAIN-TILE CHECK
+            else if (getTileCurrentlyFacing() instanceof HotSpringMountainTile) {
+                ((HotSpringMountainTile)getTileCurrentlyFacing()).execute();
+            }
 
             // HOLDING CHECK
-            if (holding) {  // Already holding, can only drop the holdableObject.
+            if (holding) {  // Already holding: can only drop the holdableObject.
                 // if ShippingBin tile... store in ArrayList<HarvestEntity> until 5pm.
                 if (getEntityCurrentlyFacing() != null && getEntityCurrentlyFacing() instanceof ShippingBin) {
                     if (holdableObject instanceof ISellable) {
@@ -603,7 +611,7 @@ public class Player extends Creature {
                 }
                 // TODO: Dropped HarvestEntity Object should render an image of itself broken and then setActive(false).
             } else {        // Not holding IHoldable.
-                if (checkForHoldable()) {   // Check if IHoldable in front, pick up if true.
+                if (checkForHoldable()) {   // Check if IHoldable in front: pick up if true.
                     if (!holding) {
                         //////////////////////////////////////
                         setHoldableObject(pickUpHoldable());
@@ -611,16 +619,8 @@ public class Player extends Creature {
                         holding = true;
                         //////////////////////////////////////
                     }
-                } else if (getTileCurrentlyFacing() instanceof SolidGenericTile) {  //PREVENT ChickenSpontaneousGenerator.execute() in HOME and TOOL_SHED and CROSSROAD.
-                    if (getTileCurrentlyFacing() instanceof SignPostTile) {
-                        ((SignPostTile) getTileCurrentlyFacing()).execute();
-                    } else if (getTileCurrentlyFacing() instanceof BedTile) {
-                        ((BedTile) getTileCurrentlyFacing()).execute();
-                    } else if (getTileCurrentlyFacing() instanceof HotSpringMountainTile) {
-                        ((HotSpringMountainTile) getTileCurrentlyFacing()).execute();
-                    }
                 } else {
-                    // Not holding IHoldable, no IHoldable in front, not bed tile in front, use selected item.
+                    // Not holding IHoldable, no IHoldable in front: use selected item.
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
                     inventory.getItem(inventory.getIndex()).execute();
                     // |+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|+|
