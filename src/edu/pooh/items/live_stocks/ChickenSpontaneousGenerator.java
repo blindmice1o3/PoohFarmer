@@ -25,31 +25,21 @@ public class ChickenSpontaneousGenerator extends Item {
     public void execute() {
         Player player = handler.getWorld().getEntityManager().getPlayer();
 
-        System.out.println("ChickenSpontaneousGenerator: BEFORE checking tile and entity in front of player.");
-
         if ( (!player.getTileCurrentlyFacing().isSolid()) && (player.getEntityCurrentlyFacing() == null) ) {
-
-            System.out.println("ChickenSpontaneousGenerator: AFTER checking tile and entity in front of player.");
 
             for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
                 for (int xx = 0; xx < handler.getWorld().getWidthInTiles(); xx++) {
 
-                    System.out.println("ChickenSpontaneousGenerator: nested-for loops BEFORE if found tile facing.");
-
                     if (handler.getWorld().getTile(xx, yy) == player.getTileCurrentlyFacing()) {
-
-                        System.out.println("ChickenSpontaneousGenerator: nested-for loops AFTER if found tile facing.");
-
+                        ///////////////////////////////////////////////////////////////////////////////////////
                         Chicken chicken = new Chicken(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Chicken.ChickenState.ADULT_EGG_LAYING);
                         chicken.setDaysInstantiated(7);
-
                         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(chicken);
                         handler.getWorld().getEntityManager().setToBeAdded(true);
+                        ///////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
+                        // Chicken instantiated and added, return ChickenSpontaneousGenerator singleton-instance to shop.
                         ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
                         player.getInventory().incrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
@@ -57,12 +47,11 @@ public class ChickenSpontaneousGenerator extends Item {
                                 player.getInventory().removeItem(x);
                             }
                         }
-                        System.out.println("Chicken Spontaneous Generator used and returned to TravelingFenceState's inventory.");
+                        System.out.println("ChickenSpontaneousGenerator used and returned to TravelingFenceState's inventory.");
                         return; //BUG: when tile's texture is DirtWalkway... it's static? not an instance of the class?
                     }
                 }
             }
-
         }
     }
 

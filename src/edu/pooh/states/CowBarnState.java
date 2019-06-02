@@ -82,7 +82,7 @@ public class CowBarnState implements IState {
                 Cow tempCow = fodderToCowHashMap.get(fodderDisplayerTileArray[i]);
 
                 //If no food... potential CowHealth change. (!!!NOT!!! BABY or CALF)
-                if ( !(fodderDisplayerTileArray[i].isActivated()) &&
+                if ( (!fodderDisplayerTileArray[i].isActivated()) &&
                         ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
                                 (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
                                 (tempCow.getCowState() == Cow.CowState.ADULT_3)) ) {

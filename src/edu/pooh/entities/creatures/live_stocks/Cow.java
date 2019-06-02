@@ -178,7 +178,9 @@ public class Cow extends Creature {
                     (int) (y - handler.getGameCamera().getyOffset() - 10), false, Color.RED, Assets.font14);
         }
 
-        Text.drawString(g, daysInstantiated + ": " + cowState, (int)(x - handler.getGameCamera().getxOffset()),
+        Text.drawString(g, "stall " + fodderDisplayerTileArrayIndex + ": " +
+                        cowState + " (" + daysInstantiated + ")",
+                (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), false, Color.BLUE, Assets.font14);
     }
 
@@ -281,5 +283,9 @@ public class Cow extends Creature {
     public Random getRandom() { return random; }
 
     public int getFodderDisplayerTileArrayIndex() { return fodderDisplayerTileArrayIndex; }
+
+    public void setFodderDisplayerTileArrayIndex(int fodderDisplayerTileArrayIndex) {
+        this.fodderDisplayerTileArrayIndex = fodderDisplayerTileArrayIndex;
+    }
 
 } // **** end Cow class ****
