@@ -101,20 +101,16 @@ public class CowBarnState implements IState {
                 if ( (!fodderDisplayerTileArray[i].isActivated()) &&
                         ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
                                 (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
-                                (tempCow.getCowState() == Cow.CowState.ADULT_3)
-                        //@@@
-                                || (tempCow.getCowState() == Cow.CowState.CALF) || (tempCow.getCowState() == Cow.CowState.BABY)
-                        //@@@
-                        ) ) {
+                                (tempCow.getCowState() == Cow.CowState.ADULT_3)) ) {
 
                     tempCow.decreaseAffectionScore(8);
 
                     //50% chance of getting sick if adult, non-pregnant isn't fed.
                     //decrease affectionScore by 20 if becomes SICK (by 30 if becomes CRANKY)
-                    //@@@if (tempCow.getRandom().nextInt(100) < 50) {   // [0-100), excludes 100
+                    if (tempCow.getRandom().nextInt(100) < 50) {   // [0-100), excludes 100
                         tempCow.setCowHealth(Cow.CowHealth.SICK);
                         tempCow.decreaseAffectionScore(20);
-                    //@@@}
+                    }
                 }
             }
         }
@@ -125,9 +121,6 @@ public class CowBarnState implements IState {
             if ( !(fodderToCowIncubator.isSpecialActive()) && (tempCow.getCowState() == Cow.CowState.PREGNANT) ) {
                 //PREGNANT does not get sick, but does lose affectionScore.
                 tempCow.decreaseAffectionScore(8);
-                //@@@
-                tempCow.setCowHealth(Cow.CowHealth.SICK);
-                //@@@
             }
         }
     }

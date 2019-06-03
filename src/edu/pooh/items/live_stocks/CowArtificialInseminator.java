@@ -52,10 +52,6 @@ public class CowArtificialInseminator extends Item {
                     tempCowBarnState.setStallIndexOfUnbornBaby(ResourceManager.getCowCounter());
                     ResourceManager.increaseCowCounter(1);
                     tempCow.increaseAffectionScore(10);
-
-                    //@@@@
-                    tempCow.setDaysImpregnanted(19);
-                    //@@@@
                     ////////////////////////////////////////////////////
 
 
