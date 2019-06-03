@@ -127,7 +127,7 @@ public class Cow extends Creature {
         }
 
         randomlyMove();
-        move();
+        //@@@move();
     }
 
     private void randomlyMove() {
@@ -173,11 +173,19 @@ public class Cow extends Creature {
                     (int)(y - handler.getGameCamera().getyOffset() - 40), false, Color.RED, Assets.font14);
         }
 
-        if (!milked) {
+        //not milked and milkable (later account for cowHealth)
+        if ((!milked) && ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3))) {
             Text.drawString(g, "milked: " + milked, (int)(x - handler.getGameCamera().getxOffset()),
                     (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.YELLOW, Assets.font14);
-        } else {
+        }
+        //milked and milkable
+        else if ((cowState == CowState.ADULT_1) || (cowState == CowState.ADULT_2) || (cowState == CowState.ADULT_3)) {
             Text.drawString(g, "milked: " + milked, (int)(x - handler.getGameCamera().getxOffset()),
+                    (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.RED, Assets.font14);
+        }
+        //not milkable (BABY, CALF, PREGNANT)
+        else {
+            Text.drawString(g, "NOT milkable", (int)(x - handler.getGameCamera().getxOffset()),
                     (int)(y - handler.getGameCamera().getyOffset() - 30), false, Color.RED, Assets.font14);
         }
 

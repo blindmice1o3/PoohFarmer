@@ -11,6 +11,7 @@ import edu.pooh.entities.statics.statics2x2.Boulder;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.ItemManager;
 import edu.pooh.items.crops.tier0.SeedsWild;
 import edu.pooh.items.crops.tier0.Shovel;
@@ -917,16 +918,16 @@ public class World {
                         cow.setDaysInstantiated(35);
                         cow.setAffectionScore(192);
                         entityManager.addEntity(cow);
-                    }
-                    /*
-                    else if (red == 3 && green == 12 && blue == 255) { //Cow (CowState.PREGNANT)
+                    } else if (red == 3 && green == 12 && blue == 255) { //Cow (CowState.PREGNANT)
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT),
                                 Cow.CowState.PREGNANT, green);
                         cow.setDaysInstantiated(35);
-                        cow.setAffectionScore(0);
+                        cow.setAffectionScore(192);
+                        ResourceManager.increaseCowCounter(1);
+                        cow.setDaysImpregnanted(19);
+                        cow.increaseAffectionScore(10);
                         entityManager.addEntity(cow);
                     }
-                    */
                     //////////////////////////////////////////////////////////////////////////////////
                     else if (red == 0 && green == 255 && blue == 255) { //Horse
                         Horse horse = new Horse(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT));
