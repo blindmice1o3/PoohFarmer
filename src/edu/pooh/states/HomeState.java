@@ -81,13 +81,14 @@ public class HomeState implements IState {
 
             /* DEVELOP Aging system */
             //INCREASE daysInstantiated for ALL Cow instances.
-            //Based on updated affectionScore, determine/update each cow's cowState.
+            //Based on updated daysInstantiated/affectionScore/daysImpregnanted, determine/update each cow's cowState.
             ((CowBarnState)handler.getGame().getCowBarnState()).increaseCowDaysInstantiated();
 
-            /* DEVELOP Birthing/Pregnancy/Incubating system */
+            /* DEVELOP Birthing/Pregnancy/Incubating system */   //SEE AGING SYSTEM!!!!! should probably separate later.
             //PREGNANT cow update. Birthing check (instantiate BABY with dayInstantiated = 0).
             // (MAY NEED TO FORCE PLAYER to name this new cow when entering CowBarnState).
-
+            //INCREASE daysImpregnanted for PREGNANT Cow instance.
+            ((CowBarnState)handler.getGame().getCowBarnState()).increaseCowDaysImpregnanted(); //BIRTHING CODE.
 
 
             /* DEVELOP Brush and Milker [Item/Tool's concrete subclasses] */

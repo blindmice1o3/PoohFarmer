@@ -46,17 +46,17 @@ public class CowArtificialInseminator extends Item {
                     tempCowBarnState.assignCowToFodderDisplayerTile(tempCow);
 
 
-
                     ////////////////////////////////////////////////////
                     tempCow.setCowState(Cow.CowState.PREGNANT);
-                    ResourceManager.increaseCowCounter(1); //This SAVES a stall for the BABY.
+                    //This SAVES a stall for the BABY.
+                    tempCowBarnState.setStallIndexOfUnbornBaby(ResourceManager.getCowCounter());
+                    ResourceManager.increaseCowCounter(1);
+                    tempCow.increaseAffectionScore(10);
+
+                    //@@@@
+                    tempCow.setDaysImpregnanted(19);
+                    //@@@@
                     ////////////////////////////////////////////////////
-
-
-
-                    //TODO: MUST remember to setOriginalStallIndexOfPregnant(12) AFTER BIRTHING!!!!!!
-                    //TODO: In CowBarnState class, develop method for checking BIRTHING.
-                    //TODO: AFTER BIRTHING, remove PREGNANT cow's association with cow incubator feeding stall.
 
 
                     // Cow impregnanted, return CowArtificialInseminator singleton-instance to shop.

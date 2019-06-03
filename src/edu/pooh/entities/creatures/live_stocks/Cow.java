@@ -6,7 +6,6 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
-import edu.pooh.states.CowBarnState;
 import edu.pooh.tiles.Tile;
 
 import java.awt.*;
@@ -22,12 +21,15 @@ public class Cow extends Creature {
 
     private Map<String, Animation> anim;
 
-    private int fodderDisplayerTileArrayIndex;
+    private int fodderDisplayerTileArrayIndex;  //feeding stall index
+
     private int daysInstantiated;
-    private int affectionScore;
+    private int daysImpregnanted;
+
     private CowState cowState;
     private CowHealth cowHealth;
 
+    private int affectionScore;
     private boolean brushed;
     private boolean milked;
 
@@ -40,12 +42,16 @@ public class Cow extends Creature {
         initCowAnimations();
 
         this.fodderDisplayerTileArrayIndex = fodderDisplayerTileArrayIndex;
+
         daysInstantiated = 0;
+        daysImpregnanted = 0;
+
+        this.cowState = cowState;
+        cowHealth = CowHealth.HEALTHY;
+
         affectionScore = 0;
         brushed = false;
         milked = false;
-        this.cowState = cowState;
-        cowHealth = CowHealth.HEALTHY;
 
         random = new Random();
 
@@ -82,6 +88,8 @@ public class Cow extends Creature {
     public void increaseDaysInstantiated() {
         daysInstantiated++;
     }
+
+    public void increaseDaysImpregnanted() { daysImpregnanted++; }
 
     public void increaseAffectionScore(int increasedAffection) {
         affectionScore += increasedAffection;
@@ -151,6 +159,12 @@ public class Cow extends Creature {
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
                 (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+
+        if (cowState == CowState.PREGNANT) {
+            Text.drawString(g, "daysImpregnanted: " + daysImpregnanted, (int) (x - handler.getGameCamera().getxOffset()),
+                    (int) (y - handler.getGameCamera().getyOffset() - 50), false, Color.PINK, Assets.font14);
+        }
+
         if (cowHealth == CowHealth.HEALTHY) {
             Text.drawString(g, "cowHealth: " + cowHealth, (int) (x - handler.getGameCamera().getxOffset()),
                     (int) (y - handler.getGameCamera().getyOffset() - 40), false, Color.GREEN, Assets.font14);
@@ -261,6 +275,10 @@ public class Cow extends Creature {
     public int getDaysInstantiated() { return daysInstantiated; }
 
     public void setDaysInstantiated(int daysInstantiated) { this.daysInstantiated = daysInstantiated; }
+
+    public int getDaysImpregnanted() { return daysImpregnanted; }
+
+    public void setDaysImpregnanted(int daysImpregnanted) { this.daysImpregnanted = daysImpregnanted; }
 
     public boolean isBrushed() { return brushed; }
 

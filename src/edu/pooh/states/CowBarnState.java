@@ -3,6 +3,7 @@ package edu.pooh.states;
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Player;
 import edu.pooh.entities.creatures.live_stocks.Cow;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.FodderDisplayerTile;
 import edu.pooh.tiles.FodderExecutorTile;
@@ -26,6 +27,7 @@ public class CowBarnState implements IState {
     private Map<FodderDisplayerTile, Cow> fodderToCowHashMap;
 
     private int originalStallIndexOfPregnant = 12;
+    private int stallIndexOfUnbornBaby = 12;
     public int getOriginalStallIndexOfPregnant() { return originalStallIndexOfPregnant; }
     public void setOriginalStallIndexOfPregnant(int originalStallIndexOfPregnant) { this.originalStallIndexOfPregnant = originalStallIndexOfPregnant; }
 
@@ -74,6 +76,11 @@ public class CowBarnState implements IState {
         System.out.println("Unassigning " + cow + " from this stall index: " + cow.getFodderDisplayerTileArrayIndex());
     }
 
+    public void unassignCowFromCowIncubatorHashMap() {
+        fodderToCowIncubatorHashMap.remove(fodderToCowIncubator);
+        System.out.println("Unassigning cow from COW INCUBATOR STALL.");
+    }
+
     public void assignCowToFodderDisplayerTile(Cow cow) {
         ////////////////////////////////////////////////////////////////
         if (cow.getFodderDisplayerTileArrayIndex() != 12) {
@@ -94,7 +101,11 @@ public class CowBarnState implements IState {
                 if ( (!fodderDisplayerTileArray[i].isActivated()) &&
                         ((tempCow.getCowState() == Cow.CowState.ADULT_1) ||
                                 (tempCow.getCowState() == Cow.CowState.ADULT_2) ||
-                                (tempCow.getCowState() == Cow.CowState.ADULT_3)) ) {
+                                (tempCow.getCowState() == Cow.CowState.ADULT_3)
+                        //@@@
+                                || (tempCow.getCowState() == Cow.CowState.CALF) || (tempCow.getCowState() == Cow.CowState.BABY)
+                        //@@@
+                        ) ) {
 
                     tempCow.decreaseAffectionScore(8);
 
@@ -137,16 +148,67 @@ public class CowBarnState implements IState {
         if (TimeManager.getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if (e instanceof Cow) {
-                    ////////////////////////////////////////
+                    ////////////////////////////////////////////////
+                    // ALL cows increase in age.
                     ((Cow)e).increaseDaysInstantiated();
+                    // ALL cows update CowState.
                     ((Cow)e).incrementCowStateByDaysInstantiated();
-                    ////////////////////////////////////////
-                    System.out.println("CowBarnState.increaseCowDaysInstantiated()... NOW AT: " +
-                            ((Cow)e).getDaysInstantiated());
+                    ////////////////////////////////////////////////
                 }
             }
         }
     }
+
+    public void increaseCowDaysImpregnanted() {
+        if (TimeManager.getNewDay()) {
+            for (Entity e : world.getEntityManager().getEntities()) {
+                if ( (e instanceof Cow) && (((Cow)e).getCowState() == Cow.CowState.PREGNANT) ) {
+                    Cow pregnantCow = (Cow)e;
+                    ////////////////////////////////////////////////////////////////////////////////
+                    pregnantCow.increaseDaysImpregnanted();
+
+                    //BIRTHING CODE.
+                    if ( pregnantCow.getDaysImpregnanted() == 21 ) {
+                        System.out.println("INSTANTIATING BABY COW");
+                        //Instantiate baby cow next to pregnant cow, assign stall.
+                        //!!!!HARD-CODED location!!!! bad... rework later!!!
+                        Cow babyCow = new Cow( handler, (3 * Tile.TILE_WIDTH), ((3 * Tile.TILE_HEIGHT)),
+                                Cow.CowState.BABY, stallIndexOfUnbornBaby);
+                        //EVERYTIME A COW IS INSTANTIATED it increases the counter (which was done once already in
+                        //CowArtificialInseminator... so must NOT increase it again here... subtract 1.
+                        ResourceManager.decreaseCowCounter(1);
+                        babyCow.setDaysInstantiated(0);
+                        babyCow.setAffectionScore(0);
+                        assignCowToFodderDisplayerTile(babyCow);
+                        world.getEntityManager().addEntity(babyCow);
+                        //world.getEntityManager().setToBeAdded(true);
+                        //Reset stallIndexOfUnbornBaby.
+                        stallIndexOfUnbornBaby = 12;
+
+                        //Now the mother.
+                        System.out.println("REWORKING MOTHER COW");
+                        pregnantCow.setDaysImpregnanted(0);
+                        pregnantCow.setCowState(Cow.CowState.ADULT_1); //MUST DO BEFORE incrementCowStateByDaysInstantiated()!
+                        //MAY NOT HAVE BEEN ADULT_1... re-determine if ADULT_1, ADULT_2, or ADULT_3.
+                        pregnantCow.incrementCowStateByDaysInstantiated();
+                        //AFTER BIRTHING, remove PREGNANT cow's association with cow incubator feeding stall.
+                        pregnantCow.setFodderDisplayerTileArrayIndex(originalStallIndexOfPregnant);
+                        assignCowToFodderDisplayerTile(pregnantCow);
+                        unassignCowFromCowIncubatorHashMap();
+
+                        //MUST remember to setOriginalStallIndexOfPregnant(12) AFTER BIRTHING!!!!!!
+                        //Signifies no pregnant cow in population... allow CowArtificialInseminator to be used again.
+                        originalStallIndexOfPregnant = 12;
+                        System.out.println("BIRTHING COMPLETE");
+                    }
+
+                    break;
+                    ///////////////////////////////////////////////////////////////////////////////
+                }
+            }
+        }
+    }
+
 
     public void setAllCowBrushedAndMilkedToFalse() {
         for (Entity e : world.getEntityManager().getEntities()) {
@@ -226,5 +288,7 @@ public class CowBarnState implements IState {
     public World getWorld() {
         return world;
     }
+
+    public void setStallIndexOfUnbornBaby(int stallIndexOfUnbornBaby) { this.stallIndexOfUnbornBaby = stallIndexOfUnbornBaby; }
 
 } // **** end CowBarnState class ****
