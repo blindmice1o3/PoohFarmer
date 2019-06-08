@@ -39,14 +39,14 @@ public class Utils {
     /**
      *  Load world by reading RGB values from BufferedImage object and writing to int[][][].
      *
-     * @param image the BufferedImage object from which the game world's (map/level) layout of tiles
-     *              is modeled. Since the actual RGB values (e.g. red == 255, green == 0, and blue == 0)
-     *              is largely arbitrary, it can be used as meta-data.
-     * @return a multiple-dimensional array of int which represent the game's world (map/level) as
+     * @param image the BufferedImage object from which the game world (map/level/tile-layout) is modeled.
+     *              Since the actual RGB values (e.g. red == 255, green == 0, and blue == 0) are largely
+     *              arbitrary, some of the values can be utilized as meta-data.
+     * @return a multi-dimensional array of int values which represent the game's world (map/level) as
      *          if it was a two-dimensional array of int (i.e. int[widthInTiles][heightInTiles]),
-     *          where each element of the two-dimensional array holds a reference to
-     *          an array of int (i.e. int[3] - which represent the RGB values, respectively, of the
-     *          individual pixel). The values inside the array of int[] representing RGB will be
+     *          where each element of the two-dimensional array is a reference to a third array of int
+     *          values (i.e. int[3]), an array of the RGB values of each individual pixels from
+     *          BufferedImage image. The values inside the array of int[] representing RGB will be
      *          parsed and translated to their corresponding Tile type using World class's
      *          translateTileFromRGB(int[][][] rgbArrayRelativeToMap) method.
      */
