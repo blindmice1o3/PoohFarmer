@@ -422,6 +422,8 @@ public class Player extends Creature {
         xMove = 0;
         yMove = 0;
 
+        //TODO: Have StateManager (aka StateMachine) use a stack instead of a single currentState field.
+        //TODO: Create InventoryState.
         // INVENTORY CHECK
         if (inventory.isActive()) {
             return;
@@ -512,6 +514,7 @@ public class Player extends Creature {
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitBoulderCounter == 6) {
+                        //TODO: possible bug where Hammer.execute()'s call to Player.decreaseStaminaCurrent(2) is redundant.
                         ((Hammer)inventory.getItem(inventory.getIndex())).execute();
                         hitBoulderCounter = 0;
                     }
@@ -531,6 +534,7 @@ public class Player extends Creature {
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitTreeStumpCounter == 6) {
+                        //TODO: possible bug where Axe.execute()'s call to Player.decreaseStaminaCurrent(2) is redundant.
                         ((Axe)inventory.getItem(inventory.getIndex())).execute();
                         hitTreeStumpCounter = 0;
                     }
