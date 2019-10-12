@@ -21,6 +21,7 @@ public class Game {
 
     // DISPLAY
     private JFrame frame;
+    //TODO: switch to JPanel.
     private Canvas canvas;
 
     // GRAPHICS CONTEXT
@@ -31,6 +32,7 @@ public class Game {
     private Thread gameThread;
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
+    //TODO: compose Game class with an instance of StateManager (after changing StateManager to not be static).
     // STATES
     private IState gameState, homeState, chickenCoopState, cowBarnState, toolShedState,
             crossroadState, mountainState, theWestState, menuState, travelingFenceState;
@@ -56,7 +58,7 @@ public class Game {
         Assets.init();
         SoundManager.init();
 
-
+        //TODO: move to StateManager class.
         ////////////////////////////////////////////////////////
         gameState = new GameState(handler);
         homeState = new HomeState(handler);
