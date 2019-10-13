@@ -40,8 +40,11 @@ public class MenuState implements IState {
                 }
 
                 // @@@@@@@ having game object's gameState reference a different GameState instance??? @@@@@@@@
-                handler.getGame().setGameState( new GameState(handler) );
-                StateManager.setCurrentState( handler.getGame().getGameState() ); //ALSO deprecated! Should be change().
+                if (handler.getStateManager().getStatesStackSize() == 0) {
+                    handler.getStateManager().pushIState(StateManager.GameState.GAME);
+                    //handler.getGame().setGameState( new GameState(handler) );
+                    //StateManager.setCurrentState( handler.getGame().getGameState() ); //ALSO deprecated! Should be change().
+                }
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             }
         }));
@@ -63,7 +66,8 @@ public class MenuState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.MENU)) {
             return;
         }
 
@@ -74,7 +78,8 @@ public class MenuState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getMenuState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.MENU)) {
             return;
         }
 

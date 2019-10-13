@@ -7,6 +7,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.states.CowBarnState;
+import edu.pooh.states.StateManager;
 import edu.pooh.states.TravelingFenceState;
 import edu.pooh.tiles.Tile;
 
@@ -40,13 +41,13 @@ public class CowSpontaneousGenerator extends Item {
                                 ResourceManager.getCowCounter());
                         cow.setDaysInstantiated(14);
                         cow.setAffectionScore(0);
-                        ((CowBarnState)handler.getGame().getCowBarnState()).assignCowToFodderDisplayerTile(cow);
+                        ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).assignCowToFodderDisplayerTile(cow);
                         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(cow);
                         handler.getWorld().getEntityManager().setToBeAdded(true);
                         ///////////////////////////////////////////////////////////////////////////////////////
 
                         // Cow instantiated and added, return CowSpontaneousGenerator singleton-instance to shop.
-                        ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
+                        ((TravelingFenceState)handler.getStateManager().getIState(StateManager.GameState.TRAVELING_FENCE)).getInventory().addItem( getUniqueInstance(handler) );
                         player.getInventory().decrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof CowSpontaneousGenerator) {

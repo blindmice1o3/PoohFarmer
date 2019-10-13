@@ -48,7 +48,7 @@ public class TheWestState implements IState {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((CrossroadState) handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                ((CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -62,7 +62,8 @@ public class TheWestState implements IState {
     private int deltaY = 5;
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getTheWestState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.THE_WEST)) {
             return;
         }
 
@@ -105,13 +106,19 @@ public class TheWestState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointTheWestToCrossroad()) ) {
-            StateManager.change(handler.getGame().getCrossroadState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            CrossroadState crossroadState = (CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD);
+            currentState.enter(crossroadState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getTheWestState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.THE_WEST)) {
             return;
         }
 

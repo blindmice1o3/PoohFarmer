@@ -55,7 +55,12 @@ public class TravelingFenceState implements IState {
         // VK_ESCAPE will set state to GameState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             inventory.setActive(false);
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
 
         inventory.tick();

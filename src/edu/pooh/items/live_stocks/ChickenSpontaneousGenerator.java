@@ -5,6 +5,7 @@ import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
+import edu.pooh.states.StateManager;
 import edu.pooh.states.TravelingFenceState;
 import edu.pooh.tiles.Tile;
 
@@ -40,7 +41,7 @@ public class ChickenSpontaneousGenerator extends Item {
                         ///////////////////////////////////////////////////////////////////////////////////////
 
                         // Chicken instantiated and added, return ChickenSpontaneousGenerator singleton-instance to shop.
-                        ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
+                        ((TravelingFenceState)handler.getStateManager().getIState(StateManager.GameState.TRAVELING_FENCE)).getInventory().addItem( getUniqueInstance(handler) );
                         player.getInventory().decrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof ChickenSpontaneousGenerator) {

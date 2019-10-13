@@ -7,6 +7,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.states.CowBarnState;
+import edu.pooh.states.StateManager;
 import edu.pooh.states.TravelingFenceState;
 
 public class CowArtificialInseminator extends Item {
@@ -25,7 +26,7 @@ public class CowArtificialInseminator extends Item {
     @Override
     public void execute() {
         Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();
-        CowBarnState tempCowBarnState = (CowBarnState)handler.getGame().getCowBarnState();
+        CowBarnState tempCowBarnState = (CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN);
 
         //If originalStallIndexOfPregnant is 12, have NOT assigned PREGNANT cow.
         if (tempCowBarnState.getOriginalStallIndexOfPregnant() == 12) {
@@ -56,7 +57,7 @@ public class CowArtificialInseminator extends Item {
 
 
                     // Cow impregnanted, return CowArtificialInseminator singleton-instance to shop.
-                    ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
+                    ((TravelingFenceState)handler.getStateManager().getIState(StateManager.GameState.TRAVELING_FENCE)).getInventory().addItem( getUniqueInstance(handler) );
                     tempPlayer.getInventory().decrementSelectedItem();
                     for (int x = 0; x < tempPlayer.getInventory().getInventoryItems().size(); x++) {
                         if (tempPlayer.getInventory().getItem(x) instanceof CowArtificialInseminator) {

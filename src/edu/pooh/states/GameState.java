@@ -59,7 +59,8 @@ public class GameState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             return;
         }
 
@@ -77,65 +78,65 @@ public class GameState implements IState {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((HomeState)handler.getGame().getHomeState()).getWorld().getEntityManager().addEntity(
+                    ((HomeState)handler.getStateManager().getIState(StateManager.GameState.HOME)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getHomeState(), args);
+            handler.getStateManager().change( StateManager.GameState.HOME, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().addEntity(
+                    ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getChickenCoopState(), args);
+            handler.getStateManager().change( StateManager.GameState.CHICKEN_COOP, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCowBarn()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().addEntity(
+                    ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getCowBarnState(), args);
+            handler.getStateManager().change( StateManager.GameState.COW_BARN, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToToolShed()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((ToolShedState)handler.getGame().getToolShedState()).getWorld().getEntityManager().addEntity(
+                    ((ToolShedState)handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getToolShedState(), args);
+            handler.getStateManager().change( StateManager.GameState.TOOL_SHED, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCrossroad()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((CrossroadState)handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                    ((CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getCrossroadState(),args);
+            handler.getStateManager().change( StateManager.GameState.CROSSROAD, args );
         }
     }
 
@@ -206,7 +207,8 @@ public class GameState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             return;
         }
 
@@ -218,5 +220,7 @@ public class GameState implements IState {
     public World getWorld() {
         return world;
     }
+
+    public Object[] getArgs() { return args; }
 
 } // **** end GameState class ****

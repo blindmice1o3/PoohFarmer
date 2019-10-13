@@ -62,7 +62,8 @@ public class CrossroadState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getCrossroadState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)) {
             return;
         }
 
@@ -82,13 +83,18 @@ public class CrossroadState implements IState {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                    ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToMoutain()) ) {
             ///////////////////////////////////////////////////////
             playerPreviousExit = PlayerPreviousExit.MOUNTAIN_STATE;
@@ -97,13 +103,13 @@ public class CrossroadState implements IState {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((MountainState)handler.getGame().getMountainState()).getWorld().getEntityManager().addEntity(
+                    ((MountainState)handler.getStateManager().getIState(StateManager.GameState.MOUNTAIN)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getMountainState(), args);
+            handler.getStateManager().change( StateManager.GameState.MOUNTAIN, args );
         } else if ( player.getCollisionBounds(0,0).intersects(world.getTransferPointCrossroadToTheWest()) ) {
             ///////////////////////////////////////////////////////
             playerPreviousExit = PlayerPreviousExit.THE_WEST_STATE;
@@ -112,19 +118,20 @@ public class CrossroadState implements IState {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((TheWestState)handler.getGame().getTheWestState()).getWorld().getEntityManager().addEntity(
+                    ((TheWestState)handler.getStateManager().getIState(StateManager.GameState.THE_WEST)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getTheWestState(), args);
+            handler.getStateManager().change( StateManager.GameState.THE_WEST, args );
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getCrossroadState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)) {
             return;
         }
 
@@ -136,5 +143,7 @@ public class CrossroadState implements IState {
     public World getWorld() {
         return world;
     }
+
+    public Object[] getArgs() { return args; }
 
 } // **** end CrossroadState class ****

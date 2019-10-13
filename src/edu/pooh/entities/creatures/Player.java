@@ -133,7 +133,7 @@ public class Player extends Creature {
 
     public void execute5pm() {
         // Collect ShippingBin - GameState
-        for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
+        for (Entity e : ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().getEntities()) {
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
                 sellFromShippingBin( (ShippingBin)e );
@@ -142,7 +142,7 @@ public class Player extends Creature {
             }
         }
         // Collect ShippingBin - ChickenCoopState
-        for (Entity e : ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().getEntities()) {
+        for (Entity e : ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).getWorld().getEntityManager().getEntities()) {
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
                 sellFromShippingBin( (ShippingBin)e );
@@ -151,7 +151,7 @@ public class Player extends Creature {
             }
         }
         // Collect ShippingBin - CowBarnState
-        for (Entity e : ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().getEntities()) {
+        for (Entity e : ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).getWorld().getEntityManager().getEntities()) {
             if (e instanceof ShippingBin) {
                 //////////////////////////////////////////////////////////
                 sellFromShippingBin( (ShippingBin)e );
@@ -547,7 +547,8 @@ public class Player extends Creature {
             }
 
             // TRAVELINGFENCE CHECK
-            if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
+            if (handler.getStateManager().getCurrentState() ==
+                    handler.getStateManager().getIState(StateManager.GameState.GAME) &&
                     checkForTravelingFence()) {
                 System.out.println("FOUND: The Finn!");
 
@@ -556,7 +557,7 @@ public class Player extends Creature {
                 args[1] = (int) x;
                 args[2] = (int) y;
                 /////////////////////////////////////////////////////////////////////
-                StateManager.change(handler.getGame().getTravelingFenceState(), args);
+                handler.getStateManager().change( StateManager.GameState.TRAVELING_FENCE, args );
                 /////////////////////////////////////////////////////////////////////
                 return;
             }

@@ -325,7 +325,7 @@ public class ChickenCoopState implements IState {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -335,7 +335,8 @@ public class ChickenCoopState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             return;
         }
 
@@ -348,13 +349,19 @@ public class ChickenCoopState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointChickenCoopToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             return;
         }
 

@@ -214,7 +214,8 @@ public class World {
 
     private void renderTransferPoints(Graphics g) { //AND BEDTILE's bounding box for HomeState
         g.setColor(Color.GREEN);
-        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+        if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             g.fillRect((int)(transferPointGameToHome.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointGameToHome.y - handler.getGameCamera().getyOffset()),
                     transferPointGameToHome.width, transferPointGameToHome.height);
@@ -230,26 +231,31 @@ public class World {
             g.fillRect((int)(transferPointGameToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointGameToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointGameToCrossroad.width, transferPointGameToCrossroad.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getHomeState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.HOME)) {
             g.fillRect((int)(transferPointHomeToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointHomeToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointHomeToGame.width, transferPointHomeToGame.height);
             //g.fillRect((int)((bedTileX * Tile.TILE_WIDTH) - handler.getGameCamera().getxOffset()),
             //        (int)((bedTileY * Tile.TILE_HEIGHT) - handler.getGameCamera().getyOffset()),
             //        Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        } else if (StateManager.getCurrentState() == handler.getGame().getCowBarnState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.COW_BARN)) {
             g.fillRect((int)(transferPointCowBarnToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCowBarnToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointCowBarnToGame.width, transferPointCowBarnToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getChickenCoopState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             g.fillRect((int)(transferPointChickenCoopToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointChickenCoopToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointChickenCoopToGame.width, transferPointChickenCoopToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getToolShedState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)) {
             g.fillRect((int)(transferPointToolShedToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointToolShedToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointToolShedToGame.width, transferPointToolShedToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getCrossroadState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)) {
             g.fillRect((int)(transferPointCrossroadToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCrossroadToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointCrossroadToGame.width, transferPointCrossroadToGame.height);
@@ -259,11 +265,13 @@ public class World {
             g.fillRect((int)(transferPointCrossroadToTheWest.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCrossroadToTheWest.y - handler.getGameCamera().getyOffset()),
                     transferPointCrossroadToTheWest.width, transferPointCrossroadToTheWest.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getMountainState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.MOUNTAIN)) {
             g.fillRect((int)(transferPointMountainToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointMountainToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointMountainToCrossroad.width, transferPointMountainToCrossroad.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getTheWestState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.THE_WEST)) {
             g.fillRect((int)(transferPointTheWestToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointTheWestToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointTheWestToCrossroad.width, transferPointTheWestToCrossroad.height);

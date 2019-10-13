@@ -33,9 +33,7 @@ public class Game {
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
     //TODO: compose Game class with an instance of StateManager (after changing StateManager to not be static).
-    // STATES
-    private IState gameState, homeState, chickenCoopState, cowBarnState, toolShedState,
-            crossroadState, mountainState, theWestState, menuState, travelingFenceState;
+    private StateManager stateManager;
 
     // INPUT
     private KeyManager keyManager;
@@ -59,19 +57,7 @@ public class Game {
         SoundManager.init();
 
         //TODO: move to StateManager class.
-        ////////////////////////////////////////////////////////
-        gameState = new GameState(handler);
-        homeState = new HomeState(handler);
-        chickenCoopState = new ChickenCoopState(handler);
-        cowBarnState = new CowBarnState(handler);
-        toolShedState = new ToolShedState(handler);
-        crossroadState = new CrossroadState(handler);
-        mountainState = new MountainState(handler);
-        theWestState = new TheWestState(handler);
-        menuState = new MenuState(handler);
-        travelingFenceState = new TravelingFenceState(handler);
-        StateManager.setCurrentState( getGameState() );
-        ////////////////////////////////////////////////////////
+        stateManager = new StateManager(handler);
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
@@ -208,8 +194,8 @@ public class Game {
     private void tick() {
         keyManager.tick();
 
-        if (StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().tick();
+        if (stateManager.getCurrentState() != null) {
+            stateManager.getCurrentState().tick();
         }
     }
 
@@ -225,8 +211,8 @@ public class Game {
         g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         ////////////////////////////////    //Draw here!
 
-        if (StateManager.getCurrentState() != null) {
-            StateManager.getCurrentState().render(g);
+        if (stateManager.getCurrentState() != null) {
+            stateManager.getCurrentState().render(g);
         }
 
         ////////////////////////////////    //End drawing!
@@ -236,6 +222,7 @@ public class Game {
 
     // GETTERS & SETTERS
 
+    /*
     public IState getGameState() {
         return gameState;
     }
@@ -291,9 +278,14 @@ public class Game {
     public void setTravelingFenceState(IState travelingFenceState) {
         this.travelingFenceState = travelingFenceState;
     }
+    */
 
     public KeyManager getKeyManager() {
         return keyManager;
+    }
+
+    public StateManager getStateManager() {
+        return stateManager;
     }
 
     public MouseManager getMouseManager() { return mouseManager; }

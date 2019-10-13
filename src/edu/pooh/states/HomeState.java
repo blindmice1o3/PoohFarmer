@@ -47,15 +47,15 @@ public class HomeState implements IState {
         if (TimeManager.getNewDay()) {
             /** Daily GameState method calls. */
             // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
-            ((GameState)handler.getGame().getGameState()).increaseCropEntityDaysWatered();
+            ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).increaseCropEntityDaysWatered();
             // SWAP CropEntity currentImage from wet-version to dry-version
-            for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
+            for (Entity e : ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().getEntities()) {
                 if (e instanceof CropEntity) {
                     ((CropEntity)e).swapCurrentImageWetToDry();
                 }
             }
             // RESET ALL DirtNormalTile objects' boolean watered TO FALSE.
-            ((GameState)handler.getGame().getGameState()).setAllDirtNormalTileWateredToFalse();
+            ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).setAllDirtNormalTileWateredToFalse();
 
 
 
@@ -64,38 +64,38 @@ public class HomeState implements IState {
             //TODO: WHAT ABOUT CHICKEN THAT HAVE BEEN BROUGHT AND LEFT TO HomeState ?????
             // @@@@ DO EGG INSTANTIATION BEFORE INCREASING daysInstantiated (prevent bug [using extra fodder]) @@@@
             // MISSED FEEDING: chicken egg-laying state to chicken grumpy state.
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).instantiateEggBasedOnFodderDisplayerTile();
+            ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).instantiateEggBasedOnFodderDisplayerTile();
             // (BE SURE TO RESET ALL DISPLAY TILE TO FALSE)
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).setAllFodderDisplayerTileActivatedToFalse();
+            ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).setAllFodderDisplayerTileActivatedToFalse();
             // INCREASE Chicken int daysInstantiated if IT'S LESS THAN 7 daysInstantiated.
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).increaseChickenDaysInstantiated();
+            ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).increaseChickenDaysInstantiated();
             // CHECK INCUBATOR
-            ((ChickenCoopState)handler.getGame().getChickenCoopState()).incrementDaysIncubating();
+            ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).incrementDaysIncubating();
 
 
 
             /** Daily CowBarnState method calls. */
             /* feeding system [Map data structure to associate each instance of FodderDisplayTile w corresponding Cow instance] */
             //CHECK FodderDisplayTile... determine which ADULT/PREGNANT cows were fed... increment/decrement affectionScore.
-            ((CowBarnState)handler.getGame().getCowBarnState()).determineWhichCowNotFedFodder();
+            ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).determineWhichCowNotFedFodder();
 
             /* DEVELOP Aging system */
             //INCREASE daysInstantiated for ALL Cow instances.
             //Based on updated daysInstantiated/affectionScore/daysImpregnanted, determine/update each cow's cowState.
-            ((CowBarnState)handler.getGame().getCowBarnState()).increaseCowDaysInstantiated();
+            ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).increaseCowDaysInstantiated();
 
             /* DEVELOP Birthing/Pregnancy/Incubating system */   //SEE AGING SYSTEM!!!!! should probably separate later.
             //PREGNANT cow update. Birthing check (instantiate BABY with dayInstantiated = 0).
             // (MAY NEED TO FORCE PLAYER to name this new cow when entering CowBarnState).
             //INCREASE daysImpregnanted for PREGNANT Cow instance.
-            ((CowBarnState)handler.getGame().getCowBarnState()).increaseCowDaysImpregnanted(); //BIRTHING CODE.
+            ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).increaseCowDaysImpregnanted(); //BIRTHING CODE.
 
 
             /* DEVELOP Brush and Milker [Item/Tool's concrete subclasses] */
             //brushed and talkedTo (probably boolean) should also be RESET.
-            ((CowBarnState)handler.getGame().getCowBarnState()).setAllCowBrushedAndMilkedToFalse();
+            ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).setAllCowBrushedAndMilkedToFalse();
             //CLEAR FodderDisplayTile.
-            ((CowBarnState)handler.getGame().getCowBarnState()).setAllFodderDisplayerTileActivatedToFalse();
+            ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).setAllFodderDisplayerTileActivatedToFalse();
 
 
 
@@ -113,7 +113,7 @@ public class HomeState implements IState {
             Entity tempHoldableEntity = (Entity)player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -125,7 +125,8 @@ public class HomeState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.HOME)) {
             return;
         }
 
@@ -138,13 +139,19 @@ public class HomeState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointHomeToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getHomeState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.HOME)) {
             return;
         }
 
