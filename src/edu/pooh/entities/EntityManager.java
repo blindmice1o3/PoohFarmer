@@ -1,6 +1,6 @@
 package edu.pooh.entities;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.main.Handler;
 

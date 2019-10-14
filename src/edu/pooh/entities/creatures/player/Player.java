@@ -1,6 +1,8 @@
-package edu.pooh.entities.creatures;
+package edu.pooh.entities.creatures.player;
 
 import edu.pooh.entities.Entity;
+import edu.pooh.entities.creatures.Creature;
+import edu.pooh.entities.creatures.TravelingFence;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
@@ -51,7 +53,6 @@ public class Player extends Creature {
     // MOVEMENT SPEED
     private int speedMax;
 
-    //TODO: convert to IState.
     // INVENTORY
     private Inventory inventory;
 
@@ -62,16 +63,8 @@ public class Player extends Creature {
     private int hrSize = 30;
     private boolean holding = false;
 
-    // ATTACK TIMER
-    private long lastAttackTimer;
-    private long attackCooldown = 800;  // 800 milliseconds
-    private long attackTimer = attackCooldown;
-
-    // MELEE ATTACK
-    private Rectangle cb; // player's collision/bounding box
-    private Rectangle ar; // attack-rectangle
-    private int arSize = 20;
-    private boolean attacking = false;
+    // ATTACK
+    private AttackModule meleeAttackModule;
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -105,10 +98,8 @@ public class Player extends Creature {
         hr.width = hrSize;
         hr.height = hrSize;
 
-        // MELEE ATTACK
-        ar = new Rectangle();
-        ar.width = arSize;
-        ar.height = arSize;
+        // ATTACK
+        meleeAttackModule = new AttackModule(handler, this);
     } // **** end Player(Handler, float, float) constructor ****
 
     private void initAnimations() {
@@ -142,88 +133,22 @@ public class Player extends Creature {
             anim.tick();
         }
 
-
         // MOVEMENT
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
 
-
-        // ATTACK
-        if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
-            checkAttacks();
-        }
         // HOLDING (at this point: holding is true)
         // but we do another (similar, possibly redundant) check... holdableObject should not be null.
-        else if (holdableObject != null) {
+        if (holdableObject != null) {
             holdableObject.setPosition(x + 10, y - 15);  // Moves image of holdableObject w/ player's.
         }
 
         // INVENTORY
         inventory.tick();
-    }
 
-    private void checkAttacks() {
-        ////////////////////////////////////////////////////////////////////////////////////
-        // Attack timer to check eligibility for new attack.
-        attackTimer += System.currentTimeMillis() - lastAttackTimer;    // time elapsed
-        lastAttackTimer = System.currentTimeMillis();
-
-        // Time elapsed has not reached targeted attackCooldown, exit this method early.
-        if (attackTimer < attackCooldown) {
-            return;
-        }
-        ////////////////////////////////////////////////////////////////////////////////////
-
-        // IF AT THIS LINE, targeted attackCooldown has been reached, ELIGIBLE TO ATTACK.
-        attacking = false;
-
-        // (UNLESS THE INVENTORY IS TOGGLED ON)
-        if (inventory.isActive()) {
-            return;
-        }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // player's collision box (center square in color-penciled drawing/notes).
-        cb = getCollisionBounds(0, 0);
-        // Set the coordinates of the attack rectangle (attacking is one-direction-at-a-time])
-        if (handler.getKeyManager().aUp) {
-            ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
-            ar.y = cb.y - arSize;
-            attacking = true;
-        } else if (handler.getKeyManager().aDown) {
-            ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
-            ar.y = cb.y + cb.height;
-            attacking = true;
-        } else if (handler.getKeyManager().aLeft) {
-            ar.x = cb.x - arSize;
-            ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
-            attacking = true;
-        } else if (handler.getKeyManager().aRight) {
-            ar.x = cb.x + cb.width;
-            ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
-            attacking = true;
-        } else {
-            return; // if none of the attack keys are being called, don't continue on with the rest of this method.
-        }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // RESET attackTimer.
-        attackTimer = 0;
-
-        // The above attack rectangle coordinates were set to some values (did not exit this method early).
-        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            // If player, skip this for-loop iteration and move on to the next Entity object in the entities ArrayList.
-            if (e.equals(this)) {
-                continue;
-            }
-
-            // We have an Entity object that isn't the player, check if it intersects with the attack rectangle.
-            if (e.getCollisionBounds(0, 0).intersects(ar)) {
-                e.hurt(4);      // Successful attack collision, invoke hurt() method.
-                return;
-            }
-        }
+        // ATTACK
+        meleeAttackModule.tick();
     }
 
     //TODO: move to Hammer class.
@@ -482,7 +407,7 @@ public class Player extends Creature {
     }
 
     private void setHRPosition() {
-        cb = getCollisionBounds(0, 0);    // player's collision box (center square)
+        Rectangle cb = getCollisionBounds(0, 0);    // player's collision box (center square)
 
         // Setting the coordinate of the holding rectangle
         switch (currentDirection) {
@@ -561,12 +486,8 @@ public class Player extends Creature {
         //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
         //        bounds.width, bounds.height);
 
-        // MELEE ATTACK
-        if (attacking) {
-            g.setColor(Color.RED);
-            g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
-                    (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
-        }
+        // ATTACK
+        meleeAttackModule.render(g);
 
         // HUD (Head-Up-Display)
         renderHUD(g);

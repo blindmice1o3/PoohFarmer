@@ -1,13 +1,12 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;

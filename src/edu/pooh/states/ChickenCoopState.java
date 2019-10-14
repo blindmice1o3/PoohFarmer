@@ -1,14 +1,13 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.main.Handler;
 import edu.pooh.main.ISellable;
 import edu.pooh.tiles.*;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;

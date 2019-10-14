@@ -1,6 +1,6 @@
 package edu.pooh.items.live_stocks;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;

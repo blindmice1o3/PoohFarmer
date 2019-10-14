@@ -2,21 +2,78 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/states/PauseState.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/gfx/DisplayerCalendarAndResourceManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/edu/pooh/gfx/DisplayerCalendarAndResourceManager.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$SanityLevel.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$SanityLevel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/input/KeyManager.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/input/KeyManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/main/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/StateManager$GameState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/StateManager$GameState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/StateManager.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/StateManager.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/AttackModule.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player$SanityLevel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Player.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/Entity.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/Entity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/EntityManager.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/EntityManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Dog.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Dog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Pikachu.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/Pikachu.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/live_stocks/Chicken.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/creatures/live_stocks/Chicken.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics1x1/SpikeTrap.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/entities/statics/statics1x1/SpikeTrap.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/Item.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Axe.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Axe.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Hammer.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Hammer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Scythe.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Scythe.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/SeedsWild.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/SeedsWild.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Shovel.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/Shovel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/WateringCan.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/crops/tier0/WateringCan.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/ChickenSpontaneousGenerator.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/ChickenSpontaneousGenerator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowArtificialInseminator.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowArtificialInseminator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowBrush.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowBrush.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowMilker.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowMilker.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowSpontaneousGenerator.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/items/live_stocks/CowSpontaneousGenerator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ChickenCoopState$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ChickenCoopState$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ChickenCoopState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ChickenCoopState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CowBarnState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CowBarnState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CrossroadState$PlayerPreviousExit.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CrossroadState$PlayerPreviousExit.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CrossroadState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/CrossroadState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/GameState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/GameState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/HomeState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/HomeState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MenuState$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MenuState$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MenuState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MenuState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MountainState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/MountainState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TheWestState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TheWestState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ToolShedState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/ToolShedState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TravelingFenceState$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TravelingFenceState$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TravelingFenceState.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/states/TravelingFenceState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderExecutorTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderExecutorTile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderStashTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/FodderStashTile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/HotSpringMountainTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/HotSpringMountainTile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/WoodStashTile.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/tiles/WoodStashTile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/time/TimeManager.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/time/TimeManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$1.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$2.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$5.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$6.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$7.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$8.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$9.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$WorldType.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World$WorldType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" afterPath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/worlds/World.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/input/KeyManager.java" afterPath="$PROJECT_DIR$/src/edu/pooh/input/KeyManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" afterPath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/StateManager.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/StateManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/EntityManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/ChickenSpontaneousGenerator.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/ChickenSpontaneousGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowArtificialInseminator.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowArtificialInseminator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowMilker.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowMilker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowSpontaneousGenerator.java" afterPath="$PROJECT_DIR$/src/edu/pooh/items/live_stocks/CowSpontaneousGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/ChickenCoopState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/CowBarnState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/CrossroadState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/GameState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/HomeState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/MountainState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/MountainState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TheWestState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/ToolShedState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/ToolShedState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TravelingFenceState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderStashTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderStashTile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/WoodStashTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/WoodStashTile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" afterPath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,42 +89,26 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+              <folding>
+                <element signature="e#25980#25981#0" expanded="true" />
+                <element signature="e#26026#26027#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttackModule.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/AttackModule.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
-              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-              <folding>
-                <element signature="e#29628#29629#0" expanded="true" />
-                <element signature="e#29674#29675#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PauseState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/PauseState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="57" column="59" lean-forward="false" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#320#321#0" expanded="true" />
-                <element signature="e#358#359#0" expanded="true" />
-                <element signature="e#461#462#0" expanded="true" />
-                <element signature="e#524#525#0" expanded="true" />
-                <element signature="e#564#565#0" expanded="true" />
-                <element signature="e#626#627#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="183" column="52" lean-forward="false" selection-start-line="183" selection-start-column="52" selection-end-line="183" selection-end-column="52" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -104,8 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics2x2/ShippingBin.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Wolf.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Molly.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Jack.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/produce_yields/WildBerries.java" />
@@ -155,6 +194,8 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/input/KeyManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/DisplayerCalendarAndResourceManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/AttackModule.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
       </list>
     </option>
   </component>
@@ -237,43 +278,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pooh" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="statics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="statics" type="462c0819:PsiDirectoryNode" />
-              <item name="crops" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="statics" type="462c0819:PsiDirectoryNode" />
-              <item name="produce_yields" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="statics" type="462c0819:PsiDirectoryNode" />
-              <item name="statics1x1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="statics" type="462c0819:PsiDirectoryNode" />
-              <item name="statics2x2" type="462c0819:PsiDirectoryNode" />
+              <item name="creatures" type="462c0819:PsiDirectoryNode" />
+              <item name="player" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
@@ -301,55 +307,7 @@
               <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
-              <item name="crops" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
-              <item name="crops" type="462c0819:PsiDirectoryNode" />
-              <item name="tier0" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
-              <item name="crops" type="462c0819:PsiDirectoryNode" />
-              <item name="tier1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
-              <item name="live_stocks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="sfx" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
@@ -363,21 +321,7 @@
               <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="tiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
               <item name="time" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PoohFarmer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pooh" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PoohFarmer" type="b2602c69:ProjectViewProjectNode" />
@@ -409,11 +353,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.pooh.entities.creatures.player" />
       <recent name="edu.pooh.items.crops" />
       <recent name="edu.pooh.items.live_stocks" />
       <recent name="edu.pooh.gfx" />
       <recent name="edu.pooh.entities.statics.produce_yields" />
-      <recent name="edu.pooh.entities.statics.statics1x1" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\James\IdeaProjects\PoohFarmer\res\textures\" />
@@ -692,13 +636,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/gfx/ImageLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_92/src.zip!/java/awt/image/BufferedImage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14365">
@@ -872,14 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="56" column="16" lean-forward="false" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/MountainState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -933,8 +862,8 @@
         <state relative-caret-position="527">
           <caret line="114" column="23" lean-forward="false" selection-start-line="114" selection-start-column="23" selection-end-line="114" selection-end-column="23" />
           <folding>
-            <element signature="e#3250#3251#0" expanded="false" />
-            <element signature="e#3279#3280#0" expanded="false" />
+            <element signature="e#3257#3258#0" expanded="false" />
+            <element signature="e#3286#3287#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1098,13 +1027,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/inventory/Inventory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#4352#4353#0" expanded="true" />
+            <element signature="e#4381#4382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/AttackModule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
-            <element signature="e#29628#29629#0" expanded="true" />
-            <element signature="e#29674#29675#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding>
+            <element signature="e#25980#25981#0" expanded="true" />
+            <element signature="e#26026#26027#0" expanded="true" />
           </folding>
         </state>
       </provider>

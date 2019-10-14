@@ -1,11 +1,10 @@
 package edu.pooh.states;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.items.Item;
 import edu.pooh.items.crops.tier0.WateringCan;
 import edu.pooh.main.Handler;
-import edu.pooh.time.TimeManager;
 import edu.pooh.ui.IClickListener;
 import edu.pooh.ui.UIImageButton;
 import edu.pooh.ui.UIManager;

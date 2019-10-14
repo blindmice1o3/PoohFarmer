@@ -1,6 +1,6 @@
 package edu.pooh.states;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
@@ -10,7 +10,6 @@ import edu.pooh.items.crops.tier0.*;
 import edu.pooh.items.crops.tier1.GoldShovel;
 import edu.pooh.items.crops.tier1.GoldSprinkler;
 import edu.pooh.main.Handler;
-import edu.pooh.time.TimeManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
