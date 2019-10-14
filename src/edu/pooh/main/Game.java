@@ -32,12 +32,15 @@ public class Game {
     private Thread gameThread;
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
-    //TODO: compose Game class with an instance of StateManager (after changing StateManager to not be static).
-    private StateManager stateManager;
-
     // INPUT
     private KeyManager keyManager;
     private MouseManager mouseManager;
+
+    // GAME STATES
+    private StateManager stateManager;
+
+    //TODO: TimeManager instance.
+
 
     // CAMERA
     private GameCamera gameCamera;

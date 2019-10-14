@@ -1,7 +1,5 @@
 package edu.pooh.gfx;
 
-import edu.pooh.gfx.Assets;
-import edu.pooh.gfx.Text;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.time.TimeManager;

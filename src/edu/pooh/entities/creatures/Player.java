@@ -69,48 +69,43 @@ public class Player extends Creature {
     private long attackCooldown = 800;  // 800 milliseconds
     private long attackTimer = attackCooldown;
 
+    //TODO: convert to IState.
     // INVENTORY
     private Inventory inventory;
 
     // DISPLAYER CALENDAR AND RESOURCE_MANAGER
     private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
-    private boolean executedSleep, executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
+    //TODO: move time-related methods to DisplayerCalendarAndResourceManager class.
+    private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
 
     public void executeSleep() {
         TimeManager.setNewDayTrue();
 
         if (!executed6am) {
             execute6am();
-            executed6am = true;
         }
         if (!executed9am) {
             execute9am();
-            executed9am = true;
         }
         if (!executed12pm) {
             execute12pm();
-            executed12pm = true;
         }
         if (!executed3pm) {
             execute3pm();
-            executed3pm = true;
         }
         ////////////////////////
         if (!executed5pm) {
             execute5pm();
-            executed5pm = true;
         }
         ////////////////////////
         if (!executed6pm) {
             execute6pm();
-            executed6pm = true;
         }
 
         setAllTimeRelatedBooleansToFalse();
         resetStaminaCurrent();
 
         System.out.println("Player.executeSleep()");
-        executedSleep = true;
     }
 
     public void execute6pm() {
@@ -188,6 +183,7 @@ public class Player extends Creature {
         executed6am = true;
     }
 
+    //TODO: convert to State design pattern. 2 concrete subtype to choose from (HoldingState and NotHoldingState).
     // HOLDING (composed with IHoldable type)
     private IHoldable holdableObject;
     private Rectangle hr; // holding-rectangle
@@ -264,6 +260,7 @@ public class Player extends Creature {
         animations.put("animDownLeft", new Animation(60, Assets.playerDownLeft));
     }
 
+    //TODO: Have Game class be composed with an instance of TimeManager that has a tick()... move checkTimeRelatedActions() to TimeManager.tick().
     private void checkTimeRelatedActions() {
         // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
         if (TimeManager.elapsedRealSeconds >= 0 && TimeManager.elapsedRealSeconds < 180 && !executed6am) {
@@ -316,9 +313,6 @@ public class Player extends Creature {
     public void tick() {
         // SANITY LEVEL
         updateSanityLevel(staminaCurrent);
-
-        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
-        checkWinningConditions();
 
         // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
         checkTimeRelatedActions();
@@ -883,9 +877,13 @@ public class Player extends Creature {
         System.out.println("You lose");
     }
 
+    //TODO: the only way to access Game.gameStop() is never called.
     public void increaseCannabisCollected() {
         cannabisCollected++;
         sfxCannabisCollected.play();
+
+        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
+        checkWinningConditions();
     }
 
     public void resetCannabisCollected() { cannabisCollected = 0; }
