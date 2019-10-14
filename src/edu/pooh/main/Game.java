@@ -211,7 +211,7 @@ public class Game {
 
         g = bs.getDrawGraphics();
         ////////////////////////////////    //Clear Screen
-        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        //g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         ////////////////////////////////    //Draw here!
 
         if (stateManager.getCurrentState() != null) {

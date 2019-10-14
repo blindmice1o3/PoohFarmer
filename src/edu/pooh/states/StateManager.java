@@ -1,7 +1,6 @@
 package edu.pooh.states;
 
 import edu.pooh.main.Handler;
-import edu.pooh.time.TimeManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +8,7 @@ import java.util.HashMap;
 public class StateManager {
 
     public enum GameState { GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN,
-        THE_WEST, MENU, TRAVELING_FENCE; }
+        THE_WEST, MENU, TRAVELING_FENCE, PAUSE; }
 
     private Handler handler;
 
@@ -17,12 +16,6 @@ public class StateManager {
     private HashMap<GameState, IState> states;
     //stores the order of in-use IState using a stack structure (LIFO or FILO).
     private ArrayList<IState> statesStack;
-
-    /*
-    // STATES
-    private IState gameState, homeState, chickenCoopState, cowBarnState, toolShedState,
-            crossroadState, mountainState, theWestState, menuState, travelingFenceState;
-    */
 
     public StateManager(Handler handler) {
         this.handler = handler;
@@ -45,6 +38,7 @@ public class StateManager {
         states.put(GameState.THE_WEST, new TheWestState(handler));
         states.put(GameState.MENU, new MenuState(handler));
         states.put(GameState.TRAVELING_FENCE, new TravelingFenceState(handler));
+        states.put(GameState.PAUSE, new PauseState(handler));
     }
 
     private void initStatesStack() {

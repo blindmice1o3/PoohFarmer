@@ -19,11 +19,6 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
-import edu.pooh.states.ChickenCoopState;
-import edu.pooh.states.CowBarnState;
-import edu.pooh.states.GameState;
-import edu.pooh.gfx.DisplayerCalendarAndResourceManager;
-import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
 import edu.pooh.tiles.*;
@@ -49,19 +44,9 @@ public class Player extends Creature {
     private Map<String, Animation> animations;
 
     // STAMINA TRACKER
-    private SanityLevel sanityLevel;
-    private int staminaBase;
     private int staminaCurrent;
-    public void decreaseStaminaCurrent(int staminaUsage) {
-        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
-    }
-    public void increaseStaminaCurrent(int staminaGained) {
-        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
-    }
-    public void resetStaminaCurrent() {
-        System.out.println("Player.resetStaminaCurrent()");
-        staminaCurrent = staminaBase;
-    }
+    private int staminaBase;
+    private SanityLevel sanityLevel;
 
     // MOVEMENT SPEED
     private int speedMax;
@@ -69,10 +54,6 @@ public class Player extends Creature {
     //TODO: convert to IState.
     // INVENTORY
     private Inventory inventory;
-
-    //TODO: convert to PlayerLogState.
-    // DISPLAYER CALENDAR AND RESOURCE_MANAGER
-    private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
 
     //TODO: convert to State design pattern. 2 concrete subtype to choose from (HoldingState and NotHoldingState).
     // HOLDING (composed with IHoldable type)
@@ -118,9 +99,6 @@ public class Player extends Creature {
         inventory.addItem(WateringCan.getUniqueInstance(handler));
         inventory.getItem(0).setPickedUp(true);
 
-        // DISPLAYER CALENDAR AND RESOURCE_MANAGER
-        displayerCalendarAndResourceManager = new DisplayerCalendarAndResourceManager(handler);
-
         // HOLDING
         holdableObject = null;
         hr = new Rectangle();
@@ -157,26 +135,8 @@ public class Player extends Creature {
         }
     }
 
-    //TODO: instead of updating this on every tick(), move to method that mutates staminaCurrent.
-    public void updateSanityLevel(int staminaCurrent) {
-        if (staminaCurrent >= 70) {
-            sanityLevel = SanityLevel.SANE;
-        } else if ((staminaCurrent >= 50) && (staminaCurrent < 70)) {
-            sanityLevel = SanityLevel.FRAGMENTING;
-        } else if ((staminaCurrent >= 30) && (staminaCurrent < 50)) {
-            sanityLevel = SanityLevel.FRAGMENTED;
-        } else if ((staminaCurrent >= 1) && (staminaCurrent < 30)) {
-            sanityLevel = SanityLevel.INSANE;
-        } else {
-            sanityLevel = SanityLevel.GUANO;
-        }
-    }
-
     @Override
     public void tick() {
-        // SANITY LEVEL
-        updateSanityLevel(staminaCurrent);
-
         // ANIMATIONS
         for (Animation anim : animations.values()) {
             anim.tick();
@@ -275,6 +235,18 @@ public class Player extends Creature {
         xMove = 0;
         yMove = 0;
 
+        // PauseState
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+            /////////////////////////////////////////////////////////////////////
+            handler.getStateManager().change(StateManager.GameState.PAUSE, null);
+            /////////////////////////////////////////////////////////////////////
+        }
+        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
+                (getTileCurrentlyFacing() instanceof SignPostTile)) {
+            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
+        }
+
         //TODO: Create InventoryState.
         // INVENTORY CHECK
         if (inventory.isActive()) {
@@ -324,12 +296,6 @@ public class Player extends Creature {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
-        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
-        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
-                (getTileCurrentlyFacing() instanceof SignPostTile)) {
-            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
-        }
-
         // B BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
             inventory.incrementSelectedItem();
@@ -608,7 +574,6 @@ public class Player extends Creature {
 
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
-        displayerCalendarAndResourceManager.render(g);            // KeyEvent.VK_SHIFT
 
         if (holdableObject instanceof Fodder) {
             ((Fodder)holdableObject).render(g);
@@ -732,7 +697,40 @@ public class Player extends Creature {
         checkWinningConditions();
     }
 
-    public void resetCannabisCollected() { cannabisCollected = 0; }
+    // STAMINA
+    public void decreaseStaminaCurrent(int staminaUsage) {
+        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
+
+        updateSanityLevel();
+    }
+
+    public void increaseStaminaCurrent(int staminaGained) {
+        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
+
+        updateSanityLevel();
+    }
+
+    public void resetStaminaCurrent() { //TimeManager.executeSleep().
+        System.out.println("Player.resetStaminaCurrent()");
+        staminaCurrent = staminaBase;
+
+        updateSanityLevel();
+    }
+
+    // SANITY LEVEL
+    private void updateSanityLevel() {
+        if (staminaCurrent >= 70) {
+            sanityLevel = SanityLevel.SANE;
+        } else if ((staminaCurrent >= 50) && (staminaCurrent < 70)) {
+            sanityLevel = SanityLevel.FRAGMENTING;
+        } else if ((staminaCurrent >= 30) && (staminaCurrent < 50)) {
+            sanityLevel = SanityLevel.FRAGMENTED;
+        } else if ((staminaCurrent >= 1) && (staminaCurrent < 30)) {
+            sanityLevel = SanityLevel.INSANE;
+        } else {
+            sanityLevel = SanityLevel.GUANO;
+        }
+    }
 
     // GETTERS & SETTERS
 
@@ -748,7 +746,7 @@ public class Player extends Creature {
         this.holdableObject = holdableObject;
     }
 
-    public boolean getHolding() {
+    public boolean isHolding() {
         return holding;
     }
 
@@ -758,10 +756,6 @@ public class Player extends Creature {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 
 } // **** end Player class ****
