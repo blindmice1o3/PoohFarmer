@@ -145,7 +145,7 @@ public class CowBarnState implements IState {
     }
 
     public void increaseCowDaysInstantiated() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if (e instanceof Cow) {
                     ////////////////////////////////////////////////
@@ -160,7 +160,7 @@ public class CowBarnState implements IState {
     }
 
     public void increaseCowDaysImpregnanted() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if ( (e instanceof Cow) && (((Cow)e).getCowState() == Cow.CowState.PREGNANT) ) {
                     Cow pregnantCow = (Cow)e;
@@ -222,7 +222,7 @@ public class CowBarnState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];

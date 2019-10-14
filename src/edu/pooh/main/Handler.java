@@ -4,6 +4,7 @@ import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
 import edu.pooh.states.StateManager;
+import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 public class Handler {
@@ -23,9 +24,11 @@ public class Handler {
         return game.getKeyManager();
     }
 
+    public MouseManager getMouseManager() { return game.getMouseManager(); }
+
     public StateManager getStateManager() { return game.getStateManager(); }
 
-    public MouseManager getMouseManager() { return game.getMouseManager(); }
+    public TimeManager getTimeManager() { return game.getTimeManager(); }
 
     public int getWidth() {
         return Game.WIDTH_OF_FRAME;

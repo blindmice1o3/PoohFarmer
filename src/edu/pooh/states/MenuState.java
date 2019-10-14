@@ -52,7 +52,7 @@ public class MenuState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         if ((args[0] != null) && (args[0] instanceof Player)) {
             player = (Player)args[0];

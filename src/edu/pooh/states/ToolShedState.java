@@ -25,7 +25,7 @@ public class ToolShedState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];

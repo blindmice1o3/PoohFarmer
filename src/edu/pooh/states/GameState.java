@@ -36,7 +36,7 @@ public class GameState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningTrue();
+        handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
 
@@ -143,7 +143,7 @@ public class GameState implements IState {
     public void increaseCropEntityDaysWatered() {
         System.out.println("GameState.increaseCropEntityDaysWatered()");
 
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             Tile[][] tempWorld = world.getTilesViaRGB();
 
             for (int x = 0; x < tempWorld.length; x++) {
@@ -179,7 +179,7 @@ public class GameState implements IState {
     }
 
     public void setAllDirtNormalTileWateredToFalse() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             Tile[][] tempWorld = world.getTilesViaRGB();
 
             for (int x = 0; x < tempWorld.length; x++) {

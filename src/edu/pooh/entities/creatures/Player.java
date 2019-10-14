@@ -75,113 +75,7 @@ public class Player extends Creature {
 
     // DISPLAYER CALENDAR AND RESOURCE_MANAGER
     private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
-    //TODO: move time-related methods to DisplayerCalendarAndResourceManager class.
-    private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
-
-    public void executeSleep() {
-        TimeManager.setNewDayTrue();
-
-        if (!executed6am) {
-            execute6am();
-        }
-        if (!executed9am) {
-            execute9am();
-        }
-        if (!executed12pm) {
-            execute12pm();
-        }
-        if (!executed3pm) {
-            execute3pm();
-        }
-        ////////////////////////
-        if (!executed5pm) {
-            execute5pm();
-        }
-        ////////////////////////
-        if (!executed6pm) {
-            execute6pm();
-        }
-
-        setAllTimeRelatedBooleansToFalse();
-        resetStaminaCurrent();
-
-        System.out.println("Player.executeSleep()");
-    }
-
-    public void execute6pm() {
-
-        System.out.println("Player.execute6pm()");
-        executed6pm = true;
-    }
-
-    private void sellFromShippingBin(ShippingBin shippingBin) {
-        int totalPriceFromShippingBin = shippingBin.calculateTotal();
-
-        System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println(sellable.getPrice() + ": " + sellable);
-        }
-
-        ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
-        shippingBin.emptyShippingBin();
-    }
-
-    public void execute5pm() {
-        // Collect ShippingBin - GameState
-        for (Entity e : ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-        // Collect ShippingBin - ChickenCoopState
-        for (Entity e : ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-        // Collect ShippingBin - CowBarnState
-        for (Entity e : ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-
-        System.out.println("Player.execute5pm()");
-        executed5pm = true;
-    }
-
-    public void execute3pm() {
-
-        System.out.println("Player.execute3pm()");
-        executed3pm = true;
-    }
-
-    public void execute12pm() {
-
-        System.out.println("Player.execute12pm()");
-        executed12pm = true;
-    }
-
-    public void execute9am() {
-
-        System.out.println("Player.execute9am()");
-        executed9am = true;
-    }
-
-    public void execute6am() {
-
-        System.out.println("Player.execute6am()");
-        executed6am = true;
-    }
+    //TODO: move time-related methods to TimeManager class.
 
     //TODO: convert to State design pattern. 2 concrete subtype to choose from (HoldingState and NotHoldingState).
     // HOLDING (composed with IHoldable type)
@@ -195,17 +89,6 @@ public class Player extends Creature {
     private Rectangle ar; // attack-rectangle
     private int arSize = 20;
     private boolean attacking = false;
-
-    public void setAllTimeRelatedBooleansToFalse() {
-        System.out.println("Player.setAllTimeRelatedBooleansToFalse()");
-
-        executed6am = false;
-        executed9am = false;
-        executed12pm = false;
-        executed3pm = false;
-        executed5pm = false;
-        executed6pm = false;
-    }
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -233,7 +116,6 @@ public class Player extends Creature {
 
         // DISPLAYER CALENDAR AND RESOURCE_MANAGER
         displayerCalendarAndResourceManager = new DisplayerCalendarAndResourceManager(handler);
-        setAllTimeRelatedBooleansToFalse();
 
         // HOLDING
         holdableObject = null;
@@ -258,28 +140,6 @@ public class Player extends Creature {
         animations.put("animUpLeft", new Animation(60, Assets.playerUpLeft));
         animations.put("animDownRight", new Animation(60, Assets.playerDownRight));
         animations.put("animDownLeft", new Animation(60, Assets.playerDownLeft));
-    }
-
-    //TODO: Have Game class be composed with an instance of TimeManager that has a tick()... move checkTimeRelatedActions() to TimeManager.tick().
-    private void checkTimeRelatedActions() {
-        // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
-        if (TimeManager.elapsedRealSeconds >= 0 && TimeManager.elapsedRealSeconds < 180 && !executed6am) {
-            execute6am();
-        } else if (TimeManager.elapsedRealSeconds >= 180 && TimeManager.elapsedRealSeconds < 360 && !executed9am) {
-            execute9am();
-        } else if (TimeManager.elapsedRealSeconds >= 360 && TimeManager.elapsedRealSeconds < 540 && !executed12pm) {
-            execute12pm();
-        } else if (TimeManager.elapsedRealSeconds >= 540 && TimeManager.elapsedRealSeconds < 660 && !executed3pm) {
-            execute3pm();
-        }
-        // ****************** | 5pm | *********************
-        else if (TimeManager.elapsedRealSeconds >= 660 && TimeManager.elapsedRealSeconds < 720 && !executed5pm) {
-            execute5pm();
-        }
-        // ************************************************
-        else if (TimeManager.elapsedRealSeconds == 720 && !executed6pm) {
-            execute6pm();
-        }
     }
 
     private void checkWinningConditions() {
@@ -313,9 +173,6 @@ public class Player extends Creature {
     public void tick() {
         // SANITY LEVEL
         updateSanityLevel(staminaCurrent);
-
-        // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
-        checkTimeRelatedActions();
 
         // ANIMATIONS
         for (Animation anim : animations.values()) {
@@ -777,9 +634,9 @@ public class Player extends Creature {
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
         // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)
-        Text.drawString(g, TimeManager.translateElapsedRealSecondsToGameHoursMinutes(),
+        Text.drawString(g, handler.getTimeManager().translateElapsedRealSecondsToGameHoursMinutes(),
                 (handler.getWidth() / 2), 30, true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
+        Text.drawString(g, Integer.toString(handler.getTimeManager().elapsedRealSeconds),
                 (handler.getWidth() / 2), 55, true, Color.BLUE, Assets.font28);
 
         // CURRENT SELECTED ITEM FROM INVENTORY (TOP-RIGHT CORNER)

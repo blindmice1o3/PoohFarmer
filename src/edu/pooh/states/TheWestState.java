@@ -26,7 +26,7 @@ public class TheWestState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningTrue();
+        handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
         player = (Player)args[0];

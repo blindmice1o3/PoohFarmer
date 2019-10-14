@@ -26,7 +26,7 @@ public class HomeState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];
@@ -44,7 +44,7 @@ public class HomeState implements IState {
 
     @Override
     public void exit() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             /** Daily GameState method calls. */
             // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
             ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).increaseCropEntityDaysWatered();
@@ -100,12 +100,12 @@ public class HomeState implements IState {
 
 
             //////// RESET TIME FOR NEW DAY /////////
-            TimeManager.incrementElapsedInGameDays();
-            TimeManager.setNewDayFalse();
-            TimeManager.resetElapsedRealSeconds();
+            handler.getTimeManager().incrementElapsedInGameDays();
+            handler.getTimeManager().setNewDayFalse();
+            handler.getTimeManager().resetElapsedRealSeconds();
             /////////////////////////////////////////
 
-            TimeManager.setClockRunningTrue();
+            handler.getTimeManager().setClockRunningTrue();
         }
 
         ///////////////////////////////////////////////////
@@ -120,7 +120,7 @@ public class HomeState implements IState {
         }
         ///////////////////////////////////////////////////
 
-        TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays();
+        handler.getTimeManager().translateElapsedInGameDaysToGameYearsSeasonsMonthsDays();
     }
 
     @Override

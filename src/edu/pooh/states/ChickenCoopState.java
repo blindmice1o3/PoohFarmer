@@ -34,7 +34,7 @@ public class ChickenCoopState implements IState {
     } // **** end ChickenCoopState(Handler) constructor ****
 
     public void increaseChickenDaysInstantiated() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if (e instanceof Chicken) {
                     ////////////////////////////////////////
@@ -284,7 +284,7 @@ public class ChickenCoopState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];

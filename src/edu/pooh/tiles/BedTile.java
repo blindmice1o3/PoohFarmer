@@ -19,7 +19,7 @@ public class BedTile extends SolidGenericTile
 
     @Override
     public void execute() {
-        handler.getWorld().getEntityManager().getPlayer().executeSleep();
+        handler.getTimeManager().executeSleep();
 
         System.out.println("BedTile.execute() called.");
     }

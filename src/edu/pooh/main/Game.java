@@ -32,6 +32,14 @@ public class Game {
     private Thread gameThread;
     private volatile boolean running = false; // GAME LOOP'S conditional statement (while loop)
 
+
+
+    // HANDLER
+    private Handler handler;
+
+    // CAMERA
+    private GameCamera gameCamera;
+
     // INPUT
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -40,27 +48,21 @@ public class Game {
     private StateManager stateManager;
 
     //TODO: TimeManager instance.
-
-
-    // CAMERA
-    private GameCamera gameCamera;
-
-    // HANDLER
-    private Handler handler;
+    private TimeManager timeManager;
 
     public Game() {
-        keyManager = new KeyManager();
-        mouseManager = new MouseManager();
-
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
 
+        keyManager = new KeyManager();
+        mouseManager = new MouseManager();
 
         Assets.init();
         SoundManager.init();
 
         //TODO: move to StateManager class.
         stateManager = new StateManager(handler);
+        timeManager = new TimeManager(handler);
     } // **** end edu.pooh.main.Game() constructor ****
 
     public void gameInit() {
@@ -178,9 +180,10 @@ public class Game {
             // Visual representation to check how many times we're calling tick() and render() each second.
             if (tickTimer >= 1000000000) {
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                realLifeSecondTicker();
+                //TimeManager's tick().
+                timeManager.incrementElapsedRealSeconds();
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//                System.out.println("Tick: " + tickCounter + ". | Render: " + renderCounter + ".");
+                System.out.println("Tick: " + tickCounter + ". | Render: " + renderCounter + ".");
                 tickCounter = 0;  // Reset tickCounter back to 0.
                 renderCounter = 0;
                 tickTimer = 0;  // Reset tickTimer back to 0.
@@ -189,9 +192,6 @@ public class Game {
             //Thread.sleep(timeLeft) later on.
 
         } // *** end of GAME-LOOP ***
-    }
-    private void realLifeSecondTicker() {
-        TimeManager.incrementElapsedRealSeconds();
     }
 
     private void tick() {
@@ -290,6 +290,8 @@ public class Game {
     public StateManager getStateManager() {
         return stateManager;
     }
+
+    public TimeManager getTimeManager() { return timeManager; }
 
     public MouseManager getMouseManager() { return mouseManager; }
 

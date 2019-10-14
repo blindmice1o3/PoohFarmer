@@ -36,7 +36,7 @@ public class TravelingFenceState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        handler.getTimeManager().setClockRunningFalse();
 
         this.args = args;
 

@@ -78,7 +78,7 @@ public class StateManager {
 
         pushIState(nextState);
 
-        TimeManager.consoleOutputTimeInfo();
+        handler.getTimeManager().consoleOutputTimeInfo();
     }
 
     public IState getCurrentState() {

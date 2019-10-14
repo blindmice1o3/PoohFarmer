@@ -1,28 +1,204 @@
 package edu.pooh.time;
 
+import edu.pooh.entities.Entity;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
+import edu.pooh.inventory.ResourceManager;
+import edu.pooh.main.Handler;
+import edu.pooh.main.ISellable;
+import edu.pooh.states.ChickenCoopState;
+import edu.pooh.states.CowBarnState;
+import edu.pooh.states.GameState;
+import edu.pooh.states.StateManager;
+
 public class TimeManager {
 
-    public static boolean clockRunning = true;
-    public static boolean newDay = false;
+    public boolean clockRunning = true;
+    public boolean newDay = false;
 
     /////////////////////
     // TIME in ONE DAY //
     /////////////////////
     //determines: (1) AM or PM, (2) hours, and (3) minutes of in-game elapsed time
     // (stops at 6PM, resets when newDay is true).
-    public static int elapsedRealSeconds = 0;
+    public int elapsedRealSeconds = 0;
 
     ///////////////////////
     // TIME in ONE MONTH //
     ///////////////////////
-    public static int elapsedInGameDays = 1;
+    public int elapsedInGameDays = 1;
 
-    public static int gameYear = 0;
-    public static String gameSeason = "Spring";
-    public static String gameMonth = "March";
-    public static int gameDay = 1;
+    public int gameYear = 0;
+    public String gameSeason = "Spring";
+    public String gameMonth = "March";
+    public int gameDay = 1;
 
-    public static void translateElapsedInGameDaysToGameYearsSeasonsMonthsDays() {
+    private Handler handler;
+
+    private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    public TimeManager(Handler handler) {
+        this.handler = handler;
+
+        setAllTimeRelatedBooleansToFalse();
+    } // **** end TimeManager(Handler) constructor ****
+
+    /**
+     * TimeManager's tick().
+     */
+    public void incrementElapsedRealSeconds() {
+        if (clockRunning && (elapsedRealSeconds + 1 <= 720)) {   //less than one game day (6am-6pm, 12hours).
+            elapsedRealSeconds++;
+        }
+
+        //************************
+        // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
+        checkTimeRelatedActions();
+        //************************
+    }
+
+    //accessed via BedTile
+    public void executeSleep() {
+        setNewDayTrue();
+
+        if (!executed6am) {
+            execute6am();
+        }
+        if (!executed9am) {
+            execute9am();
+        }
+        if (!executed12pm) {
+            execute12pm();
+        }
+        if (!executed3pm) {
+            execute3pm();
+        }
+        ////////////////////////
+        if (!executed5pm) {
+            execute5pm();
+        }
+        ////////////////////////
+        if (!executed6pm) {
+            execute6pm();
+        }
+
+        setAllTimeRelatedBooleansToFalse();
+        handler.getWorld().getEntityManager().getPlayer().resetStaminaCurrent();
+
+        System.out.println("TimeManager.executeSleep()");
+    }
+
+    private void checkTimeRelatedActions() {
+        // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
+        if (elapsedRealSeconds >= 0 && elapsedRealSeconds < 180 && !executed6am) {
+            execute6am();
+        } else if (elapsedRealSeconds >= 180 && elapsedRealSeconds < 360 && !executed9am) {
+            execute9am();
+        } else if (elapsedRealSeconds >= 360 && elapsedRealSeconds < 540 && !executed12pm) {
+            execute12pm();
+        } else if (elapsedRealSeconds >= 540 && elapsedRealSeconds < 660 && !executed3pm) {
+            execute3pm();
+        }
+        // ****************** | 5pm | *********************
+        else if (elapsedRealSeconds >= 660 && elapsedRealSeconds < 720 && !executed5pm) {
+            execute5pm();
+        }
+        // ************************************************
+        else if (elapsedRealSeconds == 720 && !executed6pm) {
+            execute6pm();
+        }
+    }
+
+    public void setAllTimeRelatedBooleansToFalse() {
+        System.out.println("TimeManager.setAllTimeRelatedBooleansToFalse()");
+
+        executed6am = false;
+        executed9am = false;
+        executed12pm = false;
+        executed3pm = false;
+        executed5pm = false;
+        executed6pm = false;
+    }
+
+    public void execute6pm() {
+
+        System.out.println("TimeManager.execute6pm()");
+        executed6pm = true;
+    }
+
+    private void sellFromShippingBin(ShippingBin shippingBin) {
+        int totalPriceFromShippingBin = shippingBin.calculateTotal();
+
+        System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
+        for (ISellable sellable : shippingBin.getInventory()) {
+            System.out.println(sellable.getPrice() + ": " + sellable);
+        }
+
+        ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
+        shippingBin.emptyShippingBin();
+    }
+
+    public void execute5pm() {
+        // Collect ShippingBin - GameState
+        for (Entity e : ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
+                break;
+                //////////////////////////////////////////////////////////
+            }
+        }
+        // Collect ShippingBin - ChickenCoopState
+        for (Entity e : ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
+                break;
+                //////////////////////////////////////////////////////////
+            }
+        }
+        // Collect ShippingBin - CowBarnState
+        for (Entity e : ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).getWorld().getEntityManager().getEntities()) {
+            if (e instanceof ShippingBin) {
+                //////////////////////////////////////////////////////////
+                sellFromShippingBin( (ShippingBin)e );
+                break;
+                //////////////////////////////////////////////////////////
+            }
+        }
+
+        System.out.println("TimeManager.execute5pm()");
+        executed5pm = true;
+    }
+
+    public void execute3pm() {
+
+        System.out.println("TimeManager.execute3pm()");
+        executed3pm = true;
+    }
+
+    public void execute12pm() {
+
+        System.out.println("TimeManager.execute12pm()");
+        executed12pm = true;
+    }
+
+    public void execute9am() {
+
+        System.out.println("TimeManager.execute9am()");
+        executed9am = true;
+    }
+
+    public void execute6am() {
+
+        System.out.println("TimeManager.execute6am()");
+        executed6am = true;
+    }
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    public void translateElapsedInGameDaysToGameYearsSeasonsMonthsDays() {
         System.out.println("TimeManager.translateElapsedInGameDaysToGameYearsSeasonsMonthsDays()");
 
         int days = elapsedInGameDays;
@@ -44,7 +220,7 @@ public class TimeManager {
         gameYear = elapsedInGameDays / 360; // 360 days (NOT 365 days because 12 months * 30 days) in 1 year.
     }
 
-    private static String convertMonthsIntToSeasonString(int months) {
+    private String convertMonthsIntToSeasonString(int months) {
         switch (months) {
             case 0:
             case 1:
@@ -68,7 +244,7 @@ public class TimeManager {
         }
     }
 
-    private static String convertMonthsIntToMonthString(int months) {
+    private String convertMonthsIntToMonthString(int months) {
         switch (months) {
             case 0:
                 return "March";
@@ -99,20 +275,14 @@ public class TimeManager {
         }
     }
 
-    public static void consoleOutputTimeInfo() {
+    public void consoleOutputTimeInfo() {
         System.out.println( "****************************************** " +
-                "\ngameYear: " +            TimeManager.gameYear +
-                "\ngameSeason: " +          TimeManager.gameSeason +
-                "\ngameMonth: " +           TimeManager.gameMonth +
-                "\ngameDay: " +             TimeManager.gameDay +
-                "\nelapsedInGameDays: " +   TimeManager.elapsedInGameDays +
-                "\ngameHoursMinutes: " +    TimeManager.translateElapsedRealSecondsToGameHoursMinutes() );
-    }
-
-    public static void incrementElapsedRealSeconds() {
-        if (clockRunning && (elapsedRealSeconds + 1 <= 720)) {   //less than one game day (6am-6pm, 12hours).
-            elapsedRealSeconds++;
-        }
+                "\ngameYear: " +            gameYear +
+                "\ngameSeason: " +          gameSeason +
+                "\ngameMonth: " +           gameMonth +
+                "\ngameDay: " +             gameDay +
+                "\nelapsedInGameDays: " +   elapsedInGameDays +
+                "\ngameHoursMinutes: " +    translateElapsedRealSecondsToGameHoursMinutes() );
     }
 
     /**
@@ -125,7 +295,7 @@ public class TimeManager {
      * //TODO: In the future, develop the timing system to include both an elapsedRealSeconds variable AND a separate
      * //in-game time that uses the elapsedRealSeconds as an engine BUT NOT as direct-data.
      */
-    public static void incrementElapsedRealSecondsBy60() {
+    public void incrementElapsedRealSecondsBy60() {
         if ((elapsedRealSeconds + 60 <= 720)) {
             elapsedRealSeconds += 60;
         } else {
@@ -133,7 +303,7 @@ public class TimeManager {
         }
     }
 
-    public static void incrementElapsedInGameDays() {
+    public void incrementElapsedInGameDays() {
         System.out.println("TimeManager.incrementElapsedInGameDays()");
 
         elapsedInGameDays++;
@@ -144,7 +314,7 @@ public class TimeManager {
      *
      * @return String representation of in-game time (i.e. "02:37PM") based on elapsedRealSeconds.
      */
-    public static String translateElapsedRealSecondsToGameHoursMinutes() {
+    public String translateElapsedRealSecondsToGameHoursMinutes() {
         StringBuilder returner = new StringBuilder();
 
         int minutes = elapsedRealSeconds;   // 1 real-life second is 1 in-game minute.
@@ -185,31 +355,31 @@ public class TimeManager {
         return returner.toString();
     }
 
-    public static void resetElapsedRealSeconds() {
+    public void resetElapsedRealSeconds() {
         System.out.println("TimeManager.resetElapsedRealSeconds()");
 
         elapsedRealSeconds = 0;
     }
 
-    public static void setClockRunningTrue() {
+    public void setClockRunningTrue() {
         System.out.println("TimeManager.setClockRunningTrue()");
 
         clockRunning = true;
     }
 
-    public static void setClockRunningFalse() {
+    public void setClockRunningFalse() {
         clockRunning = false;
     }
 
-    public static void setNewDayTrue() {
+    public void setNewDayTrue() {
         newDay = true;
     }
 
-    public static boolean getNewDay() {
+    public boolean getNewDay() {
         return newDay;
     }
 
-    public static void setNewDayFalse() {
+    public void setNewDayFalse() {
         System.out.println("TimeManager.setNewDayFalse()");
 
         newDay = false;

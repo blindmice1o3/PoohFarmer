@@ -21,9 +21,9 @@ public class DisplayerCalendarAndResourceManager {
 
         g.drawImage(Assets.dateDisplayerBackground, 64, 48, 668, 500, null);
 
-        Text.drawString(g, "(" + TimeManager.gameSeason + ") " + TimeManager.gameMonth + ", " + TimeManager.gameDay,
+        Text.drawString(g, "(" + handler.getTimeManager().gameSeason + ") " + handler.getTimeManager().gameMonth + ", " + handler.getTimeManager().gameDay,
                 264, 248, true, Color.RED, Assets.font28);
-        Text.drawString(g, "Year: " + (TimeManager.gameYear + 1) + " of 2.5",
+        Text.drawString(g, "Year: " + (handler.getTimeManager().gameYear + 1) + " of 2.5",
                 264, 298, true, Color.RED, Assets.font28);
 
         Text.drawString(g, "Chicken Counter: " + (ResourceManager.chickenCounter),
