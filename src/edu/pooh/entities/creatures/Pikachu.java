@@ -24,9 +24,9 @@ public class Pikachu extends Creature
     private boolean pickedUp;
 
 
-
+    //TODO: redo Pikachu's following feature inside Pikachu class.
     //@@@@@@@@@@@@@@@@@@@@@@@@
-    private boolean following;
+    //private boolean following;
     //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -48,7 +48,7 @@ public class Pikachu extends Creature
 
 
         //@@@@@@@@@@@@@@@@@@@@@@@@
-        following = false;
+        //following = false;
         //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -82,11 +82,13 @@ public class Pikachu extends Creature
     @Override
     public void tick() {
         //@@@@@@@@@@@@@@@@@@@@@@@@
+        /*
         if (following) {
             Player player = handler.getWorld().getEntityManager().getPlayer();
             xMove = player.getPrevXMove();
             yMove = player.getPrevYMove();
         }
+        */
         //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -95,9 +97,11 @@ public class Pikachu extends Creature
                 animation.tick();
             }
 
-            if (!following) {
+
+            //if (!following) {
                 randomlyMove();
-            }
+            //}
+
             move();
         }
     }
@@ -205,7 +209,7 @@ public class Pikachu extends Creature
 
     // GETTERS AND SETTERS
 
-    public boolean isFollowing() { return following; }
-    public void setFollowing(boolean following) { this.following = following; }
+    //public boolean isFollowing() { return following; }
+    //public void setFollowing(boolean following) { this.following = following; }
 
 } // **** end Pikachu class ****

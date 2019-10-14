@@ -39,15 +39,17 @@ public class Player extends Creature {
 
     public enum SanityLevel { SANE, FRAGMENTING, FRAGMENTED, INSANE, GUANO; }
 
-    private SanityLevel sanityLevel;
-
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
     // CANNABIS COUNTER
     private int cannabisCollected;
 
+    // ANIMATIONS
+    private Map<String, Animation> animations;
+
     // STAMINA TRACKER
+    private SanityLevel sanityLevel;
     private int staminaBase;
     private int staminaCurrent;
     public void decreaseStaminaCurrent(int staminaUsage) {
@@ -61,21 +63,16 @@ public class Player extends Creature {
         staminaCurrent = staminaBase;
     }
 
-    // ANIMATIONS
-    private Map<String, Animation> animations;
-
-    // ATTACK TIMER
-    private long lastAttackTimer;
-    private long attackCooldown = 800;  // 800 milliseconds
-    private long attackTimer = attackCooldown;
+    // MOVEMENT SPEED
+    private int speedMax;
 
     //TODO: convert to IState.
     // INVENTORY
     private Inventory inventory;
 
+    //TODO: convert to PlayerLogState.
     // DISPLAYER CALENDAR AND RESOURCE_MANAGER
     private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
-    //TODO: move time-related methods to TimeManager class.
 
     //TODO: convert to State design pattern. 2 concrete subtype to choose from (HoldingState and NotHoldingState).
     // HOLDING (composed with IHoldable type)
@@ -83,6 +80,11 @@ public class Player extends Creature {
     private Rectangle hr; // holding-rectangle
     private int hrSize = 30;
     private boolean holding = false;
+
+    // ATTACK TIMER
+    private long lastAttackTimer;
+    private long attackCooldown = 800;  // 800 milliseconds
+    private long attackTimer = attackCooldown;
 
     // MELEE ATTACK
     private Rectangle cb; // player's collision/bounding box
@@ -97,17 +99,19 @@ public class Player extends Creature {
         bounds.width = 34;
         bounds.height = 44;
 
-        sanityLevel = SanityLevel.SANE;
-
         // CANNABIS COUNTER
         cannabisCollected = 0;
 
-        // STAMINA TRACKER
-        staminaBase = 100;
-        staminaCurrent = 100;
-
         // ANIMATIONS
         initAnimations();
+
+        // STAMINA TRACKER
+        sanityLevel = SanityLevel.SANE;
+        staminaBase = 100;
+        staminaCurrent = staminaBase;
+
+        // MOVEMENT SPEED
+        speedMax = 10;
 
         // INVENTORY
         inventory = new Inventory(handler);
@@ -140,8 +144,10 @@ public class Player extends Creature {
         animations.put("animUpLeft", new Animation(60, Assets.playerUpLeft));
         animations.put("animDownRight", new Animation(60, Assets.playerDownRight));
         animations.put("animDownLeft", new Animation(60, Assets.playerDownLeft));
+        //TODO: animation for Pooh using Thor's Hammer!
     }
 
+    //TODO: Have Game class be composed with a QuestManager and move this method to QuestManager class.
     private void checkWinningConditions() {
         if (cannabisCollected == 3000) {
             sfxBButtonPressed.play();
@@ -151,6 +157,7 @@ public class Player extends Creature {
         }
     }
 
+    //TODO: instead of updating this on every tick(), move to method that mutates staminaCurrent.
     public void updateSanityLevel(int staminaCurrent) {
         if (staminaCurrent >= 70) {
             sanityLevel = SanityLevel.SANE;
@@ -165,10 +172,6 @@ public class Player extends Creature {
         }
     }
 
-    private float prevYMove = 0;
-    private float prevXMove = 0;
-    public float getPrevYMove() { return prevYMove; }
-    public float getPrevXMove() { return prevXMove; }
     @Override
     public void tick() {
         // SANITY LEVEL
@@ -181,8 +184,6 @@ public class Player extends Creature {
 
 
         // MOVEMENT
-        prevYMove = yMove;
-        prevXMove = xMove;
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
@@ -265,15 +266,15 @@ public class Player extends Creature {
         }
     }
 
-    private int speedMax = 10;
+    //TODO: move to Hammer class.
     private int hitBoulderCounter = 0;
+    //TODO: move to Axe class.
     private int hitTreeStumpCounter = 0;
     private void getInput() {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
         yMove = 0;
 
-        //TODO: Have StateManager (aka StateMachine) use a stack instead of a single currentState field.
         //TODO: Create InventoryState.
         // INVENTORY CHECK
         if (inventory.isActive()) {
@@ -322,9 +323,6 @@ public class Player extends Creature {
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
         // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
@@ -338,17 +336,6 @@ public class Player extends Creature {
             sfxBButtonPressed.play();
         }
 
-        //@@@@@@@@@@@@@@@@@@@@@@@@  //PIKACHU follow
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD) &&
-                (getEntityCurrentlyFacing() instanceof Pikachu)) {
-            ((Pikachu)getEntityCurrentlyFacing()).setFollowing(true);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-        //TODO: animation for Pooh using Thor's Hammer!
-
-
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
 
@@ -357,6 +344,7 @@ public class Player extends Creature {
                 ((DeadCow)getEntityCurrentlyFacing()).setClicked(true);
             }
 
+            //TODO: move to Hammer.execute().
             // CHECK BOULDER AND HAMMER (6 consecutive hits without moving)
             if (inventory.getItem(inventory.getIndex()) instanceof Hammer) {
                 if (getEntityCurrentlyFacing() instanceof Boulder) {
@@ -377,6 +365,7 @@ public class Player extends Creature {
                 }
             }
 
+            //TODO: move to Axe.execute().
             // CHECK TREESTUMP AND AXE (6 consecutive hits without moving)
             if (inventory.getItem(inventory.getIndex()) instanceof Axe) {
                 if (getEntityCurrentlyFacing() instanceof TreeStump) {
