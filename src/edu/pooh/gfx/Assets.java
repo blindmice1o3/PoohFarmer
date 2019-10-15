@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 public class Assets {
 
@@ -13,6 +14,8 @@ public class Assets {
 
     // FONT
     public static Font font28, font14;
+    public static BufferedImage fontSpriteSheet, pokeballToken;
+    public static Map<String, BufferedImage> fontHashMap;
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
@@ -143,6 +146,9 @@ public class Assets {
         // **************************************************************
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
         font14 = FontLoader.loadFont("res/fonts/slkscr.ttf", 14);
+        fontSpriteSheet = ImageLoader.loadImage("/fonts/Game Boy GBC - Pokemon Yellow - Battle Interface.png");
+        pokeballToken = fontSpriteSheet.getSubimage(324, 269, 7, 7);
+        fontHashMap = FontGrabber.initFont();
 
         // **************************************************************
         // |+|+|+|+|+|+|+| INVENTORY SCREEN (BACKGROUND) |+|+|+|+|+|+|+|

@@ -206,10 +206,12 @@ public class GameState implements IState {
 
     @Override
     public void render(Graphics g) {
+        /*
         if (handler.getStateManager().getCurrentState() !=
                 handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             return;
         }
+        */
 
         ////////////////
         world.render(g);

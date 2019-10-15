@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class StateManager {
 
     public enum GameState { GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN,
-        THE_WEST, MENU, TRAVELING_FENCE, PAUSE; }
+        THE_WEST, MENU, TRAVELING_FENCE, PAUSE, TEXT_BOX; }
 
     private Handler handler;
 
@@ -39,6 +39,7 @@ public class StateManager {
         states.put(GameState.MENU, new MenuState(handler));
         states.put(GameState.TRAVELING_FENCE, new TravelingFenceState(handler));
         states.put(GameState.PAUSE, new PauseState(handler));
+        states.put(GameState.TEXT_BOX, new TextboxState(handler));
     }
 
     private void initStatesStack() {
@@ -97,5 +98,7 @@ public class StateManager {
         currentState = IState;
     }
     */
+
+    public ArrayList<IState> getStatesStack() { return statesStack; }
 
 } // **** end StateManager class ****
