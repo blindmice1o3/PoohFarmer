@@ -64,7 +64,7 @@ public class Game extends Canvas {
         panel.setLayout(null);
 
         setBounds(0, 0, WIDTH_OF_FRAME, HEIGHT_OF_FRAME);
-        frame.add(this);
+        panel.add(this);
 
         ///////////////////////
         setIgnoreRepaint(true);
