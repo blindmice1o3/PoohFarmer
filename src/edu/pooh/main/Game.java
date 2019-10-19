@@ -4,6 +4,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
+import edu.pooh.serialize_deserialize.SaverAndLoader;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.*;
 import edu.pooh.time.TimeManager;
@@ -48,6 +49,9 @@ public class Game extends Canvas {
     // TIME
     private TimeManager timeManager;
 
+    // SAVER AND LOADER
+    SaverAndLoader saverAndLoader;
+
     public Game() {
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -57,7 +61,7 @@ public class Game extends Canvas {
 
         frame = new JFrame("Pooh Farmer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+        frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
 
         JPanel panel = (JPanel)frame.getContentPane();
         panel.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
@@ -87,6 +91,7 @@ public class Game extends Canvas {
 
         stateManager = new StateManager(handler);
         timeManager = new TimeManager(handler);
+        saverAndLoader = new SaverAndLoader(handler);
     }
 
     public synchronized void gameStart() {
@@ -99,7 +104,7 @@ public class Game extends Canvas {
         gameThread = new Thread() {
             @Override
             public void run() {
-                gameInit(); // Is just called once.
+                gameInit();
 
                 gameLoop(); // @@@@ GAME LOOP @@@@
 
@@ -237,6 +242,8 @@ public class Game extends Canvas {
     public MouseManager getMouseManager() { return mouseManager; }
 
     public GameCamera getGameCamera() { return gameCamera; }
+
+    public SaverAndLoader getSaverAndLoader() { return  saverAndLoader; }
 
     public boolean isRunning() {
         return running;

@@ -161,6 +161,18 @@ public class Player extends Creature {
         xMove = 0;
         yMove = 0;
 
+        //TODO: calls to SaverAndLoader save() and load() methods.
+        // Serialize game.
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_F2)) {
+            //TODO: SAVE.
+            handler.getGame().getSaverAndLoader().save("pooh_farmer.bin");
+        }
+        // Deserialize game.
+        else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_F4)) {
+            //TODO: LOAD.
+            handler.getGame().getSaverAndLoader().load();
+        }
+
         // PauseState
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
             /////////////////////////////////////////////////////////////////////
