@@ -171,27 +171,27 @@ public class Player extends Creature {
         // KeyEvent.VK_SLASH        //TEXTBOXSTATE enter
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SLASH))) {
             /////////////////////////////////////////////////////////////////////
-            Object[] args = { "I love you mom!" };
+            Object[] args = { "I love you mom" };
             handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
             /////////////////////////////////////////////////////////////////////
         }
-
-        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
-        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
-                (getTileCurrentlyFacing() instanceof SignPostTile)) {
-            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
-        }
-
         // KeyEvent.VK_ESCAPE       //TEXTBOXSTATE escape
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
                 (handler.getStateManager().getCurrentState() instanceof TextboxState)) {
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            /////////////////////////////////////////////////////////////////////
             handler.getStateManager().popIState();
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            /////////////////////////////////////////////////////////////////////
+        }
+        //TODO: redo sign post tile.
+        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
+                (getTileCurrentlyFacing() instanceof SignPostTile)) {
+            /////////////////////////////////////////////////////////////////////
+            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
+            /////////////////////////////////////////////////////////////////////
         }
 
-        //TODO: Create InventoryState.
         // INVENTORY CHECK
         if (inventory.isActive()) {
             return;

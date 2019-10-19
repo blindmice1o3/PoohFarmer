@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class Game {
+public class Game extends Canvas {
     // TODO: Serialiable (save/load feature).
 
     // CONSTANTS
@@ -21,8 +21,6 @@ public class Game {
 
     // DISPLAY
     private JFrame frame;
-    //TODO: switch to JPanel.
-    private Canvas canvas;
 
     // GRAPHICS CONTEXT
     private BufferStrategy bs;
@@ -47,48 +45,48 @@ public class Game {
     // GAME STATES
     private StateManager stateManager;
 
-    //TODO: TimeManager instance.
+    // TIME
     private TimeManager timeManager;
 
     public Game() {
-        handler = new Handler(this);
-        gameCamera = new GameCamera(handler, 0, 0);
-
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
+        addKeyListener(keyManager);
+        addMouseListener(mouseManager);
+        addMouseMotionListener(mouseManager);
+
+        frame = new JFrame("Pooh Farmer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+
+        JPanel panel = (JPanel)frame.getContentPane();
+        panel.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
+        panel.setLayout(null);
+
+        setBounds(0, 0, WIDTH_OF_FRAME, HEIGHT_OF_FRAME);
+        frame.add(this);
+
+        ///////////////////////
+        setIgnoreRepaint(true);
+        ///////////////////////
+
+        frame.pack();
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        requestFocus();
+    } // **** end edu.pooh.main.Game() constructor ****
+
+    public void gameInit() {
+        handler = new Handler(this);
+        gameCamera = new GameCamera(handler, 0, 0);
 
         Assets.init();
         SoundManager.init();
 
-        //TODO: move to StateManager class.
         stateManager = new StateManager(handler);
         timeManager = new TimeManager(handler);
-    } // **** end edu.pooh.main.Game() constructor ****
-
-    public void gameInit() {
-        frame = new JFrame("Pooh Farmer");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-
-        canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
-        canvas.setMaximumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
-        canvas.setMinimumSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
-        canvas.setFocusable(false);
-
-        frame.addKeyListener(keyManager);
-        frame.addMouseListener(mouseManager);
-        frame.addMouseMotionListener(mouseManager);
-        canvas.addKeyListener(keyManager);
-        canvas.addMouseListener(mouseManager);
-        canvas.addMouseMotionListener(mouseManager);
-
-        frame.add(canvas);
-        frame.pack();
-
-        frame.setVisible(true);
     }
 
     public synchronized void gameStart() {
@@ -203,85 +201,28 @@ public class Game {
     }
 
     private void render() {
-        bs = canvas.getBufferStrategy();
+        bs = getBufferStrategy();
         if (bs == null) {
-            canvas.createBufferStrategy(3);
+            createBufferStrategy(3);
             return;
         }
 
         g = bs.getDrawGraphics();
+
         ////////////////////////////////    //Clear Screen
         //g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        ////////////////////////////////    //Draw here!
 
+        ////////////////////////////////    //Draw here!
         if (stateManager.getCurrentState() != null) {
             stateManager.getCurrentState().render(g);
         }
-
         ////////////////////////////////    //End drawing!
-        bs.show();
+
         g.dispose();
+        bs.show();
     }
 
     // GETTERS & SETTERS
-
-    /*
-    public IState getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(IState gameState) {
-        this.gameState = gameState;
-    }
-
-    public IState getHomeState() {
-        return homeState;
-    }
-
-    public void setHomeState(IState homeState) {
-        this.homeState = homeState;
-    }
-
-    public IState getChickenCoopState() { return chickenCoopState; }
-
-    public void setChickenCoopState(IState chickenCoopState) { this.chickenCoopState = chickenCoopState; }
-
-    public IState getCowBarnState() { return cowBarnState; }
-
-    public void setCowBarnState(IState cowBarnState) { this.cowBarnState = cowBarnState; }
-
-    public IState getToolShedState() { return toolShedState; }
-
-    public void setToolShedState(IState toolShedState) { this.toolShedState = toolShedState; }
-
-    public IState getCrossroadState() { return crossroadState; }
-
-    public void setCrossroadState(IState crossroadState) { this.crossroadState = crossroadState; }
-
-    public IState getMountainState() { return mountainState; }
-
-    public void setMountainState(IState mountainState) { this.mountainState = mountainState; }
-
-    public IState getTheWestState() { return theWestState; }
-
-    public void setTheWestState(IState theWestState) { this.theWestState = theWestState; }
-
-    public IState getMenuState() {
-        return menuState;
-    }
-
-    public void setMenuState(IState menuState) {
-        this.menuState = menuState;
-    }
-
-    public IState getTravelingFenceState() {
-        return travelingFenceState;
-    }
-
-    public void setTravelingFenceState(IState travelingFenceState) {
-        this.travelingFenceState = travelingFenceState;
-    }
-    */
 
     public KeyManager getKeyManager() {
         return keyManager;
