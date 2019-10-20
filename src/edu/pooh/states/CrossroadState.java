@@ -7,12 +7,14 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class CrossroadState implements IState {
+public class CrossroadState
+        implements IState, Serializable {
 
     public enum PlayerPreviousExit { GAME_STATE, MOUNTAIN_STATE, THE_WEST_STATE; }
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -137,6 +139,11 @@ public class CrossroadState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     public World getWorld() {

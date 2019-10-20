@@ -24,15 +24,17 @@ import edu.pooh.utils.Utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Random;
 
-public class World {
+public class World
+        implements Serializable {
 
     public enum WorldType {
         GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN, MENU, TRAVELING_FENCE, THE_WEST;
     }
 
-    private Handler handler;
+    private transient Handler handler;
     private WorldType worldType;
 
     private int widthInTiles;   // Width of world, in terms of number of tiles across.

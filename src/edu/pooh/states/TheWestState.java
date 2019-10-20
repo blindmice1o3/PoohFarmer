@@ -8,10 +8,12 @@ import edu.pooh.worlds.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class TheWestState implements IState {
+public class TheWestState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -124,6 +126,11 @@ public class TheWestState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     public World getWorld() {

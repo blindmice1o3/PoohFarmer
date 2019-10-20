@@ -5,13 +5,15 @@ import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class EntityManager {
+public class EntityManager
+        implements Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private Player player;
 
     private ArrayList<Entity> entities;

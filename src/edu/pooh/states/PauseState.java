@@ -7,10 +7,12 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class PauseState implements IState {
+public class PauseState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
 
     public PauseState(Handler handler) {
         this.handler = handler;
@@ -69,6 +71,11 @@ public class PauseState implements IState {
                 (xPanel + 10), (yPanel + 100), false, Color.YELLOW, Assets.font28);
         Text.drawString(g, "Cow Counter: " + (handler.getResourceManager().getCowCounter()),
                 (xPanel + 10), (yPanel + 135), false, Color.GREEN, Assets.font28);
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end PauseState class ****

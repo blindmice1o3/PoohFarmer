@@ -19,7 +19,7 @@ public class Cow extends Creature {
     public enum CowState { BABY, CALF, ADULT_1, ADULT_2, ADULT_3, PREGNANT; }
     public enum CowHealth { HEALTHY, CRANKY, SICK; }
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private int fodderDisplayerTileArrayIndex;  //feeding stall index
 

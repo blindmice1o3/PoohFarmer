@@ -8,11 +8,13 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Inventory {
+public class Inventory
+        implements Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private boolean active = false;
     private ArrayList<Item> inventoryItems;
 

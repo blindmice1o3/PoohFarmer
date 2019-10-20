@@ -44,7 +44,7 @@ public class Player extends Creature {
     private int cannabisCollected;
 
     // ANIMATIONS
-    private Map<String, Animation> animations;
+    private transient Map<String, Animation> animations;
 
     // STAMINA TRACKER
     private int staminaCurrent;
@@ -709,5 +709,7 @@ public class Player extends Creature {
     public Inventory getInventory() {
         return inventory;
     }
+
+    public AttackModule getMeleeAttackModule() { return meleeAttackModule; }
 
 } // **** end Player class ****

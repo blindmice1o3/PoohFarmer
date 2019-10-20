@@ -1,9 +1,19 @@
 package edu.pooh.serialize_deserialize;
 
+import edu.pooh.entities.Entity;
+import edu.pooh.entities.creatures.live_stocks.Chicken;
+import edu.pooh.entities.creatures.player.Player;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
+import edu.pooh.states.*;
+import edu.pooh.tiles.FodderDisplayerTile;
+import edu.pooh.tiles.Tile;
+import edu.pooh.time.TimeManager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class SaverAndLoader {
 
@@ -20,6 +30,14 @@ public class SaverAndLoader {
 
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 System.out.println("SaverAndLoader.save(String)...");
+
+                StateManager stateManager = handler.getStateManager();
+                TimeManager timeManager = handler.getTimeManager();
+                ResourceManager resourceManager = handler.getResourceManager();
+
+                objectOutputStream.writeObject(stateManager);
+                objectOutputStream.writeObject(timeManager);
+                objectOutputStream.writeObject(resourceManager);
                 /*
                 ////////////////////////////////////////////////////////////////////
                 //should be GameStageState
@@ -67,6 +85,88 @@ public class SaverAndLoader {
 
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             System.out.println("SaverAndLoader.load()...");
+
+
+            StateManager stateManager = (StateManager)objectInputStream.readObject();
+            TimeManager timeManager = (TimeManager)objectInputStream.readObject();
+            ResourceManager resourceManager = (ResourceManager)objectInputStream.readObject();
+
+            handler.getGame().setStateManager(stateManager);
+            handler.getGame().setTimeManager(timeManager);
+            handler.getGame().setResourceManager(resourceManager);
+
+            for (IState concreteIState : handler.getGame().getStateManager().getStates().values()) {
+                concreteIState.setHandler(handler);
+
+                if (concreteIState instanceof ChickenCoopState) {
+                    ((ChickenCoopState)concreteIState).getWorld().setHandler(handler);
+                    ((ChickenCoopState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((ChickenCoopState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                    for (Tile[] tiles : ((ChickenCoopState)concreteIState).getWorld().getTilesViaRGB()) {
+                        for (Tile tile : tiles) {
+                            if (tile instanceof FodderDisplayerTile) {
+                                ((FodderDisplayerTile)tile).setHandler(handler);
+                            }
+                        }
+                    }
+                } else if (concreteIState instanceof CowBarnState) {
+                    ((CowBarnState)concreteIState).getWorld().setHandler(handler);
+                    ((CowBarnState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((CowBarnState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                    for (Tile[] tiles : ((CowBarnState)concreteIState).getWorld().getTilesViaRGB()) {
+                        for (Tile tile : tiles) {
+                            if (tile instanceof FodderDisplayerTile) {
+                                ((FodderDisplayerTile)tile).setHandler(handler);
+                            }
+                        }
+                    }
+                } else if (concreteIState instanceof CrossroadState) {
+                    ((CrossroadState)concreteIState).getWorld().setHandler(handler);
+                    ((CrossroadState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((CrossroadState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                } else if (concreteIState instanceof GameState) {
+                    ((GameState)concreteIState).getWorld().setHandler(handler);
+                    ((GameState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((GameState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+
+                        if (entity instanceof Player) {
+                            ((Player)entity).getInventory().setHandler(handler);
+                            ((Player)entity).getMeleeAttackModule().setHandler(handler);
+                        }
+                    }
+                } else if (concreteIState instanceof HomeState) {
+                    ((HomeState)concreteIState).getWorld().setHandler(handler);
+                    ((HomeState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((HomeState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                } else if (concreteIState instanceof MountainState) {
+                    ((MountainState)concreteIState).getWorld().setHandler(handler);
+                    ((MountainState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((MountainState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                } else if (concreteIState instanceof TheWestState) {
+                    ((TheWestState)concreteIState).getWorld().setHandler(handler);
+                    ((TheWestState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((TheWestState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                } else if (concreteIState instanceof ToolShedState) {
+                    ((ToolShedState)concreteIState).getWorld().setHandler(handler);
+                    ((ToolShedState)concreteIState).getWorld().getEntityManager().setHandler(handler);
+                    for (Entity entity : ((ToolShedState)concreteIState).getWorld().getEntityManager().getEntities()) {
+                        entity.setHandler(handler);
+                    }
+                }
+            }
             /*
             ////////////////////////////////////////////////////////////////////
             //should be GameStageState
@@ -130,12 +230,9 @@ public class SaverAndLoader {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        /*
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        */
 
     }
 

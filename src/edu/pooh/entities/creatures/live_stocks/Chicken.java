@@ -20,7 +20,7 @@ public class Chicken extends Creature
 
     public enum ChickenState { CHICK, ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private int daysInstantiated;
     private ChickenState chickenState;

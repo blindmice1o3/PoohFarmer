@@ -10,10 +10,12 @@ import edu.pooh.ui.UIImageButton;
 import edu.pooh.ui.UIManager;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class MenuState implements IState {
+public class MenuState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
 
     private Object[] args;
     private Player player;
@@ -87,6 +89,11 @@ public class MenuState implements IState {
         ////////////////
         uiManager.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end MenuState class ****

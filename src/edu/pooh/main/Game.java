@@ -237,10 +237,22 @@ public class Game extends Canvas {
 
     public TimeManager getTimeManager() { return timeManager; }
 
+    public void setTimeManager(TimeManager timeManager) {
+        this.timeManager = timeManager;
+    }
+
     public ResourceManager getResourceManager() { return resourceManager; }
+
+    public void setResourceManager(ResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
+    }
 
     public StateManager getStateManager() {
         return stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        this.stateManager = stateManager;
     }
 
     public KeyManager getKeyManager() {

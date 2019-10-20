@@ -12,12 +12,14 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CowBarnState implements IState {
+public class CowBarnState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private FodderDisplayerTile[] fodderDisplayerTileArray;
@@ -287,6 +289,11 @@ public class CowBarnState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     // GETTERS AND SETTERS

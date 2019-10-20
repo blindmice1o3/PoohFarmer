@@ -2,15 +2,17 @@ package edu.pooh.states;
 
 import edu.pooh.main.Handler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StateManager {
+public class StateManager
+        implements Serializable {
 
     public enum GameState { GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN,
         THE_WEST, MENU, TRAVELING_FENCE, PAUSE, TEXT_BOX; }
 
-    private Handler handler;
+    private transient Handler handler;
 
     //GAME'S ENTIRE SET OF IState INSTANCES STORED HERE.
     private HashMap<GameState, IState> states;
@@ -100,5 +102,7 @@ public class StateManager {
     */
 
     public ArrayList<IState> getStatesStack() { return statesStack; }
+
+    public HashMap<GameState, IState> getStates() { return states; }
 
 } // **** end StateManager class ****

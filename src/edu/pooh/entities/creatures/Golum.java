@@ -13,8 +13,8 @@ import java.util.Random;
 
 public class Golum extends Creature {
 
-    private Map<String, Animation> animations;
-    private Animation[] animationsArray;
+    private transient Map<String, Animation> animations;
+    private transient Animation[] animationsArray;
 
     private Random random;
     private int randomInt;

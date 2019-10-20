@@ -13,10 +13,12 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class TravelingFenceState implements IState {
+public class TravelingFenceState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
 
     private Object[] args;
     private Player player;
@@ -30,7 +32,6 @@ public class TravelingFenceState implements IState {
 
         initInventory();
     } // **** end TravelingFenceState(Handler) constructor ****
-
 
 
     @Override
@@ -71,6 +72,11 @@ public class TravelingFenceState implements IState {
                 handler.getWidth()-20, handler.getHeight()-20, null);
 
         inventory.render(g);
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     private void initInventory() {

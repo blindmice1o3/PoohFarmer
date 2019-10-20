@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class XDog extends Creature {
 
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
-    private Animation animRight;
-    private Animation animLeftPee;
+    private transient Animation animUp;
+    private transient Animation animDown;
+    private transient Animation animLeft;
+    private transient Animation animRight;
+    private transient Animation animLeftPee;
 
     private Random random;
 

@@ -14,7 +14,7 @@ public class TravelingFence extends Creature {
     private String name;
 
     // ANIMATIONS
-    private Animation animUp, animDown, animLeft, animRight;
+    private transient Animation animUp, animDown, animLeft, animRight;
     private Random random;
 
     public TravelingFence(Handler handler, float x, float y) {

@@ -3,13 +3,16 @@ package edu.pooh.entities;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.main.Handler;
 
+import javax.sql.rowset.serial.SerialArray;
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Entity {
+public abstract class Entity
+        implements Serializable {
 
     public static final int DEFAULT_HEALTH = 10;
 
-    protected Handler handler;
+    protected transient Handler handler;
     protected float x;
     protected float y;
     protected int width;
@@ -137,6 +140,10 @@ public abstract class Entity {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end Entity class ****

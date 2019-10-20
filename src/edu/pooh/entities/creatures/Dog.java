@@ -15,7 +15,7 @@ import java.util.Random;
 public class Dog extends Creature
         implements IHoldable {
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private Random random;
 

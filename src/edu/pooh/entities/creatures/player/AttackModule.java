@@ -4,10 +4,12 @@ import edu.pooh.entities.Entity;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class AttackModule {
+public class AttackModule
+        implements Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private Player player;
 
     // ATTACK TIMER
@@ -108,6 +110,10 @@ public class AttackModule {
             g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
                     (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
         }
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end AttackModule class ****

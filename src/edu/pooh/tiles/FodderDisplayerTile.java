@@ -5,10 +5,12 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class FodderDisplayerTile extends SolidGenericTile {
+public class FodderDisplayerTile extends SolidGenericTile
+        implements Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
     protected boolean activated;
 
@@ -45,5 +47,9 @@ public class FodderDisplayerTile extends SolidGenericTile {
     }
 
     public int getIndex() { return index; }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
 
 } // **** end FodderDisplayerTile class ****

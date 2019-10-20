@@ -11,12 +11,14 @@ import edu.pooh.tiles.*;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ChickenCoopState implements IState {
+public class ChickenCoopState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -367,6 +369,11 @@ public class ChickenCoopState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     public World getWorld() {

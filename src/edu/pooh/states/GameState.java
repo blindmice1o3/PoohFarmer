@@ -10,10 +10,12 @@ import edu.pooh.tiles.Tile;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class GameState implements IState {
+public class GameState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -216,6 +218,11 @@ public class GameState implements IState {
         ////////////////
         world.render(g);
         ////////////////
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     public World getWorld() {

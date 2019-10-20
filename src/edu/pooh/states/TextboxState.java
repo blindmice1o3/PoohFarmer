@@ -6,14 +6,16 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TextboxState implements IState {
+public class TextboxState
+        implements IState, Serializable {
 
     public enum State { ENTER, LINE_IN_ANIMATION, WAIT_FOR_INPUT, PAGE_OUT_ANIMATION, EXIT; }
     public enum LineNumber { ONE, TWO; }
 
-    private Handler handler;
+    private transient Handler handler;
 
     private State currentState;
 
@@ -361,6 +363,11 @@ public class TextboxState implements IState {
                 System.out.println("TextboxState.render(Graphics), switch-construct's default.");
                 break;
         }
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     private void changeCurrentState(State nextState) {

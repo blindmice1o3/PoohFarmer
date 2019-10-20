@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Wolf extends Creature {
 
-    private Animation animRight;
-    private Animation animLeft;
+    private transient Animation animRight;
+    private transient Animation animLeft;
 
     private Random random;
 
