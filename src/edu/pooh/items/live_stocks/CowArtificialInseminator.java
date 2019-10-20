@@ -50,8 +50,8 @@ public class CowArtificialInseminator extends Item {
                     ////////////////////////////////////////////////////
                     tempCow.setCowState(Cow.CowState.PREGNANT);
                     //This SAVES a stall for the BABY.
-                    tempCowBarnState.setStallIndexOfUnbornBaby(ResourceManager.getCowCounter());
-                    ResourceManager.increaseCowCounter(1);
+                    tempCowBarnState.setStallIndexOfUnbornBaby(handler.getResourceManager().getCowCounter());
+                    handler.getResourceManager().increaseCowCounter(1);
                     tempCow.increaseAffectionScore(10);
                     ////////////////////////////////////////////////////
 

@@ -536,7 +536,7 @@ public class Player extends Creature {
         // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
         g.setColor(Color.BLUE);
         g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(ResourceManager.getCurrencyUnitCount()),
+        Text.drawString(g, Integer.toString(handler.getResourceManager().getCurrencyUnitCount()),
                 (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
 
         // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)

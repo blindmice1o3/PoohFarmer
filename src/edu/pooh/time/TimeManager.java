@@ -135,7 +135,7 @@ public class TimeManager {
             System.out.println(sellable.getPrice() + ": " + sellable);
         }
 
-        ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
+        handler.getResourceManager().increaseCurrencyUnitCount(totalPriceFromShippingBin);
         shippingBin.emptyShippingBin();
     }
 

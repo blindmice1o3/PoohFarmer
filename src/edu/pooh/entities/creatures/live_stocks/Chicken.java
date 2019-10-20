@@ -42,7 +42,7 @@ public class Chicken extends Creature
 
         ////////////////////////////////////////////////////////////////////////
         System.out.println("Increasing ResourceManager's chickenCounter by 1");
-        ResourceManager.increaseChickenCounter(1);
+        handler.getResourceManager().increaseChickenCounter(1);
         ////////////////////////////////////////////////////////////////////////
     } // **** end Chicken(Handler, float, float, ChickenState) constructor ****
 

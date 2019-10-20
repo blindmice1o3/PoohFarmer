@@ -3,6 +3,7 @@ package edu.pooh.tiles;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.inventory.ResourceManager;
+import edu.pooh.main.Handler;
 import edu.pooh.main.IInvokable;
 
 import java.awt.*;
@@ -14,20 +15,22 @@ public class SignPostTile extends SolidGenericTile
     public enum SignPostType { SHIPPING_BIN, RESOURCE_FODDER, RESOURCE_WOOD, HORSE_STABLE, MOUNTAIN_TODO,
         CHICKEN_COOP_INCUBATOR, COW_BARN_INCUBATOR; }
 
+    private Handler handler;
     private int x, y;
     private boolean executing;
 
     private SignPostType signPostType;
 
-    public SignPostTile(BufferedImage texture, int x, int y, SignPostType signPostType) {
+    public SignPostTile(Handler handler, BufferedImage texture, int x, int y, SignPostType signPostType) {
         super(texture);
 
+        this.handler = handler;
         this.x = x;
         this.y = y;
         executing = false;
 
         this.signPostType = signPostType;
-    } // **** end SignPostTile(BufferedImage, int, int, String) constructor ****
+    } // **** end SignPostTile(Handler, BufferedImage, int, int, String) constructor ****
 
     @Override
     public void render(Graphics g, int x, int y) {
@@ -48,9 +51,9 @@ public class SignPostTile extends SolidGenericTile
             case SHIPPING_BIN:
                 return "ISellable objects in the ShippingBin will be traded for currencyUnit at 5pm everyday.";
             case RESOURCE_FODDER:
-                return "ResourceManager's fodderCount: " + ResourceManager.getFodderCount();
+                return "ResourceManager's fodderCount: " + handler.getResourceManager().getFodderCount();
             case RESOURCE_WOOD:
-                return "ResourceManager's woodCount: " + ResourceManager.getWoodCount();
+                return "ResourceManager's woodCount: " + handler.getResourceManager().getWoodCount();
             case HORSE_STABLE:
                 return "HorseStable tile is nothing more than a textured collision box with its isSolid() set to true.";
             case CHICKEN_COOP_INCUBATOR:
@@ -67,7 +70,7 @@ public class SignPostTile extends SolidGenericTile
         // TODO: implement rendering/displaying the signPostName into the game via dialog box.
         executing = true;
 
-        System.out.println("SignPostTile says: Silo contains | " + ResourceManager.getFodderCount() + " | fodder(s).");
+        System.out.println("SignPostTile says: Silo contains | " + handler.getResourceManager().getFodderCount() + " | fodder(s).");
     }
 
     public void setExecuting(boolean executing) {

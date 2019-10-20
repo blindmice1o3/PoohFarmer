@@ -4,6 +4,7 @@ import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
+import edu.pooh.inventory.ResourceManager;
 import edu.pooh.serialize_deserialize.SaverAndLoader;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.*;
@@ -22,10 +23,6 @@ public class Game extends Canvas {
 
     // DISPLAY
     private JFrame frame;
-
-    // GRAPHICS CONTEXT
-    private BufferStrategy bs;
-    private Graphics g;
 
     // THREAD
     private Thread gameThread;
@@ -48,6 +45,9 @@ public class Game extends Canvas {
 
     // TIME
     private TimeManager timeManager;
+
+    // RESOURCE (currency, fodder, wood, chicken, cow)
+    private ResourceManager resourceManager;
 
     // SAVER AND LOADER
     SaverAndLoader saverAndLoader;
@@ -89,9 +89,10 @@ public class Game extends Canvas {
         Assets.init();
         SoundManager.init();
 
-        stateManager = new StateManager(handler);
-        timeManager = new TimeManager(handler);
         saverAndLoader = new SaverAndLoader(handler);
+        timeManager = new TimeManager(handler);
+        resourceManager = new ResourceManager(handler);
+        stateManager = new StateManager(handler);
     }
 
     public synchronized void gameStart() {
@@ -206,44 +207,49 @@ public class Game extends Canvas {
     }
 
     private void render() {
-        bs = getBufferStrategy();
+        BufferStrategy bs = getBufferStrategy();
+
         if (bs == null) {
             createBufferStrategy(3);
+            ///////
             return;
+            ///////
         }
 
-        g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D)bs.getDrawGraphics();
 
         ////////////////////////////////    //Clear Screen
         //g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         ////////////////////////////////    //Draw here!
         if (stateManager.getCurrentState() != null) {
-            stateManager.getCurrentState().render(g);
+            stateManager.getCurrentState().render(g2d);
         }
         ////////////////////////////////    //End drawing!
 
-        g.dispose();
+        g2d.dispose();
         bs.show();
     }
 
     // GETTERS & SETTERS
 
-    public KeyManager getKeyManager() {
-        return keyManager;
-    }
+    public SaverAndLoader getSaverAndLoader() { return  saverAndLoader; }
+
+    public TimeManager getTimeManager() { return timeManager; }
+
+    public ResourceManager getResourceManager() { return resourceManager; }
 
     public StateManager getStateManager() {
         return stateManager;
     }
 
-    public TimeManager getTimeManager() { return timeManager; }
+    public KeyManager getKeyManager() {
+        return keyManager;
+    }
 
     public MouseManager getMouseManager() { return mouseManager; }
 
     public GameCamera getGameCamera() { return gameCamera; }
-
-    public SaverAndLoader getSaverAndLoader() { return  saverAndLoader; }
 
     public boolean isRunning() {
         return running;

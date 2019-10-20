@@ -175,7 +175,7 @@ public class CowBarnState implements IState {
                                 Cow.CowState.BABY, stallIndexOfUnbornBaby);
                         //EVERYTIME A COW IS INSTANTIATED it increases the counter (which was done once already in
                         //CowArtificialInseminator... so must NOT increase it again here... subtract 1.
-                        ResourceManager.decreaseCowCounter(1);
+                        handler.getResourceManager().decreaseCowCounter(1);
                         babyCow.setDaysInstantiated(0);
                         babyCow.setAffectionScore(0);
                         assignCowToFodderDisplayerTile(babyCow);

@@ -224,7 +224,7 @@ public class CropEntity extends StaticEntity {
     @Override
     public void die() {
         if (cropType == cropType.GRASS) {
-            ResourceManager.increaseFodderCount(1);
+            handler.getResourceManager().increaseFodderCount(1);
 
             daysWatered = 0;
             currentImage = Assets.grassSeeded;

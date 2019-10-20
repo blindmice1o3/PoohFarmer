@@ -27,7 +27,7 @@ public class FodderStashTile extends SolidGenericTile
         System.out.println("FodderStashTile.execute() called by player's KeyEvent.VK_COMMA");
         Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();
 
-        if ((tempPlayer.getHoldableObject() == null) && (ResourceManager.getFodderCount() > 0)) {
+        if ((tempPlayer.getHoldableObject() == null) && (handler.getResourceManager().getFodderCount() > 0)) {
             ////////////////////////////////////////////////////////////////////
             System.out.println("Instantiating new Fodder object and setting it as player's holdableObject");
             Fodder tempFodder = new Fodder(handler, (x * Tile.TILE_WIDTH),(y * Tile.TILE_HEIGHT));
@@ -39,9 +39,9 @@ public class FodderStashTile extends SolidGenericTile
             tempPlayer.setHoldableObject(tempFodder);
             tempPlayer.setHolding(true);
 
-            System.out.println("fodderCount BEFORE to FodderStashTie.execute(): " + ResourceManager.getFodderCount());
-            ResourceManager.decreaseFodderCount(1);
-            System.out.println("fodderCount AFTER to FodderStashTie.execute(): " + ResourceManager.getFodderCount());
+            System.out.println("fodderCount BEFORE to FodderStashTie.execute(): " + handler.getResourceManager().getFodderCount());
+            handler.getResourceManager().decreaseFodderCount(1);
+            System.out.println("fodderCount AFTER to FodderStashTie.execute(): " + handler.getResourceManager().getFodderCount());
             ////////////////////////////////////////////////////////////////////
         }
     }

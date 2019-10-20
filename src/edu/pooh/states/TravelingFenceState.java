@@ -110,7 +110,7 @@ public class TravelingFenceState implements IState {
             }
 
             public boolean checkCanShopperAfford(int expense) {
-                return (ResourceManager.getCurrencyUnitCount() >= expense);
+                return (handler.getResourceManager().getCurrencyUnitCount() >= expense);
             }
 
             public void buyItemAtCurrentIndex() {
@@ -120,7 +120,7 @@ public class TravelingFenceState implements IState {
                 }
 
                 if ( checkCanShopperAfford( checkPrice(getItem(getIndex())) ) ) {
-                    ResourceManager.decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
+                    handler.getResourceManager().decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
                     player.getInventory().addItem(getItem(getIndex()));
                     removeItem(getIndex());
 

@@ -57,7 +57,7 @@ public class Cow extends Creature {
 
         ////////////////////////////////////////////////////////////////////////
         System.out.println("Increasing ResourceManager's cowCounter by 1");
-        ResourceManager.increaseCowCounter(1);
+        handler.getResourceManager().increaseCowCounter(1);
         ////////////////////////////////////////////////////////////////////////
     } // **** end Cow(Handler, float, float, cowState) constructor ****
 

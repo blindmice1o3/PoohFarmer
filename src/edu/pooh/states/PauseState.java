@@ -59,14 +59,15 @@ public class PauseState implements IState {
 
 
         //TODO: *************************PlayerLogState*************************
-        Text.drawString(g, "(" + handler.getTimeManager().gameSeason + ") " + handler.getTimeManager().gameMonth + ", " + handler.getTimeManager().gameDay,
+        Text.drawString(g, "(" + handler.getTimeManager().gameSeason + ") " +
+                        handler.getTimeManager().gameMonth + ", " + handler.getTimeManager().gameDay,
                 (xPanel + 10), (yPanel + 30), false, Color.RED, Assets.font28);
         Text.drawString(g, "Year: " + (handler.getTimeManager().gameYear + 1) + " of 2.5",
                 (xPanel + 10), (yPanel + 65), false, Color.RED, Assets.font28);
 
-        Text.drawString(g, "Chicken Counter: " + (ResourceManager.chickenCounter),
+        Text.drawString(g, "Chicken Counter: " + (handler.getResourceManager().getChickenCounter()),
                 (xPanel + 10), (yPanel + 100), false, Color.YELLOW, Assets.font28);
-        Text.drawString(g, "Cow Counter: " + (ResourceManager.cowCounter),
+        Text.drawString(g, "Cow Counter: " + (handler.getResourceManager().getCowCounter()),
                 (xPanel + 10), (yPanel + 135), false, Color.GREEN, Assets.font28);
     }
 
