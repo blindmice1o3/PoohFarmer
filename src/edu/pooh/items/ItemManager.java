@@ -3,10 +3,12 @@ package edu.pooh.items;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ItemManager {
+public class ItemManager
+        implements Serializable {
 
     private Handler handler;
     private ArrayList<Item> items;

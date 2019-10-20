@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class SpikeTrap extends StaticEntity {
 
-    private BufferedImage[] spikeTrapAnimation;
+    private transient BufferedImage[] spikeTrapAnimation;
     private Rectangle walkableCollisionBounds;
     private boolean activate;
 

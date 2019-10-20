@@ -24,7 +24,7 @@ public class Milk extends StaticEntity
     private MilkSize milkSize;
     private int price;
     private boolean inShippingBin;
-    private BufferedImage texture;
+    private transient BufferedImage texture;
 
     public Milk(Handler handler, float x, float y, MilkSize milkSize) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);

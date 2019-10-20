@@ -23,7 +23,7 @@ public class CropEntity extends StaticEntity {
     private int daysWatered;
     private boolean tangibleToScythe;
     private boolean harvestable;
-    private BufferedImage currentImage;
+    private transient BufferedImage currentImage;
 
     public CropEntity(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);

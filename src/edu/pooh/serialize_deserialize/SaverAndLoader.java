@@ -7,6 +7,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.states.*;
 import edu.pooh.tiles.FodderDisplayerTile;
+import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.time.TimeManager;
 
@@ -38,6 +39,8 @@ public class SaverAndLoader {
                 objectOutputStream.writeObject(stateManager);
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
+
+
                 /*
                 ////////////////////////////////////////////////////////////////////
                 //should be GameStageState
@@ -121,6 +124,8 @@ public class SaverAndLoader {
                         for (Tile tile : tiles) {
                             if (tile instanceof FodderDisplayerTile) {
                                 ((FodderDisplayerTile)tile).setHandler(handler);
+                            } else if (tile instanceof FodderExecutorTile) {
+                                ((FodderExecutorTile)tile).setHandler(handler);
                             }
                         }
                     }

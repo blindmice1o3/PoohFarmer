@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class EggIncubatorTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
     private boolean incubating;
     private int daysIncubating;
@@ -42,5 +42,9 @@ public class EggIncubatorTile extends SolidGenericTile
 
     public int getX() { return x; }
     public int getY() { return y; }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
 
 } // **** end EggIncubatorTile class ****

@@ -8,11 +8,12 @@ import edu.pooh.worlds.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 public class FodderExecutorTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
 
     protected boolean specialActive;
@@ -71,5 +72,8 @@ public class FodderExecutorTile extends SolidGenericTile
     public int getY() { return y; }
     public boolean isSpecialActive() { return specialActive; }
     public void setSpecialActive(boolean specialActive) { this.specialActive = specialActive; }
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
 
 } // **** end FodderExecutorTile class ****

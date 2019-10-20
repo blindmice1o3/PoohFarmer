@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 public class DeadCow extends StaticEntity {
 
     private boolean clicked;
-    private BufferedImage before, after;
-    private BufferedImage[] deadCowExplosion;
+    private transient BufferedImage before, after;
+    private transient BufferedImage[] deadCowExplosion;
 
     public DeadCow(Handler handler, float x, float y) {
         super(handler, x, y, (3*Tile.TILE_WIDTH), (3*Tile.TILE_HEIGHT));

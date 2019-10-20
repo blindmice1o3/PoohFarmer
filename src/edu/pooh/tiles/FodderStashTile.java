@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class FodderStashTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
 
     public FodderStashTile(Handler handler, int x, int y, BufferedImage texture) {
@@ -44,6 +44,10 @@ public class FodderStashTile extends SolidGenericTile
             System.out.println("fodderCount AFTER to FodderStashTie.execute(): " + handler.getResourceManager().getFodderCount());
             ////////////////////////////////////////////////////////////////////
         }
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end FodderStashTile class ****

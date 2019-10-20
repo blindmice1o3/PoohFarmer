@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class HotSpringMountainTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     protected int x, y;
 
     public HotSpringMountainTile(Handler handler, int x, int y, BufferedImage texture) {
@@ -34,6 +34,10 @@ public class HotSpringMountainTile extends SolidGenericTile
         }
 
         System.out.println("HotSpringMountainTile execute() method called");
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end HotSpringMountainTile class ****

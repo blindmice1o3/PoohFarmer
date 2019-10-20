@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class WoodStashTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
 
     public WoodStashTile(Handler handler, int x, int y, BufferedImage texture) {
@@ -44,6 +44,10 @@ public class WoodStashTile extends SolidGenericTile
             System.out.println("woodCount AFTER to WoodStashTie.execute(): " + handler.getResourceManager().getWoodCount());
             ////////////////////////////////////////////////////////////////////
         }
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end WoodStashTile class ****

@@ -15,7 +15,7 @@ public class SignPostTile extends SolidGenericTile
     public enum SignPostType { SHIPPING_BIN, RESOURCE_FODDER, RESOURCE_WOOD, HORSE_STABLE, MOUNTAIN_TODO,
         CHICKEN_COOP_INCUBATOR, COW_BARN_INCUBATOR; }
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
     private boolean executing;
 
@@ -75,6 +75,10 @@ public class SignPostTile extends SolidGenericTile
 
     public void setExecuting(boolean executing) {
         this.executing = executing;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } //  **** end SignPostTile class ****

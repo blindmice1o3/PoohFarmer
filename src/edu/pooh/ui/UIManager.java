@@ -4,9 +4,11 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UIManager {
+public class UIManager
+        implements Serializable {
 
     private Handler handler;
     private ArrayList<UIObject> objects;

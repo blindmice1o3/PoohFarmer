@@ -30,6 +30,7 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 

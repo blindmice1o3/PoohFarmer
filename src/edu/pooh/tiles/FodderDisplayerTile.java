@@ -7,8 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public class FodderDisplayerTile extends SolidGenericTile
-        implements Serializable {
+public class FodderDisplayerTile extends SolidGenericTile {
 
     private transient Handler handler;
     private int x, y;
