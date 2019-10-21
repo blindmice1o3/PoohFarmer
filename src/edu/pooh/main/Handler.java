@@ -8,9 +8,12 @@ import edu.pooh.states.StateManager;
 import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
-public class Handler {
+import java.io.Serializable;
 
-    private Game game;
+public class Handler
+        implements Serializable {
+
+    private transient Game game;
     private World world;
 
     public Handler(Game game) {

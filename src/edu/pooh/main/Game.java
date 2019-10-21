@@ -13,6 +13,7 @@ import edu.pooh.time.TimeManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.Serializable;
 
 public class Game extends Canvas {
     // TODO: Serialiable (save/load feature).

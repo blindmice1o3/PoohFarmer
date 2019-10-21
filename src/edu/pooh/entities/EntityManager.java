@@ -18,16 +18,7 @@ public class EntityManager
 
     private ArrayList<Entity> entities;
 
-    private Comparator<Entity> renderSorter = new Comparator<Entity>(){     // Comparator to pass into ArrayList's
-        @Override                                                           // sort(Comparator) method.
-        public int compare(Entity a, Entity b) {
-            // top of entity plus height of entity is the y-coordinate value of the bottom of the entity.
-            if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
-                return -1;
-            }
-            return 1;
-        }
-    };
+    private transient Comparator<Entity> renderSorter;
 
     private ArrayList<Entity> entitiesToBeAdded;
     private boolean toBeAdded;
@@ -35,6 +26,17 @@ public class EntityManager
     public EntityManager(Handler handler) {
         this.handler = handler;
         entities = new ArrayList<Entity>();
+
+        renderSorter = new Comparator<Entity>() {     // Comparator to pass into ArrayList's
+            @Override                                 // sort(Comparator) method.
+            public int compare(Entity a, Entity b) {
+                // top of entity plus height of entity is the y-coordinate value of the bottom of the entity.
+                if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
+                    return -1;
+                }
+                return 1;
+            }
+        };
 
         toBeAdded = false;
         entitiesToBeAdded = new ArrayList<Entity>();

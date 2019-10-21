@@ -5,7 +5,10 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
-public class GameCamera {
+import java.io.Serializable;
+
+public class GameCamera
+        implements Serializable {
 
     private Handler handler;
     private float xOffset;
