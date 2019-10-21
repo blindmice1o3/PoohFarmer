@@ -137,4 +137,8 @@ public class TheWestState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
 } // **** end TheWestState class ****

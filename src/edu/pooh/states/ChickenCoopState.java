@@ -380,4 +380,8 @@ public class ChickenCoopState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
 } // **** end ChickenCoopState class ****

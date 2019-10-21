@@ -150,6 +150,10 @@ public class CrossroadState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
     public Object[] getArgs() { return args; }
 
 } // **** end CrossroadState class ****

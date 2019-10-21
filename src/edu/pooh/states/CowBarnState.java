@@ -302,6 +302,10 @@ public class CowBarnState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
     public void setStallIndexOfUnbornBaby(int stallIndexOfUnbornBaby) { this.stallIndexOfUnbornBaby = stallIndexOfUnbornBaby; }
 
 } // **** end CowBarnState class ****

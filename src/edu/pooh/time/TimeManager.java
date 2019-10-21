@@ -10,7 +10,10 @@ import edu.pooh.states.CowBarnState;
 import edu.pooh.states.GameState;
 import edu.pooh.states.StateManager;
 
-public class TimeManager {
+import java.io.Serializable;
+
+public class TimeManager
+        implements Serializable {
 
     public boolean clockRunning = true;
     public boolean newDay = false;
@@ -32,7 +35,7 @@ public class TimeManager {
     public String gameMonth = "March";
     public int gameDay = 1;
 
-    private Handler handler;
+    private transient Handler handler;
 
     private boolean executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
 
@@ -383,6 +386,10 @@ public class TimeManager {
         System.out.println("TimeManager.setNewDayFalse()");
 
         newDay = false;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 }

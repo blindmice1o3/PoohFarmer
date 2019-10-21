@@ -10,6 +10,7 @@ import edu.pooh.tiles.FodderDisplayerTile;
 import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.Tile;
 import edu.pooh.time.TimeManager;
+import edu.pooh.worlds.World;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,15 +33,48 @@ public class SaverAndLoader {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 System.out.println("SaverAndLoader.save(String)...");
 
-                StateManager stateManager = handler.getStateManager();
                 TimeManager timeManager = handler.getTimeManager();
                 ResourceManager resourceManager = handler.getResourceManager();
 
-                objectOutputStream.writeObject(stateManager);
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
 
 
+                for (IState concreteIState : handler.getGame().getStateManager().getStates().values()) {
+                    if (concreteIState instanceof ChickenCoopState) {
+
+                        objectOutputStream.writeObject( ((ChickenCoopState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof CowBarnState) {
+
+                        objectOutputStream.writeObject( ((CowBarnState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof CrossroadState) {
+
+                        objectOutputStream.writeObject( ((CrossroadState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof GameState) {
+
+                        objectOutputStream.writeObject( ((GameState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof HomeState) {
+
+                        objectOutputStream.writeObject( ((HomeState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof MountainState) {
+
+                        objectOutputStream.writeObject( ((MountainState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof TheWestState) {
+
+                        objectOutputStream.writeObject( ((TheWestState)concreteIState).getWorld() );
+
+                    } else if (concreteIState instanceof ToolShedState) {
+
+                        objectOutputStream.writeObject( ((ToolShedState)concreteIState).getWorld() );
+
+                    }
+                }
                 /*
                 ////////////////////////////////////////////////////////////////////
                 //should be GameStageState
@@ -89,88 +123,128 @@ public class SaverAndLoader {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             System.out.println("SaverAndLoader.load()...");
 
-
-            StateManager stateManager = (StateManager)objectInputStream.readObject();
             TimeManager timeManager = (TimeManager)objectInputStream.readObject();
+            timeManager.setHandler(handler);
             ResourceManager resourceManager = (ResourceManager)objectInputStream.readObject();
+            resourceManager.setHandler(handler);
 
-            handler.getGame().setStateManager(stateManager);
             handler.getGame().setTimeManager(timeManager);
             handler.getGame().setResourceManager(resourceManager);
 
-            for (IState concreteIState : handler.getGame().getStateManager().getStates().values()) {
-                concreteIState.setHandler(handler);
 
-                if (concreteIState instanceof ChickenCoopState) {
-                    ((ChickenCoopState)concreteIState).getWorld().setHandler(handler);
-                    ((ChickenCoopState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((ChickenCoopState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                    for (Tile[] tiles : ((ChickenCoopState)concreteIState).getWorld().getTilesViaRGB()) {
-                        for (Tile tile : tiles) {
-                            if (tile instanceof FodderDisplayerTile) {
-                                ((FodderDisplayerTile)tile).setHandler(handler);
+            for (int i = 0; i < 8; i++) {
+                World world = (World)objectInputStream.readObject();
+
+                world.setHandler(handler);
+
+                switch (world.getWorldType()) {
+                    case CHICKEN_COOP:
+                        ChickenCoopState chickenCoopState = (ChickenCoopState)handler.getGame().getStateManager().getIState(StateManager.GameState.CHICKEN_COOP);
+                        chickenCoopState.setHandler(handler);
+                        chickenCoopState.setWorld(world);
+
+                        chickenCoopState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : chickenCoopState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        for (Tile[] tiles : chickenCoopState.getWorld().getTilesViaRGB()) {
+                            for (Tile tile : tiles) {
+                                if (tile instanceof FodderDisplayerTile) {
+                                    ((FodderDisplayerTile)tile).setHandler(handler);
+                                }
                             }
                         }
-                    }
-                } else if (concreteIState instanceof CowBarnState) {
-                    ((CowBarnState)concreteIState).getWorld().setHandler(handler);
-                    ((CowBarnState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((CowBarnState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                    for (Tile[] tiles : ((CowBarnState)concreteIState).getWorld().getTilesViaRGB()) {
-                        for (Tile tile : tiles) {
-                            if (tile instanceof FodderDisplayerTile) {
-                                ((FodderDisplayerTile)tile).setHandler(handler);
-                            } else if (tile instanceof FodderExecutorTile) {
-                                ((FodderExecutorTile)tile).setHandler(handler);
+                        break;
+                    case COW_BARN:
+                        CowBarnState cowBarnState = (CowBarnState)handler.getGame().getStateManager().getIState(StateManager.GameState.COW_BARN);
+                        cowBarnState.setHandler(handler);
+                        cowBarnState.setWorld(world);
+
+                        cowBarnState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : cowBarnState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        for (Tile[] tiles : cowBarnState.getWorld().getTilesViaRGB()) {
+                            for (Tile tile : tiles) {
+                                if (tile instanceof FodderDisplayerTile) {
+                                    ((FodderDisplayerTile)tile).setHandler(handler);
+                                } else if (tile instanceof FodderExecutorTile) {
+                                    ((FodderExecutorTile)tile).setHandler(handler);
+                                }
                             }
                         }
-                    }
-                } else if (concreteIState instanceof CrossroadState) {
-                    ((CrossroadState)concreteIState).getWorld().setHandler(handler);
-                    ((CrossroadState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((CrossroadState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                } else if (concreteIState instanceof GameState) {
-                    ((GameState)concreteIState).getWorld().setHandler(handler);
-                    ((GameState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((GameState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
+                        break;
+                    case CROSSROAD:
+                        CrossroadState crossroadState = (CrossroadState)handler.getGame().getStateManager().getIState(StateManager.GameState.CROSSROAD);
+                        crossroadState.setHandler(handler);
+                        crossroadState.setWorld(world);
 
-                        if (entity instanceof Player) {
-                            ((Player)entity).getInventory().setHandler(handler);
-                            ((Player)entity).getMeleeAttackModule().setHandler(handler);
+                        crossroadState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : crossroadState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
                         }
-                    }
-                } else if (concreteIState instanceof HomeState) {
-                    ((HomeState)concreteIState).getWorld().setHandler(handler);
-                    ((HomeState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((HomeState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                } else if (concreteIState instanceof MountainState) {
-                    ((MountainState)concreteIState).getWorld().setHandler(handler);
-                    ((MountainState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((MountainState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                } else if (concreteIState instanceof TheWestState) {
-                    ((TheWestState)concreteIState).getWorld().setHandler(handler);
-                    ((TheWestState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((TheWestState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
-                } else if (concreteIState instanceof ToolShedState) {
-                    ((ToolShedState)concreteIState).getWorld().setHandler(handler);
-                    ((ToolShedState)concreteIState).getWorld().getEntityManager().setHandler(handler);
-                    for (Entity entity : ((ToolShedState)concreteIState).getWorld().getEntityManager().getEntities()) {
-                        entity.setHandler(handler);
-                    }
+                        break;
+                    case GAME:
+                        GameState gameState = (GameState)handler.getGame().getStateManager().getIState(StateManager.GameState.GAME);
+                        gameState.setHandler(handler);
+                        gameState.setWorld(world);
+
+                        gameState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : gameState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+
+                            if (entity instanceof Player) {
+                                ((Player)entity).getInventory().setHandler(handler);
+                                ((Player)entity).getMeleeAttackModule().setHandler(handler);
+                            }
+                        }
+                        break;
+                    case HOME:
+                        HomeState homeState = (HomeState)handler.getGame().getStateManager().getIState(StateManager.GameState.HOME);
+                        homeState.setHandler(handler);
+                        homeState.setWorld(world);
+
+                        homeState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : homeState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        break;
+                    case MOUNTAIN:
+                        MountainState mountainState = (MountainState)handler.getGame().getStateManager().getIState(StateManager.GameState.MOUNTAIN);
+                        mountainState.setHandler(handler);
+                        mountainState.setWorld(world);
+
+                        mountainState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : mountainState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        break;
+                    case THE_WEST:
+                        TheWestState theWestState = (TheWestState)handler.getGame().getStateManager().getIState(StateManager.GameState.THE_WEST);
+                        theWestState.setHandler(handler);
+                        theWestState.setWorld(world);
+
+                        theWestState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : theWestState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        break;
+                    case TOOL_SHED:
+                        ToolShedState toolShedState = (ToolShedState)handler.getGame().getStateManager().getIState(StateManager.GameState.TOOL_SHED);
+                        toolShedState.setHandler(handler);
+                        toolShedState.setWorld(world);
+
+                        toolShedState.getWorld().getEntityManager().setHandler(handler);
+                        for (Entity entity : toolShedState.getWorld().getEntityManager().getEntities()) {
+                            entity.setHandler(handler);
+                        }
+                        break;
+                    default:
+                        System.out.println("SaverAndLoader.load(), switch construct's default.");
+                        break;
                 }
+
+
             }
             /*
             ////////////////////////////////////////////////////////////////////

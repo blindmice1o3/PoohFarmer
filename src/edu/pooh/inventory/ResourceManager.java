@@ -2,8 +2,12 @@ package edu.pooh.inventory;
 
 import edu.pooh.main.Handler;
 
-public class ResourceManager {
-    private Handler handler;
+import java.io.Serializable;
+
+public class ResourceManager
+        implements Serializable {
+
+    private transient Handler handler;
 
     private int fodderCount = 3000;
     private int woodCount = 1000;
@@ -62,5 +66,9 @@ public class ResourceManager {
     public int getChickenCounter() { return chickenCounter; }
 
     public int getCowCounter() { return  cowCounter; }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
 
 } // **** end ResourceManager class ****

@@ -103,4 +103,8 @@ public class ToolShedState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
 } // **** end ToolShedState class ****

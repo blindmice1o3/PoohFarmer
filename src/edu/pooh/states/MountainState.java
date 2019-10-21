@@ -101,4 +101,8 @@ public class MountainState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
 } // **** end MountainState class ****

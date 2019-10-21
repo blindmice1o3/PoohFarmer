@@ -229,6 +229,10 @@ public class GameState
         return world;
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
     public Object[] getArgs() { return args; }
 
 } // **** end GameState class ****
