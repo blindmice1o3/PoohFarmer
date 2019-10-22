@@ -104,7 +104,8 @@ public class Player extends Creature {
         meleeAttackModule = new AttackModule(handler, this);
     } // **** end Player(Handler, float, float) constructor ****
 
-    private void initAnimations() {
+    @Override
+    public void initAnimations() {
         animations = new HashMap<String, Animation>();
 
         animations.put("animDown", new Animation(60, Assets.playerDown));

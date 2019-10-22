@@ -24,8 +24,12 @@ public class SpikeTrap extends StaticEntity {
         walkableCollisionBounds = new Rectangle((int)x, (int)y+35, width, height-35);
         activate = false;
 
-        spikeTrapAnimation = Assets.spikeTrap;
+        initAnimations();
     } // **** end SpikeTrap(Handler, float, float) constructor ****
+
+    public void initAnimations() {
+        spikeTrapAnimation = Assets.spikeTrap;
+    }
 
     private int trapIndex = 0;
     private int slowerDowner = 0;

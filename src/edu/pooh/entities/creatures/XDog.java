@@ -23,14 +23,19 @@ public class XDog extends Creature {
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
+        initAnimations();
+
+        random = new Random();
+    } //  **** end XDog(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
         animUp = new Animation(400, Assets.xDogUp);
         animDown = new Animation(400, Assets.xDogDown);
         animLeft = new Animation(400, Assets.xDogLeft);
         animRight = new Animation(400, Assets.xDogRight);
         animLeftPee = new Animation(400, Assets.xDogLeftPee);
-
-        random = new Random();
-    } //  **** end XDog(Handler, float, float) constructor ****
+    }
 
     @Override
     public void tick() {

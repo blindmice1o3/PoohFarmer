@@ -26,18 +26,16 @@ public class Molly extends Creature {
         setBoundsWidth(62);
         setBoundsHeight(62);
 
-        //initialize animations HashMap.
         initAnimations();
-        //initialize animationsArray array.
-        animationsArray = new Animation[animations.values().size()];
-        animations.values().toArray(animationsArray);
 
         setSpeed(5);
 
         random = new Random();
     } // **** end Molly(Handler, float, float) constructor ****
 
-    private void initAnimations() {
+    @Override
+    public void initAnimations() {
+        //initialize animations HashMap.
         animations = new HashMap<String, Animation>();
 
         animations.put("animWalkingUp", new Animation(400, Assets.mollyWalkingUp));
@@ -72,6 +70,10 @@ public class Molly extends Creature {
         animations.put("animMountingHorseDown", new Animation(400, Assets.mollyMountingHorseDown));
         animations.put("animMountingHorseLeft", new Animation(400, Assets.mollyMountingHorseLeft));
         animations.put("animMountingHorseRight", new Animation(400, Assets.mollyMountingHorseRight));
+
+        //initialize animationsArray array.
+        animationsArray = new Animation[animations.values().size()];
+        animations.values().toArray(animationsArray);
     }
 
     @Override

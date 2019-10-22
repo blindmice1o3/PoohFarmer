@@ -2,8 +2,10 @@ package edu.pooh.serialize_deserialize;
 
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.EntityManager;
+import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.creatures.player.Player;
+import edu.pooh.entities.statics.statics1x1.SpikeTrap;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.states.*;
@@ -34,9 +36,12 @@ public class SaverAndLoader {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 System.out.println("SaverAndLoader.save(String)...");
 
+                //GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+                //Player player = gameState.getWorld().getEntityManager().getPlayer();
                 TimeManager timeManager = handler.getTimeManager();
                 ResourceManager resourceManager = handler.getResourceManager();
 
+                //objectOutputStream.writeObject(player);
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
 
@@ -45,6 +50,7 @@ public class SaverAndLoader {
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
 
                 objectOutputStream.writeObject(entities);
+
                 /*
                 for (IState concreteIState : handler.getGame().getStateManager().getStates().values()) {
                     if (concreteIState instanceof ChickenCoopState) {
@@ -135,6 +141,16 @@ public class SaverAndLoader {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             System.out.println("SaverAndLoader.load()...");
 
+            //Player playerToBeLoaded = (Player)objectInputStream.readObject();
+            //playerToBeLoaded.setHandler(handler);
+            //GameState gameState = (GameState)handler.getGame().getStateManager().getIState(StateManager.GameState.GAME);
+
+            //gameState.getWorld().getEntityManager().getEntitiesToBeAdded().add(playerToBeLoaded);
+            //gameState.getWorld().getEntityManager().setToBeAdded(true);
+            //Player previousPlayerInstance = gameState.getWorld().getEntityManager().getPlayer();
+            //gameState.getWorld().getEntityManager().setPlayer( playerToBeLoaded );
+            //previousPlayerInstance.setActive(false);
+
             TimeManager timeManager = (TimeManager)objectInputStream.readObject();
             timeManager.setHandler(handler);
             handler.getGame().setTimeManager(timeManager);
@@ -143,9 +159,25 @@ public class SaverAndLoader {
             resourceManager.setHandler(handler);
             handler.getGame().setResourceManager(resourceManager);
 
+
             ArrayList<Entity> entities = (ArrayList<Entity>)objectInputStream.readObject();
             GameState gameState = (GameState)handler.getGame().getStateManager().getIState(StateManager.GameState.GAME);
             gameState.getWorld().getEntityManager().setEntities(entities);
+            for (Entity e : entities) {
+                e.setHandler(handler);
+
+                if (e instanceof Creature) {
+                    ((Creature)e).initAnimations();
+                } else if (e instanceof SpikeTrap) {
+                    ((SpikeTrap)e).initAnimations();
+                }
+
+                if (e instanceof Player) {
+                    gameState.getWorld().getEntityManager().setPlayer((Player)e);
+                    ((Player)e).getInventory().setHandler(handler);
+                    ((Player)e).getMeleeAttackModule().setHandler(handler);
+                }
+            }
 
             /*
             for (int i = 0; i < 8; i++) {

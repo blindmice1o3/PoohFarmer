@@ -34,11 +34,7 @@ public class Pikachu extends Creature
     public Pikachu(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        //initialize animations HashMap.
         initAnimations();
-        //initialize animationsArray array.
-        animationsArray = new Animation[animations.values().size()];
-        animations.values().toArray(animationsArray);
 
         setSpeed(5);
 
@@ -55,7 +51,9 @@ public class Pikachu extends Creature
 
     } // **** end Pikachu(Handler, float, float) constructor ****
 
+    @Override
     public void initAnimations() {
+        //initialize animations HashMap.
         animations = new HashMap<String, Animation>();
 
         animations.put("pikachuWalkSW", new Animation(400, Assets.pikachuWalkSW));
@@ -77,6 +75,10 @@ public class Pikachu extends Creature
         animations.put("pikachuAttackSpecialNW", new Animation(400, Assets.pikachuAttackSpecialNW));
         animations.put("pikachuAttackSpecialNE", new Animation(400, Assets.pikachuAttackSpecialNE));
         animations.put("pikachuAttackSpecialSE", new Animation(400, Assets.pikachuAttackSpecialSE));
+
+        //initialize animationsArray array.
+        animationsArray = new Animation[animations.values().size()];
+        animations.values().toArray(animationsArray);
     }
 
     @Override

@@ -22,18 +22,16 @@ public class Golum extends Creature {
     public Golum(Handler handler, float x, float y) {
         super(handler, x, y, (int)(1.75*Tile.TILE_WIDTH), (int)(1.75*Tile.TILE_HEIGHT));
 
-        //initialize animations HashMap.
         initAnimations();
-        //initialize animationsArray array.
-        animationsArray = new Animation[animations.values().size()];
-        animations.values().toArray(animationsArray);
 
         setSpeed(5);
 
         random = new Random();
     } // **** end Golum(Handler, float, float) constructor ****
 
-    private void initAnimations() {
+    @Override
+    public void initAnimations() {
+        //initialize animations HashMap.
         animations = new HashMap<String, Animation>();
 
         animations.put("animWalkDown", new Animation(300, Assets.golumWalkDown));
@@ -44,6 +42,10 @@ public class Golum extends Creature {
         animations.put("animWalkUpRight", new Animation(300, Assets.golumWalkUpRight));
         animations.put("animWalkRight", new Animation(300, Assets.golumWalkRight));
         animations.put("animWalkDownRight", new Animation(300, Assets.golumWalkDownRight));
+
+        //initialize animationsArray array.
+        animationsArray = new Animation[animations.values().size()];
+        animations.values().toArray(animationsArray);
     }
 
     @Override

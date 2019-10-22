@@ -4,7 +4,6 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
@@ -39,7 +38,7 @@ public class Cow extends Creature {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         setSpeed(2);
 
-        initCowAnimations();
+        initAnimations();
 
         this.fodderDisplayerTileArrayIndex = fodderDisplayerTileArrayIndex;
 
@@ -61,7 +60,8 @@ public class Cow extends Creature {
         ////////////////////////////////////////////////////////////////////////
     } // **** end Cow(Handler, float, float, cowState) constructor ****
 
-    private void initCowAnimations() {
+    @Override
+    public void initAnimations() {
         anim = new HashMap<String, Animation>();
 
         anim.put("animCowBabyUp", new Animation(400, Assets.cowBabyUp));

@@ -23,13 +23,18 @@ public class Wolf extends Creature {
         setBoundsWidth(width-10);
         setBoundsHeight(height-10);
 
-        animRight = new Animation(200, Assets.wolfRight);
-        animLeft = new Animation(200, Assets.wolfLeft);
+        initAnimations();
 
         setSpeed(6);
 
         random = new Random();
     } // **** end Wolf(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
+        animRight = new Animation(200, Assets.wolfRight);
+        animLeft = new Animation(200, Assets.wolfLeft);
+    }
 
     @Override
     public void tick() {
