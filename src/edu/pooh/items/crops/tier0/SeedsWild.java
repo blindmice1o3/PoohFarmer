@@ -29,6 +29,11 @@ public class SeedsWild extends Item {
     } // **** end SeedsWild(Handler) constructor ****
 
     @Override
+    public void resetTexture() {
+        texture = Assets.dirtSeededDry;
+    }
+
+    @Override
     public void execute() {
         int centerX = (int) (handler.getWorld().getEntityManager().getPlayer().getX() + (Tile.TILE_WIDTH / 2));
         int centerY = (int) (handler.getWorld().getEntityManager().getPlayer().getY() + (Tile.TILE_HEIGHT / 2));

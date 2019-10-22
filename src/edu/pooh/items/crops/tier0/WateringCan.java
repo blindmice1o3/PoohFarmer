@@ -41,6 +41,11 @@ public class WateringCan extends Item {
     public void resetCountWater() { countWater = 0; }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.wateringCan;
+    }
+
+    @Override
     public void execute() {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 

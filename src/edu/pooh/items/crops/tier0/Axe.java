@@ -21,6 +21,11 @@ public class Axe extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.axe;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Axe.execute(), targeted-entity: " + entity);

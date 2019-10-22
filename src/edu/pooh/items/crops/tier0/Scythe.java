@@ -21,6 +21,11 @@ public class Scythe extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.scythe;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Scythe.execute(), targeted-entity: " + entity);

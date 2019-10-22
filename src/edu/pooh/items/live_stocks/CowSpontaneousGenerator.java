@@ -25,6 +25,11 @@ public class CowSpontaneousGenerator extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowAdultDown[0];
+    }
+
+    @Override
     public void execute() {
         Player player = handler.getWorld().getEntityManager().getPlayer();
 

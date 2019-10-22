@@ -25,7 +25,7 @@ public class DeadCow extends StaticEntity {
         initAnimations();
     } // **** end DeadCow(Handler, float, float) constructor ****
 
-    private void initAnimations() {
+    public void initAnimations() {
         before = Assets.deadCowBefore;
         after = Assets.deadCowAfter;
         deadCowExplosion = Assets.deadCowExplosion;

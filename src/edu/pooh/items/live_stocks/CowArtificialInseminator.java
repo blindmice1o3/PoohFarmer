@@ -24,6 +24,11 @@ public class CowArtificialInseminator extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowMiraclePotion;
+    }
+
+    @Override
     public void execute() {
         Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();
         CowBarnState tempCowBarnState = (CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN);

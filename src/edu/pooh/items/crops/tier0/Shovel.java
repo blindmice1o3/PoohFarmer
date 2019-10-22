@@ -22,6 +22,11 @@ public class Shovel extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.shovel;
+    }
+
+    @Override
     public void execute() {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 

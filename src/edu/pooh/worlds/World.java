@@ -423,7 +423,7 @@ public class World
                             //tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                     (yy * 60), 59, 60));
-                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //tilesViaRGB[xx][yy].resetTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground2) {
@@ -435,7 +435,7 @@ public class World
                             };
                             tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                     (yy * 60), 59, 60));
-                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //tilesViaRGB[xx][yy].resetTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
                         } else if (red == 255 && green == 255 && blue == 0) { //bed - BedTile.
                             tilesViaRGB[xx][yy] = new BedTile(handler, Assets.homeStateBackground2);

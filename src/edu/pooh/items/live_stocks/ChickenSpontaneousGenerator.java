@@ -23,6 +23,11 @@ public class ChickenSpontaneousGenerator extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.chickenAdultDown[0];
+    }
+
+    @Override
     public void execute() {
         Player player = handler.getWorld().getEntityManager().getPlayer();
 

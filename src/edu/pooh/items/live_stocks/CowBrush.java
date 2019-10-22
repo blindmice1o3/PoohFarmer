@@ -20,6 +20,11 @@ public class CowBrush extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowBrush;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("CowBrush.execute(), targeted-entity: " + entity);

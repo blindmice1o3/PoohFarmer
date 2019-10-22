@@ -22,6 +22,11 @@ public class Hammer extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.hammer;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Hammer.execute(), targeted-entity: " + entity);

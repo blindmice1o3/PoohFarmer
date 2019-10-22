@@ -23,6 +23,11 @@ public class CowMilker extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowMilker;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("CowMilker.execute(), targeted-entity: " + entity);

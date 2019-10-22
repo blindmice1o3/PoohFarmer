@@ -55,6 +55,8 @@ public abstract class Item
 
     } // **** end Item(BufferedImage, String, int) constructor ****
 
+    public abstract void resetTexture();
+
     public abstract void execute();
 
     public void tick() {
