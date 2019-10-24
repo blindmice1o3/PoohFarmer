@@ -34,8 +34,6 @@ import java.util.Map;
 
 public class Player extends Creature {
 
-    public enum SanityLevel { SANE, FRAGMENTING, FRAGMENTED, INSANE, GUANO; }
-
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
@@ -44,11 +42,6 @@ public class Player extends Creature {
 
     // ANIMATIONS
     private transient Map<String, Animation> animations;
-
-    // STAMINA TRACKER
-    private int staminaCurrent;
-    private int staminaBase;
-    private SanityLevel sanityLevel;
 
     // MOVEMENT SPEED
     private int speedMax;
@@ -63,8 +56,14 @@ public class Player extends Creature {
     private int hrSize = 30;
     private boolean holding = false;
 
+    // STAMINA
+    private StaminaModule staminaModule;
+
     // ATTACK
     private AttackModule meleeAttackModule;
+
+    // HUD
+    private HeadUpDisplayer headUpDisplayer;
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -78,11 +77,6 @@ public class Player extends Creature {
 
         // ANIMATIONS
         initAnimations();
-
-        // STAMINA TRACKER
-        sanityLevel = SanityLevel.SANE;
-        staminaBase = 100;
-        staminaCurrent = staminaBase;
 
         // MOVEMENT SPEED
         speedMax = 10;
@@ -98,8 +92,14 @@ public class Player extends Creature {
         hr.width = hrSize;
         hr.height = hrSize;
 
+        // STAMINA
+        staminaModule = new StaminaModule(handler);
+
         // ATTACK
         meleeAttackModule = new AttackModule(handler, this);
+
+        // HUD
+        headUpDisplayer = new HeadUpDisplayer(handler, this);
     } // **** end Player(Handler, float, float) constructor ****
 
     @Override
@@ -150,6 +150,9 @@ public class Player extends Creature {
 
         // ATTACK
         meleeAttackModule.tick();
+
+        // HUD
+        headUpDisplayer.tick();
     }
 
     //TODO: move to Hammer class.
@@ -271,7 +274,7 @@ public class Player extends Creature {
             if (inventory.getItem(inventory.getIndex()) instanceof Hammer) {
                 if (getEntityCurrentlyFacing() instanceof Boulder) {
                     hitBoulderCounter++;
-                    decreaseStaminaCurrent(2);
+                    staminaModule.decreaseStaminaCurrent(2);
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitBoulderCounter == 6) {
@@ -292,7 +295,7 @@ public class Player extends Creature {
             if (inventory.getItem(inventory.getIndex()) instanceof Axe) {
                 if (getEntityCurrentlyFacing() instanceof TreeStump) {
                     hitTreeStumpCounter++;
-                    decreaseStaminaCurrent(2);
+                    staminaModule.decreaseStaminaCurrent(2);
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitTreeStumpCounter == 6) {
@@ -520,72 +523,18 @@ public class Player extends Creature {
         // ATTACK
         meleeAttackModule.render(g);
 
-        // HUD (Head-Up-Display)
-        renderHUD(g);
+        // HUD
+        headUpDisplayer.render(g);
     }
 
+    /**
+     * called inside EntityManager.render(Graphics).
+     */
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
 
         if (holdableObject instanceof Fodder) {
             ((Fodder)holdableObject).render(g);
-        }
-    }
-
-    public void renderHUD(Graphics g) {
-        // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
-        g.setColor(Color.BLUE);
-        g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(handler.getResourceManager().getCurrencyUnitCount()),
-                (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
-
-        // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)
-        Text.drawString(g, handler.getTimeManager().translateElapsedRealSecondsToGameHoursMinutes(),
-                (handler.getWidth() / 2), 30, true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, Integer.toString(handler.getTimeManager().elapsedRealSeconds),
-                (handler.getWidth() / 2), 55, true, Color.BLUE, Assets.font28);
-
-        // CURRENT SELECTED ITEM FROM INVENTORY (TOP-RIGHT CORNER)
-        g.setColor(Color.BLUE);
-        g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
-                (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        g.drawImage( inventory.getItem(inventory.getIndex()).getTexture(),
-                (Game.  WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
-                Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
-        if (inventory.getItem(inventory.getIndex()).getId() == Item.ID.WATERING_CAN) {
-            WateringCan temp = (WateringCan)inventory.getItem(inventory.getIndex());
-            Text.drawString(g, Integer.toString(temp.getCountWater()),
-                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
-                    25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
-        } else {
-            Text.drawString(g, Integer.toString(inventory.getItem(inventory.getIndex()).getCount()),
-                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
-                    25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
-        }
-
-        // STAMINA TRACKER VISUAL (LEFT TOP-ISH OF SCREEN)
-        g.setColor(Color.BLUE);
-        g.fillRect(33, 81, 15, staminaBase + 4);
-        g.setColor(Color.YELLOW);
-        g.fillRect(35, 83 + (staminaBase - staminaCurrent), 11, staminaCurrent);
-
-        // SANITY LEVEL
-        if (sanityLevel == SanityLevel.SANE) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.GREEN, Assets.font14);
-        } else if ( (sanityLevel == SanityLevel.FRAGMENTING) || (sanityLevel == SanityLevel.FRAGMENTED) ) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
-        } else if (sanityLevel == SanityLevel.INSANE) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.RED, Assets.font14);
-        } else if (sanityLevel == SanityLevel.GUANO) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.BLACK, Assets.font14);
         }
     }
 
@@ -649,41 +598,6 @@ public class Player extends Creature {
         checkWinningConditions();
     }
 
-    // STAMINA
-    public void decreaseStaminaCurrent(int staminaUsage) {
-        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
-
-        updateSanityLevel();
-    }
-
-    public void increaseStaminaCurrent(int staminaGained) {
-        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
-
-        updateSanityLevel();
-    }
-
-    public void resetStaminaCurrent() { //TimeManager.executeSleep().
-        System.out.println("Player.resetStaminaCurrent()");
-        staminaCurrent = staminaBase;
-
-        updateSanityLevel();
-    }
-
-    // SANITY LEVEL
-    private void updateSanityLevel() {
-        if (staminaCurrent >= 70) {
-            sanityLevel = SanityLevel.SANE;
-        } else if ((staminaCurrent >= 50) && (staminaCurrent < 70)) {
-            sanityLevel = SanityLevel.FRAGMENTING;
-        } else if ((staminaCurrent >= 30) && (staminaCurrent < 50)) {
-            sanityLevel = SanityLevel.FRAGMENTED;
-        } else if ((staminaCurrent >= 1) && (staminaCurrent < 30)) {
-            sanityLevel = SanityLevel.INSANE;
-        } else {
-            sanityLevel = SanityLevel.GUANO;
-        }
-    }
-
     // GETTERS & SETTERS
 
     public int getCannabisCollected() {
@@ -710,6 +624,10 @@ public class Player extends Creature {
         return inventory;
     }
 
+    public StaminaModule getStaminaModule() { return staminaModule; }
+
     public AttackModule getMeleeAttackModule() { return meleeAttackModule; }
+
+    public HeadUpDisplayer getHeadUpDisplayer() { return headUpDisplayer; }
 
 } // **** end Player class ****

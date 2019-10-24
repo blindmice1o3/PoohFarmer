@@ -32,7 +32,7 @@ public class Shovel extends Item {
 
         if (t != null) {
             System.out.println("Shovel.execute(), targeted-tile: " + t.getId());
-            handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+            handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
             System.out.println("Shovel.execute(), player's stamina decrease by 2");
 
             if ((t instanceof DirtNormalTile)) {

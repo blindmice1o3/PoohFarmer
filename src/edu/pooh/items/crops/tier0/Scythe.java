@@ -29,7 +29,7 @@ public class Scythe extends Item {
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Scythe.execute(), targeted-entity: " + entity);
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("Scythe.execute(), player's stamina decrease by 2");
 
         // CropEntity

@@ -27,7 +27,7 @@ public class HotSpringMountainTile extends SolidGenericTile
 
             // Increase player's staminaCurrent by 24.
             ///////////////////////////////////////////////////////////////////////////////////////////
-            handler.getWorld().getEntityManager().getPlayer().increaseStaminaCurrent(24);
+            handler.getWorld().getEntityManager().getPlayer().getStaminaModule().increaseStaminaCurrent(24);
             ///////////////////////////////////////////////////////////////////////////////////////////
         } else {
             handler.getWorld().getEntityManager().getPlayer().setX((x * Tile.TILE_WIDTH) - Tile.TILE_WIDTH - 1);

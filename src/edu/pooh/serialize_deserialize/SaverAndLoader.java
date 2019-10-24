@@ -88,7 +88,11 @@ public class SaverAndLoader {
                         i.resetTexture();
                     }
 
+                    ((Player)e).getStaminaModule().setHandler(handler);
+
                     ((Player)e).getMeleeAttackModule().setHandler(handler);
+
+                    ((Player)e).getHeadUpDisplayer().setHandler(handler);
                 }
             }
 

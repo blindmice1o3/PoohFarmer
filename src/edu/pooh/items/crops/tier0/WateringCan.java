@@ -51,7 +51,7 @@ public class WateringCan extends Item {
 
         if (t != null) {
             System.out.println("WateringCan.execute(), targeted-tile: " + t.getId());
-            handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+            handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
             System.out.println("WateringCan.execute(), player's stamina decrease by 2");
 
             // If tile is poolWater, increase countWater by 18.

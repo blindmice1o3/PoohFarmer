@@ -87,7 +87,7 @@ public class TimeManager
         }
 
         setAllTimeRelatedBooleansToFalse();
-        handler.getWorld().getEntityManager().getPlayer().resetStaminaCurrent();
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().resetStaminaCurrent();
 
         System.out.println("TimeManager.executeSleep()");
     }
