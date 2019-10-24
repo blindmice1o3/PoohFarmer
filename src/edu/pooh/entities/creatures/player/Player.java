@@ -12,7 +12,6 @@ import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.items.crops.tier0.Axe;
 import edu.pooh.items.crops.tier0.Hammer;
@@ -30,7 +29,6 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
