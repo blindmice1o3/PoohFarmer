@@ -220,7 +220,7 @@ public class Game extends Canvas {
         Graphics2D g2d = (Graphics2D)bs.getDrawGraphics();
 
         ////////////////////////////////    //Clear Screen
-        //g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        g2d.clearRect(0, 0, this.getWidth(), this.getHeight());
 
         ////////////////////////////////    //Draw here!
         if (stateManager.getCurrentState() != null) {

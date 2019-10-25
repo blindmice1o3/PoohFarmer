@@ -10,6 +10,7 @@ import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.states.*;
+import edu.pooh.tiles.*;
 import edu.pooh.time.TimeManager;
 
 import java.io.*;
@@ -34,11 +35,13 @@ public class SaverAndLoader {
                 GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
                 ArrayList<Item> items = gameState.getWorld().getItemManager().getItems();
+                Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
 
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
                 objectOutputStream.writeObject(entities);
                 objectOutputStream.writeObject(items);
+                objectOutputStream.writeObject(tiles);
 
                 objectOutputStream.close();
             } catch (FileNotFoundException e) {
@@ -106,6 +109,27 @@ public class SaverAndLoader {
                 i.resetTexture();
             }
             gameState.getWorld().getItemManager().setItems(items);
+
+
+            Tile[][] tiles = (Tile[][])objectInputStream.readObject();
+            for (Tile[] tiles1DArray : tiles) {
+                for (Tile tileElement : tiles1DArray) {
+                    if (tileElement instanceof BedTile) {
+                        ((BedTile)tileElement).setHandler(handler);
+                    } else if (tileElement instanceof FodderExecutorTile) {
+                        ((FodderExecutorTile)tileElement).setHandler(handler);
+                    } else if (tileElement instanceof FodderStashTile) {
+                        ((FodderStashTile)tileElement).setHandler(handler);
+                    } else if (tileElement instanceof HotSpringMountainTile) {
+                        ((HotSpringMountainTile)tileElement).setHandler(handler);
+                    } else if (tileElement instanceof SignPostTile) {
+                        ((SignPostTile)tileElement).setHandler(handler);
+                    } else if (tileElement instanceof WoodStashTile) {
+                        ((WoodStashTile)tileElement).setHandler(handler);
+                    }
+                }
+            }
+            gameState.getWorld().setTilesViaRGB(tiles);
 
 
             objectInputStream.close();

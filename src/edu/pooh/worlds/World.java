@@ -42,6 +42,7 @@ public class World
     private int playerSpawnX;
     private int playerSpawnY;
 
+    // TILES
     private Tile[][] tilesViaRGB;   // Multi-dimensional array of Tile objects loaded via RGB values.
 
     // ENTITIES
@@ -490,7 +491,7 @@ public class World
                         }
                         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                         else if (red == 255 && blue == 255) {   //FodderDisplayerTile.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(xx, yy,
                                     Assets.chickenCoopStateBackground, green);  //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -503,7 +504,7 @@ public class World
                         }
 
                         else if (red == 255 && green == 255 && blue == 0) {     //EggIncubatorTile - solid, special.
-                            tilesViaRGB[xx][yy] = new EggIncubatorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy] = new EggIncubatorTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
@@ -544,7 +545,7 @@ public class World
                         ///////////////////////////////////@@@@@@@@@@@@@@@ //green<=12 BECAUSE THERE IS A POSSIBLE
                         else if (red == 255 && blue == 0 && (green < 13)) {     //FodderDisplayerTile.
                         ///////////////////////////////////@@@@@@@@@@@@@@@ //rgb-COMBINATION w red==255, green==255, blue==0.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(xx, yy,
                                     Assets.cowBarnStateBackground, green); //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -1289,6 +1290,10 @@ public class World
     }
 
     public Tile[][] getTilesViaRGB() { return tilesViaRGB; }
+
+    public void setTilesViaRGB(Tile[][] tilesViaRGB) {
+        this.tilesViaRGB = tilesViaRGB;
+    }
 
     public EntityManager getEntityManager() { return entityManager; }
 
