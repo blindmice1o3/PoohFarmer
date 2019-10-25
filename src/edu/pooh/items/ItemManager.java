@@ -45,4 +45,10 @@ public class ItemManager
         return handler;
     }
 
+    public ArrayList<Item> getItems() { return items; }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
 } // **** end ItemManager class ****

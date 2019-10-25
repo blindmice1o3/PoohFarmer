@@ -33,10 +33,12 @@ public class SaverAndLoader {
                 ResourceManager resourceManager = handler.getResourceManager();
                 GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
+                ArrayList<Item> items = gameState.getWorld().getItemManager().getItems();
 
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
                 objectOutputStream.writeObject(entities);
+                objectOutputStream.writeObject(items);
 
                 objectOutputStream.close();
             } catch (FileNotFoundException e) {
@@ -64,7 +66,6 @@ public class SaverAndLoader {
 
             ArrayList<Entity> entities = (ArrayList<Entity>)objectInputStream.readObject();
             GameState gameState = (GameState)handler.getGame().getStateManager().getIState(StateManager.GameState.GAME);
-            gameState.getWorld().getEntityManager().setEntities(entities);
             for (Entity e : entities) {
                 e.setHandler(handler);
 
@@ -95,6 +96,17 @@ public class SaverAndLoader {
                     ((Player)e).getHeadUpDisplayer().setHandler(handler);
                 }
             }
+            gameState.getWorld().getEntityManager().setEntities(entities);
+
+
+            ArrayList<Item> items = (ArrayList<Item>)objectInputStream.readObject();
+            for (Item i : items) {
+                i.setHandler(handler);
+
+                i.resetTexture();
+            }
+            gameState.getWorld().getItemManager().setItems(items);
+
 
             objectInputStream.close();
         } catch (FileNotFoundException e) {
