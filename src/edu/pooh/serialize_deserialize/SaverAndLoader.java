@@ -13,6 +13,7 @@ import edu.pooh.states.*;
 import edu.pooh.tiles.*;
 import edu.pooh.time.TimeManager;
 
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -36,12 +37,32 @@ public class SaverAndLoader {
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
                 ArrayList<Item> items = gameState.getWorld().getItemManager().getItems();
                 Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
+                final int widthInTiles = tiles.length;
+                final int heightInTiles = tiles[0].length;
 
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
                 objectOutputStream.writeObject(entities);
                 objectOutputStream.writeObject(items);
                 objectOutputStream.writeObject(tiles);
+                System.out.println("tiles written");
+                ///////////////////////////////////////////
+                objectOutputStream.writeInt(widthInTiles);
+                System.out.println("widthInTiles written: " + widthInTiles);
+                objectOutputStream.writeInt(heightInTiles);
+                System.out.println("heightInTiles written: " + heightInTiles);
+                ///////////////////////////////////////////
+                int counter = 0;
+                int totalNumOfTiles = widthInTiles * heightInTiles;
+                for (int y = 0; y < heightInTiles; y++) {
+                    for (int x = 0; x < widthInTiles; x++) {
+                        ///////////////////////////////////////////////////////////////////////////////
+                        ImageIO.write(tiles[x][y].getTexture(), "png", objectOutputStream);
+                        counter++;
+                        System.out.println(counter + " tile's texture written out of " + totalNumOfTiles);
+                        ///////////////////////////////////////////////////////////////////////////////
+                    }
+                }
 
                 objectOutputStream.close();
             } catch (FileNotFoundException e) {
@@ -129,8 +150,14 @@ public class SaverAndLoader {
                     }
                 }
             }
+            final int widthInTiles = objectInputStream.readInt();
+            final int heightInTiles = objectInputStream.readInt();
+            for (int y = 0; y < heightInTiles; y++) {
+                for (int x = 0; x < widthInTiles; x++) {
+                    tiles[x][y].setTexture( ImageIO.read(objectInputStream) );
+                }
+            }
             gameState.getWorld().setTilesViaRGB(tiles);
-
 
             objectInputStream.close();
         } catch (FileNotFoundException e) {

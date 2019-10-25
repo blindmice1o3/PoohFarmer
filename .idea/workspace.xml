@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pooh_farmer.bin" afterPath="$PROJECT_DIR$/pooh_farmer.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" afterPath="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" afterPath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNotFarmableTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNotFarmableTile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/EggIncubatorTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/EggIncubatorTile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" afterPath="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
+            <state relative-caret-position="408">
+              <caret line="59" column="45" lean-forward="false" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -37,8 +31,8 @@
       <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="199" column="22" lean-forward="true" selection-start-line="199" selection-start-column="22" selection-end-line="199" selection-end-column="22" />
+            <state relative-caret-position="527">
+              <caret line="315" column="8" lean-forward="true" selection-start-line="315" selection-start-column="8" selection-end-line="315" selection-end-column="8" />
               <folding>
                 <element signature="e#79626#79627#0" expanded="true" />
                 <element signature="e#79672#79673#0" expanded="true" />
@@ -47,7 +41,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Tile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="180" column="23" lean-forward="false" selection-start-line="180" selection-start-column="23" selection-end-line="180" selection-end-column="23" />
+              <folding>
+                <element signature="e#6906#6907#0" expanded="true" />
+                <element signature="e#6979#6980#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DirtNormalTile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/main/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -147,9 +164,9 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/EggIncubatorTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/FodderDisplayerTile.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNotFarmableTile.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/main/Game.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/worlds/World.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
       </list>
     </option>
   </component>
@@ -982,17 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="211" column="20" lean-forward="true" selection-start-line="211" selection-start-column="20" selection-end-line="211" selection-end-column="20" />
-          <folding>
-            <element signature="e#6906#6907#0" expanded="true" />
-            <element signature="e#6979#6980#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/BedTile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1024,14 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -1108,25 +1106,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="199" column="22" lean-forward="true" selection-start-line="199" selection-start-column="22" selection-end-line="199" selection-end-column="22" />
-          <folding>
-            <element signature="e#79626#79627#0" expanded="true" />
-            <element signature="e#79672#79673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/StateManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -1147,6 +1126,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="222" column="63" lean-forward="true" selection-start-line="222" selection-start-column="63" selection-end-line="222" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="180" column="23" lean-forward="false" selection-start-line="180" selection-start-column="23" selection-end-line="180" selection-end-column="23" />
+          <folding>
+            <element signature="e#6906#6907#0" expanded="true" />
+            <element signature="e#6979#6980#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/worlds/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="315" column="8" lean-forward="true" selection-start-line="315" selection-start-column="8" selection-end-line="315" selection-end-column="8" />
+          <folding>
+            <element signature="e#79626#79627#0" expanded="true" />
+            <element signature="e#79672#79673#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="59" column="45" lean-forward="false" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
           <folding />
         </state>
       </provider>
