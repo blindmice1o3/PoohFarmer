@@ -67,6 +67,7 @@ public class Game extends Canvas {
         JPanel panel = (JPanel)frame.getContentPane();
         panel.setPreferredSize(new Dimension(WIDTH_OF_FRAME, HEIGHT_OF_FRAME));
         panel.setLayout(null);
+        panel.setDoubleBuffered(false);
 
         setBounds(0, 0, WIDTH_OF_FRAME, HEIGHT_OF_FRAME);
         panel.add(this);
@@ -217,18 +218,19 @@ public class Game extends Canvas {
             ///////
         }
 
-        Graphics2D g2d = (Graphics2D)bs.getDrawGraphics();
+        Graphics2D g2d = null;
+        try {
+            g2d = (Graphics2D)bs.getDrawGraphics();
+            // ************ Draw here! ************
+            g2d.clearRect(0, 0, this.getWidth(), this.getHeight());   //Clear screen
 
-        ////////////////////////////////    //Clear Screen
-        g2d.clearRect(0, 0, this.getWidth(), this.getHeight());
-
-        ////////////////////////////////    //Draw here!
-        if (stateManager.getCurrentState() != null) {
-            stateManager.getCurrentState().render(g2d);
+            if (stateManager.getCurrentState() != null) {
+                stateManager.getCurrentState().render(g2d);                 //Render currentState
+            }
+            // ************ End drawing! ************
+        } finally {
+            g2d.dispose();
         }
-        ////////////////////////////////    //End drawing!
-
-        g2d.dispose();
         bs.show();
     }
 
