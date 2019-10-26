@@ -133,28 +133,27 @@ public class SaverAndLoader {
 
 
             Tile[][] tiles = (Tile[][])objectInputStream.readObject();
-            for (Tile[] tiles1DArray : tiles) {
-                for (Tile tileElement : tiles1DArray) {
-                    if (tileElement instanceof BedTile) {
-                        ((BedTile)tileElement).setHandler(handler);
-                    } else if (tileElement instanceof FodderExecutorTile) {
-                        ((FodderExecutorTile)tileElement).setHandler(handler);
-                    } else if (tileElement instanceof FodderStashTile) {
-                        ((FodderStashTile)tileElement).setHandler(handler);
-                    } else if (tileElement instanceof HotSpringMountainTile) {
-                        ((HotSpringMountainTile)tileElement).setHandler(handler);
-                    } else if (tileElement instanceof SignPostTile) {
-                        ((SignPostTile)tileElement).setHandler(handler);
-                    } else if (tileElement instanceof WoodStashTile) {
-                        ((WoodStashTile)tileElement).setHandler(handler);
-                    }
-                }
-            }
             final int widthInTiles = objectInputStream.readInt();
             final int heightInTiles = objectInputStream.readInt();
             for (int y = 0; y < heightInTiles; y++) {
                 for (int x = 0; x < widthInTiles; x++) {
+                    //texture
                     tiles[x][y].setTexture( ImageIO.read(objectInputStream) );
+
+                    //handler
+                    if (tiles[x][y] instanceof BedTile) {
+                        ((BedTile)tiles[x][y]).setHandler(handler);
+                    } else if (tiles[x][y] instanceof FodderExecutorTile) {
+                        ((FodderExecutorTile)tiles[x][y]).setHandler(handler);
+                    } else if (tiles[x][y] instanceof FodderStashTile) {
+                        ((FodderStashTile)tiles[x][y]).setHandler(handler);
+                    } else if (tiles[x][y] instanceof HotSpringMountainTile) {
+                        ((HotSpringMountainTile)tiles[x][y]).setHandler(handler);
+                    } else if (tiles[x][y] instanceof SignPostTile) {
+                        ((SignPostTile)tiles[x][y]).setHandler(handler);
+                    } else if (tiles[x][y] instanceof WoodStashTile) {
+                        ((WoodStashTile)tiles[x][y]).setHandler(handler);
+                    }
                 }
             }
             gameState.getWorld().setTilesViaRGB(tiles);
