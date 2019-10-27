@@ -107,6 +107,7 @@ public class SaverAndLoader {
                 }
 
                 if (e instanceof Player) {
+                    gameState.setPlayer((Player)e);
                     gameState.getWorld().getEntityManager().setPlayer((Player)e);
 
                     Inventory inventory = ((Player)e).getInventory();

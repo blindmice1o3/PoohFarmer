@@ -225,6 +225,8 @@ public class GameState
         this.handler = handler;
     }
 
+    public void setPlayer(Player player) { this.player = player; }
+
     public World getWorld() {
         return world;
     }
