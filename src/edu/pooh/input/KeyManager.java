@@ -3,7 +3,8 @@ package edu.pooh.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyManager implements KeyListener {
+public class KeyManager
+        implements KeyListener {
 
     private boolean[] keys, justPressed, cantPress;
     // MOVEMENT

@@ -25,9 +25,9 @@ public class GameState
         this.handler = handler;
         args = new Object[10];
 
+        // NOW IT SETS the enum WorldType worldType for the world as well!!!!
         world = new World(handler, World.WorldType.GAME);
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
-                                    // NOW IT SETS the enum WorldType worldType for the world as well!!!!
 
         player = handler.getWorld().getEntityManager().getPlayer();
         args[1] = player.getX();

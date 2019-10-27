@@ -5,6 +5,7 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.statics1x1.DeadCow;
 import edu.pooh.entities.statics.statics1x1.SpikeTrap;
+import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
@@ -36,14 +37,17 @@ public class SaverAndLoader {
                 GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
                 ArrayList<Item> items = gameState.getWorld().getItemManager().getItems();
+                /*
                 Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
                 final int widthInTiles = tiles.length;
                 final int heightInTiles = tiles[0].length;
+                */
 
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
                 objectOutputStream.writeObject(entities);
                 objectOutputStream.writeObject(items);
+                /*
                 objectOutputStream.writeObject(tiles);
                 System.out.println("tiles written");
                 ///////////////////////////////////////////
@@ -63,6 +67,7 @@ public class SaverAndLoader {
                         ///////////////////////////////////////////////////////////////////////////////
                     }
                 }
+                */
 
                 objectOutputStream.close();
             } catch (FileNotFoundException e) {
@@ -104,7 +109,6 @@ public class SaverAndLoader {
                 if (e instanceof Player) {
                     gameState.getWorld().getEntityManager().setPlayer((Player)e);
 
-                    //TODO: after loading, the player's inventory appears empty. using VK_COMMA throws exception.
                     Inventory inventory = ((Player)e).getInventory();
                     inventory.setHandler(handler);
                     for (Item i : inventory.getInventoryItems()) {
@@ -131,7 +135,7 @@ public class SaverAndLoader {
             }
             gameState.getWorld().getItemManager().setItems(items);
 
-
+            /*
             Tile[][] tiles = (Tile[][])objectInputStream.readObject();
             final int widthInTiles = objectInputStream.readInt();
             final int heightInTiles = objectInputStream.readInt();
@@ -157,6 +161,7 @@ public class SaverAndLoader {
                 }
             }
             gameState.getWorld().setTilesViaRGB(tiles);
+            */
 
             objectInputStream.close();
         } catch (FileNotFoundException e) {
