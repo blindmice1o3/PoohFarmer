@@ -280,8 +280,14 @@ public class TextboxState
         handler.getStateManager().getStatesStack().get(handler.getStateManager().getStatesStack().size()-2).render(g);
 
         //TEXT_AREA
-        g.setColor(Color.BLUE);
-        g.fillRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
+        Graphics2D g2d = (Graphics2D)g;
+        Color purple = new Color(64, 0, 64);
+        Color bluish = new Color(0, 128, 192);
+        GradientPaint gradientPaint = new GradientPaint(0, textArea.getyFinal(), purple,
+                0, handler.getHeight()+75 /*(textArea.getyFinal() + textArea.getHeightFinal())*/, bluish);
+        g2d.setPaint(gradientPaint);
+        //g.setColor(Color.BLUE);
+        g2d.fillRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
         //BORDER
         g.setColor(Color.YELLOW);
         g.drawRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
