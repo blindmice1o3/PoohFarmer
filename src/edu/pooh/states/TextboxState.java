@@ -51,6 +51,8 @@ public class TextboxState
         secondLine = new Line(LineNumber.TWO, xOffset);
     } // **** end TextboxState(Handler) constructor ****
 
+
+
     private void initTextLayout() {
         int numberOfLetterPerLine = firstLine.getWidth() / widthLetter;
         System.out.println("NUMBER OF LETTERS PER LINE: " + numberOfLetterPerLine);
@@ -285,6 +287,7 @@ public class TextboxState
         Color bluish = new Color(0, 128, 192);
         GradientPaint gradientPaint = new GradientPaint(0, textArea.getyFinal(), purple,
                 0, handler.getHeight()+75 /*(textArea.getyFinal() + textArea.getHeightFinal())*/, bluish);
+        //TODO: if using GradientPaint for text area's texture (instead of preset-solid-color), TEXT REVEAL SYSTEM must be changed.
         g2d.setPaint(gradientPaint);
         //g.setColor(Color.BLUE);
         g2d.fillRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
