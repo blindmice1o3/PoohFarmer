@@ -398,6 +398,10 @@ public class TextboxState
             if (args[0] instanceof String) {
                 textPassedIn = (String)args[0];
             }
+            if (args[1] instanceof int[]) {
+                System.out.println("TextboxState.enter() is recognizing locationAndSize int[] being passed in " +
+                        "from Player.getInput() KeyEvent.VK_SLASH.");
+            }
         }
         /////////////////
         initTextLayout();   //takes care of args being null.

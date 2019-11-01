@@ -186,7 +186,30 @@ public class Player extends Creature {
         // KeyEvent.VK_SLASH        //TEXTBOXSTATE enter
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SLASH))) {
             /////////////////////////////////////////////////////////////////////
-            Object[] args = { "I love you mom" };
+            //Object[] args = { "I love you mom" };
+            Object[] args = new Object[2];
+            String message = "Sublett fell silent. Rydell felt sorry for him; the Texan really didn't know any other " +
+                    "way to start a conversation, and his folks back home in the trailer-camp would've seen " +
+                    "all those films and more. \"Well,\" Rydell said, trying to pick up his end, \"I was " +
+                    "watching this one old movie last night-\" Sublett perked up. \"Which one?\" \"Dunno,\" " +
+                    "Rydell said. \"This guy's in L.A. and he's just met this girl. Then he picks up a pay " +
+                    "phone, 'cause it's ringing. Late at night. It's some guy in a missile silo somewhere " +
+                    "who knows they'ves just launched theirs at the Russians. He's trying to phone his dad, " +
+                    "or his brother, or something. Says the world's gonna end in short order. Then the guy " +
+                    "who answered the phone hears these soldiers come in and shoot the guy. The guy on the " +
+                    "phone, I mean.\" Sublett closed his eyes, scanning his inner trivia-banks. \"Yeah? " +
+                    "How's it end?\" \"Dunno,\" Rydell said. \"I went to sleep.\" Sublett opened his eyes. " +
+                    "\"Who was in it?\" \"Got me.\" Sublett's blank silver eyes widened in disbelief. \"Jesus, " +
+                    "Berry, you shouldn't oughta watch tv, not unless you're gonna pay attention.\" -William " +
+                    "Gibson's Virtual Light";
+            args[0] = message;
+            int[] locationAndSize = {
+                    (int)(handler.getWidth()/2),
+                    (int)0,
+                    (int)(handler.getWidth()/2),
+                    (int)(handler.getHeight())
+            };
+            args[1] = locationAndSize;
             handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
             /////////////////////////////////////////////////////////////////////
