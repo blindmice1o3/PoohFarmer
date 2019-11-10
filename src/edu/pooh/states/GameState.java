@@ -37,6 +37,7 @@ public class GameState
 
     @Override
     public void enter(Object[] args) {
+        //GameState is an out-doors IState.
         handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
@@ -53,6 +54,8 @@ public class GameState
 
     @Override
     public void exit() {
+        //DO NOT call TimeManager.setClockRunningTrue(), sometime popping GameState result in in-doors IState.
+        //SAME for TimeManager.setClockRunningFalse(), sometime popping GameState result in out-doors IState.
         args[0] = player;
         args[1] = (int)player.getX();
         args[2] = (int)player.getY();

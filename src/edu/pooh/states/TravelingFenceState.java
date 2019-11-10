@@ -36,6 +36,7 @@ public class TravelingFenceState
 
     @Override
     public void enter(Object[] args) {
+        //TravelingFenceState is an IState that shouldn't affect the game clock.
         handler.getTimeManager().setClockRunningFalse();
 
         this.args = args;
@@ -47,6 +48,9 @@ public class TravelingFenceState
 
     @Override
     public void exit() {
+        //TravelingFenceState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         args[0] = player;
     }
 

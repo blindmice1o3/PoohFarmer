@@ -39,20 +39,13 @@ public class MenuState
                     ((WateringCan)handler.getWorld().getEntityManager().getPlayer().getInventory().getItem(0)).resetCountWater();
 
                 }
-
-                // @@@@@@@ having game object's gameState reference a different GameState instance??? @@@@@@@@
-                if (handler.getStateManager().getStatesStackSize() == 0) {
-                    handler.getStateManager().pushIState(StateManager.GameState.GAME);
-                    //handler.getGame().setGameState( new GameState(handler) );
-                    //StateManager.setCurrentState( handler.getGame().getGameState() ); //ALSO deprecated! Should be change().
-                }
-                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             }
         }));
     } // **** end MenuState(Handler) constructor ****
 
     @Override
     public void enter(Object[] args) {
+        //MenuState is an IState that shouldn't affect the game clock.
         handler.getTimeManager().setClockRunningFalse();
 
         if ((args[0] != null) && (args[0] instanceof Player)) {
@@ -62,16 +55,22 @@ public class MenuState
 
     @Override
     public void exit() {
+        //DO NOT call TimeManager.setClockRunningTrue(), sometime popping MenuState result in in-doors IState.
+        //SAME for TimeManager.setClockRunningFalse(), sometime popping MenuState result in out-doors IState.
+        //NEVERMIND THE EARLIER COMMENTS, we do have to decide when to restart the game clock.
+        int indexPriorIState = (handler.getStateManager().getStatesStack().size() - 2);
+        IState priorIState = handler.getStateManager().getStatesStack().get(indexPriorIState);
+
+        if ( (priorIState instanceof CrossroadState) || (priorIState instanceof GameState) ||
+                (priorIState instanceof MountainState) || (priorIState instanceof TheWestState) ) {
+            handler.getTimeManager().setClockRunningTrue();
+        }
+
         args[0] = player;
     }
 
     @Override
     public void tick() {
-        if (handler.getStateManager().getCurrentState() !=
-                handler.getStateManager().getIState(StateManager.GameState.MENU)) {
-            return;
-        }
-
         ////////////////
         uiManager.tick();
         ////////////////
@@ -79,11 +78,6 @@ public class MenuState
 
     @Override
     public void render(Graphics g) {
-        if (handler.getStateManager().getCurrentState() !=
-                handler.getStateManager().getIState(StateManager.GameState.MENU)) {
-            return;
-        }
-
         g.drawString("Congratuations! Play again?", 175, 175);
 
         ////////////////

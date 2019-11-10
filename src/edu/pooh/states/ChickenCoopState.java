@@ -285,6 +285,7 @@ public class ChickenCoopState
 
     @Override
     public void enter(Object[] args) {
+        //ChickenCoopState is an in-doors IState.
         handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
@@ -321,6 +322,9 @@ public class ChickenCoopState
 
     @Override
     public void exit() {
+        //ChickenCoopState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();

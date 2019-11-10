@@ -91,16 +91,6 @@ public class StateManager
         return specifiedIState;
     }
 
-    public int getStatesStackSize() {
-        return statesStack.size();
-    }
-
-    /*
-    public void setCurrentState(IState IState) {
-        currentState = IState;
-    }
-    */
-
     public ArrayList<IState> getStatesStack() { return statesStack; }
 
     public HashMap<GameState, IState> getStates() { return states; }

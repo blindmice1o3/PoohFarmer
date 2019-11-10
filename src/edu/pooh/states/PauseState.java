@@ -20,12 +20,22 @@ public class PauseState
 
     @Override
     public void enter(Object[] args) {
+        //PauseState is an IState that shouldn't affect the game clock.
         handler.getTimeManager().setClockRunningFalse();
     }
 
     @Override
     public void exit() {
-        handler.getTimeManager().setClockRunningTrue();
+        //DO NOT call TimeManager.setClockRunningTrue(), sometime popping PauseState result in in-doors IState.
+        //SAME for TimeManager.setClockRunningFalse(), sometime popping PauseState result in out-doors IState.
+        //NEVERMIND THE EARLIER COMMENTS, we do have to decide when to restart the game clock.
+        int indexPriorIState = (handler.getStateManager().getStatesStack().size() - 2);
+        IState priorIState = handler.getStateManager().getStatesStack().get(indexPriorIState);
+
+        if ( (priorIState instanceof CrossroadState) || (priorIState instanceof GameState) ||
+                (priorIState instanceof MountainState) || (priorIState instanceof TheWestState) ) {
+            handler.getTimeManager().setClockRunningTrue();
+        }
     }
 
     @Override

@@ -27,6 +27,7 @@ public class TheWestState
 
     @Override
     public void enter(Object[] args) {
+        //TheWestState is an out-doors IState.
         handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
@@ -45,6 +46,9 @@ public class TheWestState
 
     @Override
     public void exit() {
+        //TheWestState.exit() always result in CrossroadState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 

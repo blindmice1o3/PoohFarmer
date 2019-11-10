@@ -26,6 +26,7 @@ public class ToolShedState
 
     @Override
     public void enter(Object[] args) {
+        //ToolShedState is an in-doors IState.
         handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
@@ -44,6 +45,9 @@ public class ToolShedState
 
     @Override
     public void exit() {
+        //ToolShedState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();

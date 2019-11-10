@@ -31,6 +31,7 @@ public class CrossroadState
 
     @Override
     public void enter(Object[] args) {
+        //CrossroadState is an out-doors IState.
         handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
@@ -56,6 +57,9 @@ public class CrossroadState
 
     @Override
     public void exit() {
+        //CrossroadState.exit() always result in an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         handler.getTimeManager().incrementElapsedRealSecondsBy60();
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

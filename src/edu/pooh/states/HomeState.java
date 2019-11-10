@@ -27,6 +27,7 @@ public class HomeState
 
     @Override
     public void enter(Object[] args) {
+        //HomeState is an in-doors IState.
         handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
@@ -45,6 +46,9 @@ public class HomeState
 
     @Override
     public void exit() {
+        //HomeState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         if (handler.getTimeManager().getNewDay()) {
             /** Daily GameState method calls. */
             // INCREASE CropEntity int daysWatered IF DirtNormalTile HAD ITS watered SET TO TRUE THE PREVIOUS DAY.
@@ -105,8 +109,6 @@ public class HomeState
             handler.getTimeManager().setNewDayFalse();
             handler.getTimeManager().resetElapsedRealSeconds();
             /////////////////////////////////////////
-
-            handler.getTimeManager().setClockRunningTrue();
         }
 
         ///////////////////////////////////////////////////

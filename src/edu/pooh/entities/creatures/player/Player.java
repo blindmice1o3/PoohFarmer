@@ -194,7 +194,7 @@ public class Player extends Creature {
                     "watching this one old movie last night-\" Sublett perked up. \"Which one?\" \"Dunno,\" " +
                     "Rydell said. \"This guy's in L.A. and he's just met this girl. Then he picks up a pay " +
                     "phone, 'cause it's ringing. Late at night. It's some guy in a missile silo somewhere " +
-                    "who knows they'ves just launched theirs at the Russians. He's trying to phone his dad, " +
+                    "who knows they've just launched theirs at the Russians. He's trying to phone his dad, " +
                     "or his brother, or something. Says the world's gonna end in short order. Then the guy " +
                     "who answered the phone hears these soldiers come in and shoot the guy. The guy on the " +
                     "phone, I mean.\" Sublett closed his eyes, scanning his inner trivia-banks. \"Yeah? " +

@@ -223,6 +223,7 @@ public class CowBarnState
 
     @Override
     public void enter(Object[] args) {
+        //CowBarnState is an in-doors IState.
         handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
@@ -241,6 +242,9 @@ public class CowBarnState
 
     @Override
     public void exit() {
+        //CowBarnState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();

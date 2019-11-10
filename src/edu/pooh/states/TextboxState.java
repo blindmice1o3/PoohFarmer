@@ -28,6 +28,9 @@ public class TextboxState
     private int widthLetter, heightLetter; //size of each letter.
     private int xOffset;
 
+    // LOCATION_AND_SIZE
+    int[] locationAndSize;
+
     // TEXT_AREA (panel and border)
     private TextArea textArea;
 
@@ -36,6 +39,7 @@ public class TextboxState
     private Line secondLine;
 
     public TextboxState(Handler handler) {
+        locationAndSize = null;
         lines = new ArrayList<String>();
 
         this.handler = handler;
@@ -54,6 +58,12 @@ public class TextboxState
 
 
     private void initTextLayout() {
+        //if (locationAndSize != null) {
+        //
+        // }
+
+        //TODO: 2019_11_10 after dealing with time stop-start in enter() and exit().
+
         int numberOfLetterPerLine = firstLine.getWidth() / widthLetter;
         System.out.println("NUMBER OF LETTERS PER LINE: " + numberOfLetterPerLine);
 
@@ -385,11 +395,15 @@ public class TextboxState
 
     @Override
     public void enter(Object[] args) {
+        //TextboxState is an IState that shouldn't affect the game clock.
+        handler.getTimeManager().setClockRunningFalse();
+
         ///////////////////////////
         currentState = State.ENTER;
         ///////////////////////////
 
         //@@@@@@@@@@@@
+        locationAndSize = null;
         lines.clear();
         //@@@@@@@@@@@@
 
@@ -401,6 +415,8 @@ public class TextboxState
             if (args[1] instanceof int[]) {
                 System.out.println("TextboxState.enter() is recognizing locationAndSize int[] being passed in " +
                         "from Player.getInput() KeyEvent.VK_SLASH.");
+
+                locationAndSize = (int[])args[1];
             }
         }
         /////////////////
@@ -434,7 +450,16 @@ public class TextboxState
 
     @Override
     public void exit() {
+        //DO NOT call TimeManager.setClockRunningTrue(), sometime popping TextboxState result in in-doors IState.
+        //SAME for TimeManager.setClockRunningFalse(), sometime popping TextboxState result in out-doors IState.
+        //NEVERMIND THE EARLIER COMMENTS, we do have to decide when to restart the game clock.
+        int indexPriorIState = (handler.getStateManager().getStatesStack().size() - 2);
+        IState priorIState = handler.getStateManager().getStatesStack().get(indexPriorIState);
 
+        if ( (priorIState instanceof CrossroadState) || (priorIState instanceof GameState) ||
+                (priorIState instanceof MountainState) || (priorIState instanceof TheWestState) ) {
+            handler.getTimeManager().setClockRunningTrue();
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
