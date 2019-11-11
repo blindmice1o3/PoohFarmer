@@ -188,6 +188,7 @@ public class Player extends Creature {
             /////////////////////////////////////////////////////////////////////
             //Object[] args = { "I love you mom" };
             Object[] args = new Object[2];
+
             String message = "Sublett fell silent. Rydell felt sorry for him; the Texan really didn't know any other " +
                     "way to start a conversation, and his folks back home in the trailer-camp would've seen " +
                     "all those films and more. \"Well,\" Rydell said, trying to pick up his end, \"I was " +
@@ -202,16 +203,21 @@ public class Player extends Creature {
                     "\"Who was in it?\" \"Got me.\" Sublett's blank silver eyes widened in disbelief. \"Jesus, " +
                     "Berry, you shouldn't oughta watch tv, not unless you're gonna pay attention.\" -William " +
                     "Gibson's Virtual Light";
+            //////////////////
             args[0] = message;
-            int[] locationAndSize = {
-                    (int)(handler.getWidth()/2),
-                    (int)0,
-                    (int)(handler.getWidth()/2),
-                    (int)(handler.getHeight())
-            };
+            //////////////////
+
+            int x = (int)(handler.getWidth()/2);
+            int y = (int)(0);
+            int width = (int)(handler.getWidth()/2);
+            int height = (int)(handler.getHeight());
+            int[] locationAndSize = { x, y, width, height };
+            //////////////////////////
             args[1] = locationAndSize;
-            handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
+            //////////////////////////
+
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
+            handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             /////////////////////////////////////////////////////////////////////
         }
         // KeyEvent.VK_ESCAPE       //TEXTBOXSTATE escape
