@@ -3,6 +3,7 @@ package edu.pooh.serialize_deserialize;
 import edu.pooh.entities.Entity;
 import edu.pooh.entities.creatures.Creature;
 import edu.pooh.entities.creatures.player.Player;
+import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.entities.statics.statics1x1.DeadCow;
 import edu.pooh.entities.statics.statics1x1.SpikeTrap;
 import edu.pooh.gfx.Assets;
@@ -93,8 +94,22 @@ public class SaverAndLoader {
             resourceManager.setHandler(handler);
             handler.getGame().setResourceManager(resourceManager);
 
+
             ArrayList<Entity> entities = (ArrayList<Entity>)objectInputStream.readObject();
             GameState gameState = (GameState)handler.getGame().getStateManager().getIState(StateManager.GameState.GAME);
+            /////////////////////////////////////////////////////////////////////////
+            Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
+            //clear current game's tile instances of their reference to StaticEntity.
+            for (Tile[] tileArray : tiles) {
+                for (Tile t : tileArray) {
+                    if (t instanceof DirtNormalTile) {
+                        ((DirtNormalTile)t).setStaticEntity(null);
+                    } else if (t instanceof DirtNotFarmableTile) {
+                        ((DirtNotFarmableTile)t).setStaticEntity(null);
+                    }
+                }
+            }
+            /////////////////////////////////////////////////////////////////////////
             for (Entity e : entities) {
                 e.setHandler(handler);
 
@@ -105,6 +120,21 @@ public class SaverAndLoader {
                 } else if (e instanceof DeadCow) {
                     ((DeadCow)e).initAnimations();
                 }
+
+                /////////////////////////////////////////////////////////////////////////
+                //set the reloaded StaticEntity to the tile's reference.
+                if (e instanceof StaticEntity) {
+                    int xTileIndex = (int)(e.getX() / Tile.TILE_WIDTH);
+                    int yTileIndex = (int)(e.getY() / Tile.TILE_HEIGHT);
+                    Tile t = ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getTile(xTileIndex, yTileIndex);
+
+                    if (t instanceof DirtNormalTile) {
+                        ((DirtNormalTile)t).setStaticEntity((StaticEntity)e);
+                    } else if (t instanceof DirtNotFarmableTile) {
+                        ((DirtNotFarmableTile)t).setStaticEntity((StaticEntity)e);
+                    }
+                }
+                /////////////////////////////////////////////////////////////////////////
 
                 if (e instanceof Player) {
                     gameState.setPlayer((Player)e);
