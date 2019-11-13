@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pooh_farmer.bin" afterPath="$PROJECT_DIR$/pooh_farmer.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,20 +21,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TextboxState.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TextboxState.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="706" column="20" lean-forward="false" selection-start-line="706" selection-start-column="20" selection-end-line="706" selection-end-column="20" />
+            <state relative-caret-position="204">
+              <caret line="104" column="55" lean-forward="false" selection-start-line="104" selection-start-column="55" selection-end-line="104" selection-end-column="55" />
               <folding>
-                <element signature="e#30416#30417#0" expanded="true" />
-                <element signature="e#30453#30454#0" expanded="true" />
-                <element signature="e#31861#31862#0" expanded="true" />
-                <element signature="e#31897#31898#0" expanded="true" />
-                <element signature="e#32023#32024#0" expanded="true" />
-                <element signature="e#32069#32070#0" expanded="true" />
-                <element signature="e#32098#32099#0" expanded="true" />
-                <element signature="e#32130#32131#0" expanded="true" />
+                <element signature="e#30422#30423#0" expanded="true" />
+                <element signature="e#30459#30460#0" expanded="true" />
+                <element signature="e#31867#31868#0" expanded="true" />
+                <element signature="e#31903#31904#0" expanded="true" />
+                <element signature="e#32029#32030#0" expanded="true" />
+                <element signature="e#32075#32076#0" expanded="true" />
+                <element signature="e#32104#32105#0" expanded="true" />
+                <element signature="e#32136#32137#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="212" column="28" lean-forward="false" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="28" />
+            <state relative-caret-position="408">
+              <caret line="220" column="12" lean-forward="false" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -142,8 +141,8 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/states/StateManager.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/PauseState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/MenuState.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
       </list>
     </option>
   </component>
@@ -1054,28 +1053,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="212" column="28" lean-forward="false" selection-start-line="212" selection-start-column="28" selection-end-line="212" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="204">
+          <caret line="104" column="55" lean-forward="false" selection-start-line="104" selection-start-column="55" selection-end-line="104" selection-end-column="55" />
+          <folding>
+            <element signature="e#30422#30423#0" expanded="true" />
+            <element signature="e#30459#30460#0" expanded="true" />
+            <element signature="e#31867#31868#0" expanded="true" />
+            <element signature="e#31903#31904#0" expanded="true" />
+            <element signature="e#32029#32030#0" expanded="true" />
+            <element signature="e#32075#32076#0" expanded="true" />
+            <element signature="e#32104#32105#0" expanded="true" />
+            <element signature="e#32136#32137#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="706" column="20" lean-forward="false" selection-start-line="706" selection-start-column="20" selection-end-line="706" selection-end-column="20" />
-          <folding>
-            <element signature="e#30416#30417#0" expanded="true" />
-            <element signature="e#30453#30454#0" expanded="true" />
-            <element signature="e#31861#31862#0" expanded="true" />
-            <element signature="e#31897#31898#0" expanded="true" />
-            <element signature="e#32023#32024#0" expanded="true" />
-            <element signature="e#32069#32070#0" expanded="true" />
-            <element signature="e#32098#32099#0" expanded="true" />
-            <element signature="e#32130#32131#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="408">
+          <caret line="220" column="12" lean-forward="false" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>

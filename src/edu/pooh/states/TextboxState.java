@@ -102,7 +102,7 @@ public class TextboxState
         //instantiate the Line instances.
         int indexOfLinesTemplateOfTextArea = 0;
         while (indexOfLinesTemplateOfTextArea < numberOfLinesPerPage) {
-            int y = indexOfLinesTemplateOfTextArea * (heightLetter + yOffset);
+            int y = (indexOfLinesTemplateOfTextArea + 1) * (heightLetter + yOffset);
             linesTemplateOfTextArea.add( new Line(xOffset, y) );
             indexOfLinesTemplateOfTextArea++;
         }

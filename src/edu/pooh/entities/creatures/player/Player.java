@@ -216,6 +216,7 @@ public class Player extends Creature {
             args[1] = locationAndSize;
             //////////////////////////
 
+            args[1] = null;
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
             handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             /////////////////////////////////////////////////////////////////////
