@@ -103,7 +103,7 @@ public class TextboxState
         int indexOfLinesTemplateOfTextArea = 0;
         while (indexOfLinesTemplateOfTextArea < numberOfLinesPerPage) {
             int y = indexOfLinesTemplateOfTextArea * (heightLetter + yOffset);
-            linesTemplateOfTextArea.add( new Line(xOffset, yOffset + y) );
+            linesTemplateOfTextArea.add( new Line(xOffset, y) );
             indexOfLinesTemplateOfTextArea++;
         }
         indexOfLinesTemplateOfTextArea = 0;
@@ -145,6 +145,11 @@ public class TextboxState
                 } else {
                     textArea.setxCurrent(textArea.getxFinal()); //check to make sure does NOT exceed MAX DIMENSION.
                 }
+                if (textArea.getyCurrent() > textArea.getyFinal()) {
+                    textArea.setyCurrent(textArea.getyCurrent() - 5);
+                } else {
+                    textArea.setyCurrent(textArea.getyFinal());
+                }
                 if (textArea.getWidthCurrent() < textArea.getWidthFinal()) {
                     textArea.setWidthCurrent(textArea.getWidthCurrent() + (2 * 5));
                 } else {
@@ -159,6 +164,7 @@ public class TextboxState
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 //CHANGE TO NEXT TextboxState.State
                 if ( (textArea.getxCurrent() == textArea.getxFinal()) &&
+                        (textArea.getyCurrent() == textArea.getyFinal()) &&
                         (textArea.getWidthCurrent() == textArea.getWidthFinal()) &&
                         (textArea.getHeightCurrent() == textArea.getHeightFinal()) ) {
                     changeCurrentState(State.LINE_IN_ANIMATION);
@@ -324,6 +330,13 @@ public class TextboxState
                 //TEXT_AREA SHRINKING EFFECT.
                 if (textArea.getxCurrent() < textArea.getxInit()) {
                     textArea.setxCurrent(textArea.getxCurrent() + 5);
+                } else {
+                    textArea.setxCurrent(textArea.getxInit());
+                }
+                if (textArea.getyCurrent() < textArea.getyInit()) {
+                    textArea.setyCurrent(textArea.getyCurrent() + 5);
+                } else {
+                    textArea.setyCurrent(textArea.getyInit());
                 }
                 if (textArea.getWidthCurrent() > textArea.getWidthInit()) {
                     textArea.setWidthCurrent(textArea.getWidthCurrent() - (2 * 5));
@@ -691,7 +704,7 @@ public class TextboxState
 
         public Line(int xOffset, int y) {
             x = textArea.getxFinal() + xOffset;
-            y = textArea.getyFinal() + y;
+            this.y = textArea.getyFinal() + y;
             width = textArea.getWidthFinal() - (2*xOffset) -5; //-5 just to get a specific (tester) textPassedIn to fit nicely.
             height = heightLetter;
 
