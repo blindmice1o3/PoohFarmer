@@ -1,5 +1,6 @@
 package edu.pooh.states;
 
+import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.FontGrabber;
 import edu.pooh.main.Handler;
 
@@ -377,10 +378,13 @@ public class TextboxState
 
         //TEXT_AREA
         Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(Assets.textboxStateBackground_TheSimpsons, (textArea.getxFinal() + 10), (textArea.getyFinal() + 10),
+                (textArea.getWidthFinal() - 20), (textArea.getHeightFinal() - 20), null);
+        /*
         Color purple = new Color(64, 0, 64);
         Color bluish = new Color(0, 128, 192);
         GradientPaint gradientPaint = new GradientPaint(0, textArea.getyFinal(), purple,
-                0, handler.getHeight()+75 /*(textArea.getyFinal() + textArea.getHeightFinal())*/, bluish);
+                0, handler.getHeight()+75, bluish);
         //TODO: if using GradientPaint for text area's texture (instead of preset-solid-color), TEXT REVEAL SYSTEM must be changed.
         g2d.setPaint(gradientPaint);
         //g.setColor(Color.BLUE);
@@ -388,6 +392,7 @@ public class TextboxState
         //BORDER
         g.setColor(Color.YELLOW);
         g.drawRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
+        */
 
         switch (currentState) {
             case ENTER:

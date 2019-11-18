@@ -122,10 +122,13 @@ public class Assets {
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
 
+    public static BufferedImage theSimpsonsHomerSpriteSheet;
+
     // STATE (HOMESTATE)
     //public static BufferedImage homeStateBackground;
     public static BufferedImage homeStateBackground2, chickenCoopStateBackground, cowBarnStateBackground,
-            toolShedStateBackground, crossroadStateBackground, mountainStateBackground, theWestStateBackground;
+            toolShedStateBackground, crossroadStateBackground, mountainStateBackground, theWestStateBackground,
+            textboxStateBackground_TheSimpsons;
 
     // LOADING MAP BY RGB VALUES
     public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB, tilesCowBarnViaRGB,
@@ -1219,6 +1222,9 @@ public class Assets {
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
 
 
+        //THE SIMPSONS (HOMER) - SPRITE SHEET
+        theSimpsonsHomerSpriteSheet = ImageLoader.loadImage("/DS DSi - The Simpsons Game - Homer.png");
+
         // ************************************************************
         // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
@@ -1235,6 +1241,7 @@ public class Assets {
         // TheWestState does not use the entire image, it needs to be cropped.
         //sheet = new SpriteSheet(ImageLoader.loadImage("/worlds/PC Computer - Jazz Jackrabbit - Bonus Stage Backgrounds.png"));
         //theWestStateBackground = sheet.crop(16, 123, 511, 31);
+        textboxStateBackground_TheSimpsons = theSimpsonsHomerSpriteSheet.getSubimage(190, 603, 177, 98);
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|
