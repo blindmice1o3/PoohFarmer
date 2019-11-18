@@ -183,6 +183,20 @@ public class Player extends Creature {
             /////////////////////////////////////////////////////////////////////
         }
 
+        // TextboxState Mode.THE_SIMPSONS (toggle TextboxState's currentMode).
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT))) {
+            TextboxState textboxState = (TextboxState)handler.getStateManager().getIState(StateManager.GameState.TEXT_BOX);
+            TextboxState.Mode currentMode = textboxState.getCurrentMode();
+
+            if (currentMode == TextboxState.Mode.DEFAULT) {
+                textboxState.setCurrentMode(TextboxState.Mode.THE_SIMPSONS);
+            } else if (currentMode == TextboxState.Mode.THE_SIMPSONS) {
+                textboxState.setCurrentMode(TextboxState.Mode.DEFAULT);
+            }
+
+            System.out.println("TextboxState's currentMode is now: " + textboxState.getCurrentMode());
+        }
+
         // KeyEvent.VK_SLASH        //TEXTBOXSTATE enter
         if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SLASH))) {
             /////////////////////////////////////////////////////////////////////

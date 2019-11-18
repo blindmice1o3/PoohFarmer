@@ -11,10 +11,12 @@ import java.util.ArrayList;
 public class TextboxState
         implements IState {
 
+    public enum Mode { DEFAULT, THE_SIMPSONS; }
     public enum State { ENTER, LINE_IN_ANIMATION, WAIT_FOR_INPUT, PAGE_OUT_ANIMATION, EXIT; }
 
     private transient Handler handler;
 
+    private Mode currentMode;
     private State currentState;
 
     // MESSAGE
@@ -38,6 +40,7 @@ public class TextboxState
     public TextboxState(Handler handler) {
         this.handler = handler;
 
+        currentMode = Mode.DEFAULT;
         currentState = State.ENTER;
 
         textPassedIn = null;
@@ -104,7 +107,7 @@ public class TextboxState
         int indexOfLinesTemplateOfTextArea = 0;
         while (indexOfLinesTemplateOfTextArea < numberOfLinesPerPage) {
             int y = (indexOfLinesTemplateOfTextArea + 1) * (heightLetter + yOffset);
-            linesTemplateOfTextArea.add( new Line(xOffset, y) );
+            linesTemplateOfTextArea.add(new Line(xOffset, y));
             indexOfLinesTemplateOfTextArea++;
         }
         indexOfLinesTemplateOfTextArea = 0;
@@ -164,10 +167,10 @@ public class TextboxState
 
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 //CHANGE TO NEXT TextboxState.State
-                if ( (textArea.getxCurrent() == textArea.getxFinal()) &&
+                if ((textArea.getxCurrent() == textArea.getxFinal()) &&
                         (textArea.getyCurrent() == textArea.getyFinal()) &&
                         (textArea.getWidthCurrent() == textArea.getWidthFinal()) &&
-                        (textArea.getHeightCurrent() == textArea.getHeightFinal()) ) {
+                        (textArea.getHeightCurrent() == textArea.getHeightFinal())) {
                     changeCurrentState(State.LINE_IN_ANIMATION);
                 }
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -213,7 +216,7 @@ public class TextboxState
                 break;
             case WAIT_FOR_INPUT:
                 //continue-indicator should blink on-and-off if there's another page.
-                if ( indexCurrentLine < linesToDisplay.size() ) {
+                if (indexCurrentLine < linesToDisplay.size()) {
                     //////////////////////////
                     continueIndicatorTicker++;
                     //////////////////////////
@@ -352,7 +355,7 @@ public class TextboxState
 
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 //CHANGE TO NEXT TextboxState.State.EXIT
-                if ( (textArea.getWidthCurrent() == 0) && (textArea.getHeightCurrent() == 0) ) {
+                if ((textArea.getWidthCurrent() == 0) && (textArea.getHeightCurrent() == 0)) {
                     changeCurrentState(State.EXIT);
                 }
                 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -367,6 +370,8 @@ public class TextboxState
 
                 break;
             default:
+                System.out.println("TextboxState.tick(), switch(currentMode) construct's " +
+                        "Mode.DEFAULT field's switch(currentState) construct's default.");
                 break;
         }
     }
@@ -378,21 +383,31 @@ public class TextboxState
 
         //TEXT_AREA
         Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(Assets.textboxStateBackground_TheSimpsons, (textArea.getxFinal() + 10), (textArea.getyFinal() + 10),
-                (textArea.getWidthFinal() - 20), (textArea.getHeightFinal() - 20), null);
-        /*
-        Color purple = new Color(64, 0, 64);
-        Color bluish = new Color(0, 128, 192);
-        GradientPaint gradientPaint = new GradientPaint(0, textArea.getyFinal(), purple,
-                0, handler.getHeight()+75, bluish);
-        //TODO: if using GradientPaint for text area's texture (instead of preset-solid-color), TEXT REVEAL SYSTEM must be changed.
-        g2d.setPaint(gradientPaint);
-        //g.setColor(Color.BLUE);
-        g2d.fillRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
-        //BORDER
-        g.setColor(Color.YELLOW);
-        g.drawRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
-        */
+        switch (currentMode) {
+            case DEFAULT:
+                Color purple = new Color(64, 0, 64);
+                Color bluish = new Color(0, 128, 192);
+                GradientPaint gradientPaint = new GradientPaint(0, textArea.getyFinal(), purple,
+                        0, handler.getHeight()+75, bluish);
+                //TODO: if using GradientPaint for text area's texture (instead of preset-solid-color), TEXT REVEAL SYSTEM must be changed.
+                g2d.setPaint(gradientPaint);
+                //g.setColor(Color.BLUE);
+                g2d.fillRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
+                //BORDER
+                g.setColor(Color.YELLOW);
+                g.drawRect(textArea.getxCurrent(), textArea.getyCurrent(), textArea.getWidthCurrent(), textArea.getHeightCurrent());
+
+                break;
+            case THE_SIMPSONS:
+                g2d.drawImage(Assets.textboxStateBackground_TheSimpsons,
+                        10, ((handler.getHeight() / 2) + 10),
+                        (handler.getWidth() - 20), ((handler.getHeight() / 2) - 20), null);
+
+                break;
+            default:
+                System.out.println("TextboxState.render(Graphics) switch(currentMode) construct's default.");
+                break;
+        }
 
         switch (currentState) {
             case ENTER:
@@ -483,6 +498,14 @@ public class TextboxState
 
     private void changeCurrentState(State nextState) {
         currentState = nextState;
+    }
+
+    public Mode getCurrentMode() {
+        return currentMode;
+    }
+
+    public void setCurrentMode(Mode currentMode) {
+        this.currentMode = currentMode;
     }
 
     @Override
