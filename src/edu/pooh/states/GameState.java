@@ -1,6 +1,7 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
+import edu.pooh.entities.creatures.live_stocks.Sheep;
 import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
@@ -32,6 +33,8 @@ public class GameState
         player = handler.getWorld().getEntityManager().getPlayer();
         args[1] = player.getX();
         args[2] = player.getY();
+
+        handler.getWorld().getEntityManager().addEntity(new Sheep(handler, player.getX()-Tile.TILE_WIDTH, player.getY()));
     } // **** end GameState(Handler) constructor ****
 
 

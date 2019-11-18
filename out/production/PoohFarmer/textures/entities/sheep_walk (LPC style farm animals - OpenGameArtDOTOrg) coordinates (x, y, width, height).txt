@@ -1,0 +1,52 @@
+sheep_walk (LPC style farm animals - OpenGameArtDOTOrg).png
+
+sheepUp0:
+50, 40, 27, 49
+
+sheepUp1:
+178, 39, 27, 48
+
+sheepUp2:
+306, 40, 27, 49
+
+sheepUp3:
+434, 39, 27, 48
+
+
+sheepLeft0:
+37, 172, 49, 38
+
+sheepLeft1:
+165, 171, 49, 39
+
+sheepLeft2:
+293, 172, 49, 39
+
+sheepLeft3:
+421, 171, 49, 39
+
+
+sheepDown0:
+50, 304, 27, 41
+
+sheepDown1:
+178, 303, 27, 40
+
+sheepDown2:
+306, 304, 27, 41
+
+sheepDown3:
+434, 303, 27, 40
+
+
+sheepRight0:
+42, 428, 49, 38
+
+sheepRight1:
+170, 427, 49, 39
+
+sheepRight2:
+298, 428, 49, 39
+
+sheepRight3:
+426, 427, 49, 39
