@@ -38,16 +38,28 @@ public class SaverAndLoader {
                 GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
                 ArrayList<Entity> entities = gameState.getWorld().getEntityManager().getEntities();
                 ArrayList<Item> items = gameState.getWorld().getItemManager().getItems();
-                /*
-                Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
-                final int widthInTiles = tiles.length;
-                final int heightInTiles = tiles[0].length;
-                */
 
                 objectOutputStream.writeObject(timeManager);
                 objectOutputStream.writeObject(resourceManager);
                 objectOutputStream.writeObject(entities);
                 objectOutputStream.writeObject(items);
+
+
+                ///////////////////////////////////////////////////////
+                Tile[][] tiles = gameState.getWorld().getTilesViaRGB();
+                for (int y = 0; y < tiles.length; y++) {
+                    for (int x = 0; x < tiles[0].length; x++) {
+                        if (tiles[y][x] instanceof DirtNormalTile) {
+                            objectOutputStream.writeObject(((DirtNormalTile)tiles[y][x]).getDirtState());
+                            objectOutputStream.writeObject(((DirtNormalTile)tiles[y][x]).isWatered());
+                        } else {
+                            System.out.println("SaverAndLoader.save(), skipping, NOT a DirtNormalTile.");
+                        }
+                    }
+                }
+                ///////////////////////////////////////////////////////
+
+
                 /*
                 objectOutputStream.writeObject(tiles);
                 System.out.println("tiles written");
@@ -165,6 +177,43 @@ public class SaverAndLoader {
                 i.resetTexture();
             }
             gameState.getWorld().getItemManager().setItems(items);
+
+
+            ///////////////////////////////////////////////////////
+            for (int y = 0; y < tiles.length; y++) {
+                for (int x = 0; x < tiles[0].length; x++) {
+                    if (tiles[y][x] instanceof DirtNormalTile) {
+                        ((DirtNormalTile)tiles[y][x]).setDirtState((DirtNormalTile.DirtState)objectInputStream.readObject());
+                        ((DirtNormalTile)tiles[y][x]).setWatered((boolean)objectInputStream.readObject());
+
+                        switch (((DirtNormalTile)tiles[y][x]).getDirtState()) {
+                            case NORMAL:
+                                ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtNormal);
+                                break;
+                            case TILLED:
+                                if (((DirtNormalTile)tiles[y][x]).isWatered()) {
+                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtTilledWatered);
+                                } else {
+                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtTilledDry);
+                                }
+                                break;
+                            case SEEDED:
+                                if (((DirtNormalTile)tiles[y][x]).isWatered()) {
+                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtSeededWatered);
+                                } else {
+                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtSeededDry);
+                                }
+                                break;
+                            default:
+                                System.out.println("SaverAndLoader.load(), tiles... setting texture... switch construct's default.");
+                                break;
+                        }
+                    } else {
+                        System.out.println("SaverAndLoader.load(), skipping, NOT a DirtNormalTile.");
+                    }
+                }
+            }
+            ///////////////////////////////////////////////////////
 
             /*
             Tile[][] tiles = (Tile[][])objectInputStream.readObject();

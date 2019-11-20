@@ -221,10 +221,10 @@ public class Player extends Creature {
             args[0] = message;
             //////////////////
 
-            int x = (int)(0);
-            int y = (int)(handler.getHeight()/2);
-            int width = (int)(handler.getWidth()/2);
-            int height = (int)(handler.getHeight()/2);
+            int x = (int)(handler.getWidth() / 8);
+            int y = (int)(handler.getHeight() / 2);
+            int width = (int)(handler.getWidth() / 8);
+            int height = (int)(handler.getHeight() / 3);
             int[] locationAndSize = { x, y, width, height };
             //////////////////////////
             args[1] = locationAndSize;

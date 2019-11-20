@@ -400,8 +400,10 @@ public class TextboxState
                 break;
             case THE_SIMPSONS:
                 g2d.drawImage(Assets.textboxStateBackground_TheSimpsons,
-                        textArea.getxFinal(), (int)(textArea.getyFinal() - (1.39 * textArea.getHeightFinal())),
-                        textArea.getWidthFinal(), (int)(textArea.getHeightFinal() + (1.39 * textArea.getHeightFinal())),
+                        textArea.getxFinal(),
+                        (int)(textArea.getyFinal() - (1.53 * textArea.getHeightFinal())),
+                        textArea.getWidthFinal(),
+                        (int)(textArea.getHeightFinal() + (1.58 * textArea.getHeightFinal())),
                         null);
                 /*
                 g2d.drawImage(Assets.textboxStateBackground_TheSimpsons,
