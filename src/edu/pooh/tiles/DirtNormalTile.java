@@ -37,9 +37,11 @@ public class DirtNormalTile extends Tile {
     public void render(Graphics g, int x, int y) {
         g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
 
+        /*
         if (staticEntity != null) {
             staticEntity.render(g);
         }
+        */
     }
 
     // GETTERS & SETTERS

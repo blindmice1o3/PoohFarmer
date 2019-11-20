@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pooh_farmer.bin" afterPath="$PROJECT_DIR$/pooh_farmer.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" afterPath="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" afterPath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" afterPath="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,7 +19,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="476">
@@ -45,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DirtNormalTile.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DirtNormalTile.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="54" column="26" lean-forward="true" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
+            <state relative-caret-position="527">
+              <caret line="43" column="10" lean-forward="false" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -137,7 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Golum.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/Dog.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/live_stocks/Cow.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/SpikeTrap.java" />
@@ -188,6 +186,7 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
       </list>
     </option>
   </component>
@@ -1095,18 +1094,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="54" column="26" lean-forward="true" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="207" column="133" lean-forward="false" selection-start-line="207" selection-start-column="133" selection-end-line="207" selection-end-column="133" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="43" column="10" lean-forward="false" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
           <folding />
         </state>
       </provider>
