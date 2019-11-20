@@ -221,16 +221,16 @@ public class Player extends Creature {
             args[0] = message;
             //////////////////
 
-            int x = (int)(handler.getWidth()/2);
-            int y = (int)(0);
+            int x = (int)(0);
+            int y = (int)(handler.getHeight()/2);
             int width = (int)(handler.getWidth()/2);
-            int height = (int)(handler.getHeight());
+            int height = (int)(handler.getHeight()/2);
             int[] locationAndSize = { x, y, width, height };
             //////////////////////////
             args[1] = locationAndSize;
             //////////////////////////
 
-            args[1] = null;
+            //args[1] = null;
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
             handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             /////////////////////////////////////////////////////////////////////
