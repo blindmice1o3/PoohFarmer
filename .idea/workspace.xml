@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da2f7579-4254-4f88-93c4-6343ee975bc6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/PoohFarmer/edu/pooh/serialize_deserialize/SaverAndLoader$1.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pooh_farmer.bin" afterPath="$PROJECT_DIR$/pooh_farmer.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" afterPath="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" afterPath="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SaverAndLoader.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="207" column="133" lean-forward="false" selection-start-line="207" selection-start-column="133" selection-end-line="207" selection-end-column="133" />
+            <state relative-caret-position="136">
+              <caret line="186" column="106" lean-forward="false" selection-start-line="186" selection-start-column="106" selection-end-line="186" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -43,11 +45,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DirtNormalTile.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DirtNormalTile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
               <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="172" column="47" lean-forward="true" selection-start-line="172" selection-start-column="47" selection-end-line="172" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -174,8 +186,8 @@
         <option value="$PROJECT_DIR$/src/edu/pooh/gfx/Assets.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/states/TextboxState.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/entities/creatures/player/Player.java" />
-        <option value="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
         <option value="$PROJECT_DIR$/src/edu/pooh/tiles/DirtNormalTile.java" />
+        <option value="$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java" />
       </list>
     </option>
   </component>
@@ -631,7 +643,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5060514" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.47916666" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.503268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.503268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.65522873" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5735294" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1062,14 +1074,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/pooh/entities/statics/statics1x1/Bush.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -1086,10 +1090,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/states/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="207" column="133" lean-forward="false" selection-start-line="207" selection-start-column="133" selection-end-line="207" selection-end-column="133" />
+        <state relative-caret-position="289">
+          <caret line="172" column="47" lean-forward="true" selection-start-line="172" selection-start-column="47" selection-end-line="172" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1098,6 +1102,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/pooh/serialize_deserialize/SaverAndLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="186" column="106" lean-forward="false" selection-start-line="186" selection-start-column="106" selection-end-line="186" selection-end-column="106" />
           <folding />
         </state>
       </provider>

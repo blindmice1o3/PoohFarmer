@@ -185,29 +185,6 @@ public class SaverAndLoader {
                     if (tiles[y][x] instanceof DirtNormalTile) {
                         ((DirtNormalTile)tiles[y][x]).setDirtState((DirtNormalTile.DirtState)objectInputStream.readObject());
                         ((DirtNormalTile)tiles[y][x]).setWatered((boolean)objectInputStream.readObject());
-
-                        switch (((DirtNormalTile)tiles[y][x]).getDirtState()) {
-                            case NORMAL:
-                                ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtNormal);
-                                break;
-                            case TILLED:
-                                if (((DirtNormalTile)tiles[y][x]).isWatered()) {
-                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtTilledWatered);
-                                } else {
-                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtTilledDry);
-                                }
-                                break;
-                            case SEEDED:
-                                if (((DirtNormalTile)tiles[y][x]).isWatered()) {
-                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtSeededWatered);
-                                } else {
-                                    ((DirtNormalTile)tiles[y][x]).setTexture(Assets.dirtSeededDry);
-                                }
-                                break;
-                            default:
-                                System.out.println("SaverAndLoader.load(), tiles... setting texture... switch construct's default.");
-                                break;
-                        }
                     } else {
                         System.out.println("SaverAndLoader.load(), skipping, NOT a DirtNormalTile.");
                     }
