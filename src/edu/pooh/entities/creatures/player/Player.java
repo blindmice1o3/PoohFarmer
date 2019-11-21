@@ -222,15 +222,15 @@ public class Player extends Creature {
             //////////////////
 
             int x = (int)(handler.getWidth() / 8);
-            int y = (int)(handler.getHeight() / 2);
-            int width = (int)(handler.getWidth() / 8);
-            int height = (int)(handler.getHeight() / 3);
+            int y = (int)((3 * handler.getHeight()) / 4);
+            int width = (int)(handler.getWidth() - (2 * (handler.getWidth() / 8)));
+            int height = (int)(handler.getHeight() / 4);
             int[] locationAndSize = { x, y, width, height };
             //////////////////////////
             args[1] = locationAndSize;
             //////////////////////////
 
-            //args[1] = null;
+            args[1] = null;
             //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
             handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
             /////////////////////////////////////////////////////////////////////

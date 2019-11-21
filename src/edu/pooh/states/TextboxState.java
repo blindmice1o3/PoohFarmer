@@ -536,11 +536,12 @@ public class TextboxState
             textPassedIn = "blank789message";
         }
         //check if DESTINATION is missing value.
+        //TODO: ought to check if each index of locationAndSize array is missing a value rather than for the whole array.
         if (locationAndSize == null) {
-            int widthDefault = 2 * ((handler.getWidth() / 10) * 4);
+            int widthDefault = ((handler.getWidth() / 10) * 8);
             int xDefault = (handler.getWidth() / 2) - (widthDefault / 2);
-            int yDefault = (handler.getHeight() / 2);
-            int heightDefault = (handler.getHeight() / 2);
+            int heightDefault = (handler.getHeight() / 4);
+            int yDefault = handler.getHeight() - (heightDefault) - (handler.getWidth() / 10); //whole - textArea.height - margin.
 
             locationAndSize = new int[4];
             locationAndSize[0] = xDefault;
