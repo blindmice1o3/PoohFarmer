@@ -3,6 +3,7 @@ package edu.pooh.states;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.FontGrabber;
 import edu.pooh.main.Handler;
+import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -180,6 +181,8 @@ public class TextboxState
                 //TODO: implement animationfx of line being "type-in".
                 System.out.println("STILL NEED TO IMPLEMENT type-in effect!!!!!!!!!!!!!!!!!");
 
+
+
                 /*
                 //int textSpeed = 2; //actual in-game textSpeed.
                 int textSpeed = 10; //developer-mode textSpeed.
@@ -210,6 +213,7 @@ public class TextboxState
                     changeCurrentState(State.WAIT_FOR_INPUT);
                 }
                 */
+
 
                 changeCurrentState(State.WAIT_FOR_INPUT);
 
@@ -381,7 +385,7 @@ public class TextboxState
         //repaint the render(Graphics) of the IState that is just below the top of the stack.
         handler.getStateManager().getStatesStack().get(handler.getStateManager().getStatesStack().size()-2).render(g);
 
-        //TEXT_AREA
+        //TEXT_AREA - panel
         Graphics2D g2d = (Graphics2D)g;
         switch (currentMode) {
             case DEFAULT:
@@ -399,17 +403,17 @@ public class TextboxState
 
                 break;
             case THE_SIMPSONS:
+                float opacity = 0.75f;
+                //transparent.
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
                 g2d.drawImage(Assets.textboxStateBackground_TheSimpsons,
                         textArea.getxFinal(),
                         (int)(textArea.getyFinal() - (1.53 * textArea.getHeightFinal())),
                         textArea.getWidthFinal(),
                         (int)(textArea.getHeightFinal() + (1.58 * textArea.getHeightFinal())),
                         null);
-                /*
-                g2d.drawImage(Assets.textboxStateBackground_TheSimpsons,
-                        10, ((handler.getHeight() / 2) + 10),
-                        (handler.getWidth() - 20), ((handler.getHeight() / 2) - 20), null);
-                */
+                //back to normal.
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
                 break;
             default:
@@ -425,8 +429,16 @@ public class TextboxState
                 break;
             case LINE_IN_ANIMATION:
                 for (Line line : linesTemplateOfTextArea) {
-                    //render: message
-                    FontGrabber.renderString(g, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
+                    //if first line being rendered... make opacity of first 3 characters 0.5f.
+                    if (line.getMessage().length() >= 1) {
+                        float opacity = 0.5f;
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        FontGrabber.renderString(g2d, line.getMessage().substring(0, 3), line.getX(), line.getY(), widthLetter, heightLetter);
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+                        FontGrabber.renderString(g2d, line.getMessage().substring(3), line.getX() + (3 * widthLetter), line.getY(), widthLetter, heightLetter);
+                    } else {
+                        FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
+                    }
                 }
 
                 /*
@@ -440,8 +452,16 @@ public class TextboxState
                 break;
             case WAIT_FOR_INPUT:
                 for (Line line : linesTemplateOfTextArea) {
-                    //render: message
-                    FontGrabber.renderString(g, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
+                    //if first line being rendered... make opacity of first 3 characters 0.5f.
+                    if (line.getMessage().length() >= 1) {
+                        float opacity = 0.5f;
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        FontGrabber.renderString(g2d, line.getMessage().substring(0, 3), line.getX(), line.getY(), widthLetter, heightLetter);
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+                        FontGrabber.renderString(g2d, line.getMessage().substring(3), line.getX() + (3 * widthLetter), line.getY(), widthLetter, heightLetter);
+                    } else {
+                        FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
+                    }
                 }
 
                 /*
