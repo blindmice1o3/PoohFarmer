@@ -53,8 +53,8 @@ public class TextboxState
         linesToDisplay = new ArrayList<String>();
         indexCurrentLine = 0;
 
-        speedBlink = 3;
-        speedTypeIn = 6;
+        speedBlink = 8;
+        speedTypeIn = 20;
         counterBlink = 0;
         counterTypeIn = 0;
         indexTypeIn = 0;
@@ -219,6 +219,7 @@ public class TextboxState
                     if (indexTypeIn >= linesTemplateOfTextArea.get(indexLineOnPage).getMessage().length()) {
                         //TODO: move to next line.
 
+                        indexTypeIn = 0;
                         indexLineOnPage++;
 
                         if (indexLineOnPage >= (numberOfLinesPerPage-1)) {
@@ -488,6 +489,18 @@ public class TextboxState
                         FontGrabber.renderString(g2d, invisibleMessage,
                                 currentLine.getX() + (indexTypeIn * widthLetter), currentLine.getY(),
                                 widthLetter, heightLetter);
+
+
+                        //BLINKING CURSOR
+                        Color colorCursor = Color.BLACK;
+                        g2d.setColor(colorCursor);
+                        ////////////////////////////////
+                        opacity = visible ? 1.0f : 0.0f;
+                        ////////////////////////////////
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        g2d.fillRect(currentLine.getX() + (indexTypeIn * widthLetter), currentLine.getY(),
+                                widthLetter, heightLetter);
+
                     }
                     //prior lines
                     else if (i < indexLineOnPage) {
