@@ -54,7 +54,7 @@ public class TextboxState
         indexCurrentLine = 0;
 
         speedBlink = 8;
-        speedTypeIn = 20;
+        speedTypeIn = 15;
         counterBlink = 0;
         counterTypeIn = 0;
         indexTypeIn = 0;
@@ -191,9 +191,7 @@ public class TextboxState
 
                 break;
             case LINE_IN_ANIMATION:
-                //TODO: implement animationfx of line being "type-in".
-                System.out.println("STILL NEED TO IMPLEMENT type-in effect!!!!!!!!!!!!!!!!!");
-
+                //tick blink timer and type-in-effect timer.
                 counterBlink++;
                 counterTypeIn++;
 
@@ -202,7 +200,7 @@ public class TextboxState
                     //reset the counter.
                     counterBlink = 0;
 
-                    //TODO: toggle opacity from 0.0f to 1.0f.
+                    //toggle opacity from 0.0f to 1.0f.
                     visible = !visible;
                 }
 
@@ -211,55 +209,23 @@ public class TextboxState
                     //reset the counter.
                     counterTypeIn = 0;
 
-                    //TODO: move cursor to the next character.
                     //move cursor to next character, then check if should reset indexTypeIn and move to new line.
                     indexTypeIn++;
 
                     //see if finished with current line.
                     if (indexTypeIn >= linesTemplateOfTextArea.get(indexLineOnPage).getMessage().length()) {
-                        //TODO: move to next line.
-
+                        //carriage return.
                         indexTypeIn = 0;
+                        //move to next line.
                         indexLineOnPage++;
 
-                        if (indexLineOnPage >= (numberOfLinesPerPage-1)) {
+                        if (indexLineOnPage > (numberOfLinesPerPage-1)) {
                             indexLineOnPage = 0;
 
                             changeCurrentState(State.WAIT_FOR_INPUT);
                         }
                     }
                 }
-
-                /*
-                //int textSpeed = 2; //actual in-game textSpeed.
-                int textSpeed = 10; //developer-mode textSpeed.
-                //reveal the linesToDisplay of textPassedIn by shrinking the covering-rectangle-that's-the-same-color-as-textbox-background.
-                if (firstLine.getxTypeInFX() < (firstLine.getX() + (firstLine.getMessage().length() * widthLetter)) ) {
-                    firstLine.setxTypeInFX( firstLine.getxTypeInFX() + textSpeed );
-                    firstLine.setWidthTypeInFX( firstLine.getWidthTypeInFX() - textSpeed );
-                }
-                //TODO: sometimes there's only one line and we shouldn't wait for the revealing of the second line.
-                //does NOT equals null.
-                else if ( ( !secondLine.getMessage().equals( "" ) ) && (secondLine.getxTypeInFX() <
-                        (secondLine.getX() + (secondLine.getMessage().length() * widthLetter))) ) {
-                    secondLine.setxTypeInFX( secondLine.getxTypeInFX() + textSpeed );
-                    secondLine.setWidthTypeInFX( secondLine.getWidthTypeInFX() - textSpeed );
-                }
-
-                // @@@@@@@@@@@@@@@@@ ACTUALLY... just set currentState to State.WAIT_FOR_INPUT @@@@@@@@@@@@@@@@
-                //ending-situation where secondLine doesn't exist.
-                //does equals null.
-                if ( (secondLine.getMessage().equals( "" )) && (firstLine.getxTypeInFX() >=
-                        (firstLine.getxTypeInFX() + (firstLine.getMessage().length() * widthLetter))) ) {
-                    //else if ( (secondLine == null) && (widthTypeInFX <= 0) ) {
-                    changeCurrentState(State.WAIT_FOR_INPUT);
-                }
-                //secondLine exist.
-                else if ( (firstLine.getxTypeInFX() >= (firstLine.getX() + (firstLine.getMessage().length() * widthLetter)))
-                        && (secondLine.getxTypeInFX() >= (secondLine.getX() + (secondLine.getMessage().length() * widthLetter))) ) {
-                    changeCurrentState(State.WAIT_FOR_INPUT);
-                }
-                */
 
                 break;
             case WAIT_FOR_INPUT:
@@ -522,43 +488,22 @@ public class TextboxState
                     }
                 }
 
-                /*
-                for (Line line : linesTemplateOfTextArea) {
-                    //if first line being rendered... make opacity of first 3 characters 0.5f.
-                    if (line.getMessage().length() >= 1) {
-                        float opacity = 0.5f;
-                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-                        FontGrabber.renderString(g2d, line.getMessage().substring(0, 3), line.getX(), line.getY(), widthLetter, heightLetter);
-                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-                        FontGrabber.renderString(g2d, line.getMessage().substring(3), line.getX() + (3 * widthLetter), line.getY(), widthLetter, heightLetter);
-                    } else {
-                        FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
-                    }
-                }
-                */
-
-                /*
-                //TYPE-IN EFFECT (rectangles that covers message and secondLine, and reveals them by shrinking)
-                //g.setColor(Color.BLUE);
-                g.setColor(Color.BLACK);
-                g.fillRect(firstLine.getxTypeInFX(), firstLine.getyTypeInFX(), firstLine.getWidthTypeInFX(), firstLine.getHeightTypeInFX());
-                g.fillRect(secondLine.getxTypeInFX(), secondLine.getyTypeInFX(), secondLine.getWidthTypeInFX(), secondLine.getHeightTypeInFX());
-                */
-
                 break;
             case WAIT_FOR_INPUT:
+                //lines
                 for (Line line : linesTemplateOfTextArea) {
-                    //if first line being rendered... make opacity of first 3 characters 0.5f.
-                    if (line.getMessage().length() >= 1) {
-                        float opacity = 0.5f;
-                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-                        FontGrabber.renderString(g2d, line.getMessage().substring(0, 3), line.getX(), line.getY(), widthLetter, heightLetter);
-                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-                        FontGrabber.renderString(g2d, line.getMessage().substring(3), line.getX() + (3 * widthLetter), line.getY(), widthLetter, heightLetter);
-                    } else {
-                        FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
-                    }
+                    FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
                 }
+
+                //continue indicator
+                //////////////////////////////////////////////////////
+                float opacity = renderContinueIndicator ? 1.0f : 0.0f;
+                //////////////////////////////////////////////////////
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                g2d.drawImage(Assets.pokeballToken,
+                        textArea.getxFinal() + textArea.getWidthFinal() - 15,
+                        textArea.getyFinal() + textArea.getHeightFinal() - 15,
+                        widthLetter, heightLetter, null);
 
                 /*
                 //SECOND_LINE EXIST.
