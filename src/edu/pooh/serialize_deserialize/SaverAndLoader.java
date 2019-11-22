@@ -6,6 +6,9 @@ import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.StaticEntity;
 import edu.pooh.entities.statics.statics1x1.DeadCow;
 import edu.pooh.entities.statics.statics1x1.SpikeTrap;
+import edu.pooh.entities.statics.statics2x2.Boulder;
+import edu.pooh.entities.statics.statics2x2.ShippingBin;
+import edu.pooh.entities.statics.statics2x2.TreeStump;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
@@ -14,6 +17,7 @@ import edu.pooh.main.Handler;
 import edu.pooh.states.*;
 import edu.pooh.tiles.*;
 import edu.pooh.time.TimeManager;
+import edu.pooh.worlds.World;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -136,14 +140,56 @@ public class SaverAndLoader {
                 /////////////////////////////////////////////////////////////////////////
                 //set the reloaded StaticEntity to the tile's reference.
                 if (e instanceof StaticEntity) {
-                    int xTileIndex = (int)(e.getX() / Tile.TILE_WIDTH);
-                    int yTileIndex = (int)(e.getY() / Tile.TILE_HEIGHT);
-                    Tile t = ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getTile(xTileIndex, yTileIndex);
+                    World world = ((GameState) handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld();
+                    int xTileIndex = (int) (e.getX() / Tile.TILE_WIDTH);
+                    int yTileIndex = (int) (e.getY() / Tile.TILE_HEIGHT);
 
-                    if (t instanceof DirtNormalTile) {
-                        ((DirtNormalTile)t).setStaticEntity((StaticEntity)e);
-                    } else if (t instanceof DirtNotFarmableTile) {
-                        ((DirtNotFarmableTile)t).setStaticEntity((StaticEntity)e);
+                    //if e is NOT a statics2x2... see if the tile is a DirtNormalTile and set its staticEntity to e.
+                    if ( !((e instanceof Boulder) || (e instanceof ShippingBin) || (e instanceof TreeStump)) ) {
+
+                        Tile t = world.getTile(xTileIndex, yTileIndex);
+
+                        if (t instanceof DirtNormalTile) {
+                            ((DirtNormalTile) t).setStaticEntity((StaticEntity) e);
+                        } else if (t instanceof DirtNotFarmableTile) {
+                            ((DirtNotFarmableTile) t).setStaticEntity((StaticEntity) e);
+                        }
+
+                    }
+                    //else e is a statics2x2... see if surrounding tiles are DirtNormalTile and set their staticEntity to e.
+                    else {
+
+                        Tile topLeft = world.getTile(xTileIndex, yTileIndex);
+                        Tile topRight = world.getTile((xTileIndex + 1), yTileIndex);
+                        Tile bottomLeft = world.getTile(xTileIndex, (yTileIndex + 1));
+                        Tile bottomRight = world.getTile((xTileIndex + 1), (yTileIndex + 1));
+
+                        if (topLeft instanceof DirtNormalTile) {
+                            ((DirtNormalTile)topLeft).setStaticEntity((StaticEntity)e);
+
+                            if (topRight instanceof DirtNormalTile) {
+                                ((DirtNormalTile)topRight).setStaticEntity((StaticEntity)e);
+                            }
+                            if (bottomLeft instanceof DirtNormalTile) {
+                                ((DirtNormalTile)bottomLeft).setStaticEntity((StaticEntity)e);
+                            }
+                            if (bottomRight instanceof DirtNormalTile) {
+                                ((DirtNormalTile)bottomRight).setStaticEntity((StaticEntity)e);
+                            }
+                        } else if (topLeft instanceof DirtNotFarmableTile) {
+                            ((DirtNotFarmableTile)topLeft).setStaticEntity((StaticEntity)e);
+
+                            if (topRight instanceof DirtNotFarmableTile) {
+                                ((DirtNotFarmableTile)topRight).setStaticEntity((StaticEntity)e);
+                            }
+                            if (bottomLeft instanceof DirtNotFarmableTile) {
+                                ((DirtNotFarmableTile)bottomLeft).setStaticEntity((StaticEntity)e);
+                            }
+                            if (bottomRight instanceof DirtNotFarmableTile) {
+                                ((DirtNotFarmableTile)bottomRight).setStaticEntity((StaticEntity)e);
+                            }
+                        }
+
                     }
                 }
                 /////////////////////////////////////////////////////////////////////////
