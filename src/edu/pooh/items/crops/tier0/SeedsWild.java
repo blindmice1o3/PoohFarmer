@@ -29,6 +29,11 @@ public class SeedsWild extends Item {
     } // **** end SeedsWild(Handler) constructor ****
 
     @Override
+    public void resetTexture() {
+        texture = Assets.dirtSeededDry;
+    }
+
+    @Override
     public void execute() {
         int centerX = (int) (handler.getWorld().getEntityManager().getPlayer().getX() + (Tile.TILE_WIDTH / 2));
         int centerY = (int) (handler.getWorld().getEntityManager().getPlayer().getY() + (Tile.TILE_HEIGHT / 2));
@@ -91,7 +96,7 @@ public class SeedsWild extends Item {
         handler.getWorld().getEntityManager().setToBeAdded(true);
         count--;
         System.out.println("SeedsWild.execute(), SeedsWild's count decremented by 1");
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("SeedsWild.execute(), player's stamina decrease by 2");
     }
 

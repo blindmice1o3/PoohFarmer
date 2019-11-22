@@ -1,15 +1,19 @@
 package edu.pooh.states;
 
+import edu.pooh.main.Handler;
+
 import java.awt.*;
 
 public interface IState {
 
-    public abstract void enter(Object[] args);
+    void enter(Object[] args);
 
-    public abstract void exit();
+    void exit();
 
-    public abstract void tick();
+    void tick();
 
-    public abstract void render(Graphics g);
+    void render(Graphics g);
+
+    void setHandler(Handler handler);
 
 } // **** end IState abstract class ****

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 public class Assets {
 
@@ -13,6 +14,8 @@ public class Assets {
 
     // FONT
     public static Font font28, font14;
+    public static BufferedImage fontSpriteSheet, pokeballToken;
+    public static Map<String, BufferedImage> fontHashMap;
 
     // START BUTTONS
     public static BufferedImage[] startButtons;
@@ -99,6 +102,7 @@ public class Assets {
             cowPregnantUp, cowPregnantDown, cowPregnantLeft, cowPregnantRight,
             cowCalfUp, cowCalfDown, cowCalfLeft, cowCalfRight,
             cowBabyUp, cowBabyDown, cowBabyLeft, cowBabyRight;
+    public static BufferedImage[] sheepUp, sheepDown, sheepLeft, sheepRight;
 
     // ENTITIES MOVING/ANIMATED (MOLLY [playerFemale])
     public static BufferedImage[] mollyWalkingDown, mollyWalkingLeft, mollyWalkingRight, mollyWalkingUp,
@@ -118,10 +122,13 @@ public class Assets {
     // TRAVELINGFENCESTATE (STORE/SHOPPING STATE)
     public static BufferedImage shoppingScreen;
 
+    public static BufferedImage theSimpsonsHomerSpriteSheet;
+
     // STATE (HOMESTATE)
     //public static BufferedImage homeStateBackground;
     public static BufferedImage homeStateBackground2, chickenCoopStateBackground, cowBarnStateBackground,
-            toolShedStateBackground, crossroadStateBackground, mountainStateBackground, theWestStateBackground;
+            toolShedStateBackground, crossroadStateBackground, mountainStateBackground, theWestStateBackground,
+            textboxStateBackground_TheSimpsons;
 
     // LOADING MAP BY RGB VALUES
     public static BufferedImage tilesGameViaRGB, tilesHomeViaRGB, tilesChickenCoopViaRGB, tilesCowBarnViaRGB,
@@ -143,6 +150,9 @@ public class Assets {
         // **************************************************************
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
         font14 = FontLoader.loadFont("res/fonts/slkscr.ttf", 14);
+        fontSpriteSheet = ImageLoader.loadImage("/fonts/Game Boy GBC - Pokemon Yellow - Battle Interface.png");
+        pokeballToken = fontSpriteSheet.getSubimage(324, 269, 7, 7);
+        fontHashMap = FontGrabber.initFont();
 
         // **************************************************************
         // |+|+|+|+|+|+|+| INVENTORY SCREEN (BACKGROUND) |+|+|+|+|+|+|+|
@@ -707,27 +717,7 @@ public class Assets {
         dogRight[1] = sheet.crop(27, 178, 19, 13);
         dogRight[2] = sheet.crop(51, 178, 19, 13);
 
-        /*
-        cowYoungUp = new BufferedImage[3];
-        cowYoungUp[0] = sheet.crop(77, 139, 15, 21);
-        cowYoungUp[1] = sheet.crop(101, 139, 15, 21);
-        cowYoungUp[2] = sheet.crop(125, 139, 15, 21);
 
-        cowYoungDown = new BufferedImage[3];
-        cowYoungDown[0] = sheet.crop(77, 205, 15, 19);
-        cowYoungDown[1] = sheet.crop(101, 205, 15, 19);
-        cowYoungDown[2] = sheet.crop(125, 205, 15, 19);
-
-        cowYoungLeft = new BufferedImage[3];
-        cowYoungLeft[0] = sheet.crop(74, 240, 21, 15);
-        cowYoungLeft[1] = sheet.crop(98, 239, 21, 16);
-        cowYoungLeft[2] = sheet.crop(122, 240, 21, 15);
-
-        cowYoungRight = new BufferedImage[3];
-        cowYoungRight[0] = sheet.crop(74, 176, 21, 15);
-        cowYoungRight[1] = sheet.crop(98, 175, 21, 16);
-        cowYoungRight[2] = sheet.crop(122, 176, 21, 15);
-        */
 
         chickenAdultUp = new BufferedImage[3];
         chickenAdultUp[0] = sheet.crop(147, 144, 16, 16);
@@ -748,6 +738,7 @@ public class Assets {
         chickenAdultRight[0] = sheet.crop(147, 175, 16, 16);
         chickenAdultRight[1] = sheet.crop(171, 176, 16, 15);
         chickenAdultRight[2] = sheet.crop(195, 175, 16, 16);
+
 
 
         horseYoungUp = new BufferedImage[3];
@@ -771,6 +762,7 @@ public class Assets {
         horseYoungRight[2] = sheet.crop(264, 173, 24, 18);
 
 
+
         jackWalkingUp = new BufferedImage[3];
         jackWalkingUp[0] = sheet.crop(76, 7, 16, 24);
         jackWalkingUp[1] = sheet.crop(100, 8, 16, 23);
@@ -790,6 +782,7 @@ public class Assets {
         jackWalkingRight[0] = sheet.crop(76, 39, 16, 24);
         jackWalkingRight[1] = sheet.crop(100, 40, 16, 23);
         jackWalkingRight[2] = sheet.crop(124, 39, 16, 24);
+
 
 
         jackRunningUp = new BufferedImage[3];
@@ -833,7 +826,6 @@ public class Assets {
 
 
 
-
         sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
         cowAdultDown = new BufferedImage[3];
         cowAdultDown[0] = sheet.crop(6, 160, 17, 23);
@@ -854,6 +846,7 @@ public class Assets {
         cowAdultRight[0] = flipHorizontally( cowAdultLeft[0] );
         cowAdultRight[1] = flipHorizontally( cowAdultLeft[1] );
         cowAdultRight[2] = flipHorizontally( cowAdultLeft[2] );
+
 
 
         cowPregnantDown = new BufferedImage[3];
@@ -877,6 +870,7 @@ public class Assets {
         cowPregnantRight[2] = flipHorizontally( cowPregnantLeft[2] );
 
 
+
         cowCalfDown = new BufferedImage[3];
         cowCalfDown[0] = sheet.crop(6, 604, 17, 23);
         cowCalfDown[1] = sheet.crop(41, 604, 17, 23);
@@ -896,6 +890,7 @@ public class Assets {
         cowCalfRight[0] = flipHorizontally( cowCalfLeft[0] );
         cowCalfRight[1] = flipHorizontally( cowCalfLeft[1] );
         cowCalfRight[2] = flipHorizontally( cowCalfLeft[2] );
+
 
 
         cowBabyDown = new BufferedImage[3];
@@ -920,91 +915,32 @@ public class Assets {
 
 
 
-        /*
-        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/SNES - Harvest Moon - Cow.png"));
-        cowAdultDown = new BufferedImage[3];
-        cowAdultDown[0] = sheet.crop(6, 160, 17, 23);
-        cowAdultDown[1] = sheet.crop(40, 160, 17, 23);
-        cowAdultDown[2] = sheet.crop(75, 160, 17, 23);
+        //SHEEP
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/entities/sheep_walk (LPC style farm animals - OpenGameArtDOTOrg).png"));
+        sheepUp = new BufferedImage[4];
+        sheepUp[0] = sheet.crop(50, 40, 27, 49);
+        sheepUp[1] = sheet.crop(178, 39, 27, 48);
+        sheepUp[2] = sheet.crop(306, 40, 27, 49);
+        sheepUp[3] = sheet.crop(434, 39, 27, 48);
 
-        cowAdultUp = new BufferedImage[3];
-        cowAdultUp[0] = sheet.crop(285, 158, 17, 27);
-        cowAdultUp[1] = sheet.crop(320, 158, 17, 27);
-        cowAdultUp[2] = sheet.crop(355, 159, 17, 26);
+        sheepDown = new BufferedImage[4];
+        sheepDown[0] = sheet.crop(50, 304, 27, 41);
+        sheepDown[1] = sheet.crop(178, 303, 27, 40);
+        sheepDown[2] = sheet.crop(306, 304, 27, 41);
+        sheepDown[3] = sheet.crop(434, 303, 27, 40);
 
-        cowAdultLeft = new BufferedImage[3];
-        cowAdultLeft[0] = sheet.crop(0, 1, 27, 22);
-        cowAdultLeft[1] = sheet.crop(35, 1, 27, 21);
-        cowAdultLeft[2] = sheet.crop(70, 1, 27, 21);
+        sheepLeft = new BufferedImage[4];
+        sheepLeft[0] = sheet.crop(37, 172, 49, 38);
+        sheepLeft[1] = sheet.crop(165, 171, 49, 39);
+        sheepLeft[2] = sheet.crop(293, 172, 49, 39);
+        sheepLeft[3] = sheet.crop(421, 171, 49, 39);
 
-        cowAdultRight = new BufferedImage[3];
-        cowAdultRight[0] = flipHorizontally( cowAdultLeft[0] );
-        cowAdultRight[1] = flipHorizontally( cowAdultLeft[1] );
-        cowAdultRight[2] = flipHorizontally( cowAdultLeft[2] );
+        sheepRight = new BufferedImage[4];
+        sheepRight[0] = sheet.crop(42, 428, 49, 38);
+        sheepRight[1] = sheet.crop(170, 427, 49, 39);
+        sheepRight[2] = sheet.crop(298, 428, 49, 39);
+        sheepRight[3] = sheet.crop(426, 427, 49, 39);
 
-
-        cowPregnantDown = new BufferedImage[3];
-        cowPregnantDown[0] = sheet.crop(178, 240, 21, 24);
-        cowPregnantDown[1] = sheet.crop(178, 279, 21, 25);
-        cowPregnantDown[2] = sheet.crop(178, 319, 21, 25);
-
-        cowPregnantUp = new BufferedImage[3];
-        cowPregnantUp[0] = sheet.crop(248, 238, 21, 28);
-        cowPregnantUp[1] = sheet.crop(283, 237, 21, 30);
-        cowPregnantUp[2] = sheet.crop(317, 237, 21, 30);
-
-        cowPregnantLeft = new BufferedImage[3];
-        cowPregnantLeft[0] = sheet.crop(0, 241, 27, 22);
-        cowPregnantLeft[1] = sheet.crop(35, 241, 27, 22);
-        cowPregnantLeft[2] = sheet.crop(70, 241, 27, 22);
-
-        cowPregnantRight = new BufferedImage[3];
-        cowPregnantRight[0] = flipHorizontally( cowPregnantLeft[0] );
-        cowPregnantRight[1] = flipHorizontally( cowPregnantLeft[1] );
-        cowPregnantRight[2] = flipHorizontally( cowPregnantLeft[2] );
-
-
-        cowCalfDown = new BufferedImage[3];
-        cowCalfDown[0] = sheet.crop(6, 607, 15, 19);
-        cowCalfDown[1] = sheet.crop(41, 607, 15, 19);
-        cowCalfDown[2] = sheet.crop(76, 607, 15, 19);
-
-        cowCalfUp = new BufferedImage[3];
-        cowCalfUp[0] = sheet.crop(216, 606, 15, 21);
-        cowCalfUp[1] = sheet.crop(251, 606, 15, 21);
-        cowCalfUp[2] = sheet.crop(286, 606, 15, 21);
-
-        cowCalfLeft = new BufferedImage[3];
-        cowCalfLeft[0] = sheet.crop(3, 504, 21, 16);
-        cowCalfLeft[1] = sheet.crop(38, 504, 21, 15);
-        cowCalfLeft[2] = sheet.crop(73, 504, 21, 15);
-
-        cowCalfRight = new BufferedImage[3];
-        cowCalfRight[0] = flipHorizontally( cowCalfLeft[0] );
-        cowCalfRight[1] = flipHorizontally( cowCalfLeft[1] );
-        cowCalfRight[2] = flipHorizontally( cowCalfLeft[2] );
-
-
-        cowBabyDown = new BufferedImage[3];
-        cowBabyDown[0] = sheet.crop(7, 468, 13, 17);
-        cowBabyDown[1] = sheet.crop(42, 468, 13, 17);
-        cowBabyDown[2] = sheet.crop(77, 468, 13, 17);
-
-        cowBabyUp = new BufferedImage[3];
-        cowBabyUp[0] = sheet.crop(217, 468, 13, 18);
-        cowBabyUp[1] = sheet.crop(252, 468, 13, 17);
-        cowBabyUp[2] = sheet.crop(287, 468, 13, 17);
-
-        cowBabyLeft = new BufferedImage[3];
-        cowBabyLeft[0] = sheet.crop(5, 400, 18, 14);
-        cowBabyLeft[1] = sheet.crop(39, 400, 19, 13);
-        cowBabyLeft[2] = sheet.crop(75, 400, 18, 14);
-
-        cowBabyRight = new BufferedImage[3];
-        cowBabyRight[0] = flipHorizontally( cowBabyLeft[0] );
-        cowBabyRight[1] = flipHorizontally( cowBabyLeft[1] );
-        cowBabyRight[2] = flipHorizontally( cowBabyLeft[2] );
-        */
 
 
         // ************************************************************
@@ -1286,6 +1222,9 @@ public class Assets {
         hawkerRight[2] = sheet.crop(70, 102, 28, 26);
 
 
+        //THE SIMPSONS (HOMER) - SPRITE SHEET
+        theSimpsonsHomerSpriteSheet = ImageLoader.loadImage("/DS DSi - The Simpsons Game - Homer.png");
+
         // ************************************************************
         // |+|+|+|+|+|+|+| STATE (HOMESTATE BACKGROUND) |+|+|+|+|+|+|+|
         // ************************************************************
@@ -1302,6 +1241,7 @@ public class Assets {
         // TheWestState does not use the entire image, it needs to be cropped.
         //sheet = new SpriteSheet(ImageLoader.loadImage("/worlds/PC Computer - Jazz Jackrabbit - Bonus Stage Backgrounds.png"));
         //theWestStateBackground = sheet.crop(16, 123, 511, 31);
+        textboxStateBackground_TheSimpsons = theSimpsonsHomerSpriteSheet.getSubimage(190, 603, 177, 98);
 
         // **********************************************************************
         // |+|+|+|+|+|+|+| LOAD MAP/LEVEL VIA IMAGE (RGB/PIXELS) |+|+|+|+|+|+|+|

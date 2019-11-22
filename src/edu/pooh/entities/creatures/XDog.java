@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class XDog extends Creature {
 
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
-    private Animation animRight;
-    private Animation animLeftPee;
+    private transient Animation animUp;
+    private transient Animation animDown;
+    private transient Animation animLeft;
+    private transient Animation animRight;
+    private transient Animation animLeftPee;
 
     private Random random;
 
@@ -23,14 +23,19 @@ public class XDog extends Creature {
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
+        initAnimations();
+
+        random = new Random();
+    } //  **** end XDog(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
         animUp = new Animation(400, Assets.xDogUp);
         animDown = new Animation(400, Assets.xDogDown);
         animLeft = new Animation(400, Assets.xDogLeft);
         animRight = new Animation(400, Assets.xDogRight);
         animLeftPee = new Animation(400, Assets.xDogLeftPee);
-
-        random = new Random();
-    } //  **** end XDog(Handler, float, float) constructor ****
+    }
 
     @Override
     public void tick() {

@@ -41,12 +41,17 @@ public class WateringCan extends Item {
     public void resetCountWater() { countWater = 0; }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.wateringCan;
+    }
+
+    @Override
     public void execute() {
         Tile t = handler.getWorld().getEntityManager().getPlayer().getTileCurrentlyFacing();
 
         if (t != null) {
             System.out.println("WateringCan.execute(), targeted-tile: " + t.getId());
-            handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+            handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
             System.out.println("WateringCan.execute(), player's stamina decrease by 2");
 
             // If tile is poolWater, increase countWater by 18.

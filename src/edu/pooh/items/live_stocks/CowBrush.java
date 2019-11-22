@@ -20,10 +20,15 @@ public class CowBrush extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowBrush;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("CowBrush.execute(), targeted-entity: " + entity);
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("CowBrush.execute(), player's stamina decrease by 2");
 
         //EntityCurrentlyFacing is a cow that is NOT brushed.

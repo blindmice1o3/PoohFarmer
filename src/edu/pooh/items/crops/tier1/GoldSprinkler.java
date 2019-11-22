@@ -18,6 +18,11 @@ public class GoldSprinkler extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.goldSprinkler;
+    }
+
+    @Override
     public void execute() {
 
     }

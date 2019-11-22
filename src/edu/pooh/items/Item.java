@@ -6,8 +6,10 @@ import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public abstract class Item implements IInvokable {
+public abstract class Item
+        implements IInvokable, Serializable {
 
     public static final int ITEM_WIDTH = 32;
     public static final int ITEM_HEIGHT = 32;
@@ -33,8 +35,8 @@ public abstract class Item implements IInvokable {
 
     // CLASS
 
-    protected Handler handler;
-    protected BufferedImage texture;
+    protected transient Handler handler;
+    protected transient BufferedImage texture;
     protected String name;
     protected final ID id;
 
@@ -52,6 +54,8 @@ public abstract class Item implements IInvokable {
         bounds = new Rectangle(x, y, ITEM_WIDTH, ITEM_HEIGHT);
 
     } // **** end Item(BufferedImage, String, int) constructor ****
+
+    public abstract void resetTexture();
 
     public abstract void execute();
 

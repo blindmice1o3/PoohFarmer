@@ -99,7 +99,7 @@ public class Rock extends StaticEntity
             //If a rock is dropped on to a DirtNormalTile object, it changes its DirtState to NORMAL.
             ////////////////////////////////////////////////////////
             tempTile.setDirtState(DirtNormalTile.DirtState.NORMAL);
-            tempTile.setTexture(Assets.dirtNormal);
+            //tempTile.setTexture(Assets.dirtNormal);
             /////////////////////////////////////////////////////////
         }
         else if (t instanceof DirtNotFarmableTile) {   //DirtNotFarmableTile

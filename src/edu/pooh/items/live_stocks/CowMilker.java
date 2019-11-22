@@ -1,7 +1,7 @@
 package edu.pooh.items.live_stocks;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Cow;
 import edu.pooh.entities.statics.produce_yields.Milk;
 import edu.pooh.gfx.Assets;
@@ -23,10 +23,15 @@ public class CowMilker extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowMilker;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("CowMilker.execute(), targeted-entity: " + entity);
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("CowMilker.execute(), player's stamina decrease by 2");
 
         Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();

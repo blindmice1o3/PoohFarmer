@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class HotSpringMountainTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     protected int x, y;
 
     public HotSpringMountainTile(Handler handler, int x, int y, BufferedImage texture) {
@@ -27,13 +27,17 @@ public class HotSpringMountainTile extends SolidGenericTile
 
             // Increase player's staminaCurrent by 24.
             ///////////////////////////////////////////////////////////////////////////////////////////
-            handler.getWorld().getEntityManager().getPlayer().increaseStaminaCurrent(24);
+            handler.getWorld().getEntityManager().getPlayer().getStaminaModule().increaseStaminaCurrent(24);
             ///////////////////////////////////////////////////////////////////////////////////////////
         } else {
             handler.getWorld().getEntityManager().getPlayer().setX((x * Tile.TILE_WIDTH) - Tile.TILE_WIDTH - 1);
         }
 
         System.out.println("HotSpringMountainTile execute() method called");
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end HotSpringMountainTile class ****

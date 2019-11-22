@@ -15,7 +15,7 @@ import java.util.Random;
 public class Dog extends Creature
         implements IHoldable {
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private Random random;
 
@@ -25,7 +25,7 @@ public class Dog extends Creature
         super(handler, (x + (Tile.TILE_WIDTH/4)), (y + (Tile.TILE_HEIGHT/4)),
                 (Tile.TILE_WIDTH / 2), (Tile.TILE_HEIGHT / 2));
 
-        initDogAnimations();
+        initAnimations();
 
         setSpeed(5);
 
@@ -33,7 +33,8 @@ public class Dog extends Creature
         pickedUp = false;
     } // **** end Dog(Handler, float, float) constructor ****
 
-    private void initDogAnimations() {
+    @Override
+    public void initAnimations() {
         anim = new HashMap<String, Animation>();
 
         anim.put("animDogUp", new Animation(400, Assets.dogUp));

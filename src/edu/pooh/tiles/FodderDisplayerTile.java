@@ -5,25 +5,24 @@ import edu.pooh.main.Handler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 public class FodderDisplayerTile extends SolidGenericTile {
 
-    private Handler handler;
     private int x, y;
     protected boolean activated;
 
     private int index;
 
-    public FodderDisplayerTile(Handler handler, int x, int y, BufferedImage texture, int index) {
+    public FodderDisplayerTile(int x, int y, BufferedImage texture, int index) {
         super(texture);
 
-        this.handler = handler;
         this.x = x;
         this.y = y;
         activated = false;
 
         this.index = index;
-    } // **** end FodderDisplayerTile(BufferedImage) constructor ****
+    } // **** end FodderDisplayerTile(int, int, BufferedImage, int) constructor ****
 
     @Override
     public void render(Graphics g, int x, int y) {

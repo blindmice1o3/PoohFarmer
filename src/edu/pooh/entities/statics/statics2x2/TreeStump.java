@@ -51,12 +51,12 @@ public class TreeStump extends StaticEntity {
             }
         }
 
-        System.out.println("PREVIOUS ResourceManager woodCount: " + ResourceManager.getWoodCount());
+        System.out.println("PREVIOUS ResourceManager woodCount: " + handler.getResourceManager().getWoodCount());
         ///////////////////////////////////////////////////
-        ResourceManager.increaseWoodCount(6);
+        handler.getResourceManager().increaseWoodCount(6);
         System.out.println("ResourceManager's woodCount INCREASING BY 6");
         ///////////////////////////////////////////////////
-        System.out.println("CURRENT ResourceManager woodCount: " + ResourceManager.getWoodCount());
+        System.out.println("CURRENT ResourceManager woodCount: " + handler.getResourceManager().getWoodCount());
         setActive(false);
     }
 

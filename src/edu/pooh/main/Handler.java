@@ -3,11 +3,17 @@ package edu.pooh.main;
 import edu.pooh.gfx.GameCamera;
 import edu.pooh.input.KeyManager;
 import edu.pooh.input.MouseManager;
+import edu.pooh.inventory.ResourceManager;
+import edu.pooh.states.StateManager;
+import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
-public class Handler {
+import java.io.Serializable;
 
-    private Game game;
+public class Handler
+        implements Serializable {
+
+    private transient Game game;
     private World world;
 
     public Handler(Game game) {
@@ -23,6 +29,12 @@ public class Handler {
     }
 
     public MouseManager getMouseManager() { return game.getMouseManager(); }
+
+    public StateManager getStateManager() { return game.getStateManager(); }
+
+    public TimeManager getTimeManager() { return game.getTimeManager(); }
+
+    public ResourceManager getResourceManager() { return game.getResourceManager(); }
 
     public int getWidth() {
         return Game.WIDTH_OF_FRAME;

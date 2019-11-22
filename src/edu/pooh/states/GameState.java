@@ -1,20 +1,22 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.live_stocks.Sheep;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.DirtNormalTile;
 import edu.pooh.tiles.Tile;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class GameState implements IState {
+public class GameState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -24,19 +26,22 @@ public class GameState implements IState {
         this.handler = handler;
         args = new Object[10];
 
+        // NOW IT SETS the enum WorldType worldType for the world as well!!!!
         world = new World(handler, World.WorldType.GAME);
         handler.setWorld(world);    // IMPORTANT TO DO IN THIS ORDER, create world, then handler's setWorld().
-                                    // NOW IT SETS the enum WorldType worldType for the world as well!!!!
 
         player = handler.getWorld().getEntityManager().getPlayer();
         args[1] = player.getX();
         args[2] = player.getY();
+
+        handler.getWorld().getEntityManager().addEntity(new Sheep(handler, player.getX()-Tile.TILE_WIDTH, player.getY()));
     } // **** end GameState(Handler) constructor ****
 
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningTrue();
+        //GameState is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
 
@@ -52,6 +57,8 @@ public class GameState implements IState {
 
     @Override
     public void exit() {
+        //DO NOT call TimeManager.setClockRunningTrue(), sometime popping GameState result in in-doors IState.
+        //SAME for TimeManager.setClockRunningFalse(), sometime popping GameState result in out-doors IState.
         args[0] = player;
         args[1] = (int)player.getX();
         args[2] = (int)player.getY();
@@ -59,7 +66,8 @@ public class GameState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             return;
         }
 
@@ -77,72 +85,72 @@ public class GameState implements IState {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((HomeState)handler.getGame().getHomeState()).getWorld().getEntityManager().addEntity(
+                    ((HomeState)handler.getStateManager().getIState(StateManager.GameState.HOME)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getHomeState(), args);
+            handler.getStateManager().change( StateManager.GameState.HOME, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToChickenCoop()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().addEntity(
+                    ((ChickenCoopState)handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getChickenCoopState(), args);
+            handler.getStateManager().change( StateManager.GameState.CHICKEN_COOP, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCowBarn()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().addEntity(
+                    ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getCowBarnState(), args);
+            handler.getStateManager().change( StateManager.GameState.COW_BARN, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToToolShed()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((ToolShedState)handler.getGame().getToolShedState()).getWorld().getEntityManager().addEntity(
+                    ((ToolShedState)handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getToolShedState(), args);
+            handler.getStateManager().change( StateManager.GameState.TOOL_SHED, args );
         } else if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointGameToCrossroad()) ) {
             ///////////////////////////////////////////////////
             if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
                 Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
                 if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                    ((CrossroadState)handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                    ((CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)).getWorld().getEntityManager().addEntity(
                             tempHoldableEntity
                     );
                 }
             }
             ///////////////////////////////////////////////////
-            StateManager.change(handler.getGame().getCrossroadState(),args);
+            handler.getStateManager().change( StateManager.GameState.CROSSROAD, args );
         }
     }
 
     public void increaseCropEntityDaysWatered() {
         System.out.println("GameState.increaseCropEntityDaysWatered()");
 
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             Tile[][] tempWorld = world.getTilesViaRGB();
 
             for (int x = 0; x < tempWorld.length; x++) {
@@ -178,7 +186,7 @@ public class GameState implements IState {
     }
 
     public void setAllDirtNormalTileWateredToFalse() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             Tile[][] tempWorld = world.getTilesViaRGB();
 
             for (int x = 0; x < tempWorld.length; x++) {
@@ -206,17 +214,33 @@ public class GameState implements IState {
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getGameState()) {
+        /*
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             return;
         }
+        */
 
         ////////////////
         world.render(g);
         ////////////////
     }
 
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public void setPlayer(Player player) { this.player = player; }
+
     public World getWorld() {
         return world;
     }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public Object[] getArgs() { return args; }
 
 } // **** end GameState class ****

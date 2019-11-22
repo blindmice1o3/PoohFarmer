@@ -21,10 +21,15 @@ public class Axe extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.axe;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Axe.execute(), targeted-entity: " + entity);
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("Axe.execute(), player's stamina decrease by 2");
 
         if (entity instanceof Wood) {

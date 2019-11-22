@@ -11,15 +11,15 @@ import java.util.Random;
 
 public class Jack extends Creature {
 
-    private Animation animWalkingUp;
-    private Animation animWalkingDown;
-    private Animation animWalkingLeft;
-    private Animation animWalkingRight;
+    private transient Animation animWalkingUp;
+    private transient Animation animWalkingDown;
+    private transient Animation animWalkingLeft;
+    private transient Animation animWalkingRight;
 
-    private Animation animRunningUp;
-    private Animation animRunningDown;
-    private Animation animRunningLeft;
-    private Animation animRunningRight;
+    private transient Animation animRunningUp;
+    private transient Animation animRunningDown;
+    private transient Animation animRunningLeft;
+    private transient Animation animRunningRight;
 
     private Random random;
 
@@ -30,6 +30,13 @@ public class Jack extends Creature {
         setBoundsWidth(62);
         setBoundsHeight(62);
 
+        initAnimations();
+
+        random = new Random();
+    } // **** end Jack(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
         animWalkingUp = new Animation(400, Assets.jackWalkingUp);
         animWalkingDown = new Animation(400, Assets.jackWalkingDown);
         animWalkingLeft = new Animation(400, Assets.jackWalkingLeft);
@@ -39,9 +46,7 @@ public class Jack extends Creature {
         animRunningDown = new Animation(400, Assets.jackRunningDown);
         animRunningLeft = new Animation(400, Assets.jackRunningLeft);
         animRunningRight = new Animation(400, Assets.jackRunningRight);
-
-        random = new Random();
-    } // **** end Jack(Handler, float, float) constructor ****
+    }
 
     @Override
     public void tick() {

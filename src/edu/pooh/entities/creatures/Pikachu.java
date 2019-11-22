@@ -15,8 +15,8 @@ import java.util.Random;
 public class Pikachu extends Creature
         implements IHoldable {
 
-    private Map<String, Animation> animations;
-    private Animation[] animationsArray;
+    private transient Map<String, Animation> animations;
+    private transient Animation[] animationsArray;
 
     private Random random;
     private int randomInt;
@@ -24,9 +24,9 @@ public class Pikachu extends Creature
     private boolean pickedUp;
 
 
-
+    //TODO: redo Pikachu's following feature inside Pikachu class.
     //@@@@@@@@@@@@@@@@@@@@@@@@
-    private boolean following;
+    //private boolean following;
     //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -34,11 +34,7 @@ public class Pikachu extends Creature
     public Pikachu(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        //initialize animations HashMap.
         initAnimations();
-        //initialize animationsArray array.
-        animationsArray = new Animation[animations.values().size()];
-        animations.values().toArray(animationsArray);
 
         setSpeed(5);
 
@@ -48,14 +44,16 @@ public class Pikachu extends Creature
 
 
         //@@@@@@@@@@@@@@@@@@@@@@@@
-        following = false;
+        //following = false;
         //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 
     } // **** end Pikachu(Handler, float, float) constructor ****
 
+    @Override
     public void initAnimations() {
+        //initialize animations HashMap.
         animations = new HashMap<String, Animation>();
 
         animations.put("pikachuWalkSW", new Animation(400, Assets.pikachuWalkSW));
@@ -77,16 +75,22 @@ public class Pikachu extends Creature
         animations.put("pikachuAttackSpecialNW", new Animation(400, Assets.pikachuAttackSpecialNW));
         animations.put("pikachuAttackSpecialNE", new Animation(400, Assets.pikachuAttackSpecialNE));
         animations.put("pikachuAttackSpecialSE", new Animation(400, Assets.pikachuAttackSpecialSE));
+
+        //initialize animationsArray array.
+        animationsArray = new Animation[animations.values().size()];
+        animations.values().toArray(animationsArray);
     }
 
     @Override
     public void tick() {
         //@@@@@@@@@@@@@@@@@@@@@@@@
+        /*
         if (following) {
             Player player = handler.getWorld().getEntityManager().getPlayer();
             xMove = player.getPrevXMove();
             yMove = player.getPrevYMove();
         }
+        */
         //@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -95,9 +99,11 @@ public class Pikachu extends Creature
                 animation.tick();
             }
 
-            if (!following) {
+
+            //if (!following) {
                 randomlyMove();
-            }
+            //}
+
             move();
         }
     }
@@ -205,7 +211,7 @@ public class Pikachu extends Creature
 
     // GETTERS AND SETTERS
 
-    public boolean isFollowing() { return following; }
-    public void setFollowing(boolean following) { this.following = following; }
+    //public boolean isFollowing() { return following; }
+    //public void setFollowing(boolean following) { this.following = following; }
 
 } // **** end Pikachu class ****

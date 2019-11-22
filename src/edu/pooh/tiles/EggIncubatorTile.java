@@ -1,6 +1,5 @@
 package edu.pooh.tiles;
 
-import edu.pooh.main.Handler;
 import edu.pooh.main.IInvokable;
 
 import java.awt.image.BufferedImage;
@@ -8,20 +7,18 @@ import java.awt.image.BufferedImage;
 public class EggIncubatorTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
     private int x, y;
     private boolean incubating;
     private int daysIncubating;
 
-    public EggIncubatorTile(Handler handler, int x, int y, BufferedImage texture) {
+    public EggIncubatorTile(int x, int y, BufferedImage texture) {
         super(texture);
 
-        this.handler = handler;
         this.x = x;
         this.y = y;
         incubating = false;
         daysIncubating = 0;
-    } // **** end EggIncubatorTile(Handler, int, int BufferedImage) constructor ****
+    } // **** end EggIncubatorTile(int, int BufferedImage) constructor ****
 
     public void incrementDaysIncubating() {
         daysIncubating++;

@@ -31,6 +31,8 @@ public abstract class Creature extends Entity {
         yMove = 0;
     } // **** end Creature(Handler, float, float, int, int) constructor ****
 
+    public abstract void initAnimations();
+
     public Tile getTileCurrentlyStandingOn() {
         int creatureCenterX = (int)(x + (width / 2));
         int creatureCenterY = (int)(y + (height / 2));

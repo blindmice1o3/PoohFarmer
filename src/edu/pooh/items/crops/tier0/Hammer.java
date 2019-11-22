@@ -22,10 +22,15 @@ public class Hammer extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.hammer;
+    }
+
+    @Override
     public void execute() {
         Entity entity = handler.getWorld().getEntityManager().getPlayer().getEntityCurrentlyFacing();
         System.out.println("Hammer.execute(), targeted-entity: " + entity);
-        handler.getWorld().getEntityManager().getPlayer().decreaseStaminaCurrent(2);
+        handler.getWorld().getEntityManager().getPlayer().getStaminaModule().decreaseStaminaCurrent(2);
         System.out.println("Hammer.execute(), player's stamina decrease by 2");
 
         if (entity instanceof Rock) {

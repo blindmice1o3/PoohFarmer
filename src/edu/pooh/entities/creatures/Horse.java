@@ -11,25 +11,30 @@ import java.util.Random;
 
 public class Horse extends Creature {
 
-    private Animation animUp;
-    private Animation animDown;
-    private Animation animLeft;
-    private Animation animRight;
+    private transient Animation animUp;
+    private transient Animation animDown;
+    private transient Animation animLeft;
+    private transient Animation animRight;
 
     private Random random;
 
     public Horse(Handler handler, float x, float y) {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
-        animUp = new Animation(400, Assets.horseYoungUp);
-        animDown = new Animation(400, Assets.horseYoungDown);
-        animLeft = new Animation(400, Assets.horseYoungLeft);
-        animRight = new Animation(400, Assets.horseYoungRight);
+        initAnimations();
 
         setSpeed(5);
 
         random = new Random();
     } // **** end Horse(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
+        animUp = new Animation(400, Assets.horseYoungUp);
+        animDown = new Animation(400, Assets.horseYoungDown);
+        animLeft = new Animation(400, Assets.horseYoungLeft);
+        animRight = new Animation(400, Assets.horseYoungRight);
+    }
 
     @Override
     public void tick() {

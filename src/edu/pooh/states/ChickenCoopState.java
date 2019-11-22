@@ -1,23 +1,24 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics2x2.ShippingBin;
 import edu.pooh.main.Handler;
 import edu.pooh.main.ISellable;
 import edu.pooh.tiles.*;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ChickenCoopState implements IState {
+public class ChickenCoopState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -34,7 +35,7 @@ public class ChickenCoopState implements IState {
     } // **** end ChickenCoopState(Handler) constructor ****
 
     public void increaseChickenDaysInstantiated() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if (e instanceof Chicken) {
                     ////////////////////////////////////////
@@ -284,7 +285,8 @@ public class ChickenCoopState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        //ChickenCoopState is an in-doors IState.
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];
@@ -320,12 +322,15 @@ public class ChickenCoopState implements IState {
 
     @Override
     public void exit() {
+        //ChickenCoopState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -335,7 +340,8 @@ public class ChickenCoopState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             return;
         }
 
@@ -348,13 +354,19 @@ public class ChickenCoopState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointChickenCoopToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getChickenCoopState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             return;
         }
 
@@ -363,8 +375,17 @@ public class ChickenCoopState implements IState {
         ////////////////
     }
 
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     public World getWorld() {
         return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
 } // **** end ChickenCoopState class ****

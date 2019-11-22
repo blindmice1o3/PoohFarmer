@@ -4,7 +4,6 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
 
@@ -19,7 +18,7 @@ public class Cow extends Creature {
     public enum CowState { BABY, CALF, ADULT_1, ADULT_2, ADULT_3, PREGNANT; }
     public enum CowHealth { HEALTHY, CRANKY, SICK; }
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private int fodderDisplayerTileArrayIndex;  //feeding stall index
 
@@ -39,7 +38,7 @@ public class Cow extends Creature {
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         setSpeed(2);
 
-        initCowAnimations();
+        initAnimations();
 
         this.fodderDisplayerTileArrayIndex = fodderDisplayerTileArrayIndex;
 
@@ -57,11 +56,12 @@ public class Cow extends Creature {
 
         ////////////////////////////////////////////////////////////////////////
         System.out.println("Increasing ResourceManager's cowCounter by 1");
-        ResourceManager.increaseCowCounter(1);
+        handler.getResourceManager().increaseCowCounter(1);
         ////////////////////////////////////////////////////////////////////////
     } // **** end Cow(Handler, float, float, cowState) constructor ****
 
-    private void initCowAnimations() {
+    @Override
+    public void initAnimations() {
         anim = new HashMap<String, Animation>();
 
         anim.put("animCowBabyUp", new Animation(400, Assets.cowBabyUp));

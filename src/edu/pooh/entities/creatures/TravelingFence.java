@@ -14,7 +14,7 @@ public class TravelingFence extends Creature {
     private String name;
 
     // ANIMATIONS
-    private Animation animUp, animDown, animLeft, animRight;
+    private transient Animation animUp, animDown, animLeft, animRight;
     private Random random;
 
     public TravelingFence(Handler handler, float x, float y) {
@@ -23,13 +23,18 @@ public class TravelingFence extends Creature {
         name = "The Finn";
 
         // ANIMATIONS
+        initAnimations();
+
+        random = new Random();
+    } // **** end TravelingFence(Handler, float, float) constructor ****
+
+    @Override
+    public void initAnimations() {
         animUp = new Animation(60, Assets.hawkerUp);
         animDown = new Animation(60, Assets.hawkerDown);
         animLeft = new Animation(60, Assets.hawkerLeft);
         animRight = new Animation(60, Assets.hawkerRight);
-
-        random = new Random();
-    } // **** end TravelingFence(Handler, float, float) constructor ****
+    }
 
     @Override
     public void tick() {

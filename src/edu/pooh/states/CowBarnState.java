@@ -1,7 +1,7 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Cow;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
@@ -9,16 +9,17 @@ import edu.pooh.tiles.FodderDisplayerTile;
 import edu.pooh.tiles.FodderExecutorTile;
 import edu.pooh.tiles.SolidGenericTile;
 import edu.pooh.tiles.Tile;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CowBarnState implements IState {
+public class CowBarnState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private FodderDisplayerTile[] fodderDisplayerTileArray;
@@ -145,7 +146,7 @@ public class CowBarnState implements IState {
     }
 
     public void increaseCowDaysInstantiated() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if (e instanceof Cow) {
                     ////////////////////////////////////////////////
@@ -160,7 +161,7 @@ public class CowBarnState implements IState {
     }
 
     public void increaseCowDaysImpregnanted() {
-        if (TimeManager.getNewDay()) {
+        if (handler.getTimeManager().getNewDay()) {
             for (Entity e : world.getEntityManager().getEntities()) {
                 if ( (e instanceof Cow) && (((Cow)e).getCowState() == Cow.CowState.PREGNANT) ) {
                     Cow pregnantCow = (Cow)e;
@@ -176,7 +177,7 @@ public class CowBarnState implements IState {
                                 Cow.CowState.BABY, stallIndexOfUnbornBaby);
                         //EVERYTIME A COW IS INSTANTIATED it increases the counter (which was done once already in
                         //CowArtificialInseminator... so must NOT increase it again here... subtract 1.
-                        ResourceManager.decreaseCowCounter(1);
+                        handler.getResourceManager().decreaseCowCounter(1);
                         babyCow.setDaysInstantiated(0);
                         babyCow.setAffectionScore(0);
                         assignCowToFodderDisplayerTile(babyCow);
@@ -222,7 +223,8 @@ public class CowBarnState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        //CowBarnState is an in-doors IState.
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];
@@ -240,12 +242,15 @@ public class CowBarnState implements IState {
 
     @Override
     public void exit() {
+        //CowBarnState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -255,7 +260,8 @@ public class CowBarnState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getCowBarnState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.COW_BARN)) {
             return;
         }
 
@@ -268,13 +274,19 @@ public class CowBarnState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointCowBarnToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getCowBarnState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.COW_BARN)) {
             return;
         }
 
@@ -283,10 +295,19 @@ public class CowBarnState implements IState {
         ////////////////
     }
 
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     // GETTERS AND SETTERS
 
     public World getWorld() {
         return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     public void setStallIndexOfUnbornBaby(int stallIndexOfUnbornBaby) { this.stallIndexOfUnbornBaby = stallIndexOfUnbornBaby; }

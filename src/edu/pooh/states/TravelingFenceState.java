@@ -1,6 +1,6 @@
 package edu.pooh.states;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.Inventory;
 import edu.pooh.inventory.ResourceManager;
@@ -10,14 +10,15 @@ import edu.pooh.items.crops.tier0.*;
 import edu.pooh.items.crops.tier1.GoldShovel;
 import edu.pooh.items.crops.tier1.GoldSprinkler;
 import edu.pooh.main.Handler;
-import edu.pooh.time.TimeManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
-public class TravelingFenceState implements IState {
+public class TravelingFenceState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
 
     private Object[] args;
     private Player player;
@@ -33,10 +34,10 @@ public class TravelingFenceState implements IState {
     } // **** end TravelingFenceState(Handler) constructor ****
 
 
-
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        //TravelingFenceState is an IState that shouldn't affect the game clock.
+        handler.getTimeManager().setClockRunningFalse();
 
         this.args = args;
 
@@ -47,6 +48,9 @@ public class TravelingFenceState implements IState {
 
     @Override
     public void exit() {
+        //TravelingFenceState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         args[0] = player;
     }
 
@@ -55,7 +59,12 @@ public class TravelingFenceState implements IState {
         // VK_ESCAPE will set state to GameState.
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             inventory.setActive(false);
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
 
         inventory.tick();
@@ -67,6 +76,11 @@ public class TravelingFenceState implements IState {
                 handler.getWidth()-20, handler.getHeight()-20, null);
 
         inventory.render(g);
+    }
+
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     private void initInventory() {
@@ -106,7 +120,7 @@ public class TravelingFenceState implements IState {
             }
 
             public boolean checkCanShopperAfford(int expense) {
-                return (ResourceManager.getCurrencyUnitCount() >= expense);
+                return (handler.getResourceManager().getCurrencyUnitCount() >= expense);
             }
 
             public void buyItemAtCurrentIndex() {
@@ -116,7 +130,7 @@ public class TravelingFenceState implements IState {
                 }
 
                 if ( checkCanShopperAfford( checkPrice(getItem(getIndex())) ) ) {
-                    ResourceManager.decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
+                    handler.getResourceManager().decreaseCurrencyUnitCount( checkPrice(getItem(getIndex())) );
                     player.getInventory().addItem(getItem(getIndex()));
                     removeItem(getIndex());
 

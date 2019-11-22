@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public class BedTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
 
     public BedTile(Handler handler, BufferedImage texture) {
         super(texture);
@@ -19,9 +19,13 @@ public class BedTile extends SolidGenericTile
 
     @Override
     public void execute() {
-        handler.getWorld().getEntityManager().getPlayer().executeSleep();
+        handler.getTimeManager().executeSleep();
 
         System.out.println("BedTile.execute() called.");
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end BedTile class ****

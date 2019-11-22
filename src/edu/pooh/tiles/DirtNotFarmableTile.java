@@ -16,7 +16,7 @@ public class DirtNotFarmableTile extends Tile {
         this.y = y;
 
         staticEntity = null;
-    } // **** end DirtNotFarmableTile(int, int) constructor ****
+    } // **** end DirtNotFarmableTile(int, int, BufferedImage) constructor ****
 
     @Override
     public boolean isSolid() {

@@ -1,6 +1,6 @@
 package edu.pooh.tiles;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.statics1x1.Wood;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class WoodStashTile extends SolidGenericTile
         implements IInvokable {
 
-    private Handler handler;
+    private transient Handler handler;
     private int x, y;
 
     public WoodStashTile(Handler handler, int x, int y, BufferedImage texture) {
@@ -27,7 +27,7 @@ public class WoodStashTile extends SolidGenericTile
         System.out.println("WoodStashTile.execute() called by player's KeyEvent.VK_COMMA");
         Player tempPlayer = handler.getWorld().getEntityManager().getPlayer();
 
-        if ((tempPlayer.getHoldableObject() == null) && (ResourceManager.getWoodCount() > 0)) {
+        if ((tempPlayer.getHoldableObject() == null) && (handler.getResourceManager().getWoodCount() > 0)) {
             ////////////////////////////////////////////////////////////////////
             System.out.println("Instantiating new Wood object and setting it as player's holdableObject");
             Wood tempWood = new Wood(handler, (x * Tile.TILE_WIDTH), (y * Tile.TILE_HEIGHT));
@@ -39,11 +39,15 @@ public class WoodStashTile extends SolidGenericTile
             tempPlayer.setHoldableObject(tempWood);
             tempPlayer.setHolding(true);
 
-            System.out.println("woodCount BEFORE to WoodStashTie.execute(): " + ResourceManager.getWoodCount());
-            ResourceManager.decreaseWoodCount(1);
-            System.out.println("woodCount AFTER to WoodStashTie.execute(): " + ResourceManager.getWoodCount());
+            System.out.println("woodCount BEFORE to WoodStashTie.execute(): " + handler.getResourceManager().getWoodCount());
+            handler.getResourceManager().decreaseWoodCount(1);
+            System.out.println("woodCount AFTER to WoodStashTie.execute(): " + handler.getResourceManager().getWoodCount());
             ////////////////////////////////////////////////////////////////////
         }
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
 } // **** end WoodStashTile class ****

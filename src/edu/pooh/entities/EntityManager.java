@@ -1,31 +1,24 @@
 package edu.pooh.entities;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.statics1x1.Fodder;
 import edu.pooh.main.Handler;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class EntityManager {
+public class EntityManager
+        implements Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private Player player;
 
     private ArrayList<Entity> entities;
 
-    private Comparator<Entity> renderSorter = new Comparator<Entity>(){     // Comparator to pass into ArrayList's
-        @Override                                                           // sort(Comparator) method.
-        public int compare(Entity a, Entity b) {
-            // top of entity plus height of entity is the y-coordinate value of the bottom of the entity.
-            if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
-                return -1;
-            }
-            return 1;
-        }
-    };
+    private transient Comparator<Entity> renderSorter;
 
     private ArrayList<Entity> entitiesToBeAdded;
     private boolean toBeAdded;
@@ -33,6 +26,17 @@ public class EntityManager {
     public EntityManager(Handler handler) {
         this.handler = handler;
         entities = new ArrayList<Entity>();
+
+        renderSorter = new Comparator<Entity>() {     // Comparator to pass into ArrayList's
+            @Override                                 // sort(Comparator) method.
+            public int compare(Entity a, Entity b) {
+                // top of entity plus height of entity is the y-coordinate value of the bottom of the entity.
+                if (a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
+                    return -1;
+                }
+                return 1;
+            }
+        };
 
         toBeAdded = false;
         entitiesToBeAdded = new ArrayList<Entity>();

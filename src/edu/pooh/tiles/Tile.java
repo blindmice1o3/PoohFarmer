@@ -4,8 +4,10 @@ import edu.pooh.gfx.Assets;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Tile {
+public class Tile
+        implements Serializable {
 
     // STATIC INSTANCES HERE
 
@@ -176,7 +178,7 @@ public class Tile {
     public static final int TILE_WIDTH = 64;
     public static final int TILE_HEIGHT = 64;
 
-    protected BufferedImage texture;
+    protected transient BufferedImage texture;
     protected final int id;
 
     public Tile(BufferedImage texture, int id) {

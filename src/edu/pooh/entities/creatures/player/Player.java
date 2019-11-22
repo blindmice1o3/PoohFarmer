@@ -1,6 +1,8 @@
-package edu.pooh.entities.creatures;
+package edu.pooh.entities.creatures.player;
 
 import edu.pooh.entities.Entity;
+import edu.pooh.entities.creatures.Creature;
+import edu.pooh.entities.creatures.TravelingFence;
 import edu.pooh.entities.statics.produce_yields.Egg;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
@@ -10,7 +12,6 @@ import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
 import edu.pooh.inventory.Inventory;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.items.crops.tier0.Axe;
 import edu.pooh.items.crops.tier0.Hammer;
@@ -19,13 +20,9 @@ import edu.pooh.main.Game;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.main.ISellable;
-import edu.pooh.states.ChickenCoopState;
-import edu.pooh.states.CowBarnState;
-import edu.pooh.states.GameState;
-import edu.pooh.gfx.DisplayerCalendarAndResourceManager;
-import edu.pooh.time.TimeManager;
 import edu.pooh.sfx.SoundManager;
 import edu.pooh.states.StateManager;
+import edu.pooh.states.TextboxState;
 import edu.pooh.tiles.*;
 
 import java.applet.AudioClip;
@@ -37,179 +34,36 @@ import java.util.Map;
 
 public class Player extends Creature {
 
-    public enum SanityLevel { SANE, FRAGMENTING, FRAGMENTED, INSANE, GUANO; }
-
-    private SanityLevel sanityLevel;
-
     public static final AudioClip sfxCannabisCollected = SoundManager.sounds[0];
     public static final AudioClip sfxBButtonPressed = SoundManager.sounds[1];
 
     // CANNABIS COUNTER
     private int cannabisCollected;
 
-    // STAMINA TRACKER
-    private int staminaBase;
-    private int staminaCurrent;
-    public void decreaseStaminaCurrent(int staminaUsage) {
-        staminaCurrent = Math.max((staminaCurrent - staminaUsage), 0);
-    }
-    public void increaseStaminaCurrent(int staminaGained) {
-        staminaCurrent = Math.min((staminaCurrent + staminaGained), staminaBase);
-    }
-    public void resetStaminaCurrent() {
-        System.out.println("Player.resetStaminaCurrent()");
-        staminaCurrent = staminaBase;
-    }
-
     // ANIMATIONS
-    private Map<String, Animation> animations;
+    private transient Map<String, Animation> animations;
 
-    // ATTACK TIMER
-    private long lastAttackTimer;
-    private long attackCooldown = 800;  // 800 milliseconds
-    private long attackTimer = attackCooldown;
+    // MOVEMENT SPEED
+    private int speedMax;
 
     // INVENTORY
     private Inventory inventory;
 
-    // DISPLAYER CALENDAR AND RESOURCE_MANAGER
-    private DisplayerCalendarAndResourceManager displayerCalendarAndResourceManager;
-    private boolean executedSleep, executed6pm, executed5pm, executed3pm, executed12pm, executed9am, executed6am;
-
-    public void executeSleep() {
-        TimeManager.setNewDayTrue();
-
-        if (!executed6am) {
-            execute6am();
-            executed6am = true;
-        }
-        if (!executed9am) {
-            execute9am();
-            executed9am = true;
-        }
-        if (!executed12pm) {
-            execute12pm();
-            executed12pm = true;
-        }
-        if (!executed3pm) {
-            execute3pm();
-            executed3pm = true;
-        }
-        ////////////////////////
-        if (!executed5pm) {
-            execute5pm();
-            executed5pm = true;
-        }
-        ////////////////////////
-        if (!executed6pm) {
-            execute6pm();
-            executed6pm = true;
-        }
-
-        setAllTimeRelatedBooleansToFalse();
-        resetStaminaCurrent();
-
-        System.out.println("Player.executeSleep()");
-        executedSleep = true;
-    }
-
-    public void execute6pm() {
-
-        System.out.println("Player.execute6pm()");
-        executed6pm = true;
-    }
-
-    private void sellFromShippingBin(ShippingBin shippingBin) {
-        int totalPriceFromShippingBin = shippingBin.calculateTotal();
-
-        System.out.println("I'll give you | " + totalPriceFromShippingBin + " | currencyUnit for the: \n");
-        for (ISellable sellable : shippingBin.getInventory()) {
-            System.out.println(sellable.getPrice() + ": " + sellable);
-        }
-
-        ResourceManager.increaseCurrencyUnitCount(totalPriceFromShippingBin);
-        shippingBin.emptyShippingBin();
-    }
-
-    public void execute5pm() {
-        // Collect ShippingBin - GameState
-        for (Entity e : ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-        // Collect ShippingBin - ChickenCoopState
-        for (Entity e : ((ChickenCoopState)handler.getGame().getChickenCoopState()).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-        // Collect ShippingBin - CowBarnState
-        for (Entity e : ((CowBarnState)handler.getGame().getCowBarnState()).getWorld().getEntityManager().getEntities()) {
-            if (e instanceof ShippingBin) {
-                //////////////////////////////////////////////////////////
-                sellFromShippingBin( (ShippingBin)e );
-                break;
-                //////////////////////////////////////////////////////////
-            }
-        }
-
-        System.out.println("Player.execute5pm()");
-        executed5pm = true;
-    }
-
-    public void execute3pm() {
-
-        System.out.println("Player.execute3pm()");
-        executed3pm = true;
-    }
-
-    public void execute12pm() {
-
-        System.out.println("Player.execute12pm()");
-        executed12pm = true;
-    }
-
-    public void execute9am() {
-
-        System.out.println("Player.execute9am()");
-        executed9am = true;
-    }
-
-    public void execute6am() {
-
-        System.out.println("Player.execute6am()");
-        executed6am = true;
-    }
-
+    //TODO: convert to State design pattern. 2 concrete subtype to choose from (HoldingState and NotHoldingState).
     // HOLDING (composed with IHoldable type)
     private IHoldable holdableObject;
     private Rectangle hr; // holding-rectangle
     private int hrSize = 30;
     private boolean holding = false;
 
-    // MELEE ATTACK
-    private Rectangle cb; // player's collision/bounding box
-    private Rectangle ar; // attack-rectangle
-    private int arSize = 20;
-    private boolean attacking = false;
+    // STAMINA
+    private StaminaModule staminaModule;
 
-    public void setAllTimeRelatedBooleansToFalse() {
-        System.out.println("Player.setAllTimeRelatedBooleansToFalse()");
+    // ATTACK
+    private AttackModule meleeAttackModule;
 
-        executed6am = false;
-        executed9am = false;
-        executed12pm = false;
-        executed3pm = false;
-        executed5pm = false;
-        executed6pm = false;
-    }
+    // HUD
+    private HeadUpDisplayer headUpDisplayer;
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -218,26 +72,19 @@ public class Player extends Creature {
         bounds.width = 34;
         bounds.height = 44;
 
-        sanityLevel = SanityLevel.SANE;
-
         // CANNABIS COUNTER
         cannabisCollected = 0;
 
-        // STAMINA TRACKER
-        staminaBase = 100;
-        staminaCurrent = 100;
-
         // ANIMATIONS
         initAnimations();
+
+        // MOVEMENT SPEED
+        speedMax = 10;
 
         // INVENTORY
         inventory = new Inventory(handler);
         inventory.addItem(WateringCan.getUniqueInstance(handler));
         inventory.getItem(0).setPickedUp(true);
-
-        // DISPLAYER CALENDAR AND RESOURCE_MANAGER
-        displayerCalendarAndResourceManager = new DisplayerCalendarAndResourceManager(handler);
-        setAllTimeRelatedBooleansToFalse();
 
         // HOLDING
         holdableObject = null;
@@ -245,13 +92,18 @@ public class Player extends Creature {
         hr.width = hrSize;
         hr.height = hrSize;
 
-        // MELEE ATTACK
-        ar = new Rectangle();
-        ar.width = arSize;
-        ar.height = arSize;
+        // STAMINA
+        staminaModule = new StaminaModule(handler);
+
+        // ATTACK
+        meleeAttackModule = new AttackModule(handler, this);
+
+        // HUD
+        headUpDisplayer = new HeadUpDisplayer(handler, this);
     } // **** end Player(Handler, float, float) constructor ****
 
-    private void initAnimations() {
+    @Override
+    public void initAnimations() {
         animations = new HashMap<String, Animation>();
 
         animations.put("animDown", new Animation(60, Assets.playerDown));
@@ -262,29 +114,10 @@ public class Player extends Creature {
         animations.put("animUpLeft", new Animation(60, Assets.playerUpLeft));
         animations.put("animDownRight", new Animation(60, Assets.playerDownRight));
         animations.put("animDownLeft", new Animation(60, Assets.playerDownLeft));
+        //TODO: animation for Pooh using Thor's Hammer!
     }
 
-    private void checkTimeRelatedActions() {
-        // Within it's hourly range AND have not executed (e.g. will only run if executed6am is false).
-        if (TimeManager.elapsedRealSeconds >= 0 && TimeManager.elapsedRealSeconds < 180 && !executed6am) {
-            execute6am();
-        } else if (TimeManager.elapsedRealSeconds >= 180 && TimeManager.elapsedRealSeconds < 360 && !executed9am) {
-            execute9am();
-        } else if (TimeManager.elapsedRealSeconds >= 360 && TimeManager.elapsedRealSeconds < 540 && !executed12pm) {
-            execute12pm();
-        } else if (TimeManager.elapsedRealSeconds >= 540 && TimeManager.elapsedRealSeconds < 660 && !executed3pm) {
-            execute3pm();
-        }
-        // ****************** | 5pm | *********************
-        else if (TimeManager.elapsedRealSeconds >= 660 && TimeManager.elapsedRealSeconds < 720 && !executed5pm) {
-            execute5pm();
-        }
-        // ************************************************
-        else if (TimeManager.elapsedRealSeconds == 720 && !executed6pm) {
-            execute6pm();
-        }
-    }
-
+    //TODO: Have Game class be composed with a QuestManager and move this method to QuestManager class.
     private void checkWinningConditions() {
         if (cannabisCollected == 3000) {
             sfxBButtonPressed.play();
@@ -294,136 +127,131 @@ public class Player extends Creature {
         }
     }
 
-    public void updateSanityLevel(int staminaCurrent) {
-        if (staminaCurrent >= 70) {
-            sanityLevel = SanityLevel.SANE;
-        } else if ((staminaCurrent >= 50) && (staminaCurrent < 70)) {
-            sanityLevel = SanityLevel.FRAGMENTING;
-        } else if ((staminaCurrent >= 30) && (staminaCurrent < 50)) {
-            sanityLevel = SanityLevel.FRAGMENTED;
-        } else if ((staminaCurrent >= 1) && (staminaCurrent < 30)) {
-            sanityLevel = SanityLevel.INSANE;
-        } else {
-            sanityLevel = SanityLevel.GUANO;
-        }
-    }
-
-    private float prevYMove = 0;
-    private float prevXMove = 0;
-    public float getPrevYMove() { return prevYMove; }
-    public float getPrevXMove() { return prevXMove; }
     @Override
     public void tick() {
-        // SANITY LEVEL
-        updateSanityLevel(staminaCurrent);
-
-        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
-        checkWinningConditions();
-
-        // TIME SPECIFIC ACTIONS (e.g. meal time, shipping bin collection time)
-        checkTimeRelatedActions();
-
         // ANIMATIONS
         for (Animation anim : animations.values()) {
             anim.tick();
         }
 
-
         // MOVEMENT
-        prevYMove = yMove;
-        prevXMove = xMove;
         getInput(); // Sets the xMove and yMove variables.
         move();     // Changes the x and y coordinates of the player based on xMove and yMove variables.
         handler.getGameCamera().centerOnEntity(this);
 
-
-        // ATTACK
-        if (!holding) {         //if holding from GameState, moved into MountainState... cannot put down... cannot attack.
-            checkAttacks();
-        }
         // HOLDING (at this point: holding is true)
         // but we do another (similar, possibly redundant) check... holdableObject should not be null.
-        else if (holdableObject != null) {
+        if (holdableObject != null) {
             holdableObject.setPosition(x + 10, y - 15);  // Moves image of holdableObject w/ player's.
         }
 
         // INVENTORY
         inventory.tick();
+
+        // ATTACK
+        meleeAttackModule.tick();
+
+        // HUD
+        headUpDisplayer.tick();
     }
 
-    private void checkAttacks() {
-        ////////////////////////////////////////////////////////////////////////////////////
-        // Attack timer to check eligibility for new attack.
-        attackTimer += System.currentTimeMillis() - lastAttackTimer;    // time elapsed
-        lastAttackTimer = System.currentTimeMillis();
-
-        // Time elapsed has not reached targeted attackCooldown, exit this method early.
-        if (attackTimer < attackCooldown) {
-            return;
-        }
-        ////////////////////////////////////////////////////////////////////////////////////
-
-        // IF AT THIS LINE, targeted attackCooldown has been reached, ELIGIBLE TO ATTACK.
-        attacking = false;
-
-        // (UNLESS THE INVENTORY IS TOGGLED ON)
-        if (inventory.isActive()) {
-            return;
-        }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // player's collision box (center square in color-penciled drawing/notes).
-        cb = getCollisionBounds(0, 0);
-        // Set the coordinates of the attack rectangle (attacking is one-direction-at-a-time])
-        if (handler.getKeyManager().aUp) {
-            ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
-            ar.y = cb.y - arSize;
-            attacking = true;
-        } else if (handler.getKeyManager().aDown) {
-            ar.x = cb.x + (cb.width / 2) - (arSize / 2);   // center x coordinate of our player's collision box
-            ar.y = cb.y + cb.height;
-            attacking = true;
-        } else if (handler.getKeyManager().aLeft) {
-            ar.x = cb.x - arSize;
-            ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
-            attacking = true;
-        } else if (handler.getKeyManager().aRight) {
-            ar.x = cb.x + cb.width;
-            ar.y = cb.y + (cb.height / 2) - (arSize / 2);  // center y coordinate of collision box
-            attacking = true;
-        } else {
-            return; // if none of the attack keys are being called, don't continue on with the rest of this method.
-        }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // RESET attackTimer.
-        attackTimer = 0;
-
-        // The above attack rectangle coordinates were set to some values (did not exit this method early).
-        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            // If player, skip this for-loop iteration and move on to the next Entity object in the entities ArrayList.
-            if (e.equals(this)) {
-                continue;
-            }
-
-            // We have an Entity object that isn't the player, check if it intersects with the attack rectangle.
-            if (e.getCollisionBounds(0, 0).intersects(ar)) {
-                e.hurt(4);      // Successful attack collision, invoke hurt() method.
-                return;
-            }
-        }
-    }
-
-    private int speedMax = 10;
+    //TODO: move to Hammer class.
     private int hitBoulderCounter = 0;
+    //TODO: move to Axe class.
     private int hitTreeStumpCounter = 0;
     private void getInput() {
         // Important to reset xMove and yMove to 0 at start of getInput().
         xMove = 0;
         yMove = 0;
 
-        //TODO: Have StateManager (aka StateMachine) use a stack instead of a single currentState field.
-        //TODO: Create InventoryState.
+        //TODO: calls to SaverAndLoader save() and load() methods.
+        // Serialize game.
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_F2)) {
+            //TODO: SAVE.
+            handler.getGame().getSaverAndLoader().save("pooh_farmer.bin");
+        }
+        // Deserialize game.
+        else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_F4)) {
+            //TODO: LOAD.
+            handler.getGame().getSaverAndLoader().load();
+        }
+
+        // PauseState
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+            /////////////////////////////////////////////////////////////////////
+            handler.getStateManager().change(StateManager.GameState.PAUSE, null);
+            /////////////////////////////////////////////////////////////////////
+        }
+
+        // TextboxState Mode.THE_SIMPSONS (toggle TextboxState's currentMode).
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT))) {
+            TextboxState textboxState = (TextboxState)handler.getStateManager().getIState(StateManager.GameState.TEXT_BOX);
+            TextboxState.Mode currentMode = textboxState.getCurrentMode();
+
+            if (currentMode == TextboxState.Mode.DEFAULT) {
+                textboxState.setCurrentMode(TextboxState.Mode.THE_SIMPSONS);
+            } else if (currentMode == TextboxState.Mode.THE_SIMPSONS) {
+                textboxState.setCurrentMode(TextboxState.Mode.DEFAULT);
+            }
+
+            System.out.println("TextboxState's currentMode is now: " + textboxState.getCurrentMode());
+        }
+
+        // KeyEvent.VK_SLASH        //TEXTBOXSTATE enter
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_SLASH))) {
+            /////////////////////////////////////////////////////////////////////
+            //Object[] args = { "I love you mom" };
+            Object[] args = new Object[2];
+
+            String message = "Sublett fell silent. Rydell felt sorry for him; the Texan really didn't know any other " +
+                    "way to start a conversation, and his folks back home in the trailer-camp would've seen " +
+                    "all those films and more. \"Well,\" Rydell said, trying to pick up his end, \"I was " +
+                    "watching this one old movie last night-\" Sublett perked up. \"Which one?\" \"Dunno,\" " +
+                    "Rydell said. \"This guy's in L.A. and he's just met this girl. Then he picks up a pay " +
+                    "phone, 'cause it's ringing. Late at night. It's some guy in a missile silo somewhere " +
+                    "who knows they've just launched theirs at the Russians. He's trying to phone his dad, " +
+                    "or his brother, or something. Says the world's gonna end in short order. Then the guy " +
+                    "who answered the phone hears these soldiers come in and shoot the guy. The guy on the " +
+                    "phone, I mean.\" Sublett closed his eyes, scanning his inner trivia-banks. \"Yeah? " +
+                    "How's it end?\" \"Dunno,\" Rydell said. \"I went to sleep.\" Sublett opened his eyes. " +
+                    "\"Who was in it?\" \"Got me.\" Sublett's blank silver eyes widened in disbelief. \"Jesus, " +
+                    "Berry, you shouldn't oughta watch tv, not unless you're gonna pay attention.\" -William " +
+                    "Gibson's Virtual Light";
+            //////////////////
+            args[0] = message;
+            //////////////////
+
+            int width = (int)(handler.getWidth() - (2 * (handler.getWidth() / 8)));
+            int x = (int)(handler.getWidth() / 8);
+            int height = (int)(handler.getHeight() / 4);
+            int y = (int)(handler.getHeight() - (height) - (handler.getWidth() / 8));
+
+            int[] locationAndSize = { x, y, width, height };
+            //////////////////////////
+            args[1] = locationAndSize;
+            //////////////////////////
+
+            //args[1] = null;
+            //handler.getStateManager().change(StateManager.GameState.TEXT_BOX, null);
+            handler.getStateManager().change(StateManager.GameState.TEXT_BOX, args);
+            /////////////////////////////////////////////////////////////////////
+        }
+        // KeyEvent.VK_ESCAPE       //TEXTBOXSTATE escape
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
+                (handler.getStateManager().getCurrentState() instanceof TextboxState)) {
+            /////////////////////////////////////////////////////////////////////
+            handler.getStateManager().popIState();
+            /////////////////////////////////////////////////////////////////////
+        }
+        //TODO: redo sign post tile.
+        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
+                (getTileCurrentlyFacing() instanceof SignPostTile)) {
+            /////////////////////////////////////////////////////////////////////
+            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
+            /////////////////////////////////////////////////////////////////////
+        }
+
         // INVENTORY CHECK
         if (inventory.isActive()) {
             return;
@@ -471,32 +299,12 @@ public class Player extends Creature {
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
         ///////////////// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ /////////////////
-        // KeyEvent.VK_ESCAPE       //SIGNPOSTTILE escape
-        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) &&
-                (getTileCurrentlyFacing() instanceof SignPostTile)) {
-            ((SignPostTile) getTileCurrentlyFacing()).setExecuting(false);
-        }
-
         // B BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD)) {
             inventory.incrementSelectedItem();
             sfxBButtonPressed.play();
         }
-
-        //@@@@@@@@@@@@@@@@@@@@@@@@  //PIKACHU follow
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PERIOD) &&
-                (getEntityCurrentlyFacing() instanceof Pikachu)) {
-            ((Pikachu)getEntityCurrentlyFacing()).setFollowing(true);
-        }
-        //@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-        //TODO: animation for Pooh using Thor's Hammer!
-
 
         // A BUTTON
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_COMMA)) {
@@ -506,11 +314,12 @@ public class Player extends Creature {
                 ((DeadCow)getEntityCurrentlyFacing()).setClicked(true);
             }
 
+            //TODO: move to Hammer.execute().
             // CHECK BOULDER AND HAMMER (6 consecutive hits without moving)
             if (inventory.getItem(inventory.getIndex()) instanceof Hammer) {
                 if (getEntityCurrentlyFacing() instanceof Boulder) {
                     hitBoulderCounter++;
-                    decreaseStaminaCurrent(2);
+                    staminaModule.decreaseStaminaCurrent(2);
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitBoulderCounter == 6) {
@@ -526,11 +335,12 @@ public class Player extends Creature {
                 }
             }
 
+            //TODO: move to Axe.execute().
             // CHECK TREESTUMP AND AXE (6 consecutive hits without moving)
             if (inventory.getItem(inventory.getIndex()) instanceof Axe) {
                 if (getEntityCurrentlyFacing() instanceof TreeStump) {
                     hitTreeStumpCounter++;
-                    decreaseStaminaCurrent(2);
+                    staminaModule.decreaseStaminaCurrent(2);
                     System.out.println("player's stamina decrease by 2");
 
                     if (hitTreeStumpCounter == 6) {
@@ -547,7 +357,8 @@ public class Player extends Creature {
             }
 
             // TRAVELINGFENCE CHECK
-            if (StateManager.getCurrentState() == handler.getGame().getGameState() &&
+            if (handler.getStateManager().getCurrentState() ==
+                    handler.getStateManager().getIState(StateManager.GameState.GAME) &&
                     checkForTravelingFence()) {
                 System.out.println("FOUND: The Finn!");
 
@@ -556,7 +367,7 @@ public class Player extends Creature {
                 args[1] = (int) x;
                 args[2] = (int) y;
                 /////////////////////////////////////////////////////////////////////
-                StateManager.change(handler.getGame().getTravelingFenceState(), args);
+                handler.getStateManager().change( StateManager.GameState.TRAVELING_FENCE, args );
                 /////////////////////////////////////////////////////////////////////
                 return;
             }
@@ -675,7 +486,7 @@ public class Player extends Creature {
     }
 
     private void setHRPosition() {
-        cb = getCollisionBounds(0, 0);    // player's collision box (center square)
+        Rectangle cb = getCollisionBounds(0, 0);    // player's collision box (center square)
 
         // Setting the coordinate of the holding rectangle
         switch (currentDirection) {
@@ -754,80 +565,21 @@ public class Player extends Creature {
         //        (int)(y + bounds.y - handler.getGameCamera().getyOffset()),
         //        bounds.width, bounds.height);
 
-        // MELEE ATTACK
-        if (attacking) {
-            g.setColor(Color.RED);
-            g.fillRect((int)(ar.x - handler.getGameCamera().getxOffset()),
-                    (int)(ar.y - handler.getGameCamera().getyOffset()), ar.width, ar.height);
-        }
+        // ATTACK
+        meleeAttackModule.render(g);
 
-        // HUD (Head-Up-Display)
-        renderHUD(g);
+        // HUD
+        headUpDisplayer.render(g);
     }
 
+    /**
+     * called inside EntityManager.render(Graphics).
+     */
     public void postRender(Graphics g) {
         inventory.render(g);                // KeyEvent.VK_I
-        displayerCalendarAndResourceManager.render(g);            // KeyEvent.VK_SHIFT
 
         if (holdableObject instanceof Fodder) {
             ((Fodder)holdableObject).render(g);
-        }
-    }
-
-    public void renderHUD(Graphics g) {
-        // CANNABIS COUNTER VISUAL (TOP-LEFT CORNER)
-        g.setColor(Color.BLUE);
-        g.drawRect((25 - 2), (25 - 2), (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        Text.drawString(g, Integer.toString(ResourceManager.getCurrencyUnitCount()),
-                (25 + (Item.ITEM_WIDTH / 2)), (25 + (Item.ITEM_HEIGHT / 2)), true, Color.YELLOW, Assets.font28);
-
-        // IN-GAME TIME (YELLOW) and REAL-LIFE ELAPSED SECONDS (BLUE) (TOP-CENTER OF SCREEN)
-        Text.drawString(g, TimeManager.translateElapsedRealSecondsToGameHoursMinutes(),
-                (handler.getWidth() / 2), 30, true, Color.YELLOW, Assets.font28);
-        Text.drawString(g, Integer.toString(TimeManager.elapsedRealSeconds),
-                (handler.getWidth() / 2), 55, true, Color.BLUE, Assets.font28);
-
-        // CURRENT SELECTED ITEM FROM INVENTORY (TOP-RIGHT CORNER)
-        g.setColor(Color.BLUE);
-        g.drawRect((Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) - 2), 25 - 2,
-                (Item.ITEM_WIDTH + 3), (Item.ITEM_HEIGHT + 3));
-        g.drawImage( inventory.getItem(inventory.getIndex()).getTexture(),
-                (Game.  WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH)), 25,
-                Item.ITEM_WIDTH, Item.ITEM_HEIGHT, null);
-        if (inventory.getItem(inventory.getIndex()).getId() == Item.ID.WATERING_CAN) {
-            WateringCan temp = (WateringCan)inventory.getItem(inventory.getIndex());
-            Text.drawString(g, Integer.toString(temp.getCountWater()),
-                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
-                    25 + Item.ITEM_HEIGHT + 15, true, Color.BLUE, Assets.font28);
-        } else {
-            Text.drawString(g, Integer.toString(inventory.getItem(inventory.getIndex()).getCount()),
-                    (Game.WIDTH_OF_FRAME - (25 + Item.ITEM_WIDTH) + (Item.ITEM_WIDTH / 2)),
-                    25 + Item.ITEM_HEIGHT + 15, true, Color.YELLOW, Assets.font28);
-        }
-
-        // STAMINA TRACKER VISUAL (LEFT TOP-ISH OF SCREEN)
-        g.setColor(Color.BLUE);
-        g.fillRect(33, 81, 15, staminaBase + 4);
-        g.setColor(Color.YELLOW);
-        g.fillRect(35, 83 + (staminaBase - staminaCurrent), 11, staminaCurrent);
-
-        // SANITY LEVEL
-        if (sanityLevel == SanityLevel.SANE) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.GREEN, Assets.font14);
-        } else if ( (sanityLevel == SanityLevel.FRAGMENTING) || (sanityLevel == SanityLevel.FRAGMENTED) ) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.YELLOW, Assets.font14);
-        } else if (sanityLevel == SanityLevel.INSANE) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.RED, Assets.font14);
-        } else if (sanityLevel == SanityLevel.GUANO) {
-            Text.drawString(g, "sanityLevel: " + sanityLevel,
-                    (int)(x - handler.getGameCamera().getxOffset() - 34),
-                    (int)(y - handler.getGameCamera().getyOffset() - 10), false, Color.BLACK, Assets.font14);
         }
     }
 
@@ -882,12 +634,14 @@ public class Player extends Creature {
         System.out.println("You lose");
     }
 
+    //TODO: the only way to access Game.gameStop() is never called.
     public void increaseCannabisCollected() {
         cannabisCollected++;
         sfxCannabisCollected.play();
-    }
 
-    public void resetCannabisCollected() { cannabisCollected = 0; }
+        // CANNABIS COUNTER ( !!!!! checks for WINNER STATE !!!!! )
+        checkWinningConditions();
+    }
 
     // GETTERS & SETTERS
 
@@ -903,7 +657,7 @@ public class Player extends Creature {
         this.holdableObject = holdableObject;
     }
 
-    public boolean getHolding() {
+    public boolean isHolding() {
         return holding;
     }
 
@@ -915,8 +669,10 @@ public class Player extends Creature {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
+    public StaminaModule getStaminaModule() { return staminaModule; }
+
+    public AttackModule getMeleeAttackModule() { return meleeAttackModule; }
+
+    public HeadUpDisplayer getHeadUpDisplayer() { return headUpDisplayer; }
 
 } // **** end Player class ****

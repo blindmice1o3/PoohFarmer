@@ -21,7 +21,7 @@ public class HarvestEntity extends StaticEntity
     }
 
     private HarvestType harvestType;
-    private BufferedImage texture;
+    private transient BufferedImage texture;
     private int price;
     private boolean inShippingBin;
 

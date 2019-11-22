@@ -1,17 +1,18 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class MountainState implements IState {
+public class MountainState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -25,7 +26,8 @@ public class MountainState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningTrue();
+        //MountainState is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
 
         handler.setWorld(world);
         player = (Player)args[0];
@@ -43,11 +45,14 @@ public class MountainState implements IState {
 
     @Override
     public void exit() {
+        //MountainState.exit() always result in CrossroadState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((CrossroadState) handler.getGame().getCrossroadState()).getWorld().getEntityManager().addEntity(
+                ((CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -56,7 +61,8 @@ public class MountainState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getMountainState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.MOUNTAIN)) {
             return;
         }
 
@@ -69,13 +75,19 @@ public class MountainState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointMountainToCrossroad()) ) {
-            StateManager.change(handler.getGame().getCrossroadState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            CrossroadState crossroadState = (CrossroadState)handler.getStateManager().getIState(StateManager.GameState.CROSSROAD);
+            currentState.enter(crossroadState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getMountainState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.MOUNTAIN)) {
             return;
         }
 
@@ -84,8 +96,17 @@ public class MountainState implements IState {
         ////////////////
     }
 
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     public World getWorld() {
         return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
 } // **** end MountainState class ****

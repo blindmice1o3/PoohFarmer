@@ -1,17 +1,18 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.main.Handler;
 import edu.pooh.tiles.Tile;
-import edu.pooh.time.TimeManager;
 import edu.pooh.worlds.World;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class ToolShedState implements IState {
+public class ToolShedState
+        implements IState, Serializable {
 
-    private Handler handler;
+    private transient Handler handler;
     private World world;
 
     private Object[] args;
@@ -25,7 +26,8 @@ public class ToolShedState implements IState {
 
     @Override
     public void enter(Object[] args) {
-        TimeManager.setClockRunningFalse();
+        //ToolShedState is an in-doors IState.
+        handler.getTimeManager().setClockRunningFalse();
 
         handler.setWorld(world);
         player = (Player)args[0];
@@ -43,12 +45,15 @@ public class ToolShedState implements IState {
 
     @Override
     public void exit() {
+        //ToolShedState.exit() always result in GameState, which is an out-doors IState.
+        handler.getTimeManager().setClockRunningTrue();
+
         ///////////////////////////////////////////////////
         if ((player.getHoldableObject() != null) && (player.getHoldableObject() instanceof Entity)) {
             Entity tempHoldableEntity = (Entity) player.getHoldableObject();
 
             if (world.getEntityManager().getEntities().remove(player.getHoldableObject())) {
-                ((GameState)handler.getGame().getGameState()).getWorld().getEntityManager().addEntity(
+                ((GameState)handler.getStateManager().getIState(StateManager.GameState.GAME)).getWorld().getEntityManager().addEntity(
                         tempHoldableEntity
                 );
             }
@@ -58,7 +63,8 @@ public class ToolShedState implements IState {
 
     @Override
     public void tick() {
-        if (StateManager.getCurrentState() != handler.getGame().getToolShedState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)) {
             return;
         }
 
@@ -71,13 +77,19 @@ public class ToolShedState implements IState {
 
     private void checkTransferPoints() {
         if ( player.getCollisionBounds(0, 0).intersects(world.getTransferPointToolShedToGame()) ) {
-            StateManager.change(handler.getGame().getGameState(), args);
+            handler.getStateManager().popIState();
+
+            //positions the player to where they entered from.
+            IState currentState = handler.getStateManager().getCurrentState();
+            GameState gameState = (GameState)handler.getStateManager().getIState(StateManager.GameState.GAME);
+            currentState.enter(gameState.getArgs());
         }
     }
 
     @Override
     public void render(Graphics g) {
-        if (StateManager.getCurrentState() != handler.getGame().getToolShedState()) {
+        if (handler.getStateManager().getCurrentState() !=
+                handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)) {
             return;
         }
 
@@ -86,8 +98,17 @@ public class ToolShedState implements IState {
         ////////////////
     }
 
+    @Override
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     public World getWorld() {
         return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
 } // **** end ToolShedState class ****

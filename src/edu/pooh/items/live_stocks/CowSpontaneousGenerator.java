@@ -1,12 +1,13 @@
 package edu.pooh.items.live_stocks;
 
-import edu.pooh.entities.creatures.Player;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.creatures.live_stocks.Cow;
 import edu.pooh.gfx.Assets;
 import edu.pooh.inventory.ResourceManager;
 import edu.pooh.items.Item;
 import edu.pooh.main.Handler;
 import edu.pooh.states.CowBarnState;
+import edu.pooh.states.StateManager;
 import edu.pooh.states.TravelingFenceState;
 import edu.pooh.tiles.Tile;
 
@@ -24,10 +25,15 @@ public class CowSpontaneousGenerator extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.cowAdultDown[0];
+    }
+
+    @Override
     public void execute() {
         Player player = handler.getWorld().getEntityManager().getPlayer();
 
-        if ((ResourceManager.getCowCounter() < 12) && (!player.getTileCurrentlyFacing().isSolid()) &&
+        if ((handler.getResourceManager().getCowCounter() < 12) && (!player.getTileCurrentlyFacing().isSolid()) &&
                 (player.getEntityCurrentlyFacing() == null)) {
 
             for (int yy = 0; yy < handler.getWorld().getHeightInTiles(); yy++) {
@@ -37,16 +43,16 @@ public class CowSpontaneousGenerator extends Item {
                         ///////////////////////////////////////////////////////////////////////////////////////
                         //Could be cow population of 0 (player's first cow), which should be assigned stall index 0.
                         Cow cow = new Cow(handler, (xx * Tile.TILE_WIDTH), (yy * Tile.TILE_HEIGHT), Cow.CowState.CALF,
-                                ResourceManager.getCowCounter());
+                                handler.getResourceManager().getCowCounter());
                         cow.setDaysInstantiated(14);
                         cow.setAffectionScore(0);
-                        ((CowBarnState)handler.getGame().getCowBarnState()).assignCowToFodderDisplayerTile(cow);
+                        ((CowBarnState)handler.getStateManager().getIState(StateManager.GameState.COW_BARN)).assignCowToFodderDisplayerTile(cow);
                         handler.getWorld().getEntityManager().getEntitiesToBeAdded().add(cow);
                         handler.getWorld().getEntityManager().setToBeAdded(true);
                         ///////////////////////////////////////////////////////////////////////////////////////
 
                         // Cow instantiated and added, return CowSpontaneousGenerator singleton-instance to shop.
-                        ((TravelingFenceState)handler.getGame().getTravelingFenceState()).getInventory().addItem( getUniqueInstance(handler) );
+                        ((TravelingFenceState)handler.getStateManager().getIState(StateManager.GameState.TRAVELING_FENCE)).getInventory().addItem( getUniqueInstance(handler) );
                         player.getInventory().decrementSelectedItem();
                         for (int x = 0; x < player.getInventory().getInventoryItems().size(); x++) {
                             if (player.getInventory().getItem(x) instanceof CowSpontaneousGenerator) {

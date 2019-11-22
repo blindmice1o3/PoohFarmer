@@ -4,7 +4,6 @@ import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.Text;
-import edu.pooh.inventory.ResourceManager;
 import edu.pooh.main.Handler;
 import edu.pooh.main.IHoldable;
 import edu.pooh.tiles.Tile;
@@ -20,7 +19,7 @@ public class Chicken extends Creature
 
     public enum ChickenState { CHICK, ADULT_EGG_LAYING, ADULT_GRUMPY_1, ADULT_GRUMPY_2, ADULT_GRUMPY_3; }
 
-    private Map<String, Animation> anim;
+    private transient Map<String, Animation> anim;
 
     private int daysInstantiated;
     private ChickenState chickenState;
@@ -32,7 +31,7 @@ public class Chicken extends Creature
         super(handler, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
         setSpeed(4);
 
-        initChickenAnimations();
+        initAnimations();
 
         daysInstantiated = 0;
         this.chickenState = chickenState;
@@ -42,11 +41,12 @@ public class Chicken extends Creature
 
         ////////////////////////////////////////////////////////////////////////
         System.out.println("Increasing ResourceManager's chickenCounter by 1");
-        ResourceManager.increaseChickenCounter(1);
+        handler.getResourceManager().increaseChickenCounter(1);
         ////////////////////////////////////////////////////////////////////////
     } // **** end Chicken(Handler, float, float, ChickenState) constructor ****
 
-    private void initChickenAnimations() {
+    @Override
+    public void initAnimations() {
         anim = new HashMap<String, Animation>();
 
         anim.put("animChickenUp", new Animation(400, Assets.chickenAdultUp));

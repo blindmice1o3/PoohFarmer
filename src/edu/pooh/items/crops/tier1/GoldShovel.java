@@ -18,6 +18,11 @@ public class GoldShovel extends Item {
     }
 
     @Override
+    public void resetTexture() {
+        texture = Assets.goldShovel;
+    }
+
+    @Override
     public void execute() {
 
     }

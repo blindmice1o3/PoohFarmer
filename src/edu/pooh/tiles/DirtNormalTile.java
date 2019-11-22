@@ -35,11 +35,34 @@ public class DirtNormalTile extends Tile {
 
     @Override
     public void render(Graphics g, int x, int y) {
-        g.drawImage(texture, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+        switch (dirtState) {
+            case NORMAL:
+                g.drawImage(Assets.dirtNormal, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+                break;
+            case TILLED:
+                if (!watered) {
+                    g.drawImage(Assets.dirtTilledDry, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+                } else {
+                    g.drawImage(Assets.dirtTilledWatered, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+                }
+                break;
+            case SEEDED:
+                if (!watered) {
+                    g.drawImage(Assets.dirtSeededDry, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+                } else {
+                    g.drawImage(Assets.dirtSeededWatered, x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+                }
+                break;
+            default:
+                System.out.println("DirtNormalTile.render(Graphics, int, int) switch(dirtState) construct's default.");
+                break;
+        }
 
+        /*
         if (staticEntity != null) {
             staticEntity.render(g);
         }
+        */
     }
 
     // GETTERS & SETTERS

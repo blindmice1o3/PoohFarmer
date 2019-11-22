@@ -5,6 +5,7 @@ import edu.pooh.entities.EntityManager;
 import edu.pooh.entities.creatures.*;
 import edu.pooh.entities.creatures.live_stocks.Chicken;
 import edu.pooh.entities.creatures.live_stocks.Cow;
+import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.produce_yields.WildBerries;
 import edu.pooh.entities.statics.statics1x1.*;
 import edu.pooh.entities.statics.statics2x2.Boulder;
@@ -23,15 +24,17 @@ import edu.pooh.utils.Utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Random;
 
-public class World {
+public class World
+        implements Serializable {
 
     public enum WorldType {
         GAME, HOME, CHICKEN_COOP, COW_BARN, TOOL_SHED, CROSSROAD, MOUNTAIN, MENU, TRAVELING_FENCE, THE_WEST;
     }
 
-    private Handler handler;
+    private transient Handler handler;
     private WorldType worldType;
 
     private int widthInTiles;   // Width of world, in terms of number of tiles across.
@@ -39,6 +42,7 @@ public class World {
     private int playerSpawnX;
     private int playerSpawnY;
 
+    // TILES
     private Tile[][] tilesViaRGB;   // Multi-dimensional array of Tile objects loaded via RGB values.
 
     // ENTITIES
@@ -214,7 +218,8 @@ public class World {
 
     private void renderTransferPoints(Graphics g) { //AND BEDTILE's bounding box for HomeState
         g.setColor(Color.GREEN);
-        if (StateManager.getCurrentState() == handler.getGame().getGameState()) {
+        if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.GAME)) {
             g.fillRect((int)(transferPointGameToHome.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointGameToHome.y - handler.getGameCamera().getyOffset()),
                     transferPointGameToHome.width, transferPointGameToHome.height);
@@ -230,26 +235,31 @@ public class World {
             g.fillRect((int)(transferPointGameToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointGameToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointGameToCrossroad.width, transferPointGameToCrossroad.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getHomeState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.HOME)) {
             g.fillRect((int)(transferPointHomeToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointHomeToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointHomeToGame.width, transferPointHomeToGame.height);
             //g.fillRect((int)((bedTileX * Tile.TILE_WIDTH) - handler.getGameCamera().getxOffset()),
             //        (int)((bedTileY * Tile.TILE_HEIGHT) - handler.getGameCamera().getyOffset()),
             //        Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-        } else if (StateManager.getCurrentState() == handler.getGame().getCowBarnState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.COW_BARN)) {
             g.fillRect((int)(transferPointCowBarnToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCowBarnToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointCowBarnToGame.width, transferPointCowBarnToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getChickenCoopState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.CHICKEN_COOP)) {
             g.fillRect((int)(transferPointChickenCoopToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointChickenCoopToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointChickenCoopToGame.width, transferPointChickenCoopToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getToolShedState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.TOOL_SHED)) {
             g.fillRect((int)(transferPointToolShedToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointToolShedToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointToolShedToGame.width, transferPointToolShedToGame.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getCrossroadState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.CROSSROAD)) {
             g.fillRect((int)(transferPointCrossroadToGame.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCrossroadToGame.y - handler.getGameCamera().getyOffset()),
                     transferPointCrossroadToGame.width, transferPointCrossroadToGame.height);
@@ -259,11 +269,13 @@ public class World {
             g.fillRect((int)(transferPointCrossroadToTheWest.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointCrossroadToTheWest.y - handler.getGameCamera().getyOffset()),
                     transferPointCrossroadToTheWest.width, transferPointCrossroadToTheWest.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getMountainState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.MOUNTAIN)) {
             g.fillRect((int)(transferPointMountainToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointMountainToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointMountainToCrossroad.width, transferPointMountainToCrossroad.height);
-        } else if (StateManager.getCurrentState() == handler.getGame().getTheWestState()) {
+        } else if (handler.getStateManager().getCurrentState() ==
+                handler.getStateManager().getIState(StateManager.GameState.THE_WEST)) {
             g.fillRect((int)(transferPointTheWestToCrossroad.x - handler.getGameCamera().getxOffset()),
                     (int)(transferPointTheWestToCrossroad.y - handler.getGameCamera().getyOffset()),
                     transferPointTheWestToCrossroad.width, transferPointTheWestToCrossroad.height);
@@ -318,16 +330,16 @@ public class World {
                         } else if (red == 136 && green == 0 && blue == 21) {    //dirtWalkway
                             tilesViaRGB[xx][yy] = Tile.tiles[2];
                         } else if (red == 0 && green == 255 && blue == 255) {   //SignPostTile (dirtWalkway)
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtWalkway, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.dirtWalkway, xx, yy,
                                     SignPostTile.SignPostType.SHIPPING_BIN);
                         } else if (red == 1 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.dirtNormal, xx, yy,
                                     SignPostTile.SignPostType.RESOURCE_FODDER);
                         } else if (red == 2 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.dirtNormal, xx, yy,
                                     SignPostTile.SignPostType.RESOURCE_WOOD);
                         } else if (red == 3 && green == 255 && blue == 255) {   //SignPostTile (dirtNormal)
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.dirtNormal, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.dirtNormal, xx, yy,
                                     SignPostTile.SignPostType.HORSE_STABLE);
                         } else if (red == 163 && green == 73 && blue == 164) {  //home5x4
                             for (int y = 0; y < 4; y++) {
@@ -412,7 +424,7 @@ public class World {
                             //tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                     (yy * 60), 59, 60));
-                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //tilesViaRGB[xx][yy].resetTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
                         } else if (red == 255 & green == 255 && blue == 255) {  //floor - override solid.
                             tilesViaRGB[xx][yy] = new SolidGenericTile(Assets.homeStateBackground2) {
@@ -424,7 +436,7 @@ public class World {
                             };
                             tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground2.getSubimage((xx * 59),
                                     (yy * 60), 59, 60));
-                            //tilesViaRGB[xx][yy].setTexture(Assets.homeStateBackground.getSubimage((xx * 59),
+                            //tilesViaRGB[xx][yy].resetTexture(Assets.homeStateBackground.getSubimage((xx * 59),
                             //        (yy * 60), 59, 60));
                         } else if (red == 255 && green == 255 && blue == 0) { //bed - BedTile.
                             tilesViaRGB[xx][yy] = new BedTile(handler, Assets.homeStateBackground2);
@@ -456,17 +468,17 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.chickenCoopStateBackground, xx, yy,
                                     SignPostTile.SignPostType.SHIPPING_BIN);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 1 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.chickenCoopStateBackground, xx, yy,
                                     SignPostTile.SignPostType.RESOURCE_FODDER);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 2 && green == 0 && blue == 255) {     //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.chickenCoopStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.chickenCoopStateBackground, xx, yy,
                                     SignPostTile.SignPostType.CHICKEN_COOP_INCUBATOR);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -479,7 +491,7 @@ public class World {
                         }
                         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                         else if (red == 255 && blue == 255) {   //FodderDisplayerTile.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(xx, yy,
                                     Assets.chickenCoopStateBackground, green);  //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -492,7 +504,7 @@ public class World {
                         }
 
                         else if (red == 255 && green == 255 && blue == 0) {     //EggIncubatorTile - solid, special.
-                            tilesViaRGB[xx][yy] = new EggIncubatorTile(handler, xx, yy, Assets.chickenCoopStateBackground);
+                            tilesViaRGB[xx][yy] = new EggIncubatorTile(xx, yy, Assets.chickenCoopStateBackground);
                             tilesViaRGB[xx][yy].setTexture(Assets.chickenCoopStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         }
@@ -508,17 +520,17 @@ public class World {
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 0 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.cowBarnStateBackground, xx, yy,
                                     SignPostTile.SignPostType.SHIPPING_BIN);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 1 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.cowBarnStateBackground, xx, yy,
                                     SignPostTile.SignPostType.RESOURCE_FODDER);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
                         } else if (red == 2 && green == 0 && blue == 255) {   //signPostNotTransparent - solid, special.
-                            tilesViaRGB[xx][yy] = new SignPostTile(Assets.cowBarnStateBackground, xx, yy,
+                            tilesViaRGB[xx][yy] = new SignPostTile(handler, Assets.cowBarnStateBackground, xx, yy,
                                     SignPostTile.SignPostType.COW_BARN_INCUBATOR);
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -533,7 +545,7 @@ public class World {
                         ///////////////////////////////////@@@@@@@@@@@@@@@ //green<=12 BECAUSE THERE IS A POSSIBLE
                         else if (red == 255 && blue == 0 && (green < 13)) {     //FodderDisplayerTile.
                         ///////////////////////////////////@@@@@@@@@@@@@@@ //rgb-COMBINATION w red==255, green==255, blue==0.
-                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(handler, xx, yy,
+                            tilesViaRGB[xx][yy] = new FodderDisplayerTile(xx, yy,
                                     Assets.cowBarnStateBackground, green); //READING green FROM .PNG IMAGE FILE
                             tilesViaRGB[xx][yy].setTexture(Assets.cowBarnStateBackground.getSubimage((xx * 40),
                                     (yy * 40), 40, 40));
@@ -617,7 +629,7 @@ public class World {
                             };
                         } else if (red == 0 && green == 255 && blue == 255) {   //signPostNotTransparent.
                             tilesViaRGB[xx][yy] = new SignPostTile(
-                                    Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
+                                    handler, Assets.mountainStateBackground.getSubimage((xx * 16), (yy * 16), 16, 16),
                                     xx, yy, SignPostTile.SignPostType.MOUNTAIN_TODO
                             );
                         }
@@ -923,7 +935,7 @@ public class World {
                                 Cow.CowState.PREGNANT, green);
                         cow.setDaysInstantiated(35);
                         cow.setAffectionScore(192);
-                        ResourceManager.increaseCowCounter(1);
+                        handler.getResourceManager().increaseCowCounter(1);
                         cow.setDaysImpregnanted(19);
                         cow.increaseAffectionScore(10);
                         entityManager.addEntity(cow);
@@ -1278,6 +1290,10 @@ public class World {
     }
 
     public Tile[][] getTilesViaRGB() { return tilesViaRGB; }
+
+    public void setTilesViaRGB(Tile[][] tilesViaRGB) {
+        this.tilesViaRGB = tilesViaRGB;
+    }
 
     public EntityManager getEntityManager() { return entityManager; }
 
