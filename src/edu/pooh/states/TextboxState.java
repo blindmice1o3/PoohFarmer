@@ -3,7 +3,6 @@ package edu.pooh.states;
 import edu.pooh.gfx.Assets;
 import edu.pooh.gfx.FontGrabber;
 import edu.pooh.main.Handler;
-import edu.pooh.tiles.Tile;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -28,6 +27,12 @@ public class TextboxState
     private int widthLetter, heightLetter; //size of each letter.
     private int xOffset, yOffset; //page margins.
 
+    //BLINKING CURSOR
+    private int speedBlink, speedTypeIn;
+    private int counterBlink, counterTypeIn;
+    private int indexTypeIn, indexLineOnPage;
+    private boolean visible;
+
     // TEXT_AREA (location and size)
     int[] locationAndSize;
 
@@ -47,6 +52,14 @@ public class TextboxState
         textPassedIn = null;
         linesToDisplay = new ArrayList<String>();
         indexCurrentLine = 0;
+
+        speedBlink = 3;
+        speedTypeIn = 6;
+        counterBlink = 0;
+        counterTypeIn = 0;
+        indexTypeIn = 0;
+        indexLineOnPage = 0;
+        visible = false;
 
         locationAndSize = null;
         textArea = null;
@@ -181,7 +194,40 @@ public class TextboxState
                 //TODO: implement animationfx of line being "type-in".
                 System.out.println("STILL NEED TO IMPLEMENT type-in effect!!!!!!!!!!!!!!!!!");
 
+                counterBlink++;
+                counterTypeIn++;
 
+                //alternate blinking: on, off.
+                if (counterBlink >= speedBlink) {
+                    //reset the counter.
+                    counterBlink = 0;
+
+                    //TODO: toggle opacity from 0.0f to 1.0f.
+                    visible = !visible;
+                }
+
+                //move cursor to the next character.
+                if (counterTypeIn >= speedTypeIn) {
+                    //reset the counter.
+                    counterTypeIn = 0;
+
+                    //TODO: move cursor to the next character.
+                    //move cursor to next character, then check if should reset indexTypeIn and move to new line.
+                    indexTypeIn++;
+
+                    //see if finished with current line.
+                    if (indexTypeIn >= linesTemplateOfTextArea.get(indexLineOnPage).getMessage().length()) {
+                        //TODO: move to next line.
+
+                        indexLineOnPage++;
+
+                        if (indexLineOnPage >= (numberOfLinesPerPage-1)) {
+                            indexLineOnPage = 0;
+
+                            changeCurrentState(State.WAIT_FOR_INPUT);
+                        }
+                    }
+                }
 
                 /*
                 //int textSpeed = 2; //actual in-game textSpeed.
@@ -213,9 +259,6 @@ public class TextboxState
                     changeCurrentState(State.WAIT_FOR_INPUT);
                 }
                 */
-
-
-                changeCurrentState(State.WAIT_FOR_INPUT);
 
                 break;
             case WAIT_FOR_INPUT:
@@ -428,6 +471,45 @@ public class TextboxState
 
                 break;
             case LINE_IN_ANIMATION:
+                //do the following for each line on the page.
+                for (int i = 0; i < numberOfLinesPerPage; i++) {
+                    //current line
+                    if (i == indexLineOnPage) {
+                        float opacity = 1.0f;
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        Line currentLine = linesTemplateOfTextArea.get(indexLineOnPage);
+                        String visibleMessage = currentLine.getMessage().substring(0, indexTypeIn);
+                        FontGrabber.renderString(g2d, visibleMessage,
+                                currentLine.getX(), currentLine.getY(),
+                                widthLetter, heightLetter);
+
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.0f));
+                        String invisibleMessage = currentLine.getMessage().substring(indexTypeIn);
+                        FontGrabber.renderString(g2d, invisibleMessage,
+                                currentLine.getX() + (indexTypeIn * widthLetter), currentLine.getY(),
+                                widthLetter, heightLetter);
+                    }
+                    //prior lines
+                    else if (i < indexLineOnPage) {
+                        float opacity = 1.0f;
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        Line priorLine = linesTemplateOfTextArea.get(i);
+                        FontGrabber.renderString(g2d, priorLine.getMessage(),
+                                priorLine.getX(), priorLine.getY(),
+                                widthLetter, heightLetter);
+                    }
+                    //future lines
+                    else if (i > indexLineOnPage) {
+                        float opacity = 0.0f;
+                        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        Line futureLine = linesTemplateOfTextArea.get(i);
+                        FontGrabber.renderString(g2d, futureLine.getMessage(),
+                                futureLine.getX(), futureLine.getY(),
+                                widthLetter, heightLetter);
+                    }
+                }
+
+                /*
                 for (Line line : linesTemplateOfTextArea) {
                     //if first line being rendered... make opacity of first 3 characters 0.5f.
                     if (line.getMessage().length() >= 1) {
@@ -440,6 +522,7 @@ public class TextboxState
                         FontGrabber.renderString(g2d, line.getMessage(), line.getX(), line.getY(), widthLetter, heightLetter);
                     }
                 }
+                */
 
                 /*
                 //TYPE-IN EFFECT (rectangles that covers message and secondLine, and reveals them by shrinking)
@@ -612,6 +695,11 @@ public class TextboxState
         textPassedIn = null;
         linesToDisplay.clear();
         indexCurrentLine = 0;
+        counterBlink = 0;
+        counterTypeIn = 0;
+        indexTypeIn = 0;
+        indexLineOnPage = 0;
+        visible = false;
         locationAndSize = null;
         textArea = null;
         numberOfLinesPerPage = 0;
