@@ -1,4 +1,4 @@
-package edu.pooh.entities.creatures.live_stocks;
+package edu.pooh.entities.creatures;
 
 import edu.pooh.entities.creatures.Creature;
 import edu.pooh.gfx.Animation;

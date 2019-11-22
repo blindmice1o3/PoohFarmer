@@ -1,7 +1,7 @@
 package edu.pooh.states;
 
 import edu.pooh.entities.Entity;
-import edu.pooh.entities.creatures.live_stocks.Sheep;
+import edu.pooh.entities.creatures.Sheep;
 import edu.pooh.entities.creatures.player.Player;
 import edu.pooh.entities.statics.crops.CropEntity;
 import edu.pooh.gfx.Assets;
