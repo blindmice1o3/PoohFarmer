@@ -148,8 +148,11 @@ public class Assets {
         // **************************************************************
         // |+|+|+|+|+|+|+| FONT: SLKSCR.TTF (size == 28) |+|+|+|+|+|+|+|
         // **************************************************************
-        font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
-        font14 = FontLoader.loadFont("res/fonts/slkscr.ttf", 14);
+        //font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
+        //font14 = FontLoader.loadFont("res/fonts/slkscr.ttf", 14);
+
+        font28 = FontLoader.loadFont("fonts/slkscr.ttf", 28);
+        font14 = FontLoader.loadFont("fonts/slkscr.ttf", 14);
         fontSpriteSheet = ImageLoader.loadImage("/fonts/Game Boy GBC - Pokemon Yellow - Battle Interface.png");
         pokeballToken = fontSpriteSheet.getSubimage(324, 269, 7, 7);
         fontHashMap = FontGrabber.initFont();

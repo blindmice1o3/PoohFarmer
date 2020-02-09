@@ -54,7 +54,7 @@ public class TextboxState
         indexCurrentLine = 0;
 
         speedBlink = 8;
-        speedTypeIn = 15;
+        speedTypeIn = 5;
         counterBlink = 0;
         counterTypeIn = 0;
         indexTypeIn = 0;
