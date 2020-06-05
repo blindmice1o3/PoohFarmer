@@ -1,0 +1,12 @@
+SNES - Harvest Moon - Small Animals.png
+
+wolf:
+wolfRight0:
+0, 0, 23, 14
+
+wolfRight1:
+29, 0, 23, 14
+
+wolfRight2:
+60, 0, 23, 14
+

@@ -1,0 +1,113 @@
+0 - DirtNormalTile (rgb: 255, 255, 255)
+1 - fence (rgb: 0, 0, 0)
+2 - dirtWalkway (rgb: 136, 0, 21)
+3 - signPost (rgb: 0, 162, 232)
+
+Tile.DirtNormalTile (or Item.Shovel) - dirtTilled
+StaticEntity.CannabisWild - dirtSeed
+StaticEntity.CannabisWild - plantSproutling
+StaticEntity.CannabisWild - plantJuvenille
+StaticEntity.CannabisWild - plantAdult
+StaticEntity.Bush - plantFlowering1
+StaticEntity.CannabisWild - plantFlowering2
+StaticEntity.Rock - rock
+ - wood
+
+
+ - boulder2x2		 		  4
+ - treeStump2x2		 		  4
+
+
+99 - HomeTile
+
+MULTIPLE-TILE-BUILDINGS (rgb: 163, 7#, 164)
+
+100-119 - home5x4 (rgb: 163, 73, 164)		20
+120-144 - cowBarn5x5 (rgb: 163, 76, 164)	25
+145-174 - silos5x6 (rgb: 163, 77, 164) 		30
+175-194 - chickenCoop4x5 (rgb: 163, 78, 164)	20
+195-219 - toolShed5x5 (rgb: 163, 79, 164)	25
+220-225 - stable2x3	(rgb: 163, 75, 164)	  	  6
+226-231 - building2x3 (rgb: 163, 74, 164)	  	  6
+232-235 - shippingBin2x2 (rgb: 255, 242, 0)  	  4
+236-239 - poolWater2x2 (rgb: 0, 0, 255)	  	  4
+240-248 - poolWater3x3 (rgb: 0, 0, 254) 	  	  9
+
+idMultiTiles BEFORE home5x4: 100
+idMultiTiles AFTER home5x4: 120
+idMultiTiles BEFORE cowBarn5x5: 120
+idMultiTiles AFTER cowBarn5x5: 145
+idMultiTiles BEFORE silos5x6: 145
+idMultiTiles AFTER silos5x6: 175
+idMultiTiles BEFORE chickenCoop4x5: 175
+idMultiTiles AFTER chickenCoop4x5: 195
+idMultiTiles BEFORE toolShed5x5: 195
+idMultiTiles AFTER toolShed5x5: 220
+idMultiTiles BEFORE stable2x3: 220
+idMultiTiles AFTER stable2x3: 226
+idMultiTiles BEFORE building2x3: 226
+idMultiTiles AFTER building2x3: 232
+idMultiTiles BEFORE shippingBin2x2: 232
+idMultiTiles AFTER shippingBin2x2: 236
+idMultiTiles BEFORE poolWater2x2: 236
+idMultiTiles AFTER poolWater2x2: 240
+idMultiTiles BEFORE poolWater3x3: 240
+idMultiTiles AFTER poolWater3x3: 249
+
+
+24 tiles down - wood (border) (including)
+05 tiles down - walkway (dirt)
+17 tiles down - wood (border) (including)
+03 tiles down - walkway (dirt)
+
+**** 49 x 48 tiles ****
+
+
+32 tiles right - INNER PERIMETER wood (fence) (including)
+
+
+16 * 1 = 16
+16 * 2 = 32
+16 * 3 = 48
+16 * 4 = 64
+16 * 5 = 80
+16 * 6 = 96
+16 * 7 = 112
+16 * 8 = 128
+16 * 9 = 144
+
+
+harvest moon tile sprite sheet.png 
+(112x400 pixels)
+[16x16 pixels per tile]
+(7x25 tiles)
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 9 9 9 9 9
+1 1 8 8 8 8 8
+1 1 8 8 8 8 8
+1 - 8 8 8 8 8
+- - 8 8 8 8 8
+2 2 8 8 8 8 8
+2 2 7 7 7 7 7
+3 3 7 7 7 7 7
+3 3 7 7 7 7 7
+4 4 7 7 7 7 7
+4 4 7 7 7 7 7
+5 5 7 7 7 7 7
+5 5 - 6 6 6 6
+5 5 - 6 6 6 6
+4 4 4 6 6 6 6
+4 4 4 6 6 6 6
+4 4 4 6 6 6 6
+5 5 8 8 8 8 8 
+5 5 8 8 8 8 8
+5 5 8 8 8 8 8
+- - 8 8 8 8 8
+- - 8 8 8 8 8
+
+
+
+
+

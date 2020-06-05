@@ -1,0 +1,13 @@
+ToolShedState background.png
+832  pixels x 704 pixels
+tile: 64 pixels by 64 pixels
+
+
+WIDTH: 13 tiles
+10 walkable tiles
+(left-border is 1 tile, right-border is 2 tile)
+
+HEIGHT: 11 tiles	
+8 walkable tiles
+(top-border is 2 tiles, bottom-border is 1 tile)
+

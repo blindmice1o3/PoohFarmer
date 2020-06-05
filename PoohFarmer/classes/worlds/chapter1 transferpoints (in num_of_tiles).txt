@@ -1,0 +1,29 @@
+doorHome:
+7, 17
+
+
+
+doorCowBarn:
+19, 17
+
+
+
+doorChickenCoop:
+28, 17
+
+
+
+doorToolShed:
+24, 25
+
+
+
+gateFarm:
+x < 0, [23-27]
+
+
+
+
+
+
+

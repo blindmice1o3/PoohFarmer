@@ -1,0 +1,157 @@
+DS DSi - Pokemon Ranger 3 Guardian Signs - Pikachu & Raichu.png
+
+**********************
+
+pikachuWalkSW0
+18, 26, 24, 22
+
+pikachuWalkSW1
+42, 26, 24, 22
+
+pikachuWalkSW2
+66, 26, 24, 22
+
+
+pikachuWalkNW0
+16, 52, 24, 22
+
+pikachuWalkNW1
+40, 52, 24, 22
+
+pikachuWalkNW2
+64, 52, 24, 22
+
+
+pikachuWalkNE0
+13, 77, 24, 22
+
+pikachuWalkNE1
+37, 77, 24, 22
+
+pikachuWalkNE2
+61, 77, 24, 22
+
+
+pikachuWalkSE
+0
+13, 102, 24, 22
+
+pikachuWalkSE1
+37, 102, 24, 22
+
+pikachuWalkSE2
+61, 102, 24, 22
+
+**********************
+
+pikachuRunSW0
+105, 10, 32, 32
+
+pikachuRunSW1
+137, 10, 32, 32
+
+pikachuRunSW2
+169, 10, 32, 32
+
+
+pikachuRunNW0
+
+105, 45, 32, 32
+
+pikachuRunNW1
+137, 45, 32, 32
+
+pikachuRunNW2
+169, 45, 32, 32
+
+
+pikachuRunNE0
+102, 76, 32, 32
+
+pikachuRunNE1
+134, 76, 32, 32
+
+pikachuRunNE2
+166, 76, 32, 32
+
+
+pikachuRunSE0
+102, 108, 32, 32
+
+pikachuRunSE1
+134, 108, 32, 32
+
+pikachuRunSE2
+166, 108, 32, 32
+
+**********************
+
+pikachuAttackRegSW0
+225, 9, 24, 32
+
+pikachuAttackRegSW1
+249, 9, 24, 32
+
+
+pikachuAttackRegNW0
+225, 45, 24, 32
+
+pikachuAttackRegNW1
+249, 45, 24, 32
+
+
+pikachuAttackRegNE0
+221, 78, 24, 32
+
+pikachuAttackRegNE1
+249, 77, 24, 32
+
+
+pikachuAttackRegSE0
+223, 109, 24, 32
+
+pikachuAttackRegSE1
+251, 109, 24, 32
+
+**********************
+
+pikachuAttackSpecialSW0
+301, 11, 24, 32
+
+pikachuAttackSpecialSW1
+336, 10, 24, 32 
+
+pikachuAttackSpecialSW2
+369, 9, 24, 32
+
+
+pikachuAttackSpecialNW0
+302, 47, 24, 30
+
+pikachuAttackSpecialNW1
+340, 47, 24, 30
+
+pikachuAttackSpecialNW2
+373, 47, 24, 30
+
+
+pikachuAttackSpecialNE0
+301, 81, 24, 29
+
+pikachuAttackSpecialNE1
+330, 81, 24, 29
+
+pikachuAttackSpecialNE2
+363, 81, 24, 29
+
+
+pikachuAttackSpecialSE0
+305, 114, 21, 32
+
+pikachuAttackSpecialSE1
+336, 114, 21, 32
+
+pikachuAttackSpecialSE2
+369, 114, 21, 32
+
+**********************

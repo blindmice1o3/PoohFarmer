@@ -1,0 +1,20 @@
+Game Boy GBC - Harvest Moon GBC 2 - Items.png
+
+
+egg:
+178, 41, 16, 16
+
+milkSmall:
+178, 60, 16, 16
+
+
+milkMedium:
+195, 60, 16, 16
+
+
+milkLarge:
+212, 60, 16, 16
+
+
+powerBerry:
+178, 117, 16, 16

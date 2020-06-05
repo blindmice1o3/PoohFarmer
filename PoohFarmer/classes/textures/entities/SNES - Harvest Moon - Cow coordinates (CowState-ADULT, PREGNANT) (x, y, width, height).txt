@@ -1,0 +1,116 @@
+SNES - Harvest Moon - Cow.png
+
+
+cowAdultUp0
+285, 158, 17, 27
+
+cowAdultUp1
+320, 158, 17, 27
+
+cowAdultUp2
+355, 159, 17, 27
+
+cowAdultDown0
+6, 160, 17, 23
+
+cowAdultDown1
+40, 160, 17, 23
+
+cowAdultDown2
+75, 160, 17, 23
+
+cowAdultLeft0
+0, 1, 27, 22
+
+cowAdultLeft1
+35, 1, 27, 22
+
+cowAdultLeft2
+70, 1, 27, 22
+
+
+
+cowPregnantUp0
+248, 237, 21, 30
+
+cowPregnantUp1
+283, 237, 21, 30
+
+cowPregnantUp2
+317, 237, 21, 30
+
+cowPregnantDown0
+178, 240, 21, 25
+
+cowPregnantDown1
+178, 279, 21, 25
+
+cowPregnantDown2
+178, 319, 21, 25
+
+cowPregnantLeft0
+0, 241, 27, 22
+
+cowPregnantLeft1
+35, 241, 27, 22
+
+cowPregnantLeft2
+70, 241, 27, 22
+
+
+
+cowBabyUp0
+217, 468, 17, 27
+
+cowBabyUp1
+252, 468, 17, 27
+
+cowBabyUp2
+287, 468, 17, 27
+
+cowBabyDown0
+7, 468, 17, 23
+
+cowBabyDown1
+42, 468, 17, 23
+
+cowBabyDown2
+77, 468, 17, 23
+
+cowBabyLeft0
+5, 400, 27, 22
+
+cowBabyLeft1
+39, 400, 27, 22
+
+cowBabyLeft2
+75, 400, 27, 22
+
+
+
+cowCalfUp0
+216, 600, 17, 27
+
+cowCalfUp1
+251, 600, 17, 27
+
+cowCalfUp2
+286, 600, 17, 27
+
+cowCalfDown0
+6, 604, 17, 23
+
+cowCalfDown1
+41, 604, 17, 23
+
+cowCalfDown2
+76, 604, 17, 23
+
+cowCalfLeft0
+3, 504, 27, 22
+
+cowCalfLeft1
+38, 504, 27, 22
+
+cowCalfLeft2
+73, 504, 27, 22

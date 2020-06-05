@@ -1,0 +1,26 @@
+SNES - Harvest Moon - Chicken.png
+
+chickLeft0:
+240, 0, 16, 16
+
+chickLeft1:
+240, 30, 16, 16
+
+chickRight0:	//FLIP-SPRITE
+240, 0, 16, 16
+
+chickRight1:	//FLIP-SPRITE
+240, 30, 16, 16
+
+chickDown0:
+270, 0, 16, 16
+
+chickDown1:
+270, 30, 16, 16
+
+chickUp0:
+300, 0, 12, 16
+
+chickUp1:
+300, 30, 12, 16
+

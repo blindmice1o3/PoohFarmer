@@ -1,0 +1,12 @@
+HarvestMoon-Mountain(Spring)(Clear).png
+768 pixels x 736 pixels
+
+16 pixels by 16 pixels
+
+
+
+WIDTH: 48 tiles
+48 * 16 = 768
+
+HEIGHT: 46 tiles
+46 * 16 = 736
